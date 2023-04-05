@@ -1,0 +1,93 @@
+.app-modules {
+    width: 100%;
+}
+
+.favorite-button {
+    padding: 4px 8px 8px 8px;
+    background-color: var(--lightGray);
+    border: 1px solid var(--lightGray);
+}
+
+::ng-deep button:focus {
+  outline: 0px auto;
+}
+
+.module {
+    color: var(--blue);
+    width: 100%;
+    box-shadow: 0px 3px 6px #00000029;
+    padding: 8px 8px 8px 8px;
+    border-top: 4px solid transparent;
+    background-color: white;
+    max-height: 44px;
+    min-height: 44px;
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.module:hover {
+    background-color: var(--lightGray);
+}
+
+.module:active {
+    background-color: var(--blue);
+    border-top: 4px solid #F28C00;
+    color: white;
+}
+
+.module_active {
+    color: white;
+    width: 100%;
+    box-shadow: 0px 3px 6px #00000029;
+    margin: 8px 12px 8px 12px;
+    padding: 8px 8px 8px 8px;
+    border-top: 4px solid #F28C00;
+    background-color: var(--blue);
+    max-height: 44px;
+    min-height: 44px;
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.menu{
+    font-size: large;
+}
+
+.imgPerfil{
+    margin-top: -8%;
+}
+
+.row{
+    /*justify-content: space-between;*/
+    width:100%;
+    text-align:justify;
+}
+@media (max-width:500px), (max-width:850px) and (orientation: landscape) {
+    .app-modules {
+        display: none;
+    }
+}
+
+::ng-deep.mat-menu-panel {
+  max-width: 400px !important;
+}
+
+::ng-deep.mat-menu-content {
+ max-height: 380px !important;
+}
+
+::ng-deep.mat-menu-item {
+    min-width: 300px;
+}
+
+/*TODO: Solucionarlo, se deja sin el important, ya que se prefiere tener de momento un mal funcionamiento visual a funcional*/
+::ng-deep.mat-tab-list {
+    transform: translateX(0px) /*!important*/;
+
+}
+
+
+/* REMAQUETADO en assets/css/styles.css para pisar la librería */

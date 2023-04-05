@@ -1,0 +1,169 @@
+<div  class="container-fluid">
+  <app-confirmation-modal
+    *ngIf="showConfigurationModal"
+    [configurationObj]="configurationObj"
+    (onAcceptEvent)="acceptStatusChanges()"
+    (onCancelEvent)="discardStatusChanges()"
+    class="custom-modal"></app-confirmation-modal>
+  <app-massive-edit-modal
+    *ngIf="showMassiveEditModal"
+    [appointmentList]="appointmentList"
+    [medicalCenterRelationList]="medicalCenterRelationList"
+    [applicationManagementModule]="module"
+    [checkedAppointmentList]="checkedAppointmentList"
+    (onAcceptEvent)="acceptMassiveEditionChanges($event)"
+    (onCancelEvent)="discardMassiveEditionChanges()"
+    class="custom-modal"
+    [monthsList]="monthsList"
+    [filteredCommunityList]="filteredCommunityList"></app-massive-edit-modal>
+<!-- TODO CODE QUALITY: USING ONLY ONE CONFIRMATION MODAL THAT LOAD DIFFERENT CONTENT INSTEAD OF N MODAL DIFFERENT -->
+  <app-confirmation-modal
+    *ngIf="showMassiveEditAdviceModal"
+    [configurationObj]="massiveEditAdviceModalConfigurationObj"
+    (onAcceptEvent)="closeMassiveEditAdviceModal()"
+    (onCancelEvent)="closeMassiveEditAdviceModal()"
+    class="custom-modal"></app-confirmation-modal>
+  <app-confirmation-modal
+    *ngIf="showSaveModal"
+    [configurationObj]="saveModalConfigurationObj"
+    (onAcceptEvent)="closeSaveModal()"
+    (onCancelEvent)="closeSaveModal()"
+    class="custom-modal"></app-confirmation-modal>
+  <app-confirmation-modal
+    *ngIf="showNotSaveModal"
+    [configurationObj]="notSaveModalConfigurationObj"
+    (onAcceptEvent)="closeNotSaveModal()"
+    (onCancelEvent)="closeNotSaveModal()"
+    class="custom-modal"></app-confirmation-modal>
+  <app-confirmation-modal
+    *ngIf="showResponseErrorModal"
+    [configurationObj]="errorResponseModalObject"
+    (onAcceptEvent)="closeResponseErrorModal()"
+    (onCancelEvent)="closeResponseErrorModal()"
+    class="custom-modal"></app-confirmation-modal>
+
+  <app-company-center-selector
+    (onSearchAppointmentManagement)="searchAppointmentManagementByCompanyAndCenter($event)"
+    style="width:100%"
+    [title]="title"
+  >
+  </app-company-center-selector>
+
+   <div class="row" *ngIf="haveBlockeds" style="margin-top: 15px;justify-content: end; padding-right: 17px;">
+    <span><mat-icon class="ico_block" style="font-size: 15px;float:left;margin-top: 3px;">block</mat-icon>{{ 'COMPANY_APPOINTMENT.BLOKED' | translate }}</span>
+  </div>
+
+  <div class="row" *ngIf="showTable" style="margin-top: 5px;">
+    <div class="col">
+      <div class="table-responsive">
+        <table mat-table
+               [dataSource]="dataSource"
+               multiTemplateDataRows
+               matSort
+              (matSortChange)="sortData($event)"
+              cdkDropList
+              cdkDropListLockAxis="x"
+              cdkDropListOrientation="horizontal"
+              (cdkDropListDropped)="this.dropColumn($event, this.columnsToDisplayWithExpand)"
+               class="mat-elevation-z8">
+
+          <ng-container matColumnDef="checklist">
+            <th mat-header-cell cdkDrag cdkDragDisabled *matHeaderCellDef style="width:60px; ">
+              <mat-checkbox (change)="checkAllRows()" #allCheckbox>
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox [(ngModel)]="element.checked" [disabled]="element.blocked" [ngModelOptions]="{standalone: true}">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="companyCenter">
+
+            <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header="company-center" colspan="1"> {{ 'COMPANY_APPOINTMENT.TABLE.COMPANY_HEADER' | translate }} </th>
+
+            <td mat-cell *matCellDef="let element">
+              <mat-icon *ngIf="element.blocked" class="ico_block" style="font-size: 15px;float:left;margin-top: 3px;">block</mat-icon><!-- JAIME -->
+              <span>{{element.name}}</span>
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="active">
+            <th mat-header-cell cdkDrag *matHeaderCellDef style="width:200px; "> {{ 'COMPANY_APPOINTMENT.TABLE.APPOINTMENT_HEADER' | translate }} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-slide-toggle
+                [(ngModel)] = "element.active"
+                (change)="showConfirmationModal(element)"
+                [disabled]="element.blocked">
+                <span *ngIf="element.active"> {{ 'COMPANY_APPOINTMENT.TABLE.ACTIVATE' | translate }} </span>
+                <span *ngIf="!element.active"> {{ 'COMPANY_APPOINTMENT.TABLE.DEACTIVATE' | translate }} </span>
+              </mat-slide-toggle>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expand">
+            <th mat-header-cell cdkDrag *matHeaderCellDef aria-label="row actions" style="width:50px; padding: 0px !important;">&nbsp;</th>
+            <td mat-cell *matCellDef="let element"
+                (click)="expandRow($event, element)"
+                style="padding-right:0;user-select:none;cursor:pointer">
+              <!-- <i class="fa fa-eye" aria-hidden="true" *ngIf="expandedElement !== element else elseBlock"></i> -->
+              <mat-icon class="ico_eye" aria-hidden="true" *ngIf="expandedElement !== element else elseBlock"
+                        [ngClass]="!element.active ? 'eye-icon' : ''">visibility</mat-icon>
+              <ng-template #elseBlock><mat-icon class="ico_eye" aria-hidden="true"
+                                                [ngClass]="!element.active ? 'eye-icon' : ''">visibility_off</mat-icon></ng-template>
+              <!-- <ng-template #elseBlock><i class="fa fa-eye-slash" aria-hidden="true"></i></ng-template> -->
+            </td>
+          </ng-container>
+
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length" style="padding: 0;">
+              <div class="expanded-row"
+                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                   [ngClass]="{blocked: element.blocked}">
+
+                <app-community-province-center-selector
+                  *ngIf="element.isSelectorLoaded"
+                  [module]="module"
+                  [medicalCenterRelationList]="medicalCenterRelationList"
+                  [appointmentManagement]="element"
+                  [reloadSelector]="element.reloadSelector"
+                  (onSaveEvent)="showSelectorsConfirmationModal($event)"
+                  [activeProp]="expandedElement !== element"
+                  [showSaveButton]="true"
+                  [classes]="'community-province-center-selector__container&#45;&#45;column'"
+                  style="width: 100%;"
+                  [monthsList]="monthsList"
+                  [filteredCommunityList]="filteredCommunityList"></app-community-province-center-selector>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+              class="example-element-row"
+              [class.example-expanded-row]="expandedElement === element">
+            <!-- (click)="expandedElement = expandedElement === element ? null : element" -->
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+      </div>
+      <div>
+        <mat-paginator  [pageSize]="pageSize"
+                        [showFirstLastButtons]="true"
+                        [pageSizeOptions]="[10, 25, 50, 100]">
+        </mat-paginator>
+        <div style="display: flex; justify-content: end">
+          <div
+            class="exportar"
+            (click)="showMassiveEditModalEvent()">
+            <img fill="#ffffff" src="{{editImgUrl}}" class="img">
+            <span class="search-span">{{ "GENERAL.MASSIVE_EDIT" | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+  </div>
+  </div>
+</div>

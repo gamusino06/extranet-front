@@ -1,0 +1,57 @@
+.assign-preventive-measure-modal {
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track,
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #ccc;
+    }
+
+    main {
+        .measures-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 16px;
+
+            &.with-multiple-measures {
+                height: 100px;
+                overflow-y: auto;
+                padding-right: 10px;
+            }
+
+            .measure {
+                padding: 8px 13px;
+                border-radius: 4px;
+                border: 1px solid #D9D9D9;
+                background-color: #F5F5F5;
+
+                p {
+                    font-size: 14px;
+                    line-height: 18px;
+                    color : #202020;
+                }
+            }
+        }
+    }
+
+    footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .submit-button {
+            margin-right: 0;
+
+            &:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+        }
+    }
+}

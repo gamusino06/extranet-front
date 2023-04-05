@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="row title-container sticky">
+    <div class="col-9">
+      <h1 class="new-course-label">
+        {{title | titlecase}}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img class="new-course-close-button" src="../../../../assets/img/close_assignment_contract_modal.svg"
+           alt="{{ 'CANCELAR' | translate }}" (click)="cancel()">
+    </div>
+  </div>
+  <div class="row data-container">
+    <div class="col">
+      <p>{{description}}</p>
+    </div>
+  </div>
+  <form [formGroup]="studentForm">
+    <div class="row">
+      <div class="col">
+        <h4>{{'MY_COURSE.NEW_STUDENT_MODAL.DATA' | translate}}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>{{"MY_COURSE.NEW_STUDENT_MODAL.NAME" | translate}}</mat-label>
+          <input matInput type="text" formControlName="name" required>
+          <mat-error>{{'MY_COURSE.NEW_STUDENT_MODAL.NAME_ERROR' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'MY_COURSE.NEW_STUDENT_MODAL.FIRST_NAME' | translate}}</mat-label>
+          <mat-error>{{'MY_COURSE.NEW_STUDENT_MODAL.FIRST_NAME_ERROR' | translate}}</mat-error>
+          <input matInput type="text" formControlName="firstName" required>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'MY_COURSE.NEW_STUDENT_MODAL.LAST_NAME' | translate}}</mat-label>
+          <input matInput type="text" formControlName="lastName">
+          <mat-error>{{'MY_COURSE.NEW_STUDENT_MODAL.LAST_NAME_ERROR' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'MY_COURSE.NEW_STUDENT_MODAL.NIF' | translate }}</mat-label>
+          <mat-error>{{'MY_COURSE.NEW_STUDENT_MODAL.NIF_ERROR' | translate}}</mat-error>
+          <input matInput type="text" formControlName="nif" required>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{"MY_COURSE.NEW_STUDENT_MODAL.BIRTH_DATE" | translate}}</mat-label>
+          <input matInput [matDatepicker]="birthDatePicker" formControlName="birthDatePicker" [max]="maxDate" placeholder="dd/mm/aaaa">
+          <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #birthDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col required-form-container">
+        <h4>{{'MY_COURSE.NEW_STUDENT_MODAL.RESULT' | translate}}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-label>{{"MY_COURSE.EVALUATION" | translate}} </mat-label>
+        <mat-button-toggle-group name="fontStyle" formControlName="evaluation" aria-label="Font Style"
+                                 class="modality-button"
+                                 (ngModelChange)="evaluationHandler()">
+          <mat-button-toggle [value]="1">
+            {{'MY_COURSE.NEW_STUDENT_MODAL.ASSESSMENT.SUITABLE' | translate | titlecase}}
+          </mat-button-toggle>
+          <mat-button-toggle [value]="2">
+            {{'MY_COURSE.NEW_STUDENT_MODAL.ASSESSMENT.UNFIT' | translate | titlecase}}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" *ngIf=hasFile()>
+        <mat-label>{{"MY_COURSE.NEW_STUDENT_MODAL.CERTIFICATE" | translate}}</mat-label>
+        <button  [ngClass]="!isEvaluationSuitable() ? 'certificate-button--disabled' : 'certificate-button'" 
+          mat-stroked-button (click)="fileInput.click()">
+          <span>{{'MY_COURSE.NEW_STUDENT_MODAL.UPLOAD_FILE' | translate}}</span>
+          <input #fileInput type="file" accept="application/pdf" (change)="handleFileInput($event)"
+                 style="display:none;" [disabled]="!isEvaluationSuitable()"/>
+        </button>
+      </div>
+      <div class="col d-flex file-name-container" *ngIf=!hasFile()>
+        <mat-label>{{'MY_COURSE.NEW_STUDENT_MODAL.CERTIFICATE' | translate}}</mat-label>
+        <span class="d-flex">{{this.studentForm.get('certificate').value?.fileName}}</span>
+        <i class="material-icons icon-color" (click)="deleteFile()">delete</i>
+      </div>
+    </div>
+
+    <div class="row justify-content-between">
+      <div class="ml-auto">
+
+        <button class="clean-button" (click)="cancel()">{{ 'CANCELAR' | translate }}</button>
+        <button (click)="accept()">{{ 'MY_COURSE.NEW_STUDENT_MODAL.SAVE' | translate }}</button>
+        <ng-container *ngIf="mostrarAcceptAndNew">
+          <button class="clean-button"
+                  (click)="acceptAndNew()">{{ 'MY_COURSE.NEW_STUDENT_MODAL.SAVE_AND_NEW' | translate }}</button>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+</div>

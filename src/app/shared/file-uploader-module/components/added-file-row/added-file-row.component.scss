@@ -1,0 +1,58 @@
+.added-file-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    padding: 6px;
+    transition: background-color 300ms ease-in-out;
+
+    &:not(.can-rename):hover {
+        background-color: #F3F6FA;
+        cursor: default;
+    }
+
+    &__icon {
+        width: auto;
+        height: 20px;
+    }
+
+    &__title,
+    &__input-field {
+        font-size: 14px;
+    }
+
+    &__title,
+    &__form {
+        flex: 1;
+    }
+
+    &__title {
+        margin-bottom: 0;
+        cursor: default;
+        padding: 7px;
+        border-radius: 4px;
+        transition: background-color 300ms ease-in-out;
+
+        &.can-rename:hover {
+            background-color: #F5F5F5;
+        }
+    }
+
+    &__input-field {
+        border: 1px solid #CCCCCC;
+        border-radius: 4px;
+        padding: 6px;
+        width: 100%;
+    }
+
+    &__actions {
+        justify-self: flex-end;
+    }
+
+    &__action {
+        cursor: pointer;
+    }
+  .nombreDoc{
+    margin-right: 302px;
+  }
+}

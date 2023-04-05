@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <h1 class="new-course-label">
+        {{ title | titlecase }}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img
+        class="new-course-close-button"
+        src="../../../../assets/img/close_assignment_contract_modal.svg"
+        (click)="cancel()"
+        alt="{{ 'CANCELAR' | translate }}"
+      />
+    </div>
+  </div>
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <div
+          class="swal2-icon swal2-warning swal2-icon-show"
+          style="display: flex; font-size: large"
+        >
+          <div class="swal2-icon-content">!</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="description">
+          {{ "PLANIFICACION_PRL.DELETE_MODAL.DESCRIPTION" | translate }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col buttons-modal">
+      <button class="clean-button" (click)="cancel()">
+        {{ "CANCELAR" | translate }}
+      </button>
+      <button (click)="accept()">{{ "ELIMINAR" | translate }}</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<app-headerWp></app-headerWp>
+  <div class="contenedor">
+
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.3)" size = "large" color = "var(--vitaly-orange)"  type = "line-spin-clockwise-fade" [fullScreen] = "true" >
+    <p style="color: var(--vitaly-blue); font-family: Montserrat, sans-serif; font-weight: bolder; font-size: x-large"> Cargando... </p></ngx-spinner>
+
+  <div class="centrar row">
+
+    <div class="w-100" *ngIf="isInfo">
+      <img src="./../../../assets/img/infoGeneral3.jpg" class="img-fluid imgFondoWP" alt="">
+    </div>
+    <div *ngIf="isCentros">
+      <img src="./../../../assets/img/centros.jpg" class="img-fluid imgFondoWP" alt="">
+    </div>
+    <div *ngIf="isDocs">
+      <img src="./../../../assets/img/documentos.jpg" class="img-fluid imgFondoWP" alt="">
+    </div>
+    <div *ngIf="isProfesionales">
+      <img src="./../../../assets/img/profesionales.jpg" class="img-fluid imgFondoWP" alt="">
+    </div>
+    <div *ngIf="isPromos">
+      <img src="./../../../assets/img/promos.jpg" class="img-fluid imgFondoWP" alt="">
+    </div>
+
+    <div class="p-absolute">
+      <div class="texto-foto5">
+        <p class="linetxt">{{ 'BIENVENIDO' | translate }}</p>
+        <p class="nombre-usuario">{{user?.nombre}}</p>
+      </div>
+      <!--Comentado a petición de Fernando Postigo en mail del 28/04/2021-->
+      <!--div class="btnCarousel p-boton5 false-link">
+        <button type="button" class="btn">
+          <span class="false-link">
+            {{ 'TU_AREA_PERSONAL' | translate }}
+          </span>
+        </button>
+      </div-->
+    </div>
+  </div>
+  <div class="botones-links">
+    <div class="botones-container">
+    <div *ngIf="isInfo" class="elemento-desplegable-active" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/informaciongeneral">{{ 'INFORMACION_GENERAL' | translate }}</a>
+      </button>
+    </div>
+    <div *ngIf="!isInfo" class="elemento-desplegable" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/informaciongeneral">{{ 'INFORMACION_GENERAL' | translate }}</a>
+      </button>
+    </div>
+
+    <div *ngIf="isCentros" class="elemento-desplegable-active" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/centros">{{ 'TUS_CENTROS' | translate }}</a>
+      </button>
+    </div>
+    <div *ngIf="!isCentros" class="elemento-desplegable" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/centros">{{ 'TUS_CENTROS' | translate }}</a>
+      </button>
+    </div>
+    <div *ngIf="isDocs" class="elemento-desplegable-active" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/documentos">{{ 'TUS_DOCUMENTOS' | translate }}</a>
+      </button>
+    </div>
+    <div *ngIf="!isDocs" class="elemento-desplegable" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/documentos">{{ 'TUS_DOCUMENTOS' | translate }}</a>
+      </button>
+    </div>
+
+    <div *ngIf="isProfesionales" class="elemento-desplegable-active" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/profesionales">{{ 'TUS_PROFESIONALES' | translate }}</a>
+      </button>
+    </div>
+    <div *ngIf="!isProfesionales" class="elemento-desplegable" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/profesionales">{{ 'TUS_PROFESIONALES' | translate }}</a>
+      </button>
+    </div>
+
+    <div *ngIf="isPromos" class="elemento-desplegable-active" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/promociones">{{ 'TUS_PROMOCIONES' | translate }}</a>
+      </button>
+    </div>
+    <div *ngIf="!isPromos" class="elemento-desplegable" routerLinkActive="is-active">
+      <button class="btnNav">
+        <a class="linkNav" href="/welcomepack/promociones">{{ 'TUS_PROMOCIONES' | translate }}</a>
+      </button>
+    </div>
+  </div>
+  </div>
+  <hr class="line">
+
+    <div *ngIf="isInfo">
+      <app-informacionGeneral></app-informacionGeneral>
+    </div>
+
+    <div *ngIf="isCentros">
+      <app-tusCentros ></app-tusCentros>
+    </div>
+
+    <div *ngIf="isDocs">
+      <app-tusDocumentos></app-tusDocumentos>
+    </div>
+
+    <div *ngIf="isProfesionales">
+      <app-tusProfesionales></app-tusProfesionales>
+    </div>
+
+    <div *ngIf="isPromos">
+      <app-tusPromociones></app-tusPromociones>
+    </div>
+  </div>
+<app-footerWp></app-footerWp>

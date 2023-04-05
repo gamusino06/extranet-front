@@ -1,0 +1,122 @@
+.app-offers-no-accepted {
+    width: 100%;
+}
+∫
+table {
+    width: 100%;
+}
+
+.info-empresa-box {
+    max-width:70%;
+    border:1px var(--blue) solid;
+    border-radius: 4px;
+    padding: 1%;
+    margin: 0.1% 0px 0.4% 0px;
+    text-align:left;
+  }
+
+  .bannerEoffersNoAccepted {
+    width: 50%;
+    height: auto;
+    vertical-align: middle;
+  }
+
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+.row-actions-icons {
+    justify-content: center;
+}
+
+.panel-content {
+    /*border-top: 1px solid var(--coolGray);*/
+    padding: 20px;
+    overflow-x: hidden;
+}
+tr td:last-of-type, th td:last-of-type {
+    text-align: right;
+    width: 185px;
+}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 5px;
+    padding: 0;
+    height: fit-content;
+}
+.btn-icon.more-info {
+    position: relative;
+    bottom: 7px;
+    height: 20px;
+    border-radius: 29px;
+    color: white;
+    text-transform: lowercase;
+    font-size: 0.8em;
+    line-height: 2px;
+    font-weight: 400;
+    background-color: #009aff;
+    user-select: none;
+}
+
+.btn-icon.find-description {
+  position: relative;
+  bottom: -2px;
+  height: 26px;
+  width: 150px;
+  border-radius: 29px;
+  color: white;
+  font-size: 0.8em;
+  line-height: 2px;
+  font-weight: 400;
+  background-color: var(--orange);
+  user-select: none;
+}
+
+.btn-icon.more-info.--disabled{
+    position: relative;
+    bottom: 7px;
+    height: 20px;
+    border-radius: 29px;
+    color: white;
+    text-transform: lowercase;
+    font-size: 0.8em;
+    line-height: 2px;
+    font-weight: 400;
+    background-color: #c8c8c8;
+    cursor: default;
+    user-select: none;
+    pointer-events: none;
+}
+
+.filter-pending-offers {
+    padding-left: 23px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}
+
+::ng-deep .descripcionSpan
+{
+  display: block;
+  width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

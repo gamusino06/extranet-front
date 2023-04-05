@@ -1,0 +1,30 @@
+<div id="app-planificacion-prl">
+  <div class="container-fluid">
+    <mat-tab-group
+      class="tab-container"
+      animationDuration="0"
+      [selectedIndex]="selected"
+      (selectedTabChange)="changeSelected($event)"
+    >
+      <mat-tab
+        label="{{ 'PLANIFICACION_PRL.SS_PLANIFICACION_ACTUAL' | translate }}"
+      >
+        <app-planificaciones-prl
+          [isCurrentPlanning]="true"
+          [scheduleList]="null"
+        >
+        </app-planificaciones-prl>
+      </mat-tab>
+      <mat-tab label="{{ 'PLANIFICACION_PRL.SS_HISTORICO_PRL' | translate }}">
+        <app-planificaciones-prl
+          [isCurrentPlanning]="false"
+          [scheduleList]="scheduleList"
+        >
+        </app-planificaciones-prl>
+      </mat-tab>
+      <mat-tab label="{{ 'PLANIFICACION_PRL.SS_OBJETIVOS' | translate }}">
+        <app-objetivos-prl> </app-objetivos-prl>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

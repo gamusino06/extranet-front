@@ -1,0 +1,131 @@
+<app-juridico [cargaPosterior]="true"></app-juridico>
+<div class="container-fluid" *ngIf="archivoSeleccionado == 0">
+  <!-- Title -->
+  <div class="row">
+    <div class="col">
+      <h1 class="tituloSec text-uppercase">{{ 'DOCUMENTACION_JURIDICA_PRL' | translate }}</h1>
+    </div>
+  </div>
+  <!-- /Title -->
+  <!-- FORM -->
+  <form (ngSubmit)="getDocumentos(documentosForm)" [formGroup]="documentosForm">
+    <!-- INPUTS -->
+    <div class="row">
+      <!-- NOMBRE -->
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'NOMBRE_DOCUMENTO' | translate }}</mat-label>
+          <input matInput type="text" formControlName="filter_name">
+          <mat-error *ngIf="false">
+            {{ 'NOMBRE_REQUERIDO' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <!-- /NOMBRE -->
+      <!-- DESDE -->
+      <div class="col-3">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DESDE' | translate }}</mat-label>
+          <input matInput [matDatepicker]="fromPicker" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()" placeholder="dd/mm/aaaa" formControlName="filter_from">
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- /DESDE -->
+      <!-- HASTA -->
+      <div class="col-3">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'HASTA' | translate }}</mat-label>
+          <input matInput [matDatepicker]="toPicker" [min]="minDate" (dateChange)="maxDate = $event.value.toDate()" placeholder="dd/mm/aaaa" formControlName="filter_to">
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- /HASTA -->
+    </div>
+    <!-- /INPUTS -->
+    <hr>
+    <!-- BUTTONS -->
+    <div class="row justify-content-end">
+      <div>
+        <button class="clean-button" type="reset"><img src="{{cleanImgUrl}}" class="img"
+                                                       alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+      </div>
+      <div>
+        <button class="search-button" type="submit" [disabled]="!documentosForm.valid">
+          <img src="{{searchImgUrl}}" class="img" alt="Filtros">
+          <span class="search-span">{{ 'BUSCAR' | translate }}</span>
+        </button>
+      </div>
+    </div>
+    <!-- /BUTTONS -->
+  </form>
+
+  <!-- /FORM -->
+  <p class="text-center" style="color: #004C67;">
+    <b>{{ 'CONSULTA_JURIDICA' | translate }}</b>
+  </p>
+
+  <div *ngIf="documentoVista != null && documentosAdjuntos.length == 0">
+    <span class="row" style="background-color: var(--blue); padding: 1em; color: white"><b>{{'NO_RESULTADOS_ENCONTRADOS_FILTRADO' |translate}}</b></span>
+  </div>
+
+  <div *ngIf="documentoVista == null">
+    <!-- RESULTADOS -->
+    <p class="text-success text-small" *ngIf="documentos && documentos.length != 0"><b>{{documentos.length}} {{'RESULTADOS_ENCONTRADOS_FILTRADO' | translate}}</b></p>
+    <p class="text-danger text-small" *ngIf="documentos && documentos.length == 0"><b>{{'NO_RESULTADOS_ENCONTRADOS_FILTRADO' |translate}}</b></p>
+    <hr style="background-color: #F28C00; margin-bottom: 0 !important; height: 0.4em; opacity: 1" />
+    <table mat-table
+           [dataSource]="dataSource"
+           matSort
+           class="table"
+           style="margin-top: 0"
+           cdkDropList
+           cdkDropListOrientation="horizontal"
+           (cdkDropListDropped)="drop($event)"
+           multiTemplateDataRows
+    >
+      <!-- Documento -->
+      <ng-container matColumnDef="documentoId">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag></th>
+        <td mat-cell *matCellDef="let element"><span> <i class="fas fa-solid fa-file" style="float: right" (click)="verDocumento(element.documentoId)" onclick="window.scrollTo(0, 0)"></i> </span></td>
+      </ng-container>
+      <!-- Fecha Registo -->
+      <ng-container matColumnDef="fechaRegistro">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'FECHA_REGISTRO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.fechaRegistro }}"> {{element.fechaRegistro }} </span></td>
+      </ng-container>
+      <!-- Nombre Documento -->
+      <ng-container matColumnDef="nombreDocumento">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'NOMBRE_DOCUMENTO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.nombreDocumento }}"> {{element.nombreDocumento }} </span></td>
+      </ng-container>
+      <!-- Tipo -->
+      <ng-container matColumnDef="tipoDocumento">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'TIPO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.tipoDocumento }}"> {{element.tipoDocumento }} </span></td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+    </table>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="documentos && archivoSeleccionado != 0">
+  <h3>{{documentoVista.name}} ({{documentoVista.id}})</h3>
+  <span class="fecha">{{'FECHA' | translate}} {{documentoVista.date}}</span>
+  <h3 style="margin-top: 1em">{{documentoVista.description}}</h3>
+
+  <button (click)="descargarAtachment()" *ngIf="documentoVista.documentsByAttachment && documentoVista.documentsByAttachment.length != 0" class="search-button">{{'DOC_ADJUNTOS' | translate}}</button>
+
+  <div style="position: absolute; top: 20%; right: 0;">
+    <div>
+      <button class="clean-button" (click)="archivoSeleccionado = 0; documentoVista = null" onclick="window.scrollTo(0, 0)">
+        <i class="fas fa-solid fa-angle-left"></i>
+        <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+

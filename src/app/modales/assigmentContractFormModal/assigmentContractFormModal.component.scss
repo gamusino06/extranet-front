@@ -1,0 +1,23 @@
+/* Modal title */
+
+
+.assignment__contract__label {
+  position: relative;
+  width: 207px;
+  height: 29px;
+  left: 0px;
+  top: 0px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 160%;
+  /* identical to box height, or 29px */
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
+.assignment__contract__close__button{
+  cursor: pointer;
+}
+

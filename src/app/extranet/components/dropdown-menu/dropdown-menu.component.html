@@ -1,0 +1,25 @@
+<div class="dropdown-options">
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="belowMenu"
+    aria-label="Actions menu"
+    class="btn-icon"
+  >
+    <mat-icon
+      *ngIf="matIcon"
+    >{{ matIcon }}</mat-icon>
+  </button>
+  <mat-menu
+    #belowMenu="matMenu"
+    yPosition="below"
+    >
+    <button
+      *ngFor="let option of menuOptions"
+      mat-menu-item
+      class="mx-0 my-0"
+      (click)="setAction(option.id)"
+    >
+      <span>{{ option.name }}</span>
+    </button>
+  </mat-menu>
+</div>

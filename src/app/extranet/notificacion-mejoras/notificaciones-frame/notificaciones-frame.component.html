@@ -1,0 +1,17 @@
+<div>
+  <div class="row">
+    <div class="col-10">
+      <h2>{{data.novedad.nombre}}</h2>
+      <h5 class="text-justify">{{data.novedad.descripcion}}</h5>
+    </div>
+    <div class="d-flex flex-row-reverse mb-4 col-2">
+      <mat-icon style="cursor: pointer;" class="icono-mater" (click)="cerrar()">cancel</mat-icon>
+      <mat-icon style="cursor: pointer;" class="icono-mater" (click)="enlace.click()">open_in_new</mat-icon>
+      <a href="https://www.preving.com/categoria/tu-salud-nos-importa/" target="_blank" style="display: none" #enlace></a>
+    </div>
+  </div>
+
+  <iframe *ngIf="this.data.novedad.url != null && this.data.novedad.url != ''" [src]="this.data.novedad.url | safeUrl" (load)="desbloquear()" ></iframe>
+  <iframe *ngIf="this.data.novedad.url == null || this.data.novedad.url == ''" [src]="'https://www.preving.com/categoria/tu-salud-nos-importa/' | safeUrl" (load)="desbloquear()" ></iframe>
+</div>
+

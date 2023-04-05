@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{ 'PREVISUALIZACION_DOCUMENTO' | translate }}</h1>
+<div mat-dialog-content>
+  <div class="container">
+    <pdf-viewer [src]="data"
+                [original-size]="false"
+    ></pdf-viewer>
+  </div>
+
+</div>
+<div mat-dialog-actions  align="center">
+  <button mat-button (click)="onNoClick()" class="clear-button"><span class="clear-span">{{ 'CERRAR' | translate }}</span>  </button>
+</div>

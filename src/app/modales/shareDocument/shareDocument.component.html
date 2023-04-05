@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>{{ 'COMPARTIR_DOCUMENTO' | translate }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="shareDocumentGroup">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'PARA' | translate }}:</mat-label>
+      <input type="email" matInput formControlName="emailFormControl" [errorStateMatcher]="matcher"
+        placeholder="Ex. pat@example.com">
+      <mat-error
+        *ngIf="shareDocumentGroup.controls['emailFormControl'].hasError('email') && !shareDocumentGroup.controls['emailFormControl'].hasError('required')">
+        {{ 'INTRODUCIR_CORREO_ELECTRONICO_VALIDO' | translate }}
+      </mat-error>
+      <mat-error *ngIf="shareDocumentGroup.controls['emailFormControl'].hasError('required')">
+        {{ 'EL_EMAIL_ES' | translate }} <strong>{{ 'REQUERIDO' | translate }}</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'CC' | translate }}:</mat-label>
+      <input type="email" matInput formControlName="ccFormControl" [errorStateMatcher]="matcher"
+        placeholder="Ex. pat@example.com">
+      <mat-error *ngIf="shareDocumentGroup.controls['ccFormControl'].hasError('email')">
+        {{ 'INTRODUCIR_CORREO_ELECTRONICO_VALIDO' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'CCO' | translate }}:</mat-label>
+      <input type="email" matInput formControlName="ccoFormControl" [errorStateMatcher]="matcher"
+        placeholder="Ex. pat@example.com">
+      <mat-error *ngIf="shareDocumentGroup.controls['ccoFormControl'].hasError('email')">
+        {{ 'INTRODUCIR_CORREO_ELECTRONICO_VALIDO' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'ASUNTO' | translate }}:</mat-label>
+      <input type="text" matInput formControlName="subjectFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="shareDocumentGroup.controls['subjectFormControl'].hasError('required')">
+        {{ 'EL_ASUNTO_ES' | translate }}<strong>{{ 'REQUERIDO' | translate }} </strong>
+      </mat-error>
+    </mat-form-field>
+    <ckeditor appearance="outline"
+              (ready)="onReady($event)"
+              [config]="editorConfig"
+              [editor]="Editor" formControlName="bodyFormControl">
+    </ckeditor>
+
+  </form>
+  <p class="margin-top-20" *ngIf="data.element.name"><strong>{{ 'DOC_ADJUNTOS' | translate }}</strong></p>
+  <div class="attachment" *ngIf="data.element.name">
+    <img src="../../../assets/img/file-uploader-file-icon.svg" class="attachment__icon" />
+      <span class="attachment__label"><p>{{ data.element.name + data.element.extension }}</p></span>
+  </div>
+</div>
+<div mat-dialog-actions  align="end">
+  <button mat-button (click)="onNoClick()" class="clear-button"><span class="clear-span">{{ 'CANCELAR' | translate }}</span> </button>
+  <button mat-button [mat-dialog-close]="shareDocumentGroup.value" [disabled]="!shareDocumentGroup.valid"
+    cdkFocusInitial class="search-button">{{ 'ENVIAR' | translate }}</button>
+</div>

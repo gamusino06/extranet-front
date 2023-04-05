@@ -1,0 +1,31 @@
+<div mat-dialog-content class="m-3">
+  <div class="text-center mb-5">
+    <i class="fas fa-6x fa-user-check text-success"></i>
+  </div>
+  <div *ngIf="!confirmacion; else confirmacionTemplate">
+    <p class="text-center">
+      ¿Desea tramitar el Alta de {{dialogData.trabajador.nombre}} {{dialogData.trabajador.apellidos}}?
+    </p>
+    <div class="col-12 d-flex justify-content-around">
+      <div>
+        <button class="search-button" type="button" (click)="onAccept()">
+              <span>
+                {{ 'SI' | translate }}
+              </span>
+        </button>
+      </div>
+      <div>
+        <button class="search-button" type="button" (click)="onNoClick()">
+              <span>
+                {{ 'NO' | translate }}
+              </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <ng-template #confirmacionTemplate>
+    <p class="text-center">
+      {{ dialogData.trabajador.nombre }} {{dialogData.trabajador.apellidos}} ha sido dado de alta correctamente.
+    </p>
+  </ng-template>
+</div>

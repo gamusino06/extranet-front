@@ -1,0 +1,12 @@
+<h1 style="text-align: center;">{{tituloVideo}}</h1>
+<br/>
+<div class="embed-responsive embed-responsive-16by9 mx-auto" [innerHtml]="iframe">
+  <!---iframe src="https://www.youtube.com/embed/sOnqjkJTMaA" frameborder="0" allowfullscreen="allowfullscreen"></iframe-->
+  <!--iframe id='frame' frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe-->
+</div>
+<br/>
+<div align="center">
+  <button mat-button (click)="onNoClick()" class="clear-button">
+    <span class="clear-span">{{ 'VOLVER' | translate }}</span>
+  </button>
+</div>

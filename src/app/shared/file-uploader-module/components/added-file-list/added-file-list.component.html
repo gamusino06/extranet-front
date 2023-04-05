@@ -1,0 +1,45 @@
+<section
+  class="added-file-list"
+  [ngClass]="{ 'is-multiple': multiple, 'is-disabled': disabled }"
+>
+  <ng-container *ngIf="showTitles && files.length >= 1">
+    <p *ngIf="multiple; else singleTitle" class="added-file-list__title">
+      {{
+        "FILE_UPLOADER.ADDED_FILE_LIST.MULTIPLE_TITLE"
+          | translate : { count: files.length }
+      }}
+    </p>
+    <ng-template #singleTitle>
+      <p class="added-file-list__title">
+        {{ "FILE_UPLOADER.ADDED_FILE_LIST.SINGLE_TITLE" | translate }}
+      </p>
+    </ng-template>
+    <p *ngIf="renameItems" class="added-file-list__subtitle">
+      {{ "FILE_UPLOADER.ADDED_FILE_LIST.RENAME_HINT" | translate }}
+    </p>
+  </ng-container>
+
+  <div class="added-file-list__container">
+    <ng-container *ngIf="preview; else normalMode">
+      <added-file-row
+        *ngFor="let file of fileNameListForPreview; let index = index"
+        [fileForPreview]="file"
+        [renameItems]="false"
+        [disabled]="true"
+        [preview]="preview"
+      ></added-file-row>
+    </ng-container>
+
+    <ng-template #normalMode>
+      <added-file-row
+        *ngFor="let file of files; let index = index"
+        [file]="file"
+        [renameItems]="renameItems"
+        [disabled]="disabled"
+        [preview]="preview"
+        (onFileChange)="onFileChange.emit({ file: $event, index: index })"
+        (onDelete)="onDelete.emit({ file: $event, index: index })"
+      ></added-file-row>
+    </ng-template>
+  </div>
+</section>

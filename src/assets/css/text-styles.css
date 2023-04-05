@@ -1,0 +1,74 @@
+@font-face {
+  font-family: Montserrat;
+  src: url(../font/Montserrat-Regular.ttf);
+}
+
+.tMainMenu {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+.tMainMenuAllCaps {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.tMainMenuSelected {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+.tMegaMenuH1 {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+.tMainMenuBtn {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 110%;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+.tMegaMenuH2 {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 160%;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+.tBreadcrum {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 110%;
+  color: #000000;
+}

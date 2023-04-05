@@ -1,0 +1,40 @@
+.new-course-label {
+  position: relative;
+  width: 207px;
+  height: 29px;
+  left: 0px;
+  top: 0px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 160%;
+  /* identical to box height, or 29px */
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
+.new-course-close-button {
+  cursor: pointer;
+}
+
+.delete_logo {
+  margin-top: 20px;
+  margin-left: 45%;
+}
+
+.description {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.buttons-modal {
+  margin-top: 10px;
+  display: flex !important;
+  flex-direction: row-reverse;
+}
+
+

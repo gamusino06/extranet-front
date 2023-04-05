@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row sticky-header">
+    <div class="col-11">
+      <h1 class="goal-label">
+        {{ title | titlecase }}
+      </h1>
+    </div>
+    <div class="col-1 text-right goal-label">
+      <img
+        class="close-button"
+        src="../../../../assets/img/close_assignment_contract_modal.svg"
+        alt="{{ 'CANCELAR' | translate }}"
+        (click)="cancel()"
+      />
+    </div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" appearance="outline">
+          <mat-label>{{ 'NOMBRE' | translate }}*</mat-label>
+          <input matInput type="text" formControlName="docName" placeholder="{{ 'PLANIFICACION_PRL.ATTACHMENT_NAME' | translate }}">
+          <mat-error *ngIf="form.get('docName').hasError('required') && form.get('docName').touched">
+              {{ 'NOMBRE_REQUERIDO' | translate }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- File -->
+    <div class="row">
+      <div class="col" *ngIf=!hasFile()>
+        <button class="attachment-button clean-button" mat-stroked-button (click)="fileInput.click()" style="margin-left: 0;">
+          <span>{{'PLANIFICACION_PRL.ADD_ATTACHMENT' | translate}}</span>
+          <!-- accept=".xls, .xlsx, .pdf, .doc, .docx, .png, .jpg" -->
+          <input #fileInput type="file" accept=".xls, .xlsx, .pdf, .doc, .docx"
+            (change)="handleFileInput($event)"
+            style="display:none;"/>
+        </button>
+      </div>
+      <div class="col d-flex file-name-container" *ngIf=hasFile()>
+        <mat-label>{{'PLANIFICACION_PRL.ATTACHMENT' | translate | uppercase }}&nbsp;</mat-label>
+        <span class="d-flex font-weight-bold">{{this.form.get('fileFormControl').value?.name}}</span>
+        <i *ngIf=!data?.goalDoc?.id class="material-icons icon-color ml-2" (click)="deleteFile()">delete</i>
+        <mat-error class="d-flex">{{getFileExtension()}}</mat-error>
+      </div>
+    </div>
+
+    <div class="row sticky-footer">
+      <div class="col buttons-modal">
+        <button class="clean-button" (click)="cancel()">{{ "CANCELAR" | translate }}</button>
+        <button (click)="accept()" class="button--primary">{{ "GUARDAR" | translate }}</button>
+      </div>
+    </div>
+  </form>
+</div>

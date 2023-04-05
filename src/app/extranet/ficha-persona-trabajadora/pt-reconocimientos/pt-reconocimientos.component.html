@@ -1,0 +1,160 @@
+
+<p class="text--subtitle">{{ 'PERSONA_TRABAJADORA.CERTIFICATES_OF_APTITUDE' | translate }}</p>
+
+<div class="row">
+    <div class="traffic-lights-legend">
+        <div class="traffic-lights-dot">
+          <span class="dot-green"></span>
+          <span>{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.IN_FORCE' | translate }}</span>
+        </div>
+        <div class="traffic-lights-dot">
+          <span class="dot-red"></span>
+          <span>{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.EXPIRED' | translate }}</span>
+        </div>
+        <div class="traffic-lights-dot custom-tooltip">
+          <span class="dot-yellow"></span>{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.EXPIRING_SOON' | translate }}
+          <span class="tooltip-text" style="left: 0">{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.EXPIRING_SOON.TOOLTIP' | translate }}</span>
+        </div>
+        <div class="traffic-lights-dot">
+          <span class="dot-grey"></span>
+          <span>{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.DISCLAIMER' | translate }}</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)"
+        multiTemplateDataRows
+        class="mat-elevation-z2 table">
+
+        <ng-container matColumnDef="checklist">
+            <th mat-header-cell cdkDrag *matHeaderCellDef>
+                <mat-checkbox (change)="checkAllRows($event)"></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+            </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="newList">
+          <th mat-header-cell cdkDrag *matHeaderCellDef>
+          </th>
+          <td mat-cell *matCellDef="let element">
+
+            <i *ngIf="element.accionesRealizadas" class="material-icons md-24"
+               style="color:var(--mediumGray);font-weight: normal;"
+               (click)="verHistoricoDocumento(element)" matTooltip="{{ 'VER_HISTORICO_ACCIONES_DOCUMENTO' | translate }}">info</i>
+
+            <i *ngIf="!element.accionesRealizadas" class="material-icons"
+               style="color:var(--orange);font-weight: normal;" matTooltip="{{ 'NUEVO_DOCUMENTO' | translate }}">privacy_tip</i>
+          </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef cdkDrag> {{ 'VIGILANCIA_INFORMES_APTITUD.STATUS' | translate }}</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="traffic-lights-dot">
+              <div *ngIf="this.utils.getStatusColor(element) === 0 && element.isLastDocument" class="dot-grey"></div>
+              <div *ngIf="this.utils.getStatusColor(element) === 1 && element.isLastDocument" class="dot-orange"></div>
+              <div *ngIf="this.utils.getStatusColor(element) === 2 && element.isLastDocument" class="dot-red"></div>
+              <div *ngIf="this.utils.getStatusColor(element) === 3 && element.isLastDocument" class="dot-yellow"></div>
+              <div *ngIf="this.utils.getStatusColor(element) === 4 && element.isLastDocument" class="dot-green"></div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastMedicalRecognitionDate">
+          <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'VIGILANCIA_INFORMES_APTITUD.RM_DATE' | translate }}</th>
+          <td mat-cell *matCellDef="let element"> {{ element.lastRecognitionDate | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nextMedicalRecognitionDate">
+          <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'VIGILANCIA_INFORMES_APTITUD.NEXT_MEDICAL_RECOGNITION_DATE' | translate }}</th>
+          <td mat-cell *matCellDef="let element"> {{ element.nextRecognitionDate != 'Invalid Date' ? (element.nextRecognitionDate | date:'dd/MM/yyyy') : '' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="motivo">
+            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'MOTIVO' | translate }} </th>
+            <td mat-cell *matCellDef="let element"> {{element.motivo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="protocolos">
+            <th mat-header-cell *matHeaderCellDef cdkDrag> {{ 'PROTOCOLOS' | translate }} </th>
+            <td mat-cell *matCellDef="let element">
+              <span  *ngIf="element.idDocumento!=0" class="popup-list__link" (click)="showProtocolsPopUp(element)">{{'VIGILANCIA_INFORMES_APTITUD.SHOW_PROTOCOL_POPUP' | translate}}</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="periodicity">
+          <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'VIGILANCIA_INFORMES_APTITUD.PERIODICITY' | translate }}</th>
+          <td mat-cell *matCellDef="let element"> {{ element.periodicity }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="aptitudNombre">
+            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'APTITUD' | translate }} </th>
+            <td mat-cell *matCellDef="let element">
+                <i *ngIf="element.observaciones"
+                    class="fas fa-info-circle"
+                    [matTooltip]="element.observaciones"></i>
+                 {{element.aptitudNombre}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="specialAction">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element" style="white-space: nowrap;">
+            <div class="d-flex align-items-center justify-content-end">
+                <button mat-raised-button class="btn-icon" (click)="onShowAppointmentHistorical()" *ngIf="this.utils.DisplayAppointmentHistory(element) && element.isLastDocument">
+                    <img class="mat-icon" src="{{appointmentHistoricalImgUrl}}" matTooltip="{{ 'VIGILANCIA_INFORMES_APTITUD.SHOW_APPOINTMENT_HISTORICAL' | translate }} ">
+                </button>
+                <button mat-raised-button class="btn-icon" (click)="onAddAppointment(element)" *ngIf="this.utils.DisplayRequestAppointment(element) && element.isLastDocument">
+                    <img class="mat-icon" src="{{addAppointmentImgUrl}}" matTooltip="{{ 'VIGILANCIA_INFORMES_APTITUD.ADD_APPOINTMENT' | translate }} ">
+                </button>
+                <button mat-raised-button class="btn-icon" (click)="previsualizar(element, 2)" *ngIf="element.idDocumento!=0">
+                  <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+              </button>
+                <button mat-raised-button class="btn-icon" (click)="descargar(element, 2)"   *ngIf="element.idDocumento!=0">
+                    <img class="mat-icon" src="{{downloadImgUrl}}" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }} ">
+                </button>
+                <button mat-raised-button class="btn-icon"   *ngIf="element.idDocumento!=0">
+                    <img class="mat-icon" (click)="compartir(element,2)" src="{{mailImgUrl}}" matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }} ">
+                </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableHeaders;" matRipple [ngClass]="{'no_read': !row.accionesRealizadas, 'read': row.accionesRealizadas}"></tr>
+    </table>
+
+</div>
+<mat-paginator class="paginator" #paginatorIA [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+<div [hidden]="!showTable">
+  <div class="row float-right">
+    <div class="col">
+      <div class="exportar" (click)="exportarMultiple()">
+        <img src="{{excelImgUrl}}" alt="{{ 'EXPORTAR_RESULTADOS' | translate }}" title="{{ 'EXPORTAR_RESULTADOS' | translate }}">
+        <span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="exportar" (click)="descargarMultiple()">
+        <i class="material-icons md-24 mat-icon">file_download</i>
+        <span class="search-span">{{ 'DESCARGAR' | translate }}</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="exportar" (click)="compartirMultiple()">
+        <i class="material-icons md-24 mat-icon">email</i>
+        <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>

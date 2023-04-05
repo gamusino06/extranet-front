@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <clipPath id="clip-Mesa_de_trabajo_85">
+      <rect width="40" height="40"/>
+    </clipPath>
+  </defs>
+  <g id="Mesa_de_trabajo_85" data-name="Mesa de trabajo – 85" clip-path="url(#clip-Mesa_de_trabajo_85)">
+    <g id="Grupo_1884" data-name="Grupo 1884" transform="translate(-874.01 -698.635)">
+      <g id="Grupo_1883" data-name="Grupo 1883">
+        <path id="Trazado_1207" data-name="Trazado 1207" d="M899.52,718.045l-7.221-7.221a1.1,1.1,0,1,0-1.553,1.555l5.345,5.344H882.109a1.1,1.1,0,1,0,0,2.2h13.982l-5.345,5.345a1.1,1.1,0,0,0,1.553,1.551l7.221-7.218A1.1,1.1,0,0,0,899.52,718.045Z" fill="#5f8aaf"/>
+      </g>
+      <path id="Trazado_1208" data-name="Trazado 1208" d="M903.514,706.635H884.326a2.6,2.6,0,0,0-2.592,2.592v5.261h1.733l0-5.281a.861.861,0,0,1,.861-.86h19.188a.861.861,0,0,1,.858.86v19.205a.861.861,0,0,1-.861.86H884.326a.86.86,0,0,1-.859-.86v-5.258h-1.733v5.258a2.6,2.6,0,0,0,2.592,2.593h19.188a2.6,2.6,0,0,0,2.593-2.593V709.227A2.6,2.6,0,0,0,903.514,706.635Z" fill="#5f8aaf"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,145 @@
+#tusprofesionales{
+  width: 100vw;
+  padding-bottom: 20%;
+}
+
+.mat-card-title {
+  font-family: Montserrat, sans-serif;
+  text-align: initial;
+  font-size: medium;
+}
+
+.cards {
+    flex: 1 1 auto;
+    overflow: hidden;
+    padding: 4px;
+}
+
+.mat-card-content {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.mat-card {
+    margin-bottom: 2%;
+    margin-right: 7%;
+    padding-left: 5%;
+    padding-right: 5%;
+    color: white;
+}
+
+.txt {
+    text-align: initial;
+    width: 85%;
+    font-family: Montserrat, sans-serif;
+    color: var(--black);
+    padding-bottom: 3%;
+    margin: 5% 0 0 8%;
+}
+
+.mat-tab-group {
+  margin: 0 0 0 8%;
+}
+
+.contImg{
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+
+.foto{
+    position:absolute;
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+    margin: auto;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.mat-card-title{
+    text-align: end;
+    padding-left: 7%;
+    padding-right: 7%;
+}
+
+.txtTj{
+    margin-top: 10px;
+}
+
+.tarjetas{
+    width: 100%;
+}
+
+.tecnico{
+    background-color: var(--vitaly-blue);
+}
+
+.responsableGC{
+    background-color: var(--c-dark-blue-100);
+}
+
+.comercial{
+    background-color: var(--c-blue-100);
+}
+
+.gestor{
+    background-color: var(--c-dark-blue-60);
+}
+
+.medico{
+    background-color: var(--c-soft-blue-100);
+}
+
+.tituloProf {
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  padding-left: 1px;
+  padding-right: 5px;
+}
+
+.nombreElemento{
+  font-family: Montserrat, sans-serif;
+}
+
+.tituloElemento{
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.labelHeading {
+  font-family: Montserrat, sans-serif !important;
+  margin-bottom: 0;
+}
+
+:host ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, :host ::ng-deep .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: var(--vitaly-blue) !important;
+}
+
+.mat-card{
+  border-radius: 2px;
+}
+
+a:hover{
+  color: var(--vitaly-orange);
+}
+
+a,i {
+  white-space: nowrap;
+}
+
+@media (min-width: 992px) {
+  #tusprofesionales{
+    padding-bottom: 10%;
+  }
+}
+
+@media (max-width:767px) {
+  #tusprofesionales{
+    padding-bottom: 30%;
+  }
+}

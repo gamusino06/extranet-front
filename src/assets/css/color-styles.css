@@ -1,0 +1,190 @@
+/**
+* Restyling extranet - clases definidas a partir de _palette.scss
+*/
+
+/* --- COLOR ---*/
+.cDarkBlue {
+  color: var(--darkblue) !important;
+}
+.cVitalyOrange {
+  color: var(--vitaly-orange) !important;
+}
+.cVitalyBlue {
+  color: var(--vitaly-blue) !important;
+}
+.cBlue10 {
+  color: var(--blue-10) !important;
+}
+.cBlue80 {
+  color: var(--blue-80) !important;
+}
+.cLightBlue {
+  color: var(--light-blue) !important;
+}
+.cLinkBlue {
+  color: var(--link-blue) !important;
+}
+.cWhite {
+  color: var(--restyling-white) !important;
+}
+.cGrey02 {
+  color: var(--grey-02) !important;
+}
+.cGrey2 {
+  color: var(--grey-02) !important;
+}
+.cGrey05 {
+  color: var(--grey-05) !important;
+}
+.cGrey5 {
+  color: var(--grey-05) !important;
+}
+.cGrey10 {
+  color: var(--grey-10) !important;
+}
+.cGrey15 {
+  color: var(--grey-15) !important;
+}
+.cGrey45 {
+  color: var(--grey-45) !important;
+}
+.cGrey60 {
+  color: var(--grey-60) !important;
+}
+.cGrey65 {
+  color: var(--grey-65) !important;
+}
+.cGrey80 {
+  color: var(--grey-80) !important;
+}
+.cGrey85 {
+  color: var(--grey-85) !important;
+}
+.cSoftGrey10 {
+  color: var(--soft-grey-10) !important;
+}
+
+/* --- BACKGROUND-COLOR ---*/
+.bgDarkBlue {
+  background-color: var(--darkblue) !important;
+}
+.bgVitalyOrange {
+  background-color: var(--vitaly-orange) !important;
+}
+.bgVitalyBlue {
+  background-color: var(--vitaly-blue) !important;
+}
+.bgBlue10 {
+  background-color: var(--blue-10) !important;
+}
+.bgBlue80 {
+  background-color: var(--blue-80) !important;
+}
+.bgLightBlue {
+  background-color: var(--light-blue) !important;
+}
+.bgLinkBlue {
+  background-color: var(--link-blue) !important;
+}
+.bgWhite {
+  background-color: var(--restyling-white) !important;
+}
+.bgGrey02 {
+  background-color: var(--grey-02) !important;
+}
+.bgGrey2 {
+  background-color: var(--grey-02) !important;
+}
+.bgGrey05 {
+  background-color: var(--grey-05) !important;
+}
+.bgGrey5 {
+  background-color: var(--grey-05) !important;
+}
+.bgGrey10 {
+  background-color: var(--grey-10) !important;
+}
+.bgGrey15 {
+  background-color: var(--grey-15) !important;
+}
+.bgGrey45 {
+  background-color: var(--grey-45) !important;
+}
+.bgGrey60 {
+  background-color: var(--grey-60) !important;
+}
+.bgGrey65 {
+  background-color: var(--grey-65) !important;
+}
+.bgGrey80 {
+  background-color: var(--grey-80) !important;
+}
+.bgGrey85 {
+  background-color: var(--grey-85) !important;
+}
+.bgSoftGrey10 {
+  background-color: var(--soft-grey-10) !important;
+}
+
+/* --- FILL (para .svg) ---*/
+.fDarkBlue {
+  fill: var(--darkblue) !important;
+}
+.fVitalyOrange {
+  fill: var(--vitaly-orange) !important;
+}
+.fVitalyBlue {
+  fill: var(--vitaly-blue) !important;
+}
+.fBlue10 {
+  fill: var(--blue-10) !important;
+}
+.bgBlue80 {
+  fill: var(--blue-80) !important;
+}
+.fLightBlue {
+  fill: var(--light-blue) !important;
+}
+.fLinkBlue {
+  fill: var(--link-blue) !important;
+}
+.fWhite {
+  fill: var(--restyling-white) !important;
+}
+.fGrey02 {
+  fill: var(--grey-02) !important;
+}
+.fGrey2 {
+  fill: var(--grey-02) !important;
+}
+.fGrey05 {
+  fill: var(--grey-05) !important;
+}
+.fGrey5 {
+  fill: var(--grey-05) !important;
+}
+.fGrey10 {
+  fill: var(--grey-10) !important;
+}
+.fGrey15 {
+  fill: var(--grey-15) !important;
+}
+.fGrey45 {
+  fill: var(--grey-45) !important;
+}
+.fGrey60 {
+  fill: var(--grey-60) !important;
+}
+.fGrey65 {
+  fill: var(--grey-65) !important;
+}
+.fGrey80 {
+  fill: var(--grey-80) !important;
+}
+.fGrey85 {
+  fill: var(--grey-85) !important;
+}
+.fSoftGrey10 {
+  fill: var(--soft-grey-10) !important;
+}
+

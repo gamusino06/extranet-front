@@ -1,0 +1,222 @@
+::ng-deep .cdk-overlay-pane {
+  overflow-y:none !important;
+  text-overflow:ellipsis;
+}
+
+::ng-deep .cdk-overlay-pane .mat-select-panel-wrap .mat-select-panel.mat-primary {
+  margin-top: 40px;
+  margin-right: 20px;
+  position: relative;
+  right: 40px;
+}
+
+::ng-deep .empresaCentroSpanSmall
+{
+  display: block;
+  width: 115px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .empresaCentroSpanAlmostSmall
+{
+  display: block;
+  width: 140px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .empresaCentroSpan
+{
+  display: block;
+  width: 210px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .empresaCentroSpanBig
+{
+  display: block;
+  width: 450px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .observacionesSpan {
+  display: block;
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .observacionesSpanBig {
+  display: block;
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .nombredocumentoSpan {
+  display: block;
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .nombredocumentoSmallSpan {
+  display: block;
+  width: 110px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .comunAtributoDocumentoSpan {
+  display: block;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .puestoDeTrabajoSpan {
+  display: block;
+  width: 220px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .puestoDeTrabajoSpanSmall {
+  display: block;
+  width: 130px;
+  overflow: hidden;
+  /*white-space: nowrap;*/
+  text-overflow: ellipsis;
+}
+
+::ng-deep .puestoDeTrabajoSpanSmallSmall {
+  display: block;
+  width: 110px;
+  overflow: hidden;
+  /*white-space: nowrap;*/
+  text-overflow: ellipsis;
+}
+
+::ng-deep .puestoDeTrabajoSpanSmallSmallCertificados {
+  display: block;
+  width: 80px;
+  overflow: hidden;
+  /*white-space: nowrap;*/
+  text-overflow: ellipsis;
+}
+
+::ng-deep .protocolosSpanSmall {
+  display: block;
+  width: 110px;
+  overflow: hidden;
+  /*white-space: nowrap;*/
+  text-overflow: ellipsis;
+}
+
+::ng-deep .categoriaAyudaNombreSpan
+{
+  display: block;
+  width: 120%;
+  overflow: hidden;
+  white-space: nowrap;
+  //text-overflow: ellipsis;
+}
+
+::ng-deep .categoriaAyudaDescripcionSpan
+{
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  //text-overflow: ellipsis;
+}
+
+::ng-deep .nombreDocumentoPersonasTrabajadorasSpan{
+  display: block;
+  width: 600px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .sensibilidadesPersonasTrabajadorasSpan{
+  display: block;
+  width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .protocoloIpromeSpan{
+  display: block;
+  width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .tipoIpromeSpan{
+  display: block;
+  width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .denominacionIpromeSpan{
+  display: block;
+  width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 400px) {
+    ::ng-deep .cdk-overlay-pane {
+      overflow-y:none !important;
+      text-overflow:ellipsis;
+      max-width: 95vw !important;
+    }
+}
+
+@media (max-width: 1590px) {
+    ::ng-deep .table-responsive{
+      overflow-x: auto !important;
+    }
+}
+
+@media (min-width: 1590px) {
+    ::ng-deep .table-responsive{
+      overflow-x: hidden !important;
+    }
+}
+
+::ng-deep .mat-tooltip{
+  font-family:Roboto,Helvetica Neue,sans-serif;
+  font-size:14px !important;
+  padding-top:6px;
+  padding-bottom:6px
+}
+
+
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: var(--blue);
+}
+
+::ng-deep .paginator .mat-select-value
+{
+  width:10px!important;
+}

@@ -1,0 +1,84 @@
+<div id="app-informes-aptitud">
+    <div class="container-fluid">
+        <h1 class="tituloSec text-uppercase">{{ 'CITACION_WEB' | translate }}</h1>
+
+      <hr/>
+
+      <!--Banner de PCP-->
+      <div *ngIf="!this.bloqueadoUps" class="card mb-3 banner w-100">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="row align-items-center">
+              <span class="fas fa-info-circle col-md-12" style="font-size: 3em"></span>
+            </div>
+            <div style="padding: 1.5em 6em 1.5em 2em">
+              <p class="card-text text-justify align-middle">{{ 'TEXT_BANNER_SHOW' | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-progress-bar step="2"></app-progress-bar>
+
+      <div class="row justify-content-end">
+        <div>
+          <button class="clean-button" (click)="previous()">
+            <i class="fas fa-chevron-left"></i>
+            <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+          </button>
+        </div>
+      </div>
+      <hr/>
+      <br/>
+      <div style="text-align:center; width:100%">
+        <span class="title">{{ 'SELECCIONAR_FECHA' | translate }}</span>
+      </div>
+      <br/>
+      <div class="empresaCentroCitacion">
+          <div><span class="title">{{'EMPRESA' | translate}}:</span>&nbsp;<span>{{this.utils.citaValues.nombreEmpresa}}</span><br></div>
+          <div><span class="title">{{'CENTRO_MEDICO' | translate}}:</span>&nbsp;<span>{{this.utils.citaValues.nombreCentroMedico}}</span></div>
+      </div>
+
+      <div class="row text-center">
+        <div class="col">
+          <h2>{{ viewDate | calendarDate:(view + 'ViewTitle'):'es' }}</h2>
+        </div>
+      </div>
+      <div class="row justificar-calendario-web">
+          <div [ngSwitch]="view">
+              <ng-template #customCellTemplate let-day="day" let-locale="locale">
+                  <div class="cal-cell-top">
+                    <span class="cal-day-number">
+                        {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+                        <div *ngIf="day.events.length" class="num-citas">
+                          {{ day.events.length }} {{ 'CITAS' | translate }}
+                          <div class="num-citas-title" [innerHTML]="this.getTitleEvents(day.events)"></div>
+                        </div>
+                    </span>
+                  </div>
+              </ng-template>
+
+              <mwl-calendar-month-view
+                  [locale]="locale"
+                  *ngSwitchCase="CalendarView.Month"
+                  [viewDate]="viewDate"
+                  [events]="events"
+                  [refresh]="refresh"
+                  [activeDayIsOpen]="activeDayIsOpen"
+                  (dayClicked)="dayClicked($event.day)"
+                  (beforeViewRender)="beforeMonthViewRender($event)"
+                  [weekStartsOn]="weekStartsOn"
+                  [cellTemplate]="customCellTemplate">
+              </mwl-calendar-month-view>
+          </div>
+      </div>
+      <div class="row text-center">
+        <div class="col">
+          <div class="btn-group" >
+            <button [ngClass]="{'clean-button-disabled': prevBtnDisabled, 'clean-button': !prevBtnDisabled}" (click)="decrement()" [disabled]="prevBtnDisabled">{{ 'ANTERIOR' | translate }}</button>
+            <button class="search-button" (click)="increment()" [disabled]="nextBtnDisabled">{{ 'SIGUIENTE' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

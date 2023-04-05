@@ -1,0 +1,128 @@
+<div id="app-mi-perfil">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade" [fullScreen]="true">
+        <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+
+    <div class="container-fluid">
+        <!--Form-->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase">{{ 'MIS_DATOS_USUARIO' | translate }}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'USUARIO' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="mailUsuario" placeholder="({{ 'DEBE_SER_DIRECCION_CORREO_ELECTRONICO' | translate }})" readonly>
+                        <mat-error *ngIf="userForm.get('mailUsuario').hasError('required') && userForm.get('mailUsuario').touched">
+                            {{ 'EMAIL_REQUERIDO' | translate }}</mat-error>
+                        <mat-error *ngIf="userForm.get('mailUsuario').hasError('email')">{{ 'FORMATO_EMAIL' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'NOMBRE' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="nombre">
+                        <mat-error *ngIf="userForm.get('nombre').hasError('required') && userForm.get('nombre').touched">
+                            {{ 'NOMBRE_REQUERIDO' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'APELLIDOS' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="apellidos">
+                        <mat-error *ngIf="userForm.get('apellidos').hasError('required') && userForm.get('apellidos').touched">
+                            {{ 'APELLIDOS_REQUERIDOS' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'IDIOMA' | translate }}</mat-label>
+                        <mat-select formControlName="idioma" class="multiple-selector">
+                            <mat-option *ngFor="let idioma of idiomasList" [value]="idioma.idIdioma">{{idioma.nombre}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="userForm.get('idioma').hasError('required') && userForm.get('idioma').touched">
+                            {{ 'SELECCIONE_IDIOMA' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'ACCESO_A' | translate }}</mat-label>
+                        <mat-select formControlName="accesoForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                            <mat-option *ngFor="let rol of rolesList" [(value)]="rol.idRol">{{rol.nombre}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="userForm.get('accesoForm').hasError('required') && userForm.get('accesoForm').touched">
+                            {{ 'ACCESO_A' | translate }} {{ 'REQUERIDO' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'EMPRESA' | translate }}</mat-label>
+                        <mat-select formControlName="empresaForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                            <mat-option *ngFor="let empresa of empresasList" [value]="empresa.idEmpresa">{{empresa.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="userForm.get('empresaForm').hasError('required') && userForm.get('empresaForm').touched">
+                            {{ 'EMPRESA_REQUERIDA' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'CENTRO' | translate }}</mat-label>
+                        <mat-select formControlName="centroForm" multiple disableOptionCentering>
+                            <div *ngFor="let idEmpresa of userForm.value.empresaForm">
+                                <div *ngFor="let empresa of empresasList">
+                                    <div *ngIf="idEmpresa===empresa.idEmpresa">
+                                        <mat-option *ngFor="let centro of empresa.centros" [value]="centro.idCentro">{{centro.nombre}}
+                                        </mat-option>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row" *ngIf="this.isSuperAdmin || this.verReconocimientos">
+              <div class="col">
+                <mat-label>{{ 'VER_RECONOCIMIENTOS_MEDICOS' | translate }}</mat-label>&nbsp;
+                <mat-checkbox formControlName="verReconocimientosForm"></mat-checkbox>
+              </div>
+            </div>
+            <hr>
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clear-button cancel" (click)="cancelEdit()">
+                        <span class="clear-span">{{ 'CANCELAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <!--TO DO Arreglar el boton disabled ahsta que el forumlario sea valido ?-->
+                    <button class="search-button" type="submit" [disabled]="!userForm.valid"><span
+                  class="search-span">{{ 'GUARDAR' | translate }}</span></button>
+                </div>
+
+            </div>
+        </form>
+        <!--/Form-->
+
+
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<section id="tusprofesionales">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--vitaly-orange)" type="line-spin-clockwise-fade"
+    [fullScreen]="true">
+    <p style="color: var(--vitaly-blue); font-family: Montserrat, sans-serif; font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+  </ngx-spinner>
+
+  <div class="container">
+    <div class="w80">
+
+      <div class="txt">
+        <p>{{ 'PROFESIONALES_TEXTO_1_WP' | translate }}.</p>
+
+        <p>{{ 'PROFESIONALES_TEXTO_2' | translate }}:</p>
+      </div>
+    </div>
+
+    <mat-tab-group>
+      <div *ngFor="let empresa of empresasList" >
+        <mat-tab *ngIf="empresa.contactos.length>0">
+          <ng-template mat-tab-label>
+            <label class="labelHeading empresaCentroSpan" matTooltip="{{empresa.nombre}}" matTooltipClass="example-tooltip-red1">{{empresa.nombre}}</label>
+          </ng-template>
+          <div class="panel-content">
+            <br/>
+            <ng-container *ngFor="let contacto of empresa.contactos">
+              <div *ngFor="let empresaContacto of contacto.empresaContactoDtos">
+                <div class="tarjetas" *ngIf="empresaContacto.idEmpresa == empresa.idEmpresa">
+                  <!-- definir bien las clases que se estan cargando -->
+                  <mat-card *ngIf="(empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoTecnico && this.incluirTecnico) ||
+                                   (empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoComercial  && this.incluirComercial) ||
+                                   (empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoResponsableGC && this.incluirResponsableGC) ||
+                                   (empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoGestor && this.incluirGestor) ||
+                                   (empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoMedico && this.incluirMedico)"
+                  [ngClass]="{'tecnico': empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoTecnico && this.incluirTecnico,
+                              'comercial': empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoComercial  && this.incluirComercial,
+                              'responsableGC': empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoResponsableGC && this.incluirResponsableGC,
+                              'gestor': empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoGestor && this.incluirGestor,
+                              'medico': empresaContacto.tipoContactoDto.idTipoContacto == this.globals.idTipoContactoMedico && this.incluirMedico
+                              }">
+                    <mat-card-title>{{empresaContacto.tipoContactoDto.nombre}}</mat-card-title>
+                    <div class="row">
+                      <div class="col-3">
+                        <img src={{imgIcono}} class="contImg foto">
+                      </div>
+                      <div class="col-9 txtTj">
+                        <i class="fas fa-user-tag"></i>&nbsp;<span class="tituloProf">{{ 'NOMBRE_Y_APELLIDOS' | translate }}:</span>&nbsp;<span class="nombreElemento">{{contacto.nombre}} {{ contacto.apellidos}}</span><br/>
+                        <a href="mailto:{{contacto.telefono}}"><i class="fas fa-phone"></i>&nbsp;<span class="tituloElemento">{{ 'TELEFONO_FIJO' | translate }}:</span>&nbsp;<span class="nombreElemento">{{contacto.telefono}}</span></a><br/>
+                        <a href="tel:{{contacto.movil}}"><i class="fas fa-phone"></i>&nbsp;<span class="tituloElemento">{{ 'Movil' | translate }}:</span>&nbsp;<span class="nombreElemento">{{contacto.movil}}</span></a><br/>
+                        <a href="mailto:{{contacto.email}}" target="_blank"><i class="fas far fa-envelope"></i>&nbsp;<span class="tituloElemento">Email:</span>&nbsp;<span class="nombreElemento">{{contacto.email}}</span></a><br/>
+                      </div>
+                    </div>
+                  </mat-card>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </mat-tab>
+      </div>
+    </mat-tab-group>
+  </div>
+</section>

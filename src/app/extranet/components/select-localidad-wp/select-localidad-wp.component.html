@@ -1,0 +1,29 @@
+<div [formGroup]="userForm">
+
+  <mat-label class="texto-form" *ngIf="localidadList!=undefined && localidadList.length>0">{{ 'LOCALIDAD' | translate }}</mat-label>
+  <mat-label class="texto-form" *ngIf="localidadList==undefined || localidadList.length==0">{{ 'LABEL_LOCALIDADES' | translate }}</mat-label>
+  <mat-form-field appearance="outline">
+      <mat-select formControlName="localidadForm" class="multiple-selector" multiple
+          [disableOptionCentering]="true" #selectLocalidad [disabled]="localidadList==undefined || localidadList.length==0">
+          <mat-select-trigger>
+              <span class="texto-form" *ngFor="let selectedOption of selectLocalidad.selected; let last = last"
+                  [hidden]="selectedOption.value == 0">
+                      {{selectedOption.getLabel()}}<ng-container *ngIf="!last">, </ng-container>
+              </span>
+            </mat-select-trigger>
+            <mat-option class="select-search" value="0" (click)="toggleAllSelection()">
+              <input class="texto-form" #localidadFilter matInput type="text"
+                      (click)="$event.stopPropagation()"
+                      (keydown)="$event.stopPropagation()"
+                      placeholder="{{ 'BUSCAR' | translate }}"
+                      autocomplete="off" />
+              <button [hidden]="!localidadFilter.value" class="clean-filter" type="button" (click)="localidadFilter.value = '';$event.stopPropagation()">
+                  <i class="fas fa-times"></i>
+              </button>
+          </mat-option>
+          <mat-option class="texto-form" *ngFor="let localidad of localidadList | searchFilter:localidadFilter.value" [value]="localidad.idLocalidad">
+              {{localidad.nombre}}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+</div>

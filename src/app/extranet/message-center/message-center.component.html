@@ -1,0 +1,207 @@
+<div id="message-center">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade"
+                 [fullScreen]="true">
+      <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+    <div class="container-fluid">
+        <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase">{{ 'MENSAJES' | translate }}</h1>
+                </div>
+            </div>
+            <!-- Filtros -->
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'TIPO_MENSAJE' | translate }}</mat-label>
+                        <mat-select formControlName="tipoForm" class="multiple-selector" multiple
+                            [disableOptionCentering]="true">
+                            <mat-option (click)="selectAll('messageForm','tipoForm',tiposList,'idTipoMensaje');">{{
+                                'SELECCIONAR_TODOS' | translate }}</mat-option>
+                            <mat-option *ngFor="let tipo of tiposList" [value]="tipo.idTipoMensaje">{{tipo.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'CATEGORIA_MENSAJE' | translate }}</mat-label>
+                        <mat-select formControlName="categoriaForm" class="multiple-selector" multiple
+                            [disableOptionCentering]="true" >
+                            <mat-option
+                                (click)="selectAll('messageForm','categoriaForm',categoriasList,'idCategoriaMensaje'); getSubCategoria()">
+                                {{ 'SELECCIONAR_TODOS' | translate }}</mat-option>
+                            <mat-option *ngFor="let categoria of categoriasList" [value]="categoria.idCategoriaMensaje" (click)="getSubCategoria()">
+                                {{categoria.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'SUBCATEGORIA_MENSAJE' | translate }}</mat-label>
+                        <mat-select formControlName="subcategoriaFrom" class="multiple-selector" multiple
+                            [disableOptionCentering]="true">
+                            <mat-option
+                                (click)="selectAll('messageForm','subcategoriaFrom',subCategoriasList,'idSubcategoriaMensaje');">
+                                {{ 'SELECCIONAR_TODOS' | translate }}</mat-option>
+                            <mat-option *ngFor="let subcategoria of subCategoriasList"
+                                [value]="subcategoria.idSubcategoriaMensaje">{{subcategoria.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Filtros fechas -->
+            <div class="row">
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'FECHA_INICIO' | translate }}</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="fechaInicioForm" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()">
+                  <mat-datepicker-toggle matSuffix [for]="picker">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'FECHA_FIN' | translate }}</mat-label>
+                  <input matInput [matDatepicker]="picker2"
+                         formControlName="fechaFinForm" [min]="minDate" (dateChange)="maxDate = $event.value.toDate()">
+                  <mat-datepicker-toggle matSuffix [for]="picker2">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <hr>
+
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()"><img src="{{cleanImgUrl}}"
+                            class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span class="clean-span">{{ 'LIMPIAR'
+                            | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!messageForm.valid"><img
+                            src="{{searchImgUrl}}" class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' |
+                            translate }}</span></button>
+                </div>
+            </div>
+        </form>
+
+        <!--Tabla-->
+        <div class="row" [hidden]="!mostrarTabla">
+            <div class="col" #TABLE>
+              <div class="table-responsive">
+                <table mat-table
+                       [dataSource]="dataSource"
+                       matSort
+                       cdkDropList
+                       cdkDropListOrientation="horizontal"
+                       (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)"
+                       multiTemplateDataRows
+                       class="mat-elevation-z2">
+                    <ng-container matColumnDef="fechaMensaje">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef cdkDrag>{{ 'FECHA' |
+                            translate }}</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.fechaMensaje|date:DATE_FORMAT}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoMensaje">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef cdkDrag> {{ 'TIPO' |
+                            translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.tipoMensaje }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="categoriaMensaje">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef cdkDrag> {{ 'CATEGORIA' |
+                            translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.categoriaMensaje}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="subcategoriaMensaje">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef cdkDrag> {{ 'SUBCATEGORIA' |
+                            translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.subcategoriaMensaje}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="enviadoPor">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef cdkDrag>{{ 'ENVIADO_POR' |
+                            translate }}</th>
+                        <td mat-cell *matCellDef="let element">
+                            <span *ngIf="element.from?.usuario?.eMail">
+                                {{element.from.usuario.eMail}}
+                            </span>
+                            <span *ngIf="element.from?.email">
+                                {{element.from.email}}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="expandedDetail">
+                      <td mat-cell *matCellDef="let detail" [attr.colspan]="tableHeaders.length">
+                        <div class="detail-content col"  *ngIf="detail.expandedVisible">
+                          <div class="row">
+                            <span>
+                                <span class="asunto">{{ 'ASUNTO' | translate }}: {{detail.asunto}}
+                                    <hr> {{ 'MENSAJE' | translate }}:<br><br>
+                                </span>
+                                <div [innerHtml]="detail.mensaje"></div>
+                            </span>
+                          </div>
+                          <div class="row">
+                            <span class="asunto">
+                                <hr> {{ 'ADJUNTOS' | translate }}:<br><br>
+                                <div *ngIf="!detail.adjuntos" style="text-align:center;">
+                                     <span class="vertical-align-middle"> {{ 'SIN_DOCUMENTOS_ADJUNTOS' | translate }}</span>
+                                </div>
+                                <div *ngIf="detail.adjuntos">
+                                  <div *ngFor="let item of detail.adjuntos" style="text-align:center;">
+                                    <a (click)="downloadAdjunto(item)" style="cursor:pointer;">
+                                        <i class="material-icons mat-icon">attach_file</i><br/>
+                                        <span class="vertical-align-middle"> {{item.nombre}}</span>
+                                    </a>
+                                  </div>
+                                </div>
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ver">
+                      <th mat-header-cell *matHeaderCellDef> </th>
+                      <td mat-cell *matCellDef="let element">
+                        <button mat-raised-button
+                                class="btn-icon"
+                                [class.expanded]="element.expandedVisible"
+                                (click)="contraerMensajesDesplegados(element); obtenerDetalleMensaje(element); element.expandedVisible=!element.expandedVisible" style="width: 35px!important;">
+                          <i class="material-icons md-24 show espaciar-icono">visibility</i>
+                          <i class="material-icons md-24 hide espaciar-icono">visibility_off</i>
+                        </button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableHeaders;" matRipple
+                        [ngClass]="{'no_read': row.idEstadoMensaje == globals.extranet_mensajes_estadoMensajeNoLeido,
+                                    'read': row.idEstadoMensaje == globals.extranet_mensajes_estadoMensajeLeido}">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];"
+                        class="expanded-detail"
+                        style="height: 0px;"
+                        [class.expanded]="row.expandedVisible">
+                    </tr>
+                </table>
+              </div>
+              <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+        <!--F.Tabla-->
+    </div>
+</div>

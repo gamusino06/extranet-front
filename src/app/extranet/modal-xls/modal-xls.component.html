@@ -1,0 +1,17 @@
+<div class="container" style="padding: 3em">
+    <div class="w-100">
+      <a href="https://www.preving.com/" target="_blank" class="a-logo">
+        <img src="{{logoUrl}}" alt="Preving Extranet" class="logo">
+      </a>
+    </div>
+    <div class="row div-titulo">
+      <h3 class="col text-center">{{ 'DOC_DESCARGAR_XLS' | translate }}</h3>
+    </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <button (click)="pdf()" class="clear-button"><img src="{{pdfImgUrl}}" alt="" class="icono align-middle"><span class="align-middle">{{ 'PDF' | translate }}</span></button>
+        <button (click)="excel()" class="clear-button"><img src="{{excelImgUrl}}" alt=""  class="icono align-middle"><span class="align-middle">{{ 'EXCEL' | translate }}</span></button>
+      </div>
+    </div>
+</div>
+

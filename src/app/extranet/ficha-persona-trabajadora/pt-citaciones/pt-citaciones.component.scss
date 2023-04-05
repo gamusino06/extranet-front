@@ -1,0 +1,64 @@
+
+
+.traffic-lights-dot {
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.traffic-lights-dot *[class^="dot-"] {
+    float: left;
+    height: 14px;
+    width: 14px;
+    margin-right: 8px;
+    border-radius: 50%;
+}
+
+.traffic-lights-dot .dot-green {
+    background-color: #45925A;
+}
+.traffic-lights-dot .dot-yellow {
+    background-color: #FED74D;
+}
+.traffic-lights-dot .dot-orange {
+    background-color: #EB910B;
+}
+.traffic-lights-dot .dot-red {
+    background-color: #F01F1F;
+}
+.traffic-lights-dot .dot-grey {
+    background-color: #7E7E7E;
+}
+
+.recycling-legend {
+  display: flex;
+  gap: 15px;
+  flex-direction: initial;
+  margin-left: 16px;
+}
+
+.reciclyng-dot {
+  display: inline-block;
+}
+
+.reciclyng-dot *[class^="dot-"],
+.reciclyng-dot-in-table {
+  float: left;
+  height: 14px;
+  width: 14px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.reciclyng-dot-in-table {
+  margin: 0;
+}
+
+.reciclyng-dot .dot-green {
+  background-color: #45925A;
+}
+.reciclyng-dot .dot-yellow {
+  background-color: #FED74D ;
+}
+.reciclyng-dot .dot-red {
+  background-color: #F01F1F;
+}

@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="titulo w-100 cBlack mb-5">
+    <div class="row sticky-header">
+      <div class="col-9">
+    <p class="editar">{{ 'DOCUMENTACION_PROPIA.EDITAR_INFORME' | translate }}</p>
+        </div>
+      <div class="col text-right">
+    <div (click)="cerrarModal()" class="row justify-content-end cerrar" style="cursor: pointer;" ><img src="../../../../assets/icons/misc/close.svg"></div>
+  </div>
+      </div>
+  </div>
+  <form [formGroup]="modalEditarInformeForm">
+    <div class="d-flex row mt-0 align-items-center" style="width: 100%; padding-left: 40px">
+
+      <div class="d-flex row align-items-center justify-content-center" style="width: 100%;">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'TIPO_DOCUMENTO' | translate }} - {{ 'CATEGORIA' | translate }}</mat-label>
+            <mat-select formControlName="tipoDocForm" disableOptionCentering required>
+              <mat-option *ngFor="let tipoDoc of tipoDocumentoList" [value]="tipoDoc.idTipoDocumento">
+                {{tipoDoc.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="d-flex row  align-items-center justify-content-center" style="width: 100%;">
+      <div class="col">
+        <mat-form-field appearance="outline" >
+          <mat-label>{{ 'SUBCATEGORIA' | translate }}</mat-label>
+          <mat-select formControlName="subTipoDocForm" disableOptionCentering required>
+            <mat-option *ngFor="let tipoDoc of subTipoDocumentoList" [value]="tipoDoc.idTipoDocumento">
+              {{tipoDoc.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+        </div>
+
+      <div class="d-flex row  align-items-center justify-content-center" style="width: 40%;">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <!--<mat-label>{{ 'FECHA CREACION' }} </mat-label>-->
+          <input matInput [matDatepicker]="fromPicker" formControlName="fechaCreacionForm" required>
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+        </div>
+
+      <div class="d-flex row  align-items-center justify-content-center" style="width: 100%;">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DESCRIPCION' | translate }}</mat-label>
+          <input matInput type="text" formControlName="descripcionForm" placeholder="{{ 'DESCRIPCION' | translate }}" pattern={{validObserva}} required>
+        </mat-form-field>
+      </div>
+      </div>
+    </div>
+
+
+      <div class="row justify-content-end botones">
+        <div class="d-flex ml-auto">
+          <button (click)="cancel()" class="cancelar">{{ 'CANCELAR' | translate }}</button>
+          <button (click)="accept()" [disabled]="!modalEditarInformeForm.valid">{{ 'ACEPTAR' | translate }}</button>
+        </div>
+      </div>
+  </form>
+</div>

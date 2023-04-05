@@ -1,0 +1,49 @@
+<div [formGroup]="userForm" class="appointment-form">
+    <h1 class="tituloSec text-uppercase" style="grid-area:title">{{ title | translate }}</h1>
+    <mat-form-field appearance="outline" style="grid-area:input1">
+      <mat-select formControlName="selectedCompanyList" multiple (selectionChange)="onCompanyChange()"
+                  placeholder="{{ 'COMPANY_CENTER_SELECTOR.COMPANY' | translate }}">
+        <mat-option *ngIf="companiesWithActiveVS?.length">
+          <ngx-mat-select-search placeholderLabel="{{ 'COMPANY_CENTER_SELECTOR.SEARCH' | translate }}"
+                                 [showToggleAllCheckbox]="true"
+                                 [toggleAllCheckboxIndeterminate]="this.userForm.controls.selectedCompanyList.value?.length > 0 && this.userForm.controls.selectedCompanyList.value?.length < companiesWithActiveVS?.length"
+                                 [toggleAllCheckboxChecked]="this.userForm.controls.selectedCompanyList.value?.length === companiesWithActiveVS?.length"
+                                 (toggleAll)="toggleSelectAllCompanies($event)"
+                                 formControlName="companyFilter"
+                                 noEntriesFoundLabel="{{ 'companyCenterSelector.noData' | translate }}"
+          >
+          </ngx-mat-select-search>
+        </mat-option>
+        <ng-container *ngFor="let company of companiesWithActiveVS | searchGenericFilter:userForm.controls.companyFilter.value: globals.companyListSortKey">
+          <mat-option [value]="company">{{company.nombre}}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="grid-area:input2">
+      <mat-select formControlName="selectedJobCenterList" multiple
+                  placeholder="{{ 'COMPANY_CENTER_SELECTOR.CENTER' | translate }}">
+        <mat-option *ngIf="centersWithActiveVS?.length">
+          <ngx-mat-select-search placeholderLabel="{{ 'COMPANY_CENTER_SELECTOR.SEARCH' | translate }}"
+                                 [showToggleAllCheckbox]="true"
+                                 [toggleAllCheckboxIndeterminate]="this.userForm.controls.selectedJobCenterList.value?.length > 0 && this.userForm.controls.selectedJobCenterList.value?.length < centersWithActiveVS?.length"
+                                 [toggleAllCheckboxChecked]="this.userForm.controls.selectedJobCenterList.value?.length === centersWithActiveVS?.length"
+                                 (toggleAll)="toggleSelectAllCenters($event)"
+                                 formControlName="centerFilter"
+                                 noEntriesFoundLabel="{{ 'companyCenterSelector.noData' | translate }}"
+          >
+          </ngx-mat-select-search>
+        </mat-option>
+        <ng-container *ngFor="let center of centersWithActiveVS | searchGenericFilter:userForm.controls.centerFilter.value:globals.centerListSortKey ">
+          <mat-option [value]="center">{{center.nombre}}, {{center.calle}}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+  <div class="row justify-content-end" style="grid-column: 1 / span 2;"><!-- d-flex justify-content-end --> <!-- style="grid-area:button" -->
+      <button class="button search-button" type="button" (click)="searchAppointments()">
+      <img src="{{searchImgUrl}}" class="img">
+      <span class="search-span">{{ "COMPANY_CENTER_SELECTOR.SEARCH" | translate }}</span>
+    </button>
+  </div>
+</div>
+

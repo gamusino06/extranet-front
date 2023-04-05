@@ -1,0 +1,113 @@
+.preventive-measure-label {
+  position: relative;
+  width: 207px;
+  height: 29px;
+  left: 0px;
+  margin-top: 20px !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 160%;
+  /* identical to box height, or 29px */
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+td button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 !important;
+  min-width: 40px;
+  border: none;
+  outline: none;
+  line-height: inherit;
+  user-select: none;
+  -webkit-appearance: none;
+  overflow: visible;
+  vertical-align: middle;
+  background: rgba(0, 0, 0, 0);
+}
+table {
+  width: 100%;
+}
+.error-text-label {
+  position: relative;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  /* identical to box height, or 29px */
+  display: flex;
+  align-items: center;
+}
+.text-right {
+  margin-top: 20px !important;
+}
+table th {
+  padding-left: 0 !important;
+}
+table td {
+  padding-left: 0 !important;
+}
+.mat-column-button {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 10% !important;
+  width: 26px !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+.close-button {
+  cursor: pointer;
+}
+
+.error-div {
+  color: #be270c; /* cambia el color del texto a rojo */
+  background-color: #ffd6d6; /* cambia el color de fondo a un rojo más claro */
+  border-left: 4px solid #fd6464; /* agrega un borde izquierdo rojo de 4 píxeles de ancho */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 160%;
+  border-radius: 3px;
+}
+
+.buttons-modal {   
+  display: flex !important;
+  justify-content: flex-end;
+}
+
+.log-button {
+  width: 204px;
+}
+
+::ng-deep .col-1 {
+  max-width: 3.333333%;
+}
+.sticky-header {
+  background: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: -24px;
+  z-index: 9999;
+  height: 73px;
+}
+.container {
+  margin-top: -24px !important;
+}
+
+.sticky-footer {
+  position: sticky;
+  bottom: -20px;
+  height: 73px;
+  background-color: white;
+  z-index: 1055;
+}

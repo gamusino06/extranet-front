@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="row sticky-header">
+    <div class="col-11">
+      <h1 class="goal-title">
+        {{ "PLANIFICACION_PRL.OBJETIVO" | translate | titlecase }}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img
+        class="close-button"
+        src="../../../../assets/img/close_assignment_contract_modal.svg"
+        alt="{{ 'CANCELAR' | translate }}"
+        (click)="close()"
+      />
+    </div>
+  </div>
+
+  <div class="container form-container">
+    <!-- GOAL NAME -->
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.OBJETIVO" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ goal?.name }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "EMPRESA" | translate | titlecase }}
+            </div>
+            <div class="col-9 px-1">
+              <div class="row">
+                <div class="col-5">
+                  <strong>{{ goal?.client?.nombre }}</strong>
+                </div>
+                <div class="col-7">
+                  <span class="px-1">{{ "CENTRO" | translate }}</span>
+                  <strong>{{ goal?.center?.nombre }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.FECHA_PREVISTA" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <div class="row">
+                <div class="col-5">
+                  <strong>{{
+                    goal?.expectedDate | date : "dd/MM/yyyy"
+                  }}</strong>
+                </div>
+                <div class="col-7">
+                  <span class="px-1">{{
+                    "PLANIFICACION_PRL.FECHA_EJECUTADA" | translate
+                  }}</span>
+                  <strong>{{
+                    goal?.executionDate
+                      ? (goal?.executionDate | date : "dd/MM/yyyy")
+                      : " - "
+                  }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.FECHA_CREACION" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ goal?.created | date : "dd/MM/yyyy" }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- OBSERVATIONS -->
+    <div class="modal-footer d-block">
+      <div class="row w-100 pt-4">
+        <div class="col-3 px-1 text-right text-muted">
+          {{ "PLANIFICACION_PRL.OBSERVACIONES" | translate }}
+        </div>
+        <div class="col-9 px-1">
+          <p>
+            <strong>{{ goal?.observations }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-end">
+      <div class="col buttons-modal">
+        <button class="search-button" (click)="close()">
+          {{ "ACEPTAR" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

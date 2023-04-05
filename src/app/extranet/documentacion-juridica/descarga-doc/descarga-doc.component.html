@@ -1,0 +1,7 @@
+<div>
+  <p class="enlace" *ngFor="let doc of data.documents"
+     (click)="descargarAtachment(doc.id, doc.attachedName, data.documentoPadre.id)">
+    {{doc.attachedName}}
+  </p>
+  <button mat-button (click)="onNoClick()" class="clear-button" style="margin: 2em auto 0 auto; display: block"><span>{{ 'CANCELAR' | translate}}</span></button>
+</div>

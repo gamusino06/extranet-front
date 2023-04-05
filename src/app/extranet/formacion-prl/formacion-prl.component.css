@@ -1,0 +1,30 @@
+.salir{
+  background-color: #E52620;
+  float: right;
+  border: #E52620;
+}
+
+input[type="radio"]:checked{
+  background-color: #00425b !important;
+  border-color: #00425b !important;
+}
+
+/*TABLE*/
+table th{
+  background-color: #00425b;
+}
+
+table td{
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.enlaceVideo{
+  font-weight: bold;
+  color: #004C67;
+  cursor: pointer;
+}
+
+.enlaceVideo:hover{
+  color: #696969;
+}

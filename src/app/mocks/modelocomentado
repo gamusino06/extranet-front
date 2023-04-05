@@ -1,0 +1,445 @@
+
+  // CREATE SCHEMA `preving_extranet` ;
+
+  // // USE preving_extranet;
+
+  // Table USUARIOS as U {
+  //   U_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   U_I_ID int(11) [ref: - I.I_ID, Note: 'FK(ID) Tabla IDIOMAS']
+  //   U_EMAIL varchar(100) [unique, Note: 'Identiticador para hacer login']
+  //   U_NOMBRE varchar(100) [Note: 'Nombre']
+  //   U_APELLIDOS varchar(100) [Note: 'Apellidos']
+  //   U_FECHA_BLOQUEO datetime [Note: 'Fecha del bloqueo, Null si activo']
+  //   U_CONDICIONES_USO datetime [Note: 'Fecha de aceptacion de condiciones de uso']
+  //   U_PASSWORD varbinary(16) [Note: 'password encriptado']
+  //   U_EDICION bit(1) [Note: '0 no edicion (Lectura), 1 puede editar']
+  //   U_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   U_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   U_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   U_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   U_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   U_MODIFICADO_POR int(11) [Note: 'ID del usuario que lo ha modificado']
+
+  //   Note: 'Datos del usuario'
+  // }
+
+  // Table IDIOMAS as I {
+  //   I_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   I_NOMBRE varchar(50) [unique, Note: 'Nombre, Idioma, posible columna con nombre de archivo locale']
+
+  //   Note: 'Idiomas de la aplicacion'
+  // }
+
+  // Table ROL as R {
+  //   R_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   R_NOMBRE varchar(50) [unique, Note: 'Nombre del Rol']
+  //   R_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   R_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   R_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   R_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   R_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   R_MODIFICADO_POR int(11) [Note: 'ID del usuario que lo ha modificado']
+
+  //   Note: 'Roles de la extranet'
+  // }
+
+  // Table REL_USUARIOS_ROL as RUR {
+  //   RUR_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   RUR_U_ID int(11) [ref: > U.U_ID, Note: 'FK(ID) Tabla USUARIOS']
+  //   RUR_R_ID int(11) [ref: > R.R_ID, Note: 'FK(ID) Tabla ROL']
+  //   RUR_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   RUR_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   RUR_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   RUR_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   RUR_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   RUR_MODIFICADO_POR int(11) [Note: 'ID del usuario que lo ha modificado']
+
+  //   Note: 'Relacion del Usuario con Roles'
+  // }
+
+  // // LISTADOS
+  // Table LIST_EMPRESAS as LE {
+  //   LE_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   LE_NOMBRE_EMPRESA varchar(50) [Note: 'Id del trabajador']
+  //   LE_ID_PADRE int(11) [default: NULL, Note: 'FK(ID) Tabla LIST_EMPRESAS (Recomendable referencia cicilica???), ON CASCADE']
+
+  //   Note: 'Listado de las empresas'
+  // }
+
+  // Table LIST_TRABAJADORES as LT  {
+  //   LT_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   // LT_LP_ID int(11) [ref: > LP.LP_ID, Note: 'FK(ID) Tabla LIST_PUESTOS']
+  //   // LT_LC_ID int(11) [ref: > LC.LC_ID, Note: 'FK(ID) Tabla LIST_CENTROS']
+  //   LT_NOMBRE varchar(50) [Note: 'Nombre del trabajador']
+  //   LT_APELLIDOS varchar(100) [Note: 'Apellidos del trabajador']
+  //   LT_FECHA_ALTA date [Note: 'Fecha de alta del trabajador']
+  //   LT_FECHA_BAJA date [Note: 'Fecha de baja del trabajador']
+  //   LT_EMAIL varchar(100) [Note: 'Email del trabajador']
+  //   LT_NIF varchar(20) [Note: 'Nif del trabajador']
+  //   LT_SEXO varchar(10) [Note: 'Sexo del Trabajor']
+  //   LT_IPF varchar(50) [Note: 'IPF del terabajador']
+  //   LT_TEMPORAL varchar(50) [Note: 'Temporalidad del terabajador']
+  //   LT_ETT varchar(50) [Note: 'ETT del terabajador']
+  //   LT_APTITUD varchar(50) [Note: 'Aptitud del terabajador']
+
+  //   Note: 'Listado de los trabajores de la extranet'
+  // }
+
+  // Table LIST_CENTROS as LC {
+  //   LC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   LC_LE_ID int(11) [ref: > LE.LE_ID, Note: 'FK(ID) Tabla LIST_EMPRESAS']
+  //   LC_NOMBRE_CENTRO varchar(50) [Note: 'Nombre del centro']
+  //   LC_CP varchar(50) [Note: 'Código Postal']
+  //   LC_CALLE varchar(100) [Note: 'Calle del Centro']
+  //   LC_PROVINCIA varchar(50) [Note: 'Provincia']
+
+  //   Note: 'Centros de los trabajadores'
+  // }
+
+  // Table LIST_PUESTOS_CENTROS as LPC {
+  //   LPC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   LPC_CENTRO int(11) [ref: > LC.LC_ID, Note: 'FK(ID) Tabla LIST_CENTROS']
+  //   LPC_NOMBRE varchar(100) [Note: 'Nombre del puesto']
+  //   LPC_SENSIBILIDADES varchar(100) [Note: 'Sensibilad asociado al puesto de trabajo']
+
+  //   Note: 'Listado de los puestos de trabajo'
+  // }
+
+  // Table LIST_CURSOS as LCU {
+  //   LC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   LC_NOMBRE varchar(50) [Note: 'Nombre del Curso']
+  //   LC_HORAS_PRESENCIALES float [Note: 'Horas en formato presencial']
+  //   LC_HORAS_ONLINE float [Note: 'Horas en formato online']
+  //   LC_HORAS_DISTANCIA float [Note: 'Horas en formato a distancia']
+  //   LC_TIPO varchar(30) [Note: 'Tipo de curso, grupo Preving o externo']
+
+  //   Note: 'Listado de los cursos'
+  // }
+
+  // Table LIST_CURSOS_REALIZADOS as LCR {
+  //   LCR_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   LCR_LT_ID int(11) [ref: > LT.LT_ID, Note: 'FK(ID) Tabla LIST_TRABAJADORES']
+  //   LCR_LC_ID int(11) [ref: > LC.LC_ID, Note: 'FK(ID) Tabla LIST_CURSOS']
+  //   LCR_FECHA_INICIO date [Note: 'Fecha ejecucion curso']
+  //   LCR_FECHA_FINALIZACION date [Note: 'Fecha ejecucion curso']
+  //   LCR_HORARIO varchar(50) [Note: 'Horario del curso']
+
+  //   Note: 'Listado de los cursos realizados relacionado al curso'
+  // }
+
+  // Table LIST_DELEGACIONES_PREVING as LDP {
+  //   LDP_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   LDP_NOMBRE_CENTRO varchar(50) [Note: 'Nombre de la delegacion de Preving']
+  //   LDP_CP varchar(50) [Note: 'Código Postal']
+  //   LDP_CALLE varchar(100) [Note: 'Calle del Centro']
+  //   LDP_PROVINCIA varchar(50) [Note: 'Provincia']
+  //   LDP_DIRECCION varchar(50) [Note: 'Direccion']
+
+  //   Note: 'Listado de las delegaciones de Preving'
+  // }
+
+  // Table LIST_CONTACTOS_PREVING as LCP {
+  //   LCP_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   LCP_NOMBRE varchar(100) [Note: 'Nombre']
+  //   LCP_APELLIDOS varchar(100) [Note: 'Appellidos']
+  //   LCP_EMAIL varchar(100) [Note: 'Correo electronico']
+  //   LCP_TELEFONO varchar(50) [Note: 'Numero de Telefono']
+  //   LCP_MOVIL varchar(50) [Note: 'Numero de Movil']
+  //   LCP_CATEGORIA varchar(20) [Note: 'Categoria (Tecnico, comercial)']
+
+  //   Note: 'Listado de los conractos de Preving'
+  // }
+
+  // // RELACION DE LISTADOS
+
+  // Table REL_TRABAJADOR_PUESTOS as RTP {
+  //   RTP_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   RTP_LT_ID int(11) [ref: > LT.LT_ID, Note: 'FK(ID) Tabla LIST_TRABAJADORES']
+  //   RTP_LP_ID int(11) [ref: > LPC.LPC_ID, Note: 'FK(ID) Tabla LIST_PUESTOS_CENTROS']
+
+  //   Note: 'Trabajadores relación de puestos'
+  // }
+
+  // // Table REL_TRABAJADOR_CENTRO as RTC {
+  // //   RTC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  // //   RTC_LT_ID int(11) [ref: > LT.LT_ID, Note: 'FK(ID) Tabla LIST_TRABAJADORES']
+  // //   RTC_LC_ID int(11) [ref: > LC.LC_ID, Note: 'FK(ID) Tabla LIST_CENTROS']
+
+  // //   Note: 'Trabajadores por centro'
+  // // }
+
+  // Table REL_TRABAJADOR_CURSO as RTCU {
+  //   RTC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   RTC_LT_ID int(11) [ref: > LT.LT_ID, Note: 'FK(ID) Tabla LIST_TRABAJADORES']
+  //   RTC_LC_ID int(11) [ref: > LCU.LC_ID, Note: 'FK(ID) Tabla LIST_CURSOS']
+
+  //   Note: 'Trabajadores por curso realizados'
+  // }
+
+  // // Table REL_CENTROS_PUESTOS as RCP {
+  // //   RCP_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  // //   RCP_LC_ID int(11) [ref: > LC.LC_ID, Note: 'FK(ID) Tabla LIST_CENTROS']
+  // //   RCP_PE_ID int(11) [ref: > LP.LP_ID, Note: 'FK(ID) Tabla LIST_PUESTOS']
+
+  // //   Note: 'Relacion de centros por Puesto'
+  // // }
+
+  // // Necesario solo, si se quiere saber que cursos se imparten en centros preving
+  // // Table REL_CENTROS_PREVING_CURSOS as RCC {
+  // //   RCC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  // //   RCC_LC_ID int(11) [ref: > LCP.LCP_ID, Note: 'FK(ID) Tabla LIST_CENTROS_PREVING']
+  // //   RCC_LCU_ID  int(11) [ref: > LCU.LC_ID, Note: 'FK(ID) Tabla LIST_CURSOS']
+
+  // //   Note: 'Relacion de centros por Curso que se imparten'
+  // // }
+
+  // Table REL_CONTACTO_DELEGACION_PREVING as RTCP {
+  //   RTCP_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   RTCP_LCP_ID int(11) [ref: > LCP.LCP_ID, Note: 'FK(ID) Tabla LIST_CONTACTOS_PREVING']
+  //   RTCP_LDP_ID  int(11) [ref: > LDP.LDP_ID, Note: 'FK(ID) Tabla LIST_DELEGACIONES_PREVING']
+
+  //   Note: 'Relacion de contactos por delegción Preving'
+  // }
+
+  // // FORMULARIOS
+
+  // Table FORMULARIO as F {
+  //   F_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   FD_CF_ID int(11) [ref: > CF.CF_ID, Note: 'FK(ID) Tabla CATEGORIA_FORMULARIO']
+  //   FD_A_ID int(11) [ref: > A.A_ID, Note: 'FK(ID) Tabla AREAS']
+  //   F_NOMBRE varchar(100) [Note: 'Nombre del formulario']
+  //   F_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   F_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   F_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   F_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   F_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   F_MODIFICADO_POR int(11) [Note: 'ID del usuario que lo ha modificado']
+
+  //   Note: 'Formulario extranet asociado a Area'
+  // }
+
+  // Table FORMULARIO_DINAMICO as FD {
+  //   FD_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   FD_F_ID int(11) [ref: > F.F_ID, Note: 'FK(ID) Tabla FORMULARIO']
+  //   FD_TIPO_CAMPO varchar(100) [Note: 'Tipo de campo en front del campo']
+  //   FD_NOMBRE varchar(100) [Note: 'Nombre del campo a mostrar']
+  //   FD_ORDEN int(3) [Note: 'Orden en el formulario']
+  //   FD_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   FD_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   FD_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   FD_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   FD_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   FD_MODIFICADO_POR int(11) [Note: 'ID del usuario que lo ha modificado']
+
+  //   Note: 'Campos asociados al formulario dinamico'
+  // }
+
+  // Table CATEGORIA_FORMULARIO as CF {
+  //   CF_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   // CF_LT_ID int(11) [ref: > LT.LT_ID, Note: 'FK(ID) Tabla LIST_TRABAJADORES']
+  //   CF_EMAIL varchar(300) [Note: 'Emails receptores del correo, separados por ;']
+  //   CF_NOMBRE varchar(50) [Note: 'Nombre de categoria']
+  //   CF_CATEGORIA_PADRE int(11) [default: NULL, Note: 'FK(ID) Tabla CATEGORIA_FORMULARIO (Recomendable referencia cicilica???), ON CASCADE']
+  // }
+
+  // // FAVORITOS
+
+  // Table FAVORITOS as FV {
+  //   FV_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   FV_UE_ID int(11) [ref: > U.U_ID, Note: 'FK(ID) Tabla USUARIOS']
+  //   FV_NOMBRE_FAVORITO varchar(50) [Note: 'Nombre del favorito']
+  //   FV_TIPO INT(3) [note: 'Id del formulario favorito, id gestionado en Front, 0, para favoritos de paginas']
+  //   FV_JSON blob [note: 'Estado del formulario en favorito, se guardará una imagen expresado en JSON']
+  //   FV_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   FV_BORRADO datetime [Note: 'Fecha y Hora de creación']
+  //   FV_MODIFICADO datetime [Note: 'Fecha y Hora de creación']
+
+  //   Note: 'Favoritos de la extranet'
+  // }
+
+  // // AREAS
+
+  // Table AREAS as A {
+  //   A_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   A_NOMBRE_SECCION varchar(50) [Note: 'Nombre de la seccion']
+  //   A_ID_PADRE int(11) [default: NULL, Note: 'FK(ID) Tabla AREAS (Recomendable referencia cicilica???), ON CASCADE']
+
+  //   Note: 'Areas y secciones de la extranet'
+  // }
+
+  // Table REL_AREA_ROL as RAR {
+  //   RAR_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   RAR_A_ID int(11) [ref: > A.A_ID, Note: 'FK(ID) Tabla AREAS']
+  //   RAR_R_ID int(11) [ref: > R.R_ID, Note: 'FK(ID) Tabla ROL']
+  //   RAR_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   RAR_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   RAR_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   RAR_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   RAR_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   RAR_MODIFICADO_POR int(11) [Note: 'D del usuario que lo ha modificado']
+
+  //   Note: 'Formulario extranet asociado a Area'
+  // }
+
+  // // GESTOR DOCUMENTAL
+
+  // Table GD_DOCUMENTOS as GD {
+  //   GD_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   GD_GDT_ID int(11) [ref: > GDT.GDT_ID, Note: 'FK(ID) Tabla GD_DOCUMENTOS_TIPOLOGIAS']
+  //   GD_NOMBRE varchar(50) [Note: 'Nombre del Archivo']
+  //   GD_ACTIVO boolean [not NULL, default: true, Note: 'Activo o no, el documento']
+
+  //   Note: 'Documentos de la extranet'
+  // }
+
+  // Table GD_DOCUMENTOS_TIPOLOGIAS as GDT {
+  //   GDT_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   GDT_A_ID int(11) [ref: > A.A_ID, Note: 'FK(ID) Tabla AREAS']
+  //   GDT_NOMBRE varchar(50) [Note: 'Nombre de la tipologia']
+
+  //   Note: 'Tipologias asociadas e Areas para documentos'
+  // }
+
+  // Table GD_DOCUMENTOS_COLUMNAS as GDC {
+  //   GDC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   GDC_GDT_ID int(11) [ref: > GDT.GDT_ID, Note: 'FK(ID) Tabla GD_DOCUMENTOS_TIPOLOGIAS']
+  //   GDC_NOMBRE varchar(50) [note: 'Nombre a mostrar por front']
+  //   GDC_TIPO varchar(50) [note: 'Tipo de campo Front']
+
+  //   Note: 'Tipos de columnas asociadas a la tiplogia'
+  // }
+
+  // Table REL_DOCUMENTOS_COLUMNAS as RDC {
+  //   RDC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   RDC_GD_ID int(11) [ref: > GD.GD_ID, Note: 'FK(ID) Tabla GD_DOCUMENTOS']
+  //   RDC_GDC_ID int(11) [ref: > GDC.GDC_ID, Note: 'FK(ID) Tabla GD_DOCUMENTOS_COLUMNAS']
+  //   RDC_VALOR varchar(300) [Note: 'Valor de la columna']
+
+  //   Note: 'Relacion de columnas asociadas a documentos'
+  // }
+
+  // // VIDEOAYUDAS
+
+  // Table VIDEOAYUDAS as V {
+  //   V_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   V_NOMBRE varchar(50) [note: 'Nombre del archivo a mostar']
+  //   V_STREAM boolean [note: '1 es stream o 0 si es path fisico']
+  //   V_RUTA varchar(200) [note: 'Ruta del archivo tanto, fisico como stream']
+  //   V_CATEGORIA varchar(50) [note: 'Categroia del video']
+  //   V_IDIOMA varchar(50) [Note: 'Idoma del Video']
+  //   V_STREAM_TYPE varchar(50) [note: 'youtube, vimeo, etc']
+  //   V_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   V_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   V_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   V_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   V_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   V_MODIFICADO_POR int(11) [Note: 'D del usuario que lo ha modificado']
+
+  //   Note: 'Videoayudas de la extranet'
+  // }
+
+  // // GLOSARIO
+
+  // Table GLOSARIO as G {
+  //   G_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   G_NOMBRE varchar(50) [unique, Note: 'Nombre de campo de glosario, nombre unico']
+  //   G_DESCRIPCION varchar(300) [Note: 'Description del campo del glosario']
+  //   G_STREAM_TYPE varchar(50) [note: 'youtube, vimeo, etc']
+  //   G_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   G_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   G_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   G_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   G_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   G_MODIFICADO_POR int(11) [Note: 'D del usuario que lo ha modificado']
+
+  //   Note: 'Glosario de terminos de la extranet'
+  // }
+
+  // // PREGUNTAS FRECUENTES
+
+  // Table FAQ as FQ {
+  //   F_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   F_NOMBRE varchar(50) [Note: 'Nombre a mostrar del FAQ, Posiblemente una pregunta, (¿Cómo accedo a…?']
+  //   F_DESCRIPCION varchar(300) [Note: 'Breve descripcion en caso de ser necesario']
+  //   F_JSON blob [Note: 'JSON con las descripcion avanzada, tablas, viñetas etc']
+  //   F_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   F_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   F_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   F_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   F_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   F_MODIFICADO_POR int(11) [Note: 'D del usuario que lo ha modificado']
+
+  //   Note: 'Preguntas frecuentes de la extranet'
+  // }
+
+  // // MAIL
+
+  // Table MAIL_CONFIG as MC {
+  //   MC_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   MC_NOMBRE varchar(50) [Note: 'Nombre de SMTP']
+  //   MC_CONFIG blob [Note: 'Json de configiracion de SMTP, o bien columnas por parametro']
+  //   MC_CREADO datetime [Note: 'Fecha y Hora de creación']
+  //   MC_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  //   MC_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  //   MC_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  //   MC_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   MC_MODIFICADO_POR int(11) [Note: 'D del usuario que lo ha modificado']
+
+  //   Note: 'Tabla de configuracion de smtp'
+  // }
+
+  // Table MAIL_LOG as ML {
+  //   ML_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   ML_MC_ID int(11) [ref: > MC.MC_ID, Note: 'FK, Id de la tabla MAIL_CONFIG']
+  //   ML_RECEPTORES varchar(50) [Note: 'Receptores del correo separados por ;, (Para busuqedas mas rapidas un registro por envio)']
+  //   ML_ASUNTO varchar(100) [Note: 'Asunto del correo']
+  //   ML_CUERPO varchar(5000) [Note: 'Cuerpo del correo']
+  //   ML_LOG varchar(500) [Note: 'Log del correo']
+
+  //   Note: 'Envios y Log del correo'
+  // }
+
+  // // COMUNICACIONES_EXTRANET
+
+  // Table COMUNICACIONES as C {
+  //   C_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  //   C_U_ID int(11) [ref: > U.U_ID, Note: 'FK(ID) Tabla USUARIOS, usuario destino']
+  //   C_ESTADO varchar(20) [Note: 'Estado de la comunicacion, vista no vista']
+  //   c_CUERPO varchar(300) [Note: 'Cuerpo del mensaje a mostrar en Front, (html?)']
+  //   C_CATEGORIA varchar(20) [Note: 'Categoria de la comunicacion']
+  //   C_CREADO datetime [Note: 'Fecha y Hora de la creación de la notificacion']
+  //   C_VISTO datetime [Note: 'Fecha y Hora de la visualizacion de la notificacion']
+
+  //   Note: 'Comunicaciones de la extranet'
+  // }
+
+  // // Acciones de la extranet
+
+  // //Table ACCIONES as AC {
+  // //  A_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  // //  A_U_ID_DEST int(11) [ref: > U.U_ID, Note: 'FK(ID) Tabla USUARIO, usuario destino']
+  // //  A_U_ID_ASIG int(11) [ref: > U.U_ID, Note: 'FK(ID) Tabla USUARIO, usuario asignado']
+  // //  A_TIPOLOGIA varchar(20) [Note: 'Categoria de la accion']
+  // //  A_ESTADO varchar(20) [Note: 'Estado de la comunicacion, Pendiente, en proceso, Gestionado']
+  // //  A_DESCRIPCION varchar(20) [Note: 'Descripcion de la comunicacion']
+  // //  A_CREADO datetime [Note: 'Fecha y Hora de creación']
+  // //  A_BORRADO datetime [Note: 'Fecha y Hora del Borrado']
+  // //  A_MODIFICADO datetime [Note: 'Fecha y Hora de la modificación']
+  // //  A_CREADO_POR int(11) [Note: 'ID del usuario que lo ha creado']
+  // //  A_BORRADO_POR int(11) [Note: 'ID del usuario que lo ha borrado']
+  //   A_MODIFICADO_POR int(11) [Note: 'ID del usuario que lo ha modificado']
+
+  //   Note: 'Comunicaciones de la extranet'
+  // }
+
+  // //Table CITAS as CT {
+  // //CT_ID int(11) [pk, increment, Note: 'PK, CLAVE de la tabla']
+  // //  CT_LT_ID int(11) [ref: > LT.LT_ID, Note: 'FK(ID) Tabla LIST_TRABAJADORES']
+  // //  CT_LC_ID int(11) [ref: > LC.LC_ID, Note: 'FK(ID) Tabla LIST_CENTROS']
+  // //  CT_TIPO varchar(20) [Note: 'Tipo de cita']
+  // //  CT_ID_INTRA int(11) [Note: 'ID de la cita en la intranet']
+  // //  CT_FECHAHORA datetime [Note: 'Fecha de la cita DD-MM-YYYY HH:MM']
+  // //  CT_ESTADO_CITA varchar(20) [Note: 'Estado de la cita (Reservada, CANCELADA )']
+
+  // //  Note: 'Citas de la extranet, revisar'
+  // //

@@ -1,0 +1,37 @@
+.example-viewport {
+  height: 400px;
+  overflow: auto;
+}
+
+.example-item-detail {
+  height: 18px;
+}
+
+.example-alternate {
+  background: rgba(127, 127, 127, 0.3);
+}
+
+.cabecera-listado {
+  background-color: var(--blue);
+  color: white;
+}
+
+.mat-card-delegacion:hover {
+  background-color:#F5F5F5;
+  cursor: pointer;
+}
+
+.mat-card-title {
+  font-size: small;
+  font-weight: 500;
+}
+
+.example-section {
+  text-align: center;
+}
+
+.mat-card-subtitle {
+  font-size: small;
+  color: var(--blue);
+}
+

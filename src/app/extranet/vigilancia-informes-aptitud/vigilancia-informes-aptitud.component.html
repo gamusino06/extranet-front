@@ -1,0 +1,465 @@
+<app-confirmation-modal
+    *ngIf="showAppointmentModal"
+    [configurationObj]="AppointmentModalConfigurationObj"
+    (onAcceptEvent)="showAppointmentModal=false"
+    (onCancelEvent)="showAppointmentModal=false"
+    class="custom-modal"></app-confirmation-modal>
+<div id="app-informes-aptitud">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 class="tituloSec text-uppercase">{{ 'INFORMES_APTITUD' | translate }}</h1>
+            </div>
+        </div>
+
+      <!--Form-->
+      <div class="row">
+        <div class="col">
+          <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+
+        <div class="row d-flex ml-0" style="gap: 24px;">
+            <mat-checkbox (change)="onAllCheckboxChange()" formControlName="allCheckbox">{{ 'VIGILANCIA_INFORMES_APTITUD.ALL_CHECKBOX' | translate }}</mat-checkbox>
+            <mat-checkbox (change)="modifyAllCheckboxStatus()" formControlName="inForceCheckbox">{{ 'VIGILANCIA_INFORMES_APTITUD.IN_FORCE_CHECKBOX' | translate }}</mat-checkbox>
+            <mat-checkbox (change)="modifyAllCheckboxStatus()" formControlName="timedOutCheckbox">{{ 'VIGILANCIA_INFORMES_APTITUD.TIMED_OUT_CHECKBOX' | translate }}</mat-checkbox>
+            <mat-checkbox (change)="modifyAllCheckboxStatus()" formControlName="closeToTimeOutCheckbox">{{ 'VIGILANCIA_INFORMES_APTITUD.CLOSE_TO_TIME_OUT_CHECKBOX' | translate }}</mat-checkbox>
+            <mat-checkbox (change)="modifyAllCheckboxStatus()" formControlName="unrealizedCheckbox">{{ 'VIGILANCIA_INFORMES_APTITUD.UNREALIZED_CHECKBOX' | translate }}</mat-checkbox>
+            <mat-checkbox (change)="modifyAllCheckboxStatus()" formControlName="renounceCheckbox">{{ 'VIGILANCIA_INFORMES_APTITUD.RENOUNCE_CHECKBOX' | translate }}</mat-checkbox>
+        </div>
+
+        <!--Filtros--->
+        <!--Filtro centro y Empresa-->
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <app-select-empresa-filter [userForm]="searchForm" [empresasList]="empresas" [radioButtonsActivos]="true" class="col"></app-select-empresa-filter>
+              </div>
+              <div class="col-12 col-md-4">
+                <app-select-centro-filter [userForm]="searchForm" [empresasList]="empresas" [radioButtonsActivos]="true" class="col"></app-select-centro-filter>
+              </div>
+              <div class="col-12 col-md-4 margin-top-20">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'PUESTO_TRABAJO' | translate }}</mat-label>
+                  <input matInput type="text" formControlName="puestoForm" pattern={{validPuesto}}>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <mat-form-field appearance="outline" appearance="outline">
+                  <mat-label> {{ 'TRABAJADOR_O_DNI' | translate }}...</mat-label>
+                  <input matInput type="text" formControlName="trabajadorODniForm" placeholder="{{ 'BUSCAR' | translate }}...">
+                </mat-form-field>
+              </div>
+              <div class="col-12 col-md-1">
+                  <mat-form-field appearance="outline">
+                      <mat-label>{{ 'ACTIVO' | translate }}</mat-label>
+                      <mat-select formControlName="activoForm" class="multiple-selector" [disableOptionCentering]="true">
+                          <mat-option [value]=0>{{ 'VER_TODOS' | translate }}
+                          </mat-option>
+                          <mat-option [value]=1>{{ 'SI' | translate }}
+                          </mat-option>
+                          <mat-option [value]=2>{{ 'NO' | translate }}
+                          </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+              <div class="col-12 col-md-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'APTITUD' | translate }}</mat-label>
+                  <mat-select formControlName="aptitudForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                    <mat-option (click)="selectAll('searchForm','aptitudForm',aptitudList,'idAptitud');">{{ 'SELECCIONAR_TODOS' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let aptitud of aptitudList" [value]="aptitud.idAptitud">
+                      {{aptitud.nombre}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-12 col-md-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'FECHA_INICIO' | translate }}</mat-label>
+                  <input matInput [matDatepicker]="fromPicker" formControlName="fechaDesdeForm" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()" required>
+                  <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #fromPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-12 col-md-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'FECHA_FIN' | translate }}</mat-label>
+                  <input matInput [matDatepicker]="toPicker" formControlName="fechaHastaForm" [min]="minDate" (dateChange)="maxDate = $event.value.toDate()" requiredx>
+                  <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #toPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <hr>
+
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()"><img src="{{cleanImgUrl}}" class="img"
+                            alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!searchForm.valid"><img src="{{searchImgUrl}}"
+                            class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!--END Form-->
+      <div class="row" [hidden]="!mostrarTabla">
+        <div class="traffic-lights-legend">
+            <div class="traffic-lights-dot">
+              <span class="dot-green"></span>
+              <span>{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.IN_FORCE' | translate }}</span>
+            </div>
+            <div class="traffic-lights-dot">
+              <span class="dot-red"></span>
+              <span>{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.EXPIRED' | translate }}</span>
+            </div>
+            <div class="traffic-lights-dot custom-tooltip">
+              <span class="dot-yellow"></span>
+              <span matTooltip="{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.EXPIRING_SOON.TOOLTIP' | translate }}">{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.EXPIRING_SOON' | translate }}</span>
+            </div>
+            <div class="traffic-lights-dot">
+              <span class="dot-orange"></span>
+              <span>{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.NOT_PERFORMED' | translate }}</span>
+            </div>
+            <div class="traffic-lights-dot">
+              <span class="dot-grey"></span>
+              <span>{{ 'VIGILANCIA_INFORMES_APTITUD.LEGEND.DISCLAIMER' | translate }}</span>
+            </div>
+        </div>
+    </div>
+      <!--Tabla-->
+      <div class="row" [hidden]="!mostrarTabla">
+        <div class="col">
+          <div class="table-responsive">
+            <table
+                mat-table
+                [dataSource]="dataSource"
+                matSort
+                cdkDropList
+                cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders); this.updateHistoricalColumnHeaderAndStyle()"
+                multiTemplateDataRows
+                class="mat-elevation-z2 table">
+
+                <ng-container matColumnDef="checklist">
+                  <th mat-header-cell cdkDrag *matHeaderCellDef class="col-checkbox">
+                      <mat-checkbox (change)="checkAllRows($event)"></mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                      <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+                  </td>
+                </ng-container>
+
+                <<ng-container matColumnDef="newList">
+                  <th mat-header-cell cdkDrag *matHeaderCellDef class="col-shield">
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <i *ngIf="element.accionesRealizadas" class="material-icons md-24"
+                       style="color:var(--mediumGray);font-weight: normal;"
+                       (click)="verHistoricoDocumento(element)" matTooltip="{{ 'VER_HISTORICO_ACCIONES_DOCUMENTO' | translate }}">info</i>
+
+                    <i *ngIf="!element.accionesRealizadas" class="material-icons" style="color:var(--orange);font-weight: normal;" matTooltip="{{ 'NUEVO_DOCUMENTO' | translate }}">privacy_tip</i>
+                  </td>
+                </ng-container>
+
+                <!--ng-container matColumnDef="lastMedicalRecognitionDate">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-date-last-rm">
+                    {{ 'VIGILANCIA_INFORMES_APTITUD.RM_DATE' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.lastRecognitionDate | date:'dd/MM/yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="nextMedicalRecognitionDate">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-date-next-rm">
+                    {{ 'VIGILANCIA_INFORMES_APTITUD.NEXT_MEDICAL_RECOGNITION_DATE' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.nextRecognitionDate | date:'dd/MM/yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="periodicity">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-periodicity">
+                    {{ 'VIGILANCIA_INFORMES_APTITUD.PERIODICITY' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.periodName }}</td>
+                </ng-container> -->
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag class="col-state">
+                    {{ 'VIGILANCIA_INFORMES_APTITUD.STATUS' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="traffic-lights-dot">
+                      <div *ngIf="this.utils.getStatusColor(element) === global.APTITUDE_REPORT_STATUS_GREY" class="dot-grey"></div>
+                      <div *ngIf="this.utils.getStatusColor(element) === global.APTITUDE_REPORT_STATUS_ORANGE" class="dot-orange"></div>
+                      <div *ngIf="this.utils.getStatusColor(element) === global.APTITUDE_REPORT_STATUS_RED" class="dot-red"></div>
+                      <div *ngIf="this.utils.getStatusColor(element) === global.APTITUDE_REPORT_STATUS_YELLOW" class="dot-yellow"></div>
+                      <div *ngIf="this.utils.getStatusColor(element) === global.APTITUDE_REPORT_STATUS_GREEN" class="dot-green"></div>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="trabajadorNombre">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-worker">
+                    {{ 'TRABAJADOR' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span matTooltip="{{element.trabajadorNombre}}" [innerHtml]="element.trabajadorNombre">
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="empresaCentroNombre">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-company">
+                    {{ 'EMPRESA' | translate }} - {{ 'CENTRO' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element"  class="col-company">
+                    <span class="empresaCentroSpanSmall" matTooltip="{{element.empresaCentroNombre}}">
+                      {{element.empresaCentroNombre}}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="puestoTrabajo">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag class="col-job-position">
+                    {{ 'PUESTO_TRABAJO' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div *ngFor="let puesto of element.puestoTrabajo; let u = index" [hidden]="(u>0) && !element.mostrar">
+                      <span *ngIf="puesto.esPuestoPrincipal" [hidden]="(!element.mostrar)||(u===0)">{{puesto?.nombre}}</span>
+                      <span *ngIf="puesto.esPuestoPrincipal" [hidden]="(u>0)">{{puesto?.nombre}}</span>
+                      <span *ngIf="!puesto.esPuestoPrincipal" [hidden]="(!element.mostrar)||(u===0)">{{puesto?.nombre}}</span>
+                      <span *ngIf="!puesto.esPuestoPrincipal" [hidden]="(u>0)">{{puesto?.nombre}}</span>
+
+                      <span *ngIf="element.puestoTrabajo.length>1">&nbsp;
+                        mostrar
+                        <!-- <i *ngIf="(u==0)&&!element.mostrar"
+                            style="cursor: pointer;text-align: right;" class="fas fa-plus-circle"
+                            (click)="this.utils.toggleElement(element,this)">
+                        </i> -->
+                      </span>
+                      <span *ngIf="element.puestoTrabajo.length>1">&nbsp;
+                        mostrar
+                        <!-- <i *ngIf="(u==0)&&element.mostrar"
+                            style="cursor: pointer;text-align: right;" class="fas fa-minus-circle"
+                            (click)="this.utils.toggleElement(element,this)">
+                        </i> -->
+                      </span>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="protocolos">
+                    <th mat-header-cell *matHeaderCellDef cdkDrag class="col-protocol">
+                      {{ 'PROTOCOLOS' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <span  *ngIf="element.idDocumento!=0" class="popup-list__link" (click)="showProtocolsPopUp(element)">{{'VIGILANCIA_INFORMES_APTITUD.SHOW_PROTOCOL_POPUP' | translate}}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastMedicalRecognitionDate">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-date-last-rm"> {{ 'VIGILANCIA_INFORMES_APTITUD.RM_DATE' | translate }}</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.lastRecognitionDate | date:'dd/MM/yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="nextMedicalRecognitionDate">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-date-next-rm"> {{ 'VIGILANCIA_INFORMES_APTITUD.NEXT_MEDICAL_RECOGNITION_DATE' | translate }}</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.nextRecognitionDate | date:'dd/MM/yyyy' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="periodicity">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header  class="col-periodicity"> {{ 'VIGILANCIA_INFORMES_APTITUD.PERIODICITY' | translate }}</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.periodicity }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="motivo">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-reason">
+                    {{ 'MOTIVO' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.motivo}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="fechaBaja">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-date-discharge">
+                    {{ 'FECHA_BAJA' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.fechaBaja | date:'dd/MM/yyyy'}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="aptitudNombre">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="col-aptitude">
+                    {{ 'APTITUD' | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span [matTooltip]="element.observaciones">
+                      <i *ngIf="element.observaciones"
+                         class="fas fa-info-circle"
+                         style="display: contents; color:#00425B;"
+                         ></i>
+                    </span>
+
+                    <span style="margin-left: 6px;">{{element.aptitudNombre}}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="specialAction">
+                    <th mat-header-cell *matHeaderCellDef class="col-buttons"> </th>
+                    <td mat-cell *matCellDef="let element" class="col-buttons" style="white-space: nowrap;">
+                      <div class="d-flex align-items-center justify-content-end">
+                        <!-- TODO change ngIf sentence, this ones are temporary for testing -->
+                        <button mat-raised-button class="btn-icon" (click)="onShowAppointmentHistorical(element)" *ngIf="this.utils.DisplayAppointmentHistory(element)">
+                          <!-- <i class="material-icons md-24 mat-icon" matTooltip="{{ 'VIGILANCIA_INFORMES_APTITUD.SHOW_APPOINTMENT_HISTORICAL' | translate }} ">calendar_today</i> -->
+                          <img class="mat-icon" src="{{appointmentHistoricalImgUrl}}" matTooltip="{{ 'VIGILANCIA_INFORMES_APTITUD.SHOW_APPOINTMENT_HISTORICAL' | translate }}">
+                        </button>
+                        <button mat-raised-button class="btn-icon" (click)="onAddAppointment(element)" *ngIf="this.utils.DisplayRequestAppointment(element)">
+                          <img class="mat-icon" src="{{addAppointmentImgUrl}}" matTooltip="{{ 'VIGILANCIA_INFORMES_APTITUD.ADD_APPOINTMENT' | translate }}">
+                        </button>
+                        <button mat-raised-button class="btn-icon" (click)="onShowReportHistorical(element)">
+                          <img class="mat-icon" src="{{eyeImgUrl}}" matTooltip="{{ 'VIGILANCIA_INFORMES_APTITUD.SHOW_REPORT_HISTORICAL' | translate }} ">
+                        </button>
+                        <button mat-raised-button class="btn-icon" (click)="previsualizar(element)" *ngIf="element.lastRecognitionDate">
+                          <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                        </button>
+                        <button mat-raised-button class="btn-icon" (click)="descargar(element)" *ngIf="element.lastRecognitionDate">
+                          <img class="mat-icon" src="{{downloadImgUrl}}" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }} ">
+                        </button>
+                        <button mat-raised-button class="btn-icon" (click)="compartir(element)" *ngIf="element.lastRecognitionDate">
+                          <img class="mat-icon" src="{{mailImgUrl}}" matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }} ">
+                        </button>
+                      </div>
+                    </td>
+                </ng-container>
+
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <ng-container matColumnDef="expandedDetail">
+                  <td class="dropdown-table-container"
+                    mat-cell *matCellDef="let element"
+                    [attr.colspan]="tableHeaders.length"
+                  >
+                    <table *ngFor="let document of element.listOfDocuments"
+                        class="dropdown-table"
+                        [ngClass]="element == expandedElement ? 'expanded' : 'collapsed'"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                    >
+                      <thead>
+                        <tr>
+                          <th *ngFor="let column of historicalColumnHeaderAndStyle" [ngClass]="column.columnStyle">
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td *ngFor="let column of historicalColumnHeaderAndStyle" [ngClass]="column.columnStyle">
+                            <span *ngIf="column.nombre === 'checkList' || column.nombre === 'newList' || column.nombre === 'status' || column.nombre === 'trabajadorNombre' || column.nombre === 'lastMedicalRecognitionDate' || column.nombre === 'nextMedicalRecognitionDate' || column.nombre === 'periodicity'"></span>
+                            <span class="empresaCentroSpanSmall" matTooltip="{{ document.empresaCentroNombre }}" *ngIf="column.nombre === 'empresaCentroNombre'">
+                              {{ document.empresaCentroNombre }}
+                            </span>
+
+                            <div *ngIf="column.nombre === 'puestoTrabajo'">
+                              <div *ngFor="let puesto of document.puestoTrabajo; let u = index" [hidden]="(u>0) && !element.mostrar">
+                                <span *ngIf="puesto.esPuestoPrincipal" [hidden]="(!document.mostrar)||(u===0)">{{puesto?.nombre}}</span>
+                                <span *ngIf="puesto.esPuestoPrincipal" [hidden]="(u>0)">{{puesto?.nombre}}</span>
+                                <span *ngIf="!puesto.esPuestoPrincipal" [hidden]="(!document.mostrar)||(u===0)">{{puesto?.nombre}}</span>
+                                <span *ngIf="!puesto.esPuestoPrincipal" [hidden]="(u>0)">{{puesto?.nombre}}</span>
+                                <span *ngIf="document.puestoTrabajo.length>1">&nbsp;
+                                  <i *ngIf="(u==0)&&!document.mostrar"
+                                      style="cursor: pointer;text-align: right;" class="fas fa-plus-circle"
+                                      (click)="this.utils.toggleElement(document,this)">
+                                  </i>
+                                </span>
+                                <span *ngIf="element.puestoTrabajo.length>1">&nbsp;
+                                      <i *ngIf="(u==0)&&element.mostrar"
+                                          style="cursor: pointer;text-align: right;" class="fas fa-minus-circle"
+                                          (click)="this.utils.toggleElement(element,this)">
+                                      </i>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div *ngIf="column.nombre === 'protocolos'">
+                              <span class="popup-list__link" (click)="showProtocolsPopUp(document)">{{'VIGILANCIA_INFORMES_APTITUD.SHOW_PROTOCOL_POPUP' | translate}}</span>
+                            </div>
+                            <span *ngIf="column.nombre === 'lastMedicalRecognitionDate'">
+                              {{ document.lastRecognitionDate | date:'dd/MM/yyyy'}}
+                            </span>
+                            <span *ngIf="column.nombre === 'motivo'">
+                              {{ document.motivo }}
+                            </span>
+                            <span *ngIf="column.nombre === 'fechaBaja'">
+                              {{document.fechaBaja | date:'dd/MM/yyyy'}}
+                            </span>
+                            <div *ngIf="column.nombre === 'aptitudNombre'">
+                              <i *ngIf="element.observaciones"
+                                  class="fas fa-info-circle"
+                                  style="display: contents; color:#00425B;"
+                                  [matTooltip]="element.observaciones"></i>
+                                <span style="margin-left: 6px;">{{ document.aptitudNombre }}</span>
+                            </div>
+
+                            <div *ngIf="column.nombre === 'specialAction'">
+                              <button mat-raised-button class="btn-icon" (click)="previsualizar(document)">
+                                <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                              </button>
+                              <button mat-raised-button class="btn-icon" (click)="descargar(document)">
+                                <i class="material-icons md-24 mat-icon" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }} ">file_download_on</i>
+                              </button>
+                              <button mat-raised-button class="btn-icon" (click)="compartir(document)">
+                                <i class="material-icons md-24 mat-icon" matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }} ">email</i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                    <div *ngIf="element.listOfDocuments == null"
+                         class="noreports-message"
+                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      {{ 'VIGILANCIA_INFORMES_APTITUD.NO_REPORTS' | translate }}
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableHeaders;"
+                    matRipple
+                    [ngClass]="{'no_read': !row.accionesRealizadas, 'read': row.accionesRealizadas}"
+                    [class.example-expanded-row]="expandedElement === row"
+                ></tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+            </table>
+          </div>
+          <div>
+            <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+            <br/>
+            <div class="row float-right">
+              <div class="col">
+                <div class="exportar" (click)="exportAsExcel()">
+                  <img src="{{excelImgUrl}}" alt="">
+                  <span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+                </div>
+              </div>
+              <div class="col">
+                <div class="exportar" (click)="descargarMultiple()">
+                  <i class="material-icons md-24 mat-icon">file_download</i>
+                  <span class="search-span">{{ 'DESCARGAR' | translate }}</span>
+                </div>
+              </div>
+              <div class="col">
+                <div class="exportar" (click)="compartirMultiple()">
+                  <i class="material-icons md-24 mat-icon">email</i>
+                  <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+    </div>
+</div>

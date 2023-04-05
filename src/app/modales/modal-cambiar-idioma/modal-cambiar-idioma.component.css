@@ -1,0 +1,46 @@
+@font-face {
+  font-family:  Montserrat;
+  src: url(../../../assets/font/Montserrat-Regular.ttf);
+}
+
+.container {
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+  align-items: center;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+button {
+  font-family: Montserrat, sans-serif;
+  padding: 10px;
+	margin: 0px;
+  background-color: transparent;
+  border-radius: 4px;
+  width: 100%;
+  border: none;
+  color: var(--grey-15);
+  text-transform: none;
+  font-weight: normal;
+  outline: none !important;
+}
+button:hover {
+  color: var(--black)
+}
+
+.titulo{
+  font-family: Montserrat, sans-serif;
+  font-size: 1.2rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+  align-items: center;
+}
+
+.languageSelected {
+  border: 1px solid var(--grey-15);
+  color: var(--black);
+}
+

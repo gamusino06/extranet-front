@@ -1,0 +1,131 @@
+<div id="app-course-members">
+  <div class="row">
+    <div class="col">
+      <h1 class="tituloSec text-uppercase"> <a class="go-to-my-courses" role="button" (click)="goToMyCourses()">{{data.course.description}} ></a> {{ 'MY_COURSE.TITLE.STUDENTS' | translate }}</h1>
+    </div>
+  </div>
+  <div class="row justify-content-start" style="margin-left: -26px">
+    <div class="d-flex button-container">
+      <div class="col-2 second-row-form-button" *ngIf="isExternal()">
+        <button type="button" class="boton-alta" (click)="newMember()">
+          <span class="material-icons">add </span>
+          <span class="down-span">{{"MY_COURSE.NEW_MEMBER" | translate}}</span>
+        </button>
+      </div>
+      <div *ngIf="isExternal()" class="col-7">
+        <button class="clean-button" (click)="massiveStudentModal()" type="reset">
+          <span class="clean-span">{{ 'MY_COURSE.MEMBER_ALTA_MASIVA' | translate }}</span>
+        </button>
+      </div>
+      <div class="col-2 justify-content-end d-flex p-2 ml-auto" style="margin-bottom: 10px;">
+        <button class="clean-button" type="reset" (click)="goToMyCourses()">
+          <i class="fas fa-chevron-left"></i>
+          <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-responsive" id="table-members" [hidden]="!showTable">
+    <table
+      [dataSource]="membersDataSource"
+      mat-table
+      matSort
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="this.utils.drop($event, this.displayedColumns)"
+      multiTemplateDataRows
+      description=""
+      class="mat-elevation-z2 table">
+
+      <ng-container matColumnDef="checklist">
+        <th mat-header-cell cdkDrag *matHeaderCellDef>
+          <mat-checkbox (change)="checkAllRows($event)"></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header="name">{{ 'MY_COURSES.MEMBER.NAME' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{element.name || '-' | translate }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="surnames">
+        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header="surnames">{{ 'MY_COURSES.MEMBER.SURNAME' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{element.surnames || '-' | translate }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nif">
+        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header="nif">{{ 'MY_COURSES.MEMBER.NIF' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{element.nif || '-' | translate }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="center">
+        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header="center">{{ 'MY_COURSES.MEMBER.CENTER' | translate }}</th>
+        <ng-container *ngIf="isExternal()">
+          <td mat-cell *matCellDef="let element">{{element?.center?.nombre || '-' }} </td>
+        </ng-container>
+        <ng-container *ngIf="!isExternal()">
+          <td mat-cell *matCellDef="let element">{{element?.center?.nombre || '-' }} </td>
+        </ng-container>
+
+
+      </ng-container>
+
+      <ng-container matColumnDef="evaluation">
+        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header="evaluation">{{ 'MY_COURSES.MEMBER.EVALUATION' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{getEvaluationLiteral(element.evaluation) | translate }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef cdkDrag class="text-center"></th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          <div *ngIf="isExternal()" class="d-flex justify-content-end">
+            <mat-icon *ngIf="element.hasDocument" style="cursor: pointer;" class="icono-mater" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }}" (click)="downloadExternalCertificate(element)">file_download_on</mat-icon>
+            <mat-icon *ngIf="element.hasDocument" style="cursor: pointer;" class="icono-mater" matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }}" (click)="shareExternalCertificate(element)">email</mat-icon>
+            <mat-icon style="cursor: pointer;" class="icono-mater" matTooltip="{{ 'MY_COURSE.EDIT_STUDENT_MODAL.TITLE' | translate }}" (click)="editStudentModal(element)">edit</mat-icon>
+            <mat-icon style="cursor: pointer;" class="icono-mater" matTooltip="{{ 'MY_COURSE.DELETE_MEMBER_MODAL.TITLE' | translate }}" (click)="deleteStudentModal(element)">delete</mat-icon>
+          </div>
+          <div *ngIf="isShowDownload(element)" class="d-flex justify-content-end">
+            <mat-icon style="cursor: pointer;" class="icono-mater" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }}" (click)="preVisualize(element)">plagiarism</mat-icon>
+            <mat-icon style="cursor: pointer;" class="icono-mater" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }}" (click)="download(element)">file_download_on</mat-icon>
+            <mat-icon style="cursor: pointer;" class="icono-mater" matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }}" (click)="share(element)">email</mat-icon>
+          </div>
+          <div *ngIf="isDeactivateDownload(element)" class="d-flex justify-content-end">
+            <mat-icon style="color:var(--mediumGray);font-weight: normal;margin-left: 10px;" matTooltip="{{getDeactivateDownloadToolTip(element)}}">info</mat-icon>
+          </div>
+        </td>
+
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator class="paginator" [pageSize]="10" [pageSizeOptions]="[10, 25, 50,100]"
+                 showFirstLastButtons></mat-paginator>
+    <br/>
+    <div class="row float-right">
+      <div class="col">
+          <div class="exportar" (click)="exportAsExcel()"><img src="{{excelImgUrl}}" alt=""><span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span></div>
+      </div>
+      <div class="col">
+        <div class="exportar" (click)="!isExternal() ? multipleDownload() : massiveDownloadExternal()">
+          <img src="{{downloadImgUrl}}" alt="">
+          <span class="search-span">{{ 'DESCARGAR' | translate }}</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="exportar" *ngIf="!isExternal()" (click)="multipleShare()">
+          <img src="{{mailImgUrl}}" alt="">
+          <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+        </div>
+        <div class="exportar" *ngIf="isExternal() && hasDocuments()" (click)="massiveShareExternalCertificate()">
+          <img src="{{mailImgUrl}}" alt="">
+          <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

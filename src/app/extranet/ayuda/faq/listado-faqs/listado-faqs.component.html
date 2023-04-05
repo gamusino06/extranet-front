@@ -1,0 +1,232 @@
+<div id="app-listado-faqs">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade"
+                 [fullScreen]="true">
+      <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+    <div [hidden]="mostrarModificacion" class="container-fluid">
+
+        <!--Form-->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase">{{ 'LISTADO_FAQS' | translate }}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <mat-form-field appearance="outline" appearance="outline">
+                  <mat-label>{{ 'NOMBRE' | translate }}</mat-label>
+                  <input matInput type="text" formControlName="nombreForm" maxlength="100">
+                </mat-form-field>
+              </div>
+              <!--div class="col">
+                <mat-form-field appearance="outline" appearance="outline">
+                  <mat-label>{{ 'DESCRIPCION' | translate }}</mat-label>
+                  <input matInput type="text" formControlName="descripcionForm" maxlength="400">
+                </mat-form-field>
+              </div-->
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'CATEGORIA' | translate }}</mat-label>
+                  <mat-select formControlName="categoriaForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                    <mat-option (click)="selectAll('userForm','categoriaForm',categoriasList,'idCategoriaAyuda');">
+                      {{ 'SELECCIONAR_TODOS' | translate }}
+                    </mat-option>
+                    <ng-container *ngFor="let categoria of categoriasList">
+                      <mat-option [value]="categoria.idCategoriaAyuda">{{categoria.nombre}}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'AFECTA_A' | translate }}</mat-label>
+                    <mat-select formControlName="afectaForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                      <mat-option (click)="selectAll('userForm','afectaForm',rolesList,'idRol');">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                      </mat-option>
+                      <ng-container *ngFor="let rol of rolesList">
+                        <mat-option [value]="rol.idRol">{{rol.nombre}}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'IDIOMA' | translate }}</mat-label>
+                    <mat-select formControlName="idiomaForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                      <!--mat-option *ngFor="let idioma of idiomasList" [value]="idioma.idIdioma">{{idioma.nombre}}</mat-option-->
+                      <mat-option (click)="selectAll('userForm','idiomaForm',idiomasList,'idIdioma');">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                      </mat-option>
+                      <ng-container *ngFor="let idioma of idiomasList">
+                        <mat-option [value]="idioma.idIdioma">{{idioma.nombre}}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'ACTIVO' | translate }}</mat-label>
+                        <mat-select formControlName="activoForm" class="multiple-selector" [disableOptionCentering]="true">
+                            <mat-option [value]=0>{{ 'VER_TODOS' | translate }}
+                            </mat-option>
+                            <mat-option [value]=1>{{ 'SI' | translate }}
+                            </mat-option>
+                            <mat-option [value]=2>{{ 'NO' | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()"><img
+                    src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span
+                    class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!userForm.valid"><img src="{{searchImgUrl}}"
+                            class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+                </div>
+            </div>
+        </form>
+        <!--/Form-->
+        <!--Tabla-->
+
+        <div class="row" [hidden]="!mostrarTabla">
+            <div class="col" #TABLE>
+              <div class="table-responsive">
+                <table
+                    mat-table
+                    [dataSource]="dataSource"
+                    matSort
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)"
+                    class="table mat-elevation-z2">
+
+                  <ng-container matColumnDef="checklist" [formGroup]="userForm">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header>
+                        <mat-checkbox (change)="checkAllRows()" formControlName="selectAllCheckBox">
+                        </mat-checkbox>
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}">
+                        </mat-checkbox>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'NOMBRE' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="categorias">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef> {{ 'CATEGORIA' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div *ngFor="let categoria of element.categorias">
+                            <li style="white-space: nowrap;">{{categoria.nombre}}</li>
+                          </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idioma">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'IDIOMA' | translate }} </th>
+                      <td mat-cell *matCellDef="let element">
+                        <span> {{element.idioma.nombre}} </span>
+                      </td>
+                    </ng-container>
+
+                   <ng-container matColumnDef="rol">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef> {{ 'ROL' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                            <ul class="rol">
+                                <li *ngFor="let rol of element.roles"><span>{{rol.nombre}}&nbsp;&nbsp;</span></li>
+                                <!--div *ngFor="let rol of element.roles; let i = index"
+                                     [hidden]="(i>1) && !element.showRoles">
+                                    <li>
+                                        {{rol.nombre}}
+                                        <span *ngIf="i==1 && element.roles.length > i+1"
+                                              style="cursor: pointer;text-align: right;"
+                                              class="more-info"
+                                              (click)="element.showRoles=!element.showRoles">
+                                                   <i class="fas"
+                                                      [class.fa-plus-circle]="!element.showRoles"
+                                                      [class.fa-minus-circle]="element.showRoles"
+                                                   ></i>
+                                       </span>
+                                    </li>
+                                </div-->
+                            </ul>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="activo">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'ACTIVO' | translate }} </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <span *ngIf="element.activo">
+                                {{ 'SI' | translate }}
+                        </span>
+                            <span *ngIf="!element.activo">
+                                {{ 'NO' | translate }}
+                        </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaBaja">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'FECHA_BAJA' | translate }}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.fechaBaja | date:'dd/MM/yyyy'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="star">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef></th>
+                      <td mat-cell *matCellDef="let element">
+                        <mat-icon  *ngIf="this.isSuperAdmin" style="cursor: pointer;" (click)="modificarFaq(element)">edit</mat-icon>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="clear">>
+                      <th mat-header-cell cdkDrag *matHeaderCellDef></th>
+                      <td mat-cell *matCellDef="let element">
+                        <mat-icon *ngIf="this.isSuperAdmin" style="cursor: pointer;" (click)="deleteFaq(element)">highlight_off
+                        </mat-icon>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+                </table>
+            </div>
+                <div>
+                    <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+                    <br/>
+                    <div class="row float-right">
+                        <div class="col">
+                            <div class="exportar" (click)="exportAsExcel()"><img src="{{excelImgUrl}}" alt=""><span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--F.Tabla-->
+        <div class="row">
+            <div class="col-md-3">
+                <button class="down-button" (click)="altaFaq()"><span class="material-icons">video_call </span>
+                    <span class="down-span">{{ 'ALTA_NUEVA_FAQ' | translate }}</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!--Modificar faq-->
+    <app-modificar-faq *ngIf="mostrarModificacion" [faqToMod]="faqSelected" [userDataLogged]="userDataLogged" (faqModificadoEvent)=faqModFlow()>
+    </app-modificar-faq>
+</div>

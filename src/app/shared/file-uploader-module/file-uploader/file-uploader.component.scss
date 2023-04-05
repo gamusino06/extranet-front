@@ -1,0 +1,10 @@
+.file-uploader {
+    display: flex;
+    flex-direction: column;
+
+    &__hint {
+        margin-bottom: 1rem;
+        font-size: 14px;
+        color: #262626;
+    }
+}

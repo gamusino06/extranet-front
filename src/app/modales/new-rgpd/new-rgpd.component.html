@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="div-cerrar">
+    <div class="boton-cerrar">
+    <a (click)="closeModal()"><img class="icon-cerrar"
+        src="../../../../assets/icons/misc/close.svg"></a>
+      </div>
+  </div>
+  <div class="w80">
+    <div class="content">
+    <div class="login-logo">
+        <a href="https://www.preving.com/" target="_blank" class="a-image">
+          <img src="{{logoUrl}}" alt="Preving Extranet" class="logo">
+        </a>
+    </div>
+    <div class="title">
+      <div class="div-titulo">
+        <h1 class="h1AvisoLegal">Aviso Legal</h1>
+      </div>
+    </div>
+
+    <div [@.disabled]="disableAnimation">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="panelTitle">
+              1.- Objeto
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="pText">La presente página <a href="#"> web</a> es propiedad de la/s empresas de Grupo Preving / Cualtis / Vitaly.</p>
+          <p class="pText">La utilización de Acércate Empresas por cualquier persona atribuye la condición de “usuario”, el cual acepta que el uso es bajo su exclusiva responsabilidad.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="panelTitle">
+              2.- Uso de Acércate Empresas
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="pText">La EMPRESA CLIENTE ha concertado con la/s empresas de Grupo Preving / Cualtis / Vitaly, el acceso y la utilización de <a
+              href="#"> Acércate Empresas</a>. Este acceso y utilización está relacionado con la contratación del concierto de actividades como Servicio de Prevención Ajeno firmado entre EMPRESA CLIENTE y la/s empresas del Grupo Preving / Cualtis / Vitaly.
+          </p>
+          <p class="pText">La utilización de Acércate Empresas por cualquier persona atribuye la condición de “usuario”, el cual acepta que el uso es bajo su exclusiva responsabilidad.</p>
+          <p class="pText">El usuario se compromete a no utilizar la información, actividades, productos o servicios que se ponen a su disposición para desarrollar actividades contrarias a las leyes, a la moral o al orden público y, en general, a hacer un uso conforme a las presentes Condiciones Generales.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="panelTitle">
+              3.- Contenidos
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="pText">Los contenidos de Acércate Empresas son puestos a disposición del usuario como información relacionada con el concierto de actividades del Servicio de Prevención Ajeno firmado entre EMPRESA CLIENTE y la/s empresas del Grupo Preving / Cualtis / Vitaly.
+          </p>
+          <p class="pText">El usuario es el único responsable del contenido, uso y divulgación de las informaciones y documentos existentes en Acércate Empresas.</p>
+          <p class="pText">El usuario se compromete a revisar de forma periódica el correo electrónico asociado al usuario, para que esté al tanto de las notificaciones provenientes de Acércate Empresas.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="panelTitle">
+              4.- Acceso a  Acércate Empresas
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="pText">El usuario accederá a <a href="#">Acércate Empresas</a> de forma remota utilizando las herramientas telemáticas previstas a tal efecto, mediante una identificación y una contraseña que le será suministrada, de forma confidencial, cuando se dé de alta al usuario en Acércate Empresas.</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="false" class="panel5">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="panelTitle">
+              5.- Protección de datos
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="pText">Se garantiza el cumplimiento íntegro de las obligaciones dispuestas, así como la implementación de las medidas de seguridad dispuestas en el artículo 9 de la Ley Orgánica 15/1999, de Protección de Datos Personales y en su Reglamento de desarrollo aprobado por Real Decreto 1720/2007, de 21 de diciembre, así como el Real Decreto-ley 5/2018, de 27 de julio de medidas urgentes para la adaptación del Derecho español a la normativa de la Unión Europea en materia de protección de datos (RGPD).
+          </p>
+          <p class="pText">Por todo lo anterior,</p>
+          <p class="pText">Declaro y acepto sin ninguna objeción que estoy accediendo a Acércate Empresas debidamente autorizado y legitimado por la empresa (persona física o jurídica) contratante de los servicios de la/s empresa/s de Grupo Preving / Cualtis / Vitaly cuya contratación origina el acceso, y que actúo en nombre de tal empresa con su pleno conocimiento y aceptación vinculandola y responsabilizándola solidariamente junto conmigo, y a todos los efectos, por el uso y gestión que se realice con mis claves. </p>
+          <p class="pText">Igualmente declaro que tanto yo como la empresa por la que actúo conocemos las obligaciones y responsabilidades que nos impone la Ley de Prevención de Riesgos Laborales y su normativa de desarrollo sin que nos exima de ellas el acudir como modelo de organización a uno o varios Servicios de Prevención Ajenos (los cuales actúan como asesores y no se les transfieren nuestras obligaciones ni responsabilidades por acudir a ellos).</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  </div>
+</div>
+

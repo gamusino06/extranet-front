@@ -1,0 +1,236 @@
+<div id="app-historico-citas">
+    <div class="container-fluid">
+        <!--Form-->
+        <form [formGroup]="documentationForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase">{{ 'HISTORICO_CITAS' | translate }}</h1>
+                </div>
+            </div>
+            <!--Filtros--->
+            <!--Filtro centro y Empresa-->
+            <div class="row">
+              <app-select-empresa-filter [userForm]="documentationForm" [empresasList]="empresasList" [radioButtonsActivos]="true" class="col"></app-select-empresa-filter>
+              <app-select-centro-filter [userForm]="documentationForm" [empresasList]="empresasList" [radioButtonsActivos]="true" class="col"></app-select-centro-filter>
+            </div>
+
+            <div class="row">
+                <!--Asiste-->
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'NOMBRE_TRABAJADOR' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="nombreTrabajadorForm"
+                            placeholder="{{ 'NOMBRE_TRABAJADOR' | translate }}" pattern={{validNameSurname}}>
+                    </mat-form-field>
+                </div>
+                <!--/Asiste-->
+                <!--NIF-->
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'APELLIDOS_TRABAJADOR' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="apellidosTrabajadorForm"
+                            placeholder="{{ 'APELLIDOS_TRABAJADOR' | translate }}" pattern={{validNameSurname}}>
+                    </mat-form-field>
+                    <!-- <input type="text" formControlName="nombreDocForm" placeholder="{{ 'NOMBRE_DOCUMENTO' | translate }}"> -->
+                </div>
+                <!--/NIF-->
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'NIF_NIE_TRABAJADOR' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="nifForm" placeholder="{{ 'NIF_NIE_TRABAJADOR' | translate }}" pattern={{validNifNie}}>
+                    </mat-form-field>
+                    <!-- <input type="text" formControlName="nombreDocForm" placeholder="{{ 'NOMBRE_DOCUMENTO' | translate }}"> -->
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'ACTIVO' | translate }}</mat-label>
+                        <mat-select formControlName="trabajadorActivoForm" class="multiple-selector" [disableOptionCentering]="true">
+                            <mat-option [value]=0>{{ 'VER_TODOS' | translate }}
+                            </mat-option>
+                            <mat-option [value]=1>{{ 'SI' | translate }}
+                            </mat-option>
+                            <mat-option [value]=2>{{ 'NO' | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!--Fechas-->
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'DESDE' | translate }} </mat-label>
+                        <input matInput [matDatepicker]="fromPicker" formControlName="fechaDesdeForm" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()" required>
+                        <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #fromPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'HASTA' | translate }}</mat-label>
+                        <input matInput [matDatepicker]="toPicker" formControlName="fechaHastaForm" [min]="minDate" (dateChange)="maxDate = $event.value.toDate()" required>
+                        <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #toPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'ASISTE' | translate }}</mat-label>
+                        <mat-select formControlName="asisteForm" class="multiple-selector" [disableOptionCentering]="true">
+                            <mat-option [value]="0">{{ 'VER_TODOS' | translate }}
+                            </mat-option>
+                            <mat-option [value]="1">{{ 'SI' | translate }}
+                            </mat-option>
+                            <mat-option [value]="2">{{ 'NO' | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <!--/Fechas-->
+             <hr>
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()"><img src="{{cleanImgUrl}}" class="img"
+                            alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!documentationForm.valid"><img src="{{searchImgUrl}}"
+                            class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+                </div>
+            </div>
+        </form>
+        <!--/Form-->
+        <!--Tabla-->
+        <div class="row" [hidden]="!mostrarTabla">
+          <div class="col" #TABLEHISTORICDOCUMENTS>
+            <div class="table-responsive">
+                <table mat-table [dataSource]="dataSource" matSort cdkDropList cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)" class="table mat-elevation-z2">
+
+                    <ng-container matColumnDef="checklist" [formGroup]="documentationForm">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef>
+                        <mat-checkbox (change)="checkAllRows()" formControlName="selectAllCheckBox">
+                        </mat-checkbox>
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}">
+                        </mat-checkbox>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fecha">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header>{{ 'FECHA' | translate }}</th>
+                        <td mat-cell *matCellDef="let element">{{element.fechaString}} </td>
+                        <!--td mat-cell *matCellDef="let element">{{element.fecha | date:'dd/MM/yyyy HH:mm'}} </td-->
+                    </ng-container>
+
+                    <!--ng-container matColumnDef="empresa">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef> {{ 'EMPRESA_CENTRO' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.empresa}} <span *ngIf="element.centro != null && element.centro != ''">- {{element.centro}}</span> </td>
+                    </ng-container-->
+
+                    <ng-container matColumnDef="empresasCentros">
+                      <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'EMPRESA_CENTRO' | translate }}</th>
+                      <td mat-cell *matCellDef="let element">
+                        <span class="empresaCentroSpanAlmostSmall" matTooltip="{{element.centro.empresa.nombre }} - {{ element.centro.nombre}}">{{element.centro.empresa.nombre }} - {{ element.centro.nombre}}</span>
+                        <!--div *ngFor="let centro of element.empresasCentros; let i = index">
+                          <span [hidden]="(!element.mostrar)||(i===0)" class="empresaCentroSpan" matTooltip="{{centro.empresa.nombre }} - {{ centro.nombre}}">{{centro.empresa.nombre }} - {{ centro.nombre}}</span>
+                          <span [hidden]="(i>0)" class="empresaCentroSpan" matTooltip="{{centro.empresa.nombre }} - {{ centro.nombre}}">{{centro.empresa.nombre }} - {{ centro.nombre}}</span>
+
+                          <span *ngIf="element.empresasCentros.length>0 && i==0">
+                            &nbsp;&nbsp;
+                            <i *ngIf="(element.empresasCentros.length>0)&&!element.mostrar" style="cursor: pointer;text-align: right;"
+                               class="fas fa-plus-circle" (click)="this.utils.toggleElement(element,this)">
+                            </i>
+
+                            <i *ngIf="(element.empresasCentros.length>0)&&element.mostrar" style="cursor: pointer;text-align: right;"
+                               class="fas fa-minus-circle"
+                               (click)="this.utils.toggleElement(element,this)">
+                            </i>
+                          </span>
+                        </div-->
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="centroMedico">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'CENTRO_MEDICO' | translate }} </th>
+                      <td mat-cell *matCellDef="let element">
+                        <span class="nombredocumentoSpan" matTooltip="{{element.centroMedico }}">
+                          {{element.centroMedico}}
+                      </span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="motivo">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'MOTIVO' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.motivo }} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="tipo">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'TIPO' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.tipo }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="trabajador">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'TRABAJADOR' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"  [innerHtml]="element.trabajador"></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="asistencia">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'ASISTENCIA' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                          <span *ngIf="element.asistencia">
+                                {{ 'SI' | translate }}
+                          </span>
+                          <span *ngIf="!element.asistencia">
+                                {{ 'NO' | translate }}
+                          </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="anulada">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'ANULADA' | translate }} </th>
+                      <td mat-cell *matCellDef="let element">
+                          <span *ngIf="element.anulada">
+                                  {{ 'SI' | translate }}
+                          </span>
+                          <span *ngIf="!element.anulada">
+                                    {{ 'NO' | translate }}
+                          </span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="specialAction">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let element" style="padding-right:20px;">
+                            <button  class="modify-button float-right" (click)="anulacionCita(element)"
+                                     *ngIf="element.origenCita === globals.extranet_citacion_web_origen_extranet && element.puedeAnular">
+                                <span class="modify-span">{{ 'ANULAR' | translate }}</span>
+                            </button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableHeaders;">
+                    </tr>
+                </table>
+            </div>
+            <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+            <br/>
+            <div class="row float-right">
+              <div class="col">
+                <div class="exportar" (click)="exportAsExcel()"><img src="{{excelImgUrl}}" alt=""><span
+                  class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--F.Tabla-->
+    </div>
+</div>

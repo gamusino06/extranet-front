@@ -1,0 +1,6 @@
+<div *ngFor="let line of data.lines">
+  <div *ngIf="line.queryLineByAttachments.length != 0">
+    <p class="enlace" *ngFor="let archivo of line.queryLineByAttachments" (click)="descargarAtachment(archivo)">{{archivo.attachmentName}}</p>
+  </div>
+</div>
+<button mat-button (click)="onNoClick()" class="clear-button" style="margin: 2em auto 0 auto; display: block"><span>{{ 'CANCELAR' | translate}}</span></button>

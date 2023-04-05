@@ -1,0 +1,85 @@
+<h1 mat-dialog-title>{{'CONSULTA_GENERAL' | translate }}</h1>
+<br />
+<h3>{{'MENSAJE_AL_USUARIO_PARA_CONSULTA_GENERAL' | translate }}</h3>
+
+<div mat-dialog-content>
+  <form [formGroup]="consultaGeneralGroup">
+
+    <div class="row dato-consulta">
+      <span>{{'AREA_PARA_CONSULTA_GENERAL' | translate }} *
+      </span>
+    </div>
+    <div class="row respuesta-dato-consulta">
+      <mat-form-field class="outline">
+        <mat-label>{{'AREA_TEXT_PARA_CONSULTA_GENERAL' | translate }} *</mat-label>
+        <!--input type="text" matInput formControlName="areaFormControl" [errorStateMatcher]="matcher" -->
+
+        <mat-select formControlName="areaFormControl" [disableOptionCentering]="true">
+          <mat-option *ngFor="let area of areaList" [value]="area">
+            {{area}}
+          </mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="consultaGeneralGroup.controls['areaFormControl'].hasError('required')">
+          {{ 'EL_CAMPO_ES' | translate }}<strong>{{ 'REQUERIDO' | translate }}</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row dato-consulta">
+      {{'CARGO' | translate }}
+    </div>
+    <div class="row respuesta-dato-consulta">
+      <mat-form-field>
+        <input type="text" matInput formControlName="jobFormControl" [errorStateMatcher]="matcher"
+          placeholder="{{'CARGO_TEXT_PARA_CONSULTA_GENERAL' | translate }}">
+        <mat-error *ngIf="consultaGeneralGroup.controls['jobFormControl'].hasError('required')">
+          {{ 'EL_CAMPO_ES' | translate }}<strong>{{ 'REQUERIDO' | translate }}</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="row dato-consulta">
+      <span>
+        {{'PHONE_PARA_CONSULTA_GENERAL' | translate }}
+      </span>
+    </div>
+    <div style="width:50%;">
+      <mat-form-field class="outline">
+        <input type="text" maxlength="12" size="12" matInput formControlName="phoneFormControl"
+          [errorStateMatcher]="matcher" placeholder="{{'PHONE_TEXT_PARA_CONSULTA_GENERAL' | translate }}">
+        <!--mat-error *ngIf="consultaGeneralGroup.controls['phoneFormControl'].hasError('required')">
+          {{ 'EL_CAMPO_ES' | translate }}<strong>{{ 'REQUERIDO' | translate }}</strong>
+        </mat-error-->
+      </mat-form-field>
+    </div>
+
+    <div class="row dato-consulta">
+      <span>
+        {{'ASUNTO_PARA_CONSULTA_GENERAL' | translate }} *
+      </span>
+    </div>
+    <div>
+      <mat-form-field class="outline">
+        <input type="text" matInput formControlName="subjectFormControl" [errorStateMatcher]="matcher"
+          placeholder="{{'ASUNTO_TEXT_PARA_CONSULTA_GENERAL' | translate }} *">
+        <mat-error *ngIf="consultaGeneralGroup.controls['subjectFormControl'].hasError('required')">
+          {{ 'EL_ASUNTO_ES' | translate }}<strong>{{ 'REQUERIDO' | translate }}</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <ckeditor (ready)="onReady($event)" [config]="editorConfig" [editor]="Editor" formControlName="bodyFormControl">
+      </ckeditor>
+    </div>
+
+    <input type="file" formControlName="fileFormControl" (change)="handleFileInput($event.target.files)" multiple>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()" class="clear-button"><span class="clear-span">{{ 'CANCELAR' | translate
+      }}</span> </button>
+  <button mat-button [mat-dialog-close]="consultaGeneralGroup.value" [disabled]="!consultaGeneralGroup.valid"
+    cdkFocusInitial (click)="onClick()" class="search-button">{{ 'ENVIAR' | translate }}</button>
+</div>

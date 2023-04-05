@@ -1,0 +1,4218 @@
+{
+  "loginData": {
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJtb2RlIjoiZXh0cmFuZXQiLCJ1c2VyIjoiYW50b25pby5tYWNpYXNAc292ZW5hLmVzIiwiYXV0aG9yaXRpZXMiOltdLCJqdGkiOiJwcmV2aW5nSldUVUlEX2NkODJkZmU3YTQ3ZTQzYTNiMzA0Y2FjZDY0Y2Y2MGIxIiwic3ViIjoiVG9rZW4gU2VjdXJpdHkgUHJldmluZyBFeHRyYW5ldCIsImF1ZCI6InByZXZpbmdXRUIiLCJpc3MiOiJwcmV2aW5nSldUIiwiaWF0IjoxNjU4ODU5MDA4LCJuYmYiOjE2NTg4NTkwMDgsImV4cCI6MTY1ODg5NTAwOH0.HS1yUBlvYiPekH3smMwNjINE2UKTw0P1JAuoYA_pEdlu6BMlvV-IsvI1pVa0GqYPNu0xdXt5yX4glGOUXYVGAA",
+    "userId": 63,
+    "fechaAceptacion": "2021-12-07T08:40:58Z",
+    "lang": "es-ES",
+    "userDataFromUsuario": {
+      "idUsuario": 63,
+      "nombre": "ANTONIO",
+      "apellidos": "MACIAS RUIZ",
+      "email": "antonio.macias@sovena.es",
+      "idioma": {
+        "nombre": "Español",
+        "idIdioma": 1,
+        "lang": "es-ES"
+      },
+      "activo": true,
+      "fechaCreacion": "2008-04-09T10:30:25Z",
+      "verReconocimientos": false,
+      "empresas": [
+        {
+          "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+          "idEmpresa": 42966,
+          "fechaAltaPrevencion": "2008-09-04T22:00:00Z",
+          "fechaAltaVigilancia": "2008-09-04T22:00:00Z",
+          "tienePT": true,
+          "tieneVS": true,
+          "activoPT": true,
+          "activoVS": true,
+          "numTrabajadoresPT": 3,
+          "numTrabajadoresVS": 3,
+          "localidad": {
+            "nombre": "NAVALVILLAR DE PELA",
+            "idLocalidad": 6,
+            "provincia": {
+              "nombre": "BADAJOZ",
+              "idProvincia": 6
+            }
+          },
+          "cp": "06760",
+          "calle": "CTRA NACIONAL 430,POL.IND.N-430 PARCELAS 1-6,C/8 DE SEPTIEMBRE",
+          "telefono": "610110331",
+          "centros": [
+            {
+              "nombre": "ELAIA  (CENTRO2)",
+              "idCentro": 42912,
+              "localidad": {
+                "nombre": "NAVALVILLAR DE PELA",
+                "idLocalidad": 6,
+                "provincia": {
+                  "nombre": "BADAJOZ",
+                  "idProvincia": 6
+                }
+              },
+              "numTrabajadoresPT": 3,
+              "numTrabajadoresVS": 3,
+              "calle": "PGNACIONAL 430 ANVES 1-6",
+              "cp": "06760",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2008-09-04T22:00:00Z",
+              "fechaAltaVigilancia": "2008-09-04T22:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                },
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                }
+              ],
+              "email": "rrhh@frutasromu.com"
+            }
+          ],
+          "contactosExternos": [],
+          "documentos": [],
+          "productos": [
+            {
+              "idProducto": 1,
+              "nombreProducto": "Prevención"
+            },
+            {
+              "idProducto": 2,
+              "nombreProducto": "Vigilancia"
+            }
+          ],
+          "todosCentros": true,
+          "email": "anaperalbo@deprado.eu",
+          "emailFactura": "anaperalbo@deprado.eu",
+          "corrientePago": false
+        },
+        {
+          "nombre": "SOVENA ESPAÑA",
+          "idEmpresa": 30907,
+          "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+          "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+          "tienePT": true,
+          "tieneVS": true,
+          "activoPT": true,
+          "activoVS": true,
+          "numTrabajadoresPT": 163,
+          "numTrabajadoresVS": 163,
+          "localidad": {
+            "nombre": "BRENES",
+            "idLocalidad": 2050,
+            "provincia": {
+              "nombre": "SEVILLA",
+              "idProvincia": 41
+            }
+          },
+          "cp": "41310",
+          "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+          "telefono": "955653300",
+          "centros": [
+            {
+              "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+              "idCentro": 30043,
+              "localidad": {
+                "nombre": "BRENES",
+                "idLocalidad": 2050,
+                "provincia": {
+                  "nombre": "SEVILLA",
+                  "idProvincia": 41
+                }
+              },
+              "numTrabajadoresPT": 163,
+              "numTrabajadoresVS": 163,
+              "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+              "cp": "41310",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+              "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                },
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+              "idCentro": 34196,
+              "localidad": {
+                "nombre": "BRENES",
+                "idLocalidad": 2050,
+                "provincia": {
+                  "nombre": "SEVILLA",
+                  "idProvincia": 41
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+              "cp": "41310",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+              "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                },
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA (LOGÍSTICA ACEITES).",
+              "idCentro": 34197,
+              "localidad": {
+                "nombre": "BRENES",
+                "idLocalidad": 2050,
+                "provincia": {
+                  "nombre": "SEVILLA",
+                  "idProvincia": 41
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+              "cp": "41310",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+              "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                },
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA (MMAA, LOG).",
+              "idCentro": 34198,
+              "localidad": {
+                "nombre": "BRENES",
+                "idLocalidad": 2050,
+                "provincia": {
+                  "nombre": "SEVILLA",
+                  "idProvincia": 41
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+              "cp": "41310",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+              "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                },
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA (REF)",
+              "idCentro": 34199,
+              "localidad": {
+                "nombre": "BRENES",
+                "idLocalidad": 2050,
+                "provincia": {
+                  "nombre": "SEVILLA",
+                  "idProvincia": 41
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+              "cp": "41310",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+              "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                },
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA (CENTRO 2 MADRID)",
+              "idCentro": 220824,
+              "localidad": {
+                "nombre": "MADRID",
+                "idLocalidad": 21,
+                "provincia": {
+                  "nombre": "MADRID",
+                  "idProvincia": 28
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "claudio coello, nº22 1º B",
+              "cp": "28001",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": false,
+              "activoVS": false,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "productos": [
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                },
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA S.A. (CENTRO 10)",
+              "idCentro": 486036,
+              "localidad": {
+                "nombre": "POZUELO DE ALARCON",
+                "idLocalidad": 4370,
+                "provincia": {
+                  "nombre": "MADRID",
+                  "idProvincia": 28
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "Vía Dos Castillas 33; Edificio 4 ; BA ",
+              "cp": "28224",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2020-09-14T22:00:00Z",
+              "fechaAltaVigilancia": "2020-09-14T22:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                },
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                }
+              ],
+              "email": "rmartinez@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA (MANT, PRL)",
+              "idCentro": 34200,
+              "localidad": {
+                "nombre": "BRENES",
+                "idLocalidad": 2050,
+                "provincia": {
+                  "nombre": "SEVILLA",
+                  "idProvincia": 41
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+              "cp": "41310",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+              "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                },
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA (LAB)",
+              "idCentro": 34201,
+              "localidad": {
+                "nombre": "BRENES",
+                "idLocalidad": 2050,
+                "provincia": {
+                  "nombre": "SEVILLA",
+                  "idProvincia": 41
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+              "cp": "41310",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+              "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                },
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            },
+            {
+              "nombre": "SOVENA ESPAÑA (EF, SERV)",
+              "idCentro": 34202,
+              "localidad": {
+                "nombre": "BRENES",
+                "idLocalidad": 2050,
+                "provincia": {
+                  "nombre": "SEVILLA",
+                  "idProvincia": 41
+                }
+              },
+              "numTrabajadoresPT": 0,
+              "numTrabajadoresVS": 0,
+              "calle": "CTRA. RINCONADA-BRENES, KM 11,7",
+              "cp": "41310",
+              "tienePT": true,
+              "tieneVS": true,
+              "activoPT": true,
+              "activoVS": true,
+              "principalAsignadoPT": false,
+              "principalAsignadoVS": false,
+              "fechaAltaPrevencion": "2012-12-31T23:00:00Z",
+              "fechaAltaVigilancia": "2012-12-31T23:00:00Z",
+              "productos": [
+                {
+                  "idProducto": 2,
+                  "nombreProducto": "Vigilancia"
+                },
+                {
+                  "idProducto": 1,
+                  "nombreProducto": "Prevención"
+                }
+              ],
+              "email": "antonio.macias@sovena.es"
+            }
+          ],
+          "contactosExternos": [],
+          "documentos": [],
+          "productos": [
+            {
+              "idProducto": 1,
+              "nombreProducto": "Prevención"
+            },
+            {
+              "idProducto": 2,
+              "nombreProducto": "Vigilancia"
+            }
+          ],
+          "todosCentros": true,
+          "email": "rmartinez@sovena.es",
+          "emailFactura": "crubio@sovena.es",
+          "corrientePago": false
+        }
+      ],
+      "roles": [
+        {
+          "nombre": "Administrador",
+          "idRol": 2,
+          "descripcion": "Administrador"
+        }
+      ],
+      "areas": [
+        {
+          "nombre": "AREA_PREVENCION",
+          "idArea": 1,
+          "secciones": [
+            {
+              "nombre": "SEC_TRABAJADORES_PT",
+              "idSeccion": 79,
+              "ruta": "prevencion-trabajadores"
+            },
+            {
+              "nombre": "SEC_DOCUMENTACION_PREV",
+              "idSeccion": 15,
+              "subsecciones": [
+                {
+                  "nombre": "SS_DOCUMENTACION_PREV",
+                  "idSubseccion": 82,
+                  "ruta": "prevencion-documentos-tecnicos",
+                  "tooltip": false,
+                  "tooltipKey": "SS_DOCUMENTACION_PREV"
+                },
+                {
+                  "nombre": "SS_DOCUMENTACION_INF_PERS_TRABAJADORAS",
+                  "idSubseccion": 83,
+                  "ruta": "prevencion-documentos-personas-trabajadoras",
+                  "tooltip": false,
+                  "tooltipKey": "SS_DOCUMENTACION_INF_PERS_TRABAJADORAS"
+                }
+              ],
+              "ruta": ""
+            },
+            {
+              "nombre": "SEC_GESTION_PREVENCION",
+              "idSeccion": 107,
+              "ruta": "planificacion-prl",
+              "subsecciones": [
+                {
+                  "nombre": "SS_PLANIFICACION_ACTUAL",
+                  "idSubseccion": 108,
+                  "ruta": "planificacion-prl/planificacion",
+                  "tooltip": false
+                },
+                {
+                  "nombre": "SS_HISTORICO_PRL",
+                  "idSubseccion": 109,
+                  "ruta": "planificacion-prl/historico",
+                  "tooltip": false
+                },
+                {
+                  "nombre": "SS_OBJETIVOS",
+                  "idSubseccion": 110,
+                  "ruta": "planificacion-prl/objetivos",
+                  "tooltip": false
+                }
+              ]
+            },
+            {
+              "nombre": "SEC_FORMACION_PREV",
+              "idSeccion": 17,
+              "subsecciones": [
+                {
+                  "nombre": "SS_REGISTROS_FORMACION",
+                  "idSubseccion": 36,
+                  "ruta": "formacion-certificados",
+                  "tooltip": false,
+                  "tooltipKey": "SS_REGISTROS_FORMACION"
+                },
+                {
+                  "nombre": "SS_CALENDARIO_CURSOS",
+                  "idSubseccion": 37,
+                  "ruta": "calendario-cursos",
+                  "tooltip": false,
+                  "tooltipKey": "SS_CALENDARIO_CURSOS"
+                }
+              ]
+            },
+            {
+              "nombre": "SEC_FORMACION_PREV",
+              "idSeccion": 17,
+              "subsecciones": [
+                {
+                  "nombre": "SS_REGISTROS_FORMACION",
+                  "idSubseccion": 36,
+                  "ruta": "formacion-certificados",
+                  "tooltip": false,
+                  "tooltipKey": "SS_REGISTROS_FORMACION"
+                },
+                {
+                  "nombre": "SS_CALENDARIO_CURSOS",
+                  "idSubseccion": 37,
+                  "ruta": "calendario-cursos",
+                  "tooltip": false,
+                  "tooltipKey": "SS_CALENDARIO_CURSOS"
+                }
+              ]
+            },
+            {
+              "nombre": "SEC_TRABAJADOS_PREV",
+              "idSeccion": 13,
+              "ruta": "prevencion-trabajos-realizados"
+            }
+          ],
+          "ruta": "prevencion-tecnica-init"
+        },
+        {
+          "nombre": "AREA_VIGILANCIA",
+          "idArea": 2,
+          "secciones": [
+            {
+              "nombre": "SEC_TRABAJADORES_VS",
+              "idSeccion": 80,
+              "ruta": "prevencion-trabajadores"
+            },
+            {
+              "nombre": "SEC_DOCUMENTACION_VIG",
+              "idSeccion": 16,
+              "subsecciones": [
+                {
+                  "nombre": "SS_APTITUD",
+                  "idSubseccion": 43,
+                  "ruta": "vigilancia-informes-aptitud",
+                  "tooltip": false,
+                  "tooltipKey": "SS_APTITUD"
+                },
+                {
+                  "nombre": "SS_INFORMES_EMPRESA",
+                  "idSubseccion": 42,
+                  "ruta": "medico-informes-medicos",
+                  "tooltip": false,
+                  "tooltipKey": "SS_INFORMES_EMPRESA"
+                },
+                {
+                  "nombre": "SS_INFORMES_MEDICOS_ASOCIADOS_IPROMES",
+                  "idSubseccion": 84,
+                  "ruta": "vigilancia-informes-medicos-asociados",
+                  "tooltip": false,
+                  "tooltipKey": "SS_INFORMES_MEDICOS_ASOCIADOS_IPROMES"
+                }
+              ],
+              "ruta": ""
+            },
+            {
+              "nombre": "SEC_DIPLOMAS_FORMACION",
+              "idSeccion": 14,
+              "ruta": "formacion-certificados"
+            },
+            {
+              "nombre": "SEC_RECONOCIMIENTOS_MED",
+              "idSeccion": 18,
+              "subsecciones": [
+                {
+                  "nombre": "SS_CITA",
+                  "idSubseccion": 46,
+                  "ruta": "citacion-web",
+                  "tooltip": false,
+                  "tooltipKey": "SS_CITA"
+                },
+                {
+                  "nombre": "SS_HISTORICO",
+                  "idSubseccion": 47,
+                  "ruta": "historico-citas",
+                  "tooltip": false,
+                  "tooltipKey": "SS_HISTORICO"
+                }
+              ]
+            }
+          ],
+          "ruta": "vigilancia-salud-init"
+        },
+        {
+          "nombre": "AREA_ADMINISTRACIÓN",
+          "idArea": 3,
+          "secciones": [
+            {
+              "nombre": "SEC_FACTURAS",
+              "idSeccion": 19,
+              "ruta": "preving-facturas"
+            },
+            {
+              "nombre": "SEC_CONTRATOS",
+              "idSeccion": 20,
+              "ruta": "contratos"
+            },
+            {
+              "nombre": "SEC_CERTIFICADOS",
+              "idSeccion": 21,
+              "ruta": "certificados"
+            },
+            {
+              "nombre": "SEC_TRATAMIENTO",
+              "idSeccion": 22,
+              "ruta": "tratamiento"
+            }
+          ],
+          "ruta": "administracion-init"
+        },
+        {
+          "nombre": "AREA_INFORMACION",
+          "idArea": 4,
+          "secciones": [
+            {
+              "nombre": "SEC_CENTROS",
+              "idSeccion": 25,
+              "ruta": "centros-trabajo"
+            },
+            {
+              "nombre": "SEC_CONTACTOS",
+              "idSeccion": 24,
+              "ruta": "contacto"
+            },
+            {
+              "nombre": "SEC_DELEGACIONES",
+              "idSeccion": 30,
+              "ruta": "delegaciones"
+            }
+          ],
+          "ruta": "informacion-init"
+        },
+        {
+          "nombre": "AREA_USUARIO",
+          "idArea": 8,
+          "secciones": [
+            {
+              "nombre": "SEC_GESTION",
+              "idSeccion": 34,
+              "subsecciones": [
+                {
+                  "nombre": "SS_USUARIO_TODOS",
+                  "idSubseccion": 56,
+                  "ruta": "buscador-usuarios",
+                  "tooltip": false,
+                  "tooltipKey": "SS_USUARIO_TODOS"
+                },
+                {
+                  "nombre": "SS_USUARIO_ALTA",
+                  "idSubseccion": 57,
+                  "ruta": "alta-usuario",
+                  "tooltip": false,
+                  "tooltipKey": "SS_USUARIO_ALTA"
+                }
+              ]
+            },
+            {
+              "nombre": "SECTION.APPOINTMENT_MANAGEMENT",
+              "idSeccion": 92,
+              "subsecciones": [
+                {
+                  "nombre": "SUBSECTION.COMPANY_APPOINTMENT_MANAGEMENT.TITLE",
+                  "idSubseccion": 93,
+                  "ruta": "gestion-citas-empresas",
+                  "tooltip": true,
+                  "tooltipKey": "SUBSECTION.COMPANY_APPOINTMENT_MANAGEMENT.TOOLTIP"
+                },
+                {
+                  "nombre": "SUBSECTION.EMPLOYEE_APPOINTMENT_MANAGEMENT.TITLE",
+                  "idSubseccion": 94,
+                  "ruta": "gestion-citas-personas",
+                  "tooltip": true,
+                  "tooltipKey": "SUBSECTION.EMPLOYEE_APPOINTMENT_MANAGEMENT.TOOLTIP"
+                }
+              ]
+            }
+          ],
+          "ruta": "usuario-init"
+        },
+        {
+          "nombre": "AREA_AYUDA",
+          "idArea": 5,
+          "secciones": [
+            {
+              "nombre": "SEC_MANUAL",
+              "idSeccion": 26,
+              "ruta": "ayuda.pdf"
+            },
+            {
+              "nombre": "SS_VIDEOAYUDAS",
+              "idSeccion": 50,
+              "ruta": "ayuda/videoayudas"
+            },
+            {
+              "nombre": "SS_FAQS",
+              "idSeccion": 51,
+              "ruta": "ayuda/faqs"
+            }
+          ],
+          "ruta": "ayuda-init"
+        },
+        {
+          "nombre": "AREA_MENSAJES",
+          "idArea": 7,
+          "ruta": "centro-mensajes"
+        }
+      ],
+      "permisosRoles": [
+        {
+          "nombre": "Administrador",
+          "idRol": 2,
+          "descripcion": "Administrador"
+        },
+        {
+          "nombre": "Prevención Técnica",
+          "idRol": 5,
+          "descripcion": "Prevención Técnica"
+        },
+        {
+          "nombre": "Vigilancia de la Salud",
+          "idRol": 6,
+          "descripcion": "Vigilancia de la Salud"
+        },
+        {
+          "nombre": "Administrativo",
+          "idRol": 7,
+          "descripcion": "Administrativo"
+        }
+      ],
+      "listaHistoricoGdprUsuarioDto": [
+        {
+          "usuario": {
+            "idUsuario": 0,
+            "nombre": "ANTONIO",
+            "apellidos": "MACIAS RUIZ",
+            "email": "antonio.macias@sovena.es",
+            "activo": false,
+            "verReconocimientos": false
+          },
+          "fechaAceptacion": "2021-12-07T08:40:58Z",
+          "gdpr": {
+            "idGdpr": 1,
+            "idioma": {
+              "nombre": "Español",
+              "idIdioma": 1,
+              "lang": "es-ES"
+            },
+            "version": "1.0",
+            "texto": "<h2>1.- Objeto</h2>\r\n<p align=\"justify\">La presente p&aacute;gina web es propiedad de la/s empresas de Grupo Preving</p>\r\n<p align=\"justify\">La utilizaci&oacute;n de la EXTRANET por cualquier persona atribuye la condici&oacute;n de &quot;usuario&quot;, el cual acepta que el uso es bajo su exclusiva responsabilidad.</p>\r\n<h2>2.- Uso de la extranet</h2>\r\n<p align=\"justify\">La EMPRESA CLIENTE ha concertado con la/s empresas de Grupo Preving, el acceso y la utilizaci&oacute;n de la extranet. Este acceso y utilizaci&oacute;n est&aacute; relacionado con la contrataci&oacute;n del concierto de actividades como Servicio de Prevenci&oacute;n Ajeno firmado entre EMPRESA CLIENTE y la/s empresas del Grupo Preving</p>\r\n<p align=\"justify\">La utilizaci&oacute;n de la EXTRANET por cualquier persona atribuye la condici&oacute;n de &quot;usuario&quot;, el cual acepta que el uso es bajo su exclusiva responsabilidad.</p>\r\n<p align=\"justify\">El usuario se compromete a no utilizar la informaci&oacute;n, actividades, productos o servicios que se ponen a su disposici&oacute;n para desarrollar actividades contrarias a las leyes, a la moral o al orden p&uacute;blico y, en general, a hacer un uso conforme a las presentes Condiciones Generales.</p>\r\n<h2>3.- Contenidos</h2>\r\n<p align=\"justify\">Los contenidos de la extranet son puestos a disposici&oacute;n del usuario como informaci&oacute;n relacionada con el concierto de actividades del Servicio de Prevenci&oacute;n Ajeno firmado entre EMPRESA CLIENTE y la/s empresas del Grupo Preving.</p>\r\n<p align=\"justify\">El usuario es el &uacute;nico responsable del contenido, uso y divulgaci&oacute;n de las informaciones y documentos existentes en la extranet.</p>\r\n<p align=\"justify\">El usuario se compromete a revisar de forma peri&oacute;dica el correo electr&oacute;nico asociado al usuario, para que est&eacute; al tanto de las notificaciones provenientes de la extranet.</p>\r\n<h2>4.- Acceso a la extranet</h2>\r\n<p align=\"justify\">El usuario acceder&aacute; a la extranet de forma remota utilizando las herramientas telem&aacute;ticas previstas a tal efecto, mediante una identificaci&oacute;n y una contrase&ntilde;a que le ser&aacute; suministrada, de forma confidencial, cuando se d&eacute; de alta al usuario en la extranet.</p>\r\n<h2>5.- Protecci&oacute;n de datos</h2>\r\n<p align=\"justify\">Se garantiza el cumplimiento &iacute;ntegro de las obligaciones dispuestas, as&iacute; como la implementaci&oacute;n de las medidas de seguridad dispuestas en el art&iacute;culo 9 de la Ley Org&aacute;nica 15/1999, de Protecci&oacute;n de Datos Personales y en su Reglamento de desarrollo aprobado por Real Decreto 1720/2007, de 21 de diciembre, as&iacute; como el Real Decreto-ley 5/2018, de 27 de julio de medidas urgentes para la adaptaci&oacute;n del Derecho espa&ntilde;ol a la normativa de la Uni&oacute;n Europea en materia de protecci&oacute;n de datos (RGPD).</p>\r\n<p align=\"justify\">Por todo lo anterior,</p>\r\n<p align=\"justify\">Declaro y acepto sin ninguna objeci&oacute;n que estoy accediendo a la extranet debidamente autorizado y legitimado por la empresa (persona f&iacute;sica o jur&iacute;dica) contratante de los servicios de la/s empresa/s de Grupo Preving cuya contrataci&oacute;n origina el acceso, y que act&uacute;o en nombre de tal empresa con su pleno conocimiento y aceptaci&oacute;n vinculandola y responsabiliz&aacute;ndola solidariamente junto conmigo, y a todos los efectos, por el uso y gesti&oacute;n que se realice con mis claves.</p>\r\n<p align=\"justify\">Igualmente declaro que tanto yo como la empresa por la que act&uacute;o conocemos las obligaciones y responsabilidades que nos impone la Ley de Prevenci&oacute;n de Riesgos Laborales y su normativa de desarrollo sin que nos exima de ellas el acudir como modelo de organizaci&oacute;n a uno o varios Servicios de Prevenci&oacute;n Ajenos (los cuales act&uacute;an como asesores y no se les transfieren nuestras obligaciones ni responsabilidades por acudir a ellos).</p>\r\n\r\n",
+            "fechaAlta": "2020-10-29T15:19:51Z",
+            "activo": true
+          }
+        }
+      ]
+    }
+  },
+  "languages": [
+    {
+      "nombre": "Español",
+      "idIdioma": 1,
+      "lang": "es-ES"
+    },
+    {
+      "nombre": "Inglés",
+      "idIdioma": 2,
+      "lang": "en-GB"
+    },
+    {
+      "nombre": "Euskera",
+      "idIdioma": 3,
+      "lang": "es-EU"
+    },
+    {
+      "nombre": "Catalán",
+      "idIdioma": 4,
+      "lang": "es-CA"
+    }
+  ],
+  "favorites": [
+    {
+      "nombre": "MENSAJES",
+      "usuario": {
+        "idUsuario": 63,
+        "idioma": {
+          "idIdioma": 1,
+          "nombre": "SPANISH_LANGUAGE",
+          "lang": "es-ES"
+        },
+        "eMail": "antonio.macias@sovena.es",
+        "nombre": "ANTONIO",
+        "apellidos": "MACIAS RUIZ"
+      },
+      "area": {
+        "idArea": 50,
+        "nombre": "SS_VIDEOAYUDAS",
+        "nivel": 2,
+        "orden": 2,
+        "idPadre": 5,
+        "wp": false,
+        "hidden": false,
+        "ruta": "ayuda/videoayudas",
+        "usuario_incial": false,
+        "tooltip": false
+      },
+      "areaPadre": {
+        "idArea": 5,
+        "nombre": "AREA_AYUDA",
+        "nivel": 1,
+        "orden": 7,
+        "idPadre": 0,
+        "wp": false,
+        "hidden": false,
+        "ruta": "ayuda-init",
+        "usuario_incial": false,
+        "tooltip": false
+      }
+    }
+  ],
+  "companySelection": [],
+  "medicalCenterRelationObj": [
+    {
+      "id": 14,
+      "name": "ANDALUCIA",
+      "provinceMedicalCenterDtoList": [
+        {
+          "id": 11,
+          "name": "CADIZ",
+          "medicalCenterDtoList": [
+            {
+              "id": 22584,
+              "name": "GESTIÓN SANITARIA EUROPA S.L.",
+              "medicalCenterStreet": "Avda. España, nº26 11300 La Línea"
+            },
+            {
+              "id": 14504,
+              "name": "CENTRO MEDICO LINENSE",
+              "medicalCenterStreet": "AVDA. DE ESPAÑA, 17"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "JAEN",
+          "medicalCenterDtoList": [
+            {
+              "id": 10048,
+              "name": "JAEN"
+            },
+            {
+              "id": 4918,
+              "name": "LICLINIC (GEMA RUIZ LOZANO)",
+              "medicalCenterStreet": "AVDA. ANDALUCIA, 9 BAJO"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "CORDOBA",
+          "medicalCenterDtoList": [
+            {
+              "id": 24348,
+              "name": "CLIDECEM",
+              "medicalCenterStreet": "AVENIDA BAUCAU N 13"
+            },
+            {
+              "id": 26129,
+              "name": "GRUPO PREVING (CORDOBA-TARDE)",
+              "medicalCenterStreet": "AVENIDA DE AMERICA, Nº 55 LOCAL"
+            },
+            {
+              "id": 24188,
+              "name": "MEDILAP SERVICIOS MEDICOS",
+              "medicalCenterStreet": "SAN JUAN DE LA CRUZ , 21"
+            },
+            {
+              "id": 10044,
+              "name": "CORDOBA"
+            },
+            {
+              "id": 1185,
+              "name": "POLICLINICA ENFASIS SIGLO 21 S.L",
+              "medicalCenterStreet": "miguel cruz cuenca nº 6 bajo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "CANARIAS",
+      "provinceMedicalCenterDtoList": [
+        {
+          "id": 38,
+          "name": "SANTA C. TENERIFE",
+          "medicalCenterDtoList": [
+            {
+              "id": 12044,
+              "name": "CLINICA CURBELO",
+              "medicalCenterStreet": "AVENIDA DE SANTA CRUZ, 44"
+            },
+            {
+              "id": 11870,
+              "name": "TENERIFE SUR"
+            },
+            {
+              "id": 11844,
+              "name": "LA OROTAVA - NORTE TENERIFE"
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "name": "PALMAS, LAS",
+          "medicalCenterDtoList": [
+            {
+              "id": 11764,
+              "name": "VECINDARIO"
+            },
+            {
+              "id": 24028,
+              "name": "LAS PALMAS TOMAS MORALES"
+            },
+            {
+              "id": 11865,
+              "name": "LA PALMA"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "appointmentManagements": [
+    {
+      "id": 1,
+      "name": "Empresa1 - Centro 1",
+      "active": true,
+      "accepted": true,
+      "allMedicalCenter": true,
+      "allCommunityMedicalCenter": true,
+      "allProvinceMedicalCenter": true,
+      "allMonthsAllowed": false,
+      "daysInAdvance": 90,
+      "selectedMonthList": ["JANUARY", "FEBRUARY"],
+      "selectedCommunityList": [],
+      "selectedMedicalCenterList": [],
+      "selectedProvinceList": [],
+      "blocked": false
+    },
+    {
+      "id": 2,
+      "name": "Empresa1 - Centro 2",
+      "active": true,
+      "accepted": true,
+      "allMedicalCenter": false,
+      "daysInAdvance": 90,
+      "allCommunityMedicalCenter": false,
+      "allProvinceMedicalCenter": false,
+      "allMonthsAllowed": true,
+      "selectedCommunityList": [
+        {
+          "id": 14,
+          "name": "ANDALUCIA"
+        }
+      ],
+      "selectedMedicalCenterList": [
+        {
+          "id": 22584,
+          "name": "GESTIÓN SANITARIA EUROPA S.L.",
+          "medicalCenterStreet": "Avda. España, nº26 11300 La Línea"
+        }
+      ],
+      "selectedProvinceList": [
+        {
+          "id": 11,
+          "name": "CADIZ"
+        },
+        {
+          "id": 23,
+          "name": "JAEN"
+        }
+      ],
+      "blocked": false
+    },
+    {
+      "id": 3,
+      "name": "Empresa1 - Centro 3",
+      "active": true,
+      "accepted": true,
+      "allMedicalCenter": false,
+      "allCommunityMedicalCenter": true,
+      "allProvinceMedicalCenter": true,
+      "allMonthsAllowed": true,
+      "daysInAdvance": 90,
+      "selectedCommunityList": [
+        {
+          "id": 14,
+          "name": "ANDALUCIA"
+        },
+        {
+          "id": 19,
+          "name": "CANARIAS"
+        }
+      ],
+      "selectedMedicalCenterList": [],
+      "selectedProvinceList": [],
+      "blocked": true
+    },
+    {
+      "id": 4,
+      "name": "Empresa prueba 1 prueba2 - Centro de prueba 1 con prueba 3 mas priea lsdkfjkefse erjweifansdfn eirewirjhewifds slefjslkenfskdnf fskejlsfnxdn ejrsfnkf",
+      "active": true,
+      "accepted": true,
+      "allMedicalCenter": true,
+      "allCommunityMedicalCenter": true,
+      "allProvinceMedicalCenter": true,
+      "allMonthsAllowed": true,
+      "daysInAdvance": 90,
+      "selectedCommunityList": [],
+      "selectedMedicalCenterList": [],
+      "selectedProvinceList": [],
+      "blocked": true
+    }
+  ],
+  "aptitudes": [
+    {
+      "nombre": "Aptitud no informable",
+      "idAptitud": 8
+    },
+    {
+      "nombre": "Apto",
+      "idAptitud": 1
+    },
+    {
+      "nombre": "Apto con restricciones",
+      "idAptitud": 2
+    },
+    {
+      "nombre": "En observación",
+      "idAptitud": 7
+    },
+    {
+      "nombre": "Incompleto. No valorable",
+      "idAptitud": 6
+    },
+    {
+      "nombre": "No apto",
+      "idAptitud": 4
+    },
+    {
+      "nombre": "No apto, temporal",
+      "idAptitud": 3
+    },
+    {
+      "nombre": "No idóneo",
+      "idAptitud": 5
+    }
+  ],
+  "informesAptitud": [
+    {
+      "idDocumento": 452674867,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2021-12-29",
+      "ubicacion": "D3BCBCE34E740D6EE053050F9B9B3E6E",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "FABIO",
+            "idTrabajador": 0,
+            "apellidos": "CARMONA GONZALEZ",
+            "nif": "07270483E",
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "PEÓN DE ALMAZARA/CONTROLADOR DE CALIDAD",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Inicial",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "protocolo",
+          "listaValoresDto": [
+            {
+              "nombre": "RRMM Básico",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Manipulación manual de cargas",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Dermatosis",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Esfuerzo visual",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Espacios confinados",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Posturas forzadas y/o mantenidas",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Vigilancia respiratoria",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Vigilancia respiratoria",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Usuarios de pantallas de visualización de datos (PVD´s)",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Movimientos repetitivos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Turnicidad/nocturnidad",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Agentes químicos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Agentes químicos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Trabajo en altura",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Ruido",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Conducción de vehículos y/o maquinaria",
+              "idProtocolo": 0
+            }
+          ]
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "medicalExamination",
+          "valorDto": {
+            "lastRecognitionDateConfirmed": "2023-09-01"
+          },
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "gdpr": {
+        "nombre": "",
+        "idGdpr": 0,
+        "texto": "<p align=\"justify\">Declaro y acepto sin ninguna objeci&oacute;n que la empresa (persona f&iacute;sica o jur&iacute;dica) contratante de los servicios de la/s empresa/s de Grupo Preving,\r\nde cuya contrataci&oacute;n proviene el documento al que voy a acceder/descargar, me autoriza y legitima para acceder, descargar y aceptar a todos los efectos\r\nen su propio nombre tal documento, as&iacute; como declaro que al descargar el documento lo estoy aceptando sin restricciones y con plena conformidad con el\r\nmismo y a todos los efectos en nombre de la empresa por cuenta de la que act&uacute;o y accedo al sistema, consider&aacute;ndose entregada la documentaci&oacute;n\r\na todos los efectos.\r\n</p>\r\n<p align=\"justify\">\r\nIgualmente declaro que tanto yo como la empresa por la que act&uacute;o conocemos las obligaciones y responsabilidades que nos impone la Ley de Prevenci&oacute;n\r\nde Riesgos Laborales y su normativa de desarrollo sin que nos exima de ellas el acudir como modelo de organizaci&oacute;n a uno o varios Servicios de\r\nPrevenci&oacute;n Ajenos (los cuales act&uacute;an como asesores y no se les transfieren nuestras obligaciones ni responsabilidades por acudir a ellos).\r\n</p>\r\n",
+        "activo": false
+      },
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    },
+    {
+      "idDocumento": 452885182,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2022-06-03",
+      "ubicacion": "E085AAB5CD7E4F96E053060F9B9BAE53",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "RUBEN",
+            "idTrabajador": 0,
+            "apellidos": "BUJALDON CARRILLO",
+            "nif": "45869041A",
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "TÉCNICO AGRÓNOMO / TÉCNICO EXPLOTACIÓN AGRÍCOLA",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "protocolo",
+          "listaValoresDto": [
+            {
+              "nombre": "Esfuerzo visual",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Posturas forzadas y/o mantenidas",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Usuarios de pantallas de visualización de datos (PVD´s)",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Movimientos repetitivos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Agentes químicos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Agentes químicos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Conducción de vehículos y/o maquinaria",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Dermatosis",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Agentes biológicos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " RRMM Básico",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Asma laboral",
+              "idProtocolo": 0
+            }
+          ]
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "gdpr": {
+        "nombre": "",
+        "idGdpr": 0,
+        "texto": "<p align=\"justify\">Declaro y acepto sin ninguna objeci&oacute;n que la empresa (persona f&iacute;sica o jur&iacute;dica) contratante de los servicios de la/s empresa/s de Grupo Preving,\r\nde cuya contrataci&oacute;n proviene el documento al que voy a acceder/descargar, me autoriza y legitima para acceder, descargar y aceptar a todos los efectos\r\nen su propio nombre tal documento, as&iacute; como declaro que al descargar el documento lo estoy aceptando sin restricciones y con plena conformidad con el\r\nmismo y a todos los efectos en nombre de la empresa por cuenta de la que act&uacute;o y accedo al sistema, consider&aacute;ndose entregada la documentaci&oacute;n\r\na todos los efectos.\r\n</p>\r\n<p align=\"justify\">\r\nIgualmente declaro que tanto yo como la empresa por la que act&uacute;o conocemos las obligaciones y responsabilidades que nos impone la Ley de Prevenci&oacute;n\r\nde Riesgos Laborales y su normativa de desarrollo sin que nos exima de ellas el acudir como modelo de organizaci&oacute;n a uno o varios Servicios de\r\nPrevenci&oacute;n Ajenos (los cuales act&uacute;an como asesores y no se les transfieren nuestras obligaciones ni responsabilidades por acudir a ellos).\r\n</p>\r\n",
+        "activo": false
+      },
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    },
+    {
+      "idDocumento": 452668811,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2021-12-21",
+      "ubicacion": "D394F9DFDE5B1C7DE053060F9B9B5552",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "ROCIO",
+            "idTrabajador": 0,
+            "apellidos": "BRONCANO CANO",
+            "nif": "53573903A",
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "TÉCNICO DE LABORATORIO",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "protocolo",
+          "listaValoresDto": [
+            {
+              "nombre": "Dermatosis",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Dermatosis",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Usuarios de pantallas de visualización de datos (PVD´s)",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Movimientos repetitivos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Agentes químicos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Conducción de vehículos y/o maquinaria",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Agentes químicos",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Plaguicidas",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " RRMM Básico",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Trabajo en altura",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Esfuerzo visual",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Posturas forzadas y/o mantenidas",
+              "idProtocolo": 0
+            },
+            {
+              "nombre": " Vigilancia respiratoria",
+              "idProtocolo": 0
+            }
+          ]
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "gdpr": {
+        "nombre": "",
+        "idGdpr": 0,
+        "texto": "<p align=\"justify\">Declaro y acepto sin ninguna objeci&oacute;n que la empresa (persona f&iacute;sica o jur&iacute;dica) contratante de los servicios de la/s empresa/s de Grupo Preving,\r\nde cuya contrataci&oacute;n proviene el documento al que voy a acceder/descargar, me autoriza y legitima para acceder, descargar y aceptar a todos los efectos\r\nen su propio nombre tal documento, as&iacute; como declaro que al descargar el documento lo estoy aceptando sin restricciones y con plena conformidad con el\r\nmismo y a todos los efectos en nombre de la empresa por cuenta de la que act&uacute;o y accedo al sistema, consider&aacute;ndose entregada la documentaci&oacute;n\r\na todos los efectos.\r\n</p>\r\n<p align=\"justify\">\r\nIgualmente declaro que tanto yo como la empresa por la que act&uacute;o conocemos las obligaciones y responsabilidades que nos impone la Ley de Prevenci&oacute;n\r\nde Riesgos Laborales y su normativa de desarrollo sin que nos exima de ellas el acudir como modelo de organizaci&oacute;n a uno o varios Servicios de\r\nPrevenci&oacute;n Ajenos (los cuales act&uacute;an como asesores y no se les transfieren nuestras obligaciones ni responsabilidades por acudir a ellos).\r\n</p>\r\n",
+        "activo": false
+      },
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    }
+  ],
+  "historyProficiencyReports": [
+    {
+      "checked": false,
+      "idDocumento": 452674867,
+      "nombreDocumento": "",
+      "fechaDocumento": null,
+      "empresaCentroNombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA - ELAIA  (CENTRO2)",
+      "trabajadorNombre": "Pepe Villuela",
+      "puestoTrabajo": [
+        {
+          "nombre": "PEÓN DE ALMAZARA/CONTROLADOR DE CALIDAD",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "motivo": "Inicial",
+      "aptitudNombre": "Apto",
+      "observaciones": "",
+      "protocolos": [
+        {
+          "nombre": "RRMM Básico",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Manipulación manual de cargas",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Dermatosis",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Esfuerzo visual",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Espacios confinados",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Posturas forzadas y/o mantenidas",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Vigilancia respiratoria",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Vigilancia respiratoria",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Usuarios de pantallas de visualización de datos (PVD´s)",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Movimientos repetitivos",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Turnicidad/nocturnidad",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Agentes químicos",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Agentes químicos",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Trabajo en altura",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Ruido",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Conducción de vehículos y/o maquinaria",
+          "idProtocolo": 0
+        }
+      ],
+      "fechaBaja": "",
+      "accionesRealizadas": false,
+      "idTipoDocumento": 0,
+      "ubicacion": "",
+      "gdprId": 0,
+      "fechaAceptacionGdpr": null,
+      "gdpr": null,
+      "listaHistoricoDocumentoDto": []
+    },
+    {
+      "checked": false,
+      "idDocumento": 452674868,
+      "nombreDocumento": "",
+      "fechaDocumento": null,
+      "empresaCentroNombre": "new ELAIA S.A. SUCURSAL EN  ESPAÑA - ELAIA  (CENTRO2)",
+      "trabajadorNombre": "True Pepe Villuela",
+      "puestoTrabajo": [
+        {
+          "nombre": "PEÓN DE ALMAZARA/CONTROLADOR DE CALIDAD",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "motivo": "Inicial",
+      "aptitudNombre": "Apto",
+      "observaciones": "",
+      "protocolos": [
+        {
+          "nombre": "RRMM Básico",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Manipulación manual de cargas",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Dermatosis",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Esfuerzo visual",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Espacios confinados",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Posturas forzadas y/o mantenidas",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Vigilancia respiratoria",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Vigilancia respiratoria",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Usuarios de pantallas de visualización de datos (PVD´s)",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Movimientos repetitivos",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Turnicidad/nocturnidad",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Agentes químicos",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Agentes químicos",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Trabajo en altura",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Ruido",
+          "idProtocolo": 0
+        },
+        {
+          "nombre": " Conducción de vehículos y/o maquinaria",
+          "idProtocolo": 0
+        }
+      ],
+      "fechaBaja": "",
+      "accionesRealizadas": false,
+      "idTipoDocumento": 0,
+      "ubicacion": "",
+      "gdprId": 0,
+      "fechaAceptacionGdpr": null,
+      "gdpr": null,
+      "listaHistoricoDocumentoDto": []
+    }
+  ],
+  "getProtocols": [
+    {
+      "id": 2885182,
+      "name": "Agentes químicos; Agentes químicos; Conducción de vehículos y/o maquinaria; Dermatosis; Agentes biológicos; RRMM Básico; Asma laboral; Esfuerzo visual; Posturas forzadas y/o mantenidas; Usuarios de pantallas de visualización de datos (PVD´s); Movimientos repetitivos"
+    }
+  ],
+  "checkAM": {
+    "response": false
+  },
+  "pending-offers": [],
+  "correctlyUpdated": [],
+  "companyIdsWithActiveAppointmentManagements": [42966],
+  "checkIfUserHasAnyActiveAppointmentManagement": {
+    "response": true
+  },
+  "pastAptitudeReports": [
+    {
+      "idDocumento": 451055475,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO 3)",
+        "idCentro": 83376,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2017-03-09",
+      "ubicacion": "CAF6DD84EA3B11B8E053050F9B9B5291",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "RUBEN",
+            "idTrabajador": 761806,
+            "apellidos": "BUJALDON CARRILLO",
+            "nif": "45869041A",
+            "workerLastReport": false,
+            "fechaBaja": "2017-04-07",
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "INGENIERO/A AGRÍCOLA",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "medicalExamination",
+          "valorDto": {
+            "periodName": "ANUAL",
+            "periodMonths": 12,
+            "lastRecognitionDate": "2017-03-09"
+          },
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    },
+    {
+      "idDocumento": 451328924,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2018-04-12",
+      "ubicacion": "CAF6DD7DDFF711B8E053050F9B9B5291",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "RUBEN",
+            "idTrabajador": 761806,
+            "apellidos": "BUJALDON CARRILLO",
+            "nif": "45869041A",
+            "workerLastReport": false,
+            "fechaBaja": "2021-09-29",
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "RESPONSABLE ALMAZARA",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "medicalExamination",
+          "valorDto": {
+            "nextRecognitionDate": "2019-04-12",
+            "periodName": "ANUAL",
+            "periodMonths": 12,
+            "lastRecognitionDate": "2018-04-12"
+          },
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    },
+    {
+      "idDocumento": 451328924,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2018-04-12",
+      "ubicacion": "CAF6DD7DDFF711B8E053050F9B9B5291",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "RUBEN",
+            "idTrabajador": 761806,
+            "apellidos": "BUJALDON CARRILLO",
+            "nif": "45869041A",
+            "workerLastReport": false,
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "TÉCNICO AGRÓNOMO / TÉCNICO EXPLOTACIÓN AGRÍCOLA",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "medicalExamination",
+          "valorDto": {
+            "nextRecognitionDate": "2019-04-12",
+            "periodName": "ANUAL",
+            "periodMonths": 12,
+            "lastRecognitionDate": "2018-04-12"
+          },
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    },
+    {
+      "idDocumento": 451705141,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2019-04-02",
+      "ubicacion": "CAF6DD74726711B8E053050F9B9B5291",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "RUBEN",
+            "idTrabajador": 761806,
+            "apellidos": "BUJALDON CARRILLO",
+            "nif": "45869041A",
+            "workerLastReport": false,
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "TÉCNICO AGRÓNOMO / TÉCNICO EXPLOTACIÓN AGRÍCOLA",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "medicalExamination",
+          "valorDto": {
+            "nextRecognitionDate": "2020-04-02",
+            "periodName": "ANUAL",
+            "periodMonths": 12,
+            "lastRecognitionDate": "2019-04-02"
+          },
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    },
+    {
+      "idDocumento": 451705141,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2019-04-02",
+      "ubicacion": "CAF6DD74726711B8E053050F9B9B5291",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "RUBEN",
+            "idTrabajador": 761806,
+            "apellidos": "BUJALDON CARRILLO",
+            "nif": "45869041A",
+            "workerLastReport": false,
+            "fechaBaja": "2021-09-29",
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "RESPONSABLE ALMAZARA",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "medicalExamination",
+          "valorDto": {
+            "nextRecognitionDate": "2020-04-02",
+            "periodName": "ANUAL",
+            "periodMonths": 12,
+            "lastRecognitionDate": "2019-04-02"
+          },
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    },
+    {
+      "idDocumento": 452394783,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2021-04-15",
+      "ubicacion": "CAF6DD6029CB11B8E053050F9B9B5291",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "RUBEN",
+            "idTrabajador": 761806,
+            "apellidos": "BUJALDON CARRILLO",
+            "nif": "45869041A",
+            "workerLastReport": false,
+            "fechaBaja": "2021-09-29",
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "RESPONSABLE ALMAZARA",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "medicalExamination",
+          "valorDto": {
+            "nextRecognitionDate": "2022-04-15",
+            "periodName": "ANUAL",
+            "periodMonths": 12,
+            "lastRecognitionDate": "2021-04-15"
+          },
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    },
+    {
+      "idDocumento": 452394783,
+      "tipoDocumento": {
+        "idTipoDocumento": 45
+      },
+      "documentosHijos": [],
+      "empresa": {
+        "nombre": "ELAIA S.A. SUCURSAL EN  ESPAÑA",
+        "idEmpresa": 42966,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "ELAIA  (CENTRO2)",
+        "idCentro": 42912,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "fechaDocumento": "2021-04-15",
+      "ubicacion": "CAF6DD6029CB11B8E053050F9B9B5291",
+      "datos": [
+        {
+          "nombre": "trabajador",
+          "valorDto": {
+            "nombre": "RUBEN",
+            "idTrabajador": 761806,
+            "apellidos": "BUJALDON CARRILLO",
+            "nif": "45869041A",
+            "workerLastReport": false,
+            "activo": 0,
+            "puestoTrabajoDtoList": [
+              {
+                "nombre": "TÉCNICO AGRÓNOMO / TÉCNICO EXPLOTACIÓN AGRÍCOLA",
+                "esPuestoPrincipal": false
+              }
+            ],
+            "idRelacion": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "motivo",
+          "valor": "Periódico",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "aptitud",
+          "valorDto": {
+            "nombre": "Apto",
+            "idAptitud": 0
+          },
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "observaciones",
+          "listaValoresDto": []
+        },
+        {
+          "nombre": "medicalExamination",
+          "valorDto": {
+            "nextRecognitionDate": "2022-04-15",
+            "periodName": "ANUAL",
+            "periodMonths": 12,
+            "lastRecognitionDate": "2021-04-15"
+          },
+          "listaValoresDto": []
+        }
+      ],
+      "activo": true,
+      "accionesRealizadas": false,
+      "mostrarSegmentos": false
+    }
+  ],
+  "getTrabajadores": [
+    {
+      "nombre": "FRANCISCO JOSÉ",
+      "idTrabajador": 1537087,
+      "apellidos": "OLIVEROS LIÑÁN",
+      "nif": "30234109B",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1991-06-02",
+      "workerLastReport": false,
+      "fechaAlta": "2022-10-17",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+        "idCentro": 30043,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "CONSERJE",
+          "idPuestoTrabajo": "C303065",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 2726941
+    },
+    {
+      "nombre": "FRANCISCO JOSÉ",
+      "idTrabajador": 1537087,
+      "apellidos": "OLIVEROS LIÑÁN",
+      "nif": "30234109B",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1991-06-02",
+      "workerLastReport": false,
+      "fechaAlta": "2019-01-21",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 1437529
+    },
+    {
+      "nombre": "MANUEL JESÚS",
+      "idTrabajador": 1537085,
+      "apellidos": "MORA ARROLLO",
+      "nif": "28790000A",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1993-02-10",
+      "workerLastReport": false,
+      "fechaAlta": "2019-01-21",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 1437527
+    },
+    {
+      "nombre": "MANUEL",
+      "idTrabajador": 1537084,
+      "apellidos": "BARRERA VAZQUEZ",
+      "nif": "28647529V",
+      "sexo": "NO BINARIO",
+      "fechaNacimiento": "1984-06-16",
+      "workerLastReport": false,
+      "fechaAlta": "2019-01-21",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (MANT, PRL)",
+        "idCentro": 34200,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE MANTENIMIENTO",
+          "idPuestoTrabajo": "C305854",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 1437526
+    },
+    {
+      "nombre": "JOSÉ",
+      "idTrabajador": 1537082,
+      "apellidos": "MORA LEÓN",
+      "nif": "28833832C",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1988-04-30",
+      "workerLastReport": false,
+      "fechaAlta": "2019-04-10",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 1511671
+    },
+    {
+      "nombre": "JAVIER",
+      "idTrabajador": 1652268,
+      "apellidos": "CASTAÑO",
+      "nif": "30223315G",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1988-10-15",
+      "workerLastReport": false,
+      "fechaAlta": "2019-05-12",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "TÉCNICO/A DE PRODUCCIÓN",
+          "idPuestoTrabajo": "C326958",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 1535157
+    },
+    {
+      "nombre": "ALBERTO",
+      "idTrabajador": 485936,
+      "apellidos": "BUENO GALAN",
+      "nif": "26036173N",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1977-05-05",
+      "workerLastReport": false,
+      "fechaAlta": "2015-04-03",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+        "idCentro": 30043,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "TÉCNICO/A DE COMPRAS",
+          "idPuestoTrabajo": "C324761",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 284145
+    },
+    {
+      "nombre": "FELIPE",
+      "idTrabajador": 227892,
+      "apellidos": "ARTESERO JIMENEZ",
+      "nif": "28781291B",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1978-03-26",
+      "workerLastReport": false,
+      "fechaAlta": "2016-08-09",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 669593
+    },
+    {
+      "nombre": "JUAN CARLOS",
+      "idTrabajador": 563253,
+      "apellidos": "ESPEJO ORTIZ",
+      "nif": "48867699J",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1976-04-28",
+      "workerLastReport": false,
+      "fechaAlta": "2015-10-14",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+        "idCentro": 30043,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "TÉCNICO/A DE COMPRAS",
+          "idPuestoTrabajo": "C324761",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 557595
+    },
+    {
+      "nombre": "PABLO",
+      "idTrabajador": 574024,
+      "apellidos": "CABRERIZO BUZA",
+      "nif": "47210423W",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1988-11-06",
+      "workerLastReport": false,
+      "fechaAlta": "2015-11-03",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 571064
+    },
+    {
+      "nombre": "CARMELO LUIS",
+      "idTrabajador": 227907,
+      "apellidos": "BLANCO NIEVES",
+      "nif": "05249867W",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1961-08-11",
+      "workerLastReport": false,
+      "fechaAlta": "2014-11-23",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+        "idCentro": 30043,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "DIRECTOR DE FABRICA",
+          "idPuestoTrabajo": "C303069",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 247469
+    },
+    {
+      "nombre": "ANTONIO",
+      "idTrabajador": 227913,
+      "apellidos": "CABRERA AGUILERA",
+      "nif": "28478169Y",
+      "sexo": "HOMBRE",
+      "workerLastReport": false,
+      "fechaAlta": "2022-03-21",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (MMAA, LOG).",
+        "idCentro": 34198,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "CARRETILLERO DE LOGÍSTICA",
+          "idPuestoTrabajo": "C428316",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 2573898
+    },
+    {
+      "nombre": "FRANCISCO DAVID",
+      "idTrabajador": 104011,
+      "apellidos": "LOPEZ BLASCO",
+      "nif": "28482373R",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1969-03-28",
+      "workerLastReport": false,
+      "fechaAlta": "2016-06-16",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (EF, SERV)",
+        "idCentro": 34202,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE FILTROS",
+          "idPuestoTrabajo": "C307003",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 652461
+    },
+    {
+      "nombre": "JOSE ANTONIO",
+      "idTrabajador": 104010,
+      "apellidos": "SANCHEZ MORON",
+      "nif": "28484525Z",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1970-05-01",
+      "workerLastReport": false,
+      "fechaAlta": "2016-08-09",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "ENCARGADO/A DE ENVASADO",
+          "idPuestoTrabajo": "C309327",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 669613
+    },
+    {
+      "nombre": "FELICIANO",
+      "idTrabajador": 104013,
+      "apellidos": "MILLAN MORALES",
+      "nif": "28905278M",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1970-03-28",
+      "workerLastReport": false,
+      "fechaAlta": "2016-06-17",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (REF)",
+        "idCentro": 34199,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE REFINERÍA",
+          "idPuestoTrabajo": "C305857",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 652473
+    },
+    {
+      "nombre": "FRANCISCO ANTONIO",
+      "idTrabajador": 104015,
+      "apellidos": "UBRIL VELAZQUEZ",
+      "nif": "48815908H",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1978-07-05",
+      "workerLastReport": false,
+      "fechaAlta": "2016-06-16",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (EF, SERV)",
+        "idCentro": 34202,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE FILTROS",
+          "idPuestoTrabajo": "C307003",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 652465
+    },
+    {
+      "nombre": "MARIA DEL ROCIO",
+      "idTrabajador": 234060,
+      "apellidos": "NUÑEZ MARTINEZ",
+      "nif": "47500262H",
+      "sexo": "MUJER",
+      "fechaNacimiento": "1983-10-30",
+      "workerLastReport": false,
+      "fechaAlta": "2016-08-09",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (LAB)",
+        "idCentro": 34201,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "ANALISTA/AUXILIAR DE LABORATORIO ANALÍTICO",
+          "idPuestoTrabajo": "C428312",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 669590
+    },
+    {
+      "nombre": "JOSE ANTONIO",
+      "idTrabajador": 104014,
+      "apellidos": "VARGAS PEREZ",
+      "nif": "77535718G",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1983-03-30",
+      "workerLastReport": false,
+      "fechaAlta": "2016-08-09",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 669616
+    },
+    {
+      "nombre": "SERGIO",
+      "idTrabajador": 490071,
+      "apellidos": "MUÑOZ LOPEZ",
+      "nif": "74646527G",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1980-08-01",
+      "workerLastReport": false,
+      "fechaAlta": "2014-07-07",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+        "idCentro": 30043,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "TÉCNICO/A DE ADMINISTRACIÓN",
+          "idPuestoTrabajo": "C324299",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 228428
+    },
+    {
+      "nombre": "JOSE ANTONIO",
+      "idTrabajador": 227927,
+      "apellidos": "DIAZ VIROLA",
+      "nif": "75408838A",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1963-02-26",
+      "workerLastReport": false,
+      "fechaAlta": "2014-06-02",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+        "idCentro": 30043,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "CONSERJE",
+          "idPuestoTrabajo": "C303065",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 238060
+    },
+    {
+      "nombre": "ANTONIO MANUEL",
+      "idTrabajador": 227925,
+      "apellidos": "DAZA LOPEZ",
+      "nif": "28798611N",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1978-09-28",
+      "workerLastReport": false,
+      "fechaAlta": "2016-06-16",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (EF, SERV)",
+        "idCentro": 34202,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE SERVICIOS",
+          "idPuestoTrabajo": "C307004",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 652459
+    },
+    {
+      "nombre": "JUAN",
+      "idTrabajador": 227924,
+      "apellidos": "CARTAN COLETO",
+      "nif": "75700491Q",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1962-11-26",
+      "workerLastReport": false,
+      "fechaAlta": "2017-03-25",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "ADMINISTRATIVO/A DE ENVASADO",
+          "idPuestoTrabajo": "C422179",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 756784
+    },
+    {
+      "nombre": "FRANCISCO",
+      "idTrabajador": 104022,
+      "apellidos": "ROMAN MARTINEZ",
+      "nif": "28721525E",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1969-09-28",
+      "workerLastReport": false,
+      "fechaAlta": "2016-06-17",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (REF)",
+        "idCentro": 34199,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE REFINERÍA",
+          "idPuestoTrabajo": "C305857",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 652474
+    },
+    {
+      "nombre": "MARINA",
+      "idTrabajador": 227931,
+      "apellidos": "ESPEJO JIMENEZ",
+      "nif": "28497544S",
+      "sexo": "MUJER",
+      "fechaNacimiento": "1980-05-24",
+      "workerLastReport": false,
+      "fechaAlta": "2018-08-19",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+        "idCentro": 30043,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "TÉCNICO/A DE CALIDAD (GRUPO)",
+          "idPuestoTrabajo": "C510356",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 1276124
+    },
+    {
+      "nombre": "ANTONIO",
+      "idTrabajador": 104025,
+      "apellidos": "RUIZ MARTOS",
+      "nif": "28499165A",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1976-09-27",
+      "workerLastReport": false,
+      "fechaAlta": "2016-06-17",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (MANT, PRL)",
+        "idCentro": 34200,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE MANTENIMIENTO",
+          "idPuestoTrabajo": "C305854",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 652488
+    },
+    {
+      "nombre": "JOSE ANTONIO",
+      "idTrabajador": 1652288,
+      "apellidos": "MARTINEZ GÓMEZ",
+      "nif": "47208420T",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1986-04-02",
+      "workerLastReport": false,
+      "fechaAlta": "2019-05-12",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (REF)",
+        "idCentro": 34199,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE REFINERÍA",
+          "idPuestoTrabajo": "C305857",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 1535160
+    },
+    {
+      "nombre": "ENRIQUE",
+      "idTrabajador": 227930,
+      "apellidos": "DORNA HERRERA",
+      "nif": "28724091N",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1967-09-11",
+      "workerLastReport": false,
+      "fechaAlta": "2014-06-02",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 224843
+    },
+    {
+      "nombre": "JOSE ALBERTO",
+      "idTrabajador": 104024,
+      "apellidos": "ALVAREZ PAEZ",
+      "nif": "28749098H",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1973-04-24",
+      "workerLastReport": false,
+      "fechaAlta": "2016-08-09",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 669592
+    },
+    {
+      "nombre": "ANTONIO GREGORIO",
+      "idTrabajador": 551508,
+      "apellidos": "GARCIA VILLAR",
+      "nif": "11766145N",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1967-06-06",
+      "workerLastReport": false,
+      "fechaAlta": "2015-04-03",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO).",
+        "idCentro": 30043,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "JEFE/A DE ADMINISTRACIÓN",
+          "idPuestoTrabajo": "C324542",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 279203
+    },
+    {
+      "nombre": "JOSE ANTONIO",
+      "idTrabajador": 104029,
+      "apellidos": "PAVON BLANCO",
+      "nif": "75428386R",
+      "sexo": "HOMBRE",
+      "fechaNacimiento": "1967-09-06",
+      "workerLastReport": false,
+      "fechaAlta": "2016-06-16",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (EF, SERV)",
+        "idCentro": 34202,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO DE FILTROS",
+          "idPuestoTrabajo": "C307003",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 652464
+    },
+    {
+      "nombre": "JORGE MANUEL",
+      "idTrabajador": 2391674,
+      "apellidos": "DIAZ HIDALGO",
+      "nif": "28813245H",
+      "sexo": "HOMBRE",
+      "workerLastReport": false,
+      "fechaAlta": "2022-03-21",
+      "activo": 0,
+      "empresa": {
+        "nombre": "SOVENA ESPAÑA",
+        "idEmpresa": 30907,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "documentos": [],
+        "todosCentros": false,
+        "corrientePago": false
+      },
+      "centro": {
+        "nombre": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)",
+        "idCentro": 34196,
+        "numTrabajadoresPT": 0,
+        "numTrabajadoresVS": 0,
+        "tienePT": false,
+        "tieneVS": false,
+        "activoPT": false,
+        "activoVS": false,
+        "principalAsignadoPT": false,
+        "principalAsignadoVS": false
+      },
+      "puestoTrabajoDtoList": [
+        {
+          "nombre": "OPERARIO/A DE ENVASADO",
+          "idPuestoTrabajo": "C303079",
+          "esPuestoPrincipal": false
+        }
+      ],
+      "idRelacion": 2573851
+    }
+  ],
+  "documentos": [],
+  "novedad": {},
+  "aceptarNovedad": [1],
+  "documentsForWorker": [
+    {
+      "id": 3,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test3",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "3",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 4,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test4",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "4",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 5,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test5",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "5",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 6,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test6",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "6",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 8,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test8",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "8",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 11,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test11",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "11",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 1,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2014-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "1",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 2,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2029-11-12T00:00:00",
+      "description": "test2",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "2",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2019-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 7,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2019-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test7",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "7",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 9,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2024-11-12T00:00:00",
+      "description": "test9",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "9",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2011-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    },
+    {
+      "id": 10,
+      "employeeId": 1537087,
+      "clientId": 30907,
+      "center": {
+        "id": 30043,
+        "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+      },
+      "jobPosition": {
+        "nombre": "CONSERJE",
+        "idPuestoTrabajo": "C303065",
+        "esPuestoPrincipal": false
+      },
+      "submitDate": "2018-11-12T00:00:00",
+      "expirationDate": "2022-11-12T00:00:00",
+      "description": "test10",
+      "documentType": {
+        "id": 1,
+        "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+        "description": "Nombramiento o Designación de Recurso Preventivo"
+      },
+      "name": "10",
+      "extension": "pdf",
+      "uniqueName": "test",
+      "isRemoved": 0,
+      "createdBy": 2049,
+      "creationDate": "2018-11-12T00:00:00",
+      "modifiedBy": 2049,
+      "modificationDate": "2018-11-12T00:00:00"
+    }
+  ],
+  "getCenters": [
+    {
+      "id": 30043,
+      "name": "SOVENA ESPAÑA (ADMON, BACK OFFICE, COMPRAS MMPP, EXP, MARK, RRHH, SIT, SSGG, LOGÍSTICA ACEITES, CALIDAD GRUPO)."
+    },
+    {
+      "id": 34196,
+      "name": "SOVENA ESPAÑA (ENV, ENSSGG, CALIDAD PLANTA, MANT)"
+    }
+  ],
+  "getAllDocumentsTypes": [
+    {
+      "id": 1,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.APPOINTMENT_OF_PREVENTIVE_RESOURCES",
+      "description": "Nombramiento o Designación de Recurso Preventivo"
+    },
+    {
+      "id": 2,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.BOMB",
+      "description": "Actuación en caso de Bomba"
+    },
+    {
+      "id": 3,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.CHEMICAL_PRODUCT_SHEET",
+      "description": "Ficha de Seguridad de los Productos Químicos"
+    },
+    {
+      "id": 4,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.EMERGENCY_TEAM_MEMBER",
+      "description": "Designación de miembros del equipo de emergencia"
+    },
+    {
+      "id": 5,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.EPI_REGISTRATION",
+      "description": "Registro de entrega de EPI´s"
+    },
+    {
+      "id": 6,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.EVACUATION",
+      "description": "Actuación en caso de Evacuación"
+    },
+    {
+      "id": 7,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.FIRE",
+      "description": "Actuación en caso de Incendios"
+    },
+    {
+      "id": 8,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.FIRST_AID",
+      "description": "Actuación en caso de Primeros Auxilios"
+    },
+    {
+      "id": 9,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.FREEZING",
+      "description": "Actuación en caso de Hipotermia/Congelación"
+    },
+    {
+      "id": 10,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.HEALTH_EXAMINATION_WAIVER",
+      "description": "Renuncia al examen de salud "
+    },
+    {
+      "id": 11,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.HEAT_STROKE",
+      "description": "Actuación frente al Golpe de Calor"
+    },
+    {
+      "id": 12,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.INFORMATION_SHEET",
+      "description": "Ficha de Información"
+    },
+    {
+      "id": 13,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.MACHINE_USE_AUTHORIZATION ",
+      "description": "Autorización de uso de maquinaria"
+    },
+    {
+      "id": 14,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.OPERATING_INSTRUCTIONS",
+      "description": "Instrucciones Operativas"
+    },
+    {
+      "id": 15,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.OUTSIDE_PLANT_INFORMATION",
+      "description": "Información de Centro de Trabajo Ajeno"
+    },
+    {
+      "id": 16,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.PREVENTION_POLICY",
+      "description": "Política de Prevención"
+    },
+    {
+      "id": 17,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.PREVENTIVE_ORGANIZATION ",
+      "description": "Organización Preventiva de la Empresa"
+    },
+    {
+      "id": 18,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.PRODUCT_SPILL",
+      "description": "Actuación en caso de Derrame de Producto Inflamable, Nocivo, Tóxico o muy Tóxico"
+    },
+    {
+      "id": 19,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.RECOGNITION_APTITUDE",
+      "description": "Apto de reconocimiento"
+    },
+    {
+      "id": 20,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.REPRESENTATION_OF_COMPANY",
+      "description": "Designación de representantes de la empresa en CSS"
+    },
+    {
+      "id": 21,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.RESIGNATION",
+      "description": "Baja o renuncia como delegado de prevención"
+    },
+    {
+      "id": 22,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.ROBBERY",
+      "description": "Actuación en caso de Atraco"
+    },
+    {
+      "id": 23,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.ROLES_AND_RESPONSIBILITIES",
+      "description": "Funciones y Responsabilidades de los Trabajadores"
+    },
+    {
+      "id": 24,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.SECURITY_PLAN_INFORMATION",
+      "description": "Información Plan de Seguridad y Salud Obra"
+    },
+    {
+      "id": 25,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.SENSITIVE_PERSONAL_INFORMATION",
+      "description": "Información complementaria para Personal Sensible"
+    },
+    {
+      "id": 26,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.TRAFFIC_ACCIDENT",
+      "description": "Actuación en caso de Accidente de Tráfico"
+    },
+    {
+      "id": 27,
+      "name": "MODALS.NEW_DOCUMENT_MODAL.WORK_TEAM_MANUALS",
+      "description": "Manuales de los Equipos de Trabajo"
+    },
+    {
+      "id": 28,
+      "name": "OTROS",
+      "description": "Otros"
+    }
+  ],
+  "getJobPositions": [
+    {
+      "idPuestoTrabajo": "C303065",
+      "nombre": "CONSERJE"
+    }
+  ],
+  "saveDocuments": {}
+}

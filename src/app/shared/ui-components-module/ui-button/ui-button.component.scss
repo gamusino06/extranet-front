@@ -1,0 +1,45 @@
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ui-button {
+  &--primary{
+    background-color: var(--orange);
+    border: 1px solid var(--orange);
+    // Estilos para el botón deshabilitado
+    &[disabled] {
+      background-color: gray;
+      color: white;
+      border: 1px solid var(--orange);
+    }
+  }
+
+  &--secondary{
+    margin-left: 0px;
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+    
+    // Estilos para el botón deshabilitado
+    &[disabled] {
+      background-color: gray;
+      color: white;
+      border: 1px solid var(--blue);
+    }
+  }
+
+  &--clean{
+    background-color: var(--white);
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    width: 10rem;
+  }
+
+  .icon{
+    height: 24px;
+  }
+}
+.ui-button--label-span{
+  vertical-align: super;
+  padding-left: 8px;
+}

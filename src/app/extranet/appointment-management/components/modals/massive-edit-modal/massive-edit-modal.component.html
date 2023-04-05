@@ -1,0 +1,58 @@
+<div Class="massive-edit-modal" *ngIf="isFormLoaded">
+  <div class="modal_header">
+    <h2>{{ "GENERAL.MASSIVE_EDIT" | translate }}</h2>
+  </div>
+  <div class="modal_body">
+    <div class="massive-edit-modal__body custom-y-scroll scroll-thin">
+      <div class="massive-edit-modal__body_section">
+        <h3>{{ "COMPANY_APPOINTMENT.TABLE.COMPANY_HEADER" | translate }}</h3>
+        <p>{{ checkedAppointmentList.length }} {{ "MODALS.MASSIVE_EDIT_MODAL.CENTER_NUMBER_SELECTED" | translate }}</p>
+      </div>
+      <div class="massive-edit-modal__body_section">
+        <label for="activeToggle" class="massive-edit-modal-label">
+          <h3>{{ "MASSIVE_EDITION.EDIT_APPOINTMENT_MANAGEMENT" | translate }}</h3>
+        </label>
+          <mat-radio-group [(ngModel)]="massiveEditModalComponentData.editActiveValue" class="radio-group">
+            <mat-radio-button
+              [value]="true">{{ "SI" | translate }}</mat-radio-button>
+            <mat-radio-button
+              [value]="false">{{ "NO" | translate }}</mat-radio-button>
+        </mat-radio-group>
+
+        <div *ngIf="massiveEditModalComponentData.editActiveValue" style="padding-left: 16px">
+          <mat-slide-toggle id="activeToggle"
+                            [(ngModel)]="massiveEditModalComponentData.active">
+            <span
+              *ngIf="massiveEditModalComponentData.active"> {{ 'COMPANY_APPOINTMENT.TABLE.ACTIVATE' | translate }} </span>
+            <span
+              *ngIf="!massiveEditModalComponentData.active"> {{ 'COMPANY_APPOINTMENT.TABLE.DEACTIVATE' | translate }} </span>
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <div class="massive-edit-modal__body_section">
+        <app-community-province-center-selector
+          [medicalCenterRelationList]="medicalCenterRelationList"
+          [appointmentManagement]="appointmentManagement"
+          [module]="applicationManagementModule"
+          [massiveEditModalComponentData]="massiveEditModalComponentData"
+          [masiveEdition]="true"
+          [activeProp]="true"
+          [showSaveButton]="false"
+          [classes]="'community-province-center-selector__container--massive-modal'"
+          id="community-province-center-selector"
+          style="width: 100%;"
+          [monthsList]="monthsList"
+          [filteredCommunityList]="filteredCommunityList"
+          #communityProvinceCenterSelectorComponent></app-community-province-center-selector>
+      </div>
+    </div>
+  </div>
+  <div class="modal_footer">
+    <button type="button" (click)="onAccept()" class="swal2-styled swal2-confirm" [disabled]="!hasBeenModified()">
+      <span>{{ 'MODALS.CONFIRMATION_MODAL.ACCEPT' | translate }}</span>
+    </button>
+    <button type="button" (click)="onCancel()" class="swal2-styled swal2-cancel">
+      <span>{{ 'MODALS.CONFIRMATION_MODAL.CANCEL' | translate }}</span>
+    </button>
+  </div>
+</div>

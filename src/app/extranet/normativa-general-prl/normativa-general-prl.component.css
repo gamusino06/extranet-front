@@ -1,0 +1,16 @@
+.salir{
+  background-color: #E52620;
+  float: right;
+  border: #E52620;
+}
+
+#buttons{
+ /*margin-top: 60px;*/
+  margin-top: 5em;
+}
+
+@media screen and (max-width: 550px) {
+  #buttons{
+    flex-direction: column;
+  }
+}

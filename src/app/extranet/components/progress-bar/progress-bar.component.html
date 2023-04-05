@@ -1,0 +1,21 @@
+
+<div class="row">
+    <div class="col">
+      <div class="wrapper-progressBar">
+        <ul class="progressBar">
+          <li [ngClass]="{active: step.toString() === '1' ||  step.toString() === '2' ||  step.toString() === '3'  ||  step.toString() === '4'  }">
+              <span>{{ 'STEP_1' | translate }}</span>
+            </li>
+          <li  [ngClass]="{active: step.toString() === '2' ||  step.toString() === '3' ||  step.toString() === '4'  }">
+              <span>{{ 'STEP_2' | translate }}</span>
+            </li>        
+          <li  [ngClass]="{active: step.toString() === '3' ||  step.toString() === '4'  }">
+              <span>{{ 'STEP_3' | translate }}</span>
+            </li>
+            <li  [ngClass]="{active: step.toString() === '4'}">
+              <span>{{ 'STEP_4' | translate }}</span>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </div>

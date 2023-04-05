@@ -1,0 +1,327 @@
+<!-- FIN FORM ---->
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" *ngIf="!showMembers">
+    <div class="row">
+        <div class="col">
+            <h1 class="tituloSec text-uppercase">{{ 'MY_COURSE.TITLE.MY_COURSES' | translate }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <app-select-empresa-filter [userForm]="searchForm"
+                                   [empresasList]="empresas"
+                                   [radioButtonsActivos]="false"
+                                   [multiple]="false" required="true" class="col"></app-select-empresa-filter>
+        <app-select-centro-filter [userForm]="searchForm"
+                                  [empresasList]="empresas"
+                                  [radioButtonsActivos]="false"
+                                  [multiple]="true" class="col"></app-select-centro-filter>
+        <i class="fas fa-info-circle"
+           style="margin-top: 5px;color: var(--blue);"
+           matTooltip="{{'MY_COURSE.WARNING.CENTER_FILTER' | translate}}"
+           matTooltipPosition="right"
+           matTooltipClass="mat-curso-tooltip"></i>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <mat-form-field appearance="outline" appearance="outline">
+                <mat-label>{{"MY_COURSE.COURSE_NAME" | translate}}</mat-label>
+                <input matInput type="text" formControlName="courseName">
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+                <mat-label>{{"MY_COURSE.TYPE_OF_TRAINING" | translate}}</mat-label>
+                <mat-select formControlName="tipoFormacion" class="multiple-selector" multiple
+                            [disableOptionCentering]="true" #selectTipoFormacion>
+                    <mat-select-trigger>
+                    <span *ngFor="let selectedOption of selectTipoFormacion.selected; let last = last"
+                          [hidden]="selectedOption.value == 0">
+                        {{selectedOption.getLabel()}}
+                        <ng-container *ngIf="!last">, </ng-container>
+                    </span>
+                    </mat-select-trigger>
+                    <mat-option (click)="selectAll('searchForm','tipoFormacion',courseType,'id');" [value]="0">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let element of courseType" [value]="element.id">
+                        {{ element.description | translate}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+                <mat-label>{{"MY_COURSE.SUBCATEGORY" | translate}}</mat-label>
+                <mat-select formControlName="subcategory" class="multiple-selector" multiple
+                            [disableOptionCentering]="true"
+                            [disabled]="getSubTypeDisabled()" #selectSubcategory>
+                    <mat-select-trigger>
+                    <span *ngFor="let selectedOption of selectSubcategory.selected; let last = last"
+                          [hidden]="selectedOption.value == 0">
+                        {{selectedOption.getLabel()}}
+                        <ng-container *ngIf="!last">, </ng-container>
+                    </span>
+                    </mat-select-trigger>
+                    <mat-option
+                            (click)="selectAll('searchForm','subcategory',formationSubTypes,'idSubcategoriaFormacion');"
+                            [value]="0">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let element of formationSubTypes" [value]="element.idSubcategoriaFormacion">
+                        {{ element.literal | translate}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-2">
+            <mat-form-field appearance="outline">
+                <mat-label>{{"MY_COURSE.ORIGIN" | translate}}</mat-label>
+                <mat-select formControlName="origin" class="multiple-selector" multiple [disableOptionCentering]="true"
+                            #selectOrigin>
+                    <mat-select-trigger>
+                    <span *ngFor="let selectedOption of selectOrigin.selected; let last = last"
+                          [hidden]="selectedOption.value == 2">
+                        {{selectedOption.getLabel()}}
+                        <ng-container *ngIf="!last">, </ng-container>
+                    </span>
+                    </mat-select-trigger>
+                    <mat-option (click)="selectAllOrigin('searchForm','origin',[0,1],'id');" [value]="2">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                    </mat-option>
+                    <mat-option [value]=0>{{'INTERNAL' | translate}}</mat-option>
+                    <mat-option [value]=1>{{'EXTERNAL' | translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-2">
+            <mat-form-field appearance="outline">
+                <mat-label>{{"MY_COURSE.MODALITY" | translate}}</mat-label>
+                <mat-select formControlName="modality" class="multiple-selector" multiple
+                            [disableOptionCentering]="true" #selectModality>
+                    <mat-select-trigger>
+                <span *ngFor="let selectedOption of selectModality.selected; let last = last"
+                      [hidden]="selectedOption.value == 0">
+                      {{selectedOption.getLabel()}}
+                    <ng-container *ngIf="!last">, </ng-container>
+                </span>
+                    </mat-select-trigger>
+                    <mat-option (click)="selectAll('searchForm','modality',courseModality,'id');" [value]="0">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let element of courseModality" [value]="element.id">
+                        {{ element.nombre | translate}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 col-md-2">
+            <mat-form-field appearance="outline">
+                <mat-label>{{"PERIODO" | translate}}</mat-label>
+                <mat-select formControlName="period" class="multiple-selector" [disableOptionCentering]="true">
+                    <mat-option *ngFor="let element of periods" [value]="element.id">
+                        {{ element.description | translate}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 col-md-2" [hidden]="isExerciseHidden()">
+            <mat-form-field appearance="outline">
+                <mat-label>{{"MY_COURSE.FINANCIAL_YEAR" | translate}}</mat-label>
+                <mat-select formControlName="financialYear" class="multiple-selector" multiple
+                            [disableOptionCentering]="true" #selectFinancialYear>
+                    <mat-select-trigger>
+                    <span *ngFor="let selectedOption of selectFinancialYear.selected; let last = last"
+                          [hidden]="selectedOption.value == 0">
+                        {{selectedOption.getLabel()}}
+                        <ng-container *ngIf="!last">, </ng-container>
+                    </span>
+                    </mat-select-trigger>
+                    <mat-option (click)="selectAll('searchForm','financialYear',exercise,'id');" [value]="0">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let element of exercise" [value]="element.id">
+                        {{ element.description | translate}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-2" [hidden]="!isExerciseHidden()">
+            <mat-form-field appearance="outline">
+                <mat-label>{{'DESDE' | translate}}</mat-label>
+                <input matInput [matDatepicker]="fromPicker" formControlName="startDatePicker" [max]="maxDate"
+                       (dateChange)="minDate = $event.value.toDate()">
+                <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-2" [hidden]="!isExerciseHidden()">
+            <mat-form-field appearance="outline">
+                <mat-label>{{'HASTA' | translate}}</mat-label>
+                <input matInput [matDatepicker]="toPicker" formControlName="finDatePicker" [min]="minDate"
+                       (dateChange)="maxDate = $event.value.toDate()">
+                <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                <mat-datepicker #toPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="d-flex ml-auto">
+            <div>
+                <button class="clean-button" type="reset" (click)="resetForm()">
+                    <img src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}">
+                    <span class="clean-span">{{ 'LIMPIAR' | translate }}</span>
+                </button>
+            </div>
+            <div>
+                <!-- <button class="search-button" type="submit" [disabled]="!searchForm.valid"> -->
+                <button class="search-button" type="submit">
+                    <img src="{{searchImgUrl}}" class="img" alt="Filtros">
+                    <span class="search-span">{{ 'BUSCAR' | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="d-flex">
+            <div class="second-row-form-button">
+                <button type="button" class="boton-alta" (click)="createCourseModal()">
+                    <span class="material-icons">add </span>
+                    <span class="down-span">{{"MY_COURSE.NEW_COURSE" | translate}}</span>
+                </button>
+            </div>
+            <div>
+                <button class="clean-button" type="button" (click)="massiveCourseModal()">
+                    <span class="clean-span">{{ 'MY_COURSE.ALTA_MASIVA' | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- FIN FORM ---->
+
+<!-- TABLE -->
+<div class="table-responsive" [hidden]="!mostrarTabla || showMembers">
+    <div class="dot-container">
+        <div class="dot-container__item">
+            <span class="dot-green"></span> {{"MY_COURSE.IN_PROGRESS" | translate}}
+        </div>
+        <div class="dot-container__item">
+            <span class="dot-soon"></span> {{"MY_COURSE.SOON" | translate}}
+        </div>
+        
+    </div>
+    <table
+            [dataSource]="dataSourceMyCourses"
+            mat-table
+            matSort
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="this.utils.drop($event, this.displayedColumns)"
+            multiTemplateDataRows
+            description=""
+            class="mat-elevation-z2 table">
+
+        <ng-container matColumnDef="checklist">
+            <th mat-header-cell cdkDrag *matHeaderCellDef>
+                <mat-checkbox (change)="checkAllRows($event)"></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef cdkDrag></th>
+            <td mat-cell *matCellDef="let element">
+        <span *ngIf="courseState(element) === 1" class="dot-green"
+              matTooltip="{{'MY_COURSE.IN_PROGRESS'|translate}}"></span>
+                <span *ngIf="courseState(element) === 0" class="dot-soon"
+                      matTooltip="{{'MY_COURSE.SOON'|translate}}"></span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="initDate">
+            <th mat-header-cell *matHeaderCellDef cdkDrag
+                mat-sort-header="initDate"> {{'MY_COURSE.START_DATE'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.initDate | date:'dd/MM/yyyy'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef cdkDrag
+                mat-sort-header="endDate"> {{'MY_COURSE.FIN_DATE'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.endDate | date:'dd/MM/yyyy'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef cdkDrag
+                mat-sort-header="description">{{'MY_COURSE.COURSE_NAME'|translate}}</th>
+            <td mat-cell *matCellDef="let element" matTooltip="{{getTooltip(element)}}"
+                matTooltipClass="mat-curso-tooltip">
+                <span class="ellipsis-cell-course-name">{{element.description}}</span>
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="origin">
+            <th mat-header-cell *matHeaderCellDef cdkDrag
+                mat-sort-header="origin"> {{'MY_COURSE.ORIGIN'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{getOriginType(element.origin) | translate }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="courseType">
+            <th mat-header-cell *matHeaderCellDef cdkDrag
+                mat-sort-header="courseType"> {{'MY_COURSE.TYPE_OF_TRAINING'|translate}}</th>
+            <td mat-cell
+                *matCellDef="let element">{{element.courseType?.description || element.courseType?.description |translate }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hours">
+            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header=""> {{'MY_COURSE.HOURS'|translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.hours}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef cdkDrag class="text-center"></th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+                <div class="d-flex">
+                    <mat-icon style="cursor: pointer;" class="icono-mater" (click)="goToMembers(element)"
+                              matTooltip="{{'MY_COURSE.NEW_COURSE_MODAL.MANAGEMENT_PARTICIPANTS.TITLE' | translate}}">
+                        groups
+                    </mat-icon>
+                    <mat-icon *ngIf="element.origin === 1" style="cursor: pointer;" class="icono-mater"
+                              (click)="editCourseModal(element)" matTooltip="{{'MY_COURSE.EDIT_COURSE' | translate}}">
+                        edit
+                    </mat-icon>
+                    <mat-icon *ngIf="element.origin === 1" style="cursor: pointer;" class="icono-mater"
+                              (click)="deleteCourseModal(element)"
+                              matTooltip="{{'MY_COURSE.DELETE_MODAL.TITLE' | translate}}">delete
+                    </mat-icon>
+                    <mat-icon style="cursor: pointer;" *ngIf="isVisibleManagerContactIcon(element)"
+                              matTooltip="{{'MY_COURSE.INTERNAL_COURSE_LIST.MANAGER_CONTACT' | translate}}"
+                              class="icono-mater" (click)="openContactManagerModal(element)">support_agent
+                    </mat-icon>
+                </div>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator class="paginator" [pageSize]="10" [pageSizeOptions]="[10, 25, 50,100]"
+                   showFirstLastButtons></mat-paginator>
+    <br/>
+    <div class="row float-right">
+        <div class="col">
+            <div class="exportar" (click)="exportAsExcel()"><img src="{{excelImgUrl}}" alt=""><span
+                    class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span></div>
+        </div>
+    </div>
+
+</div>
+<app-course-members (eventEmit)="goToMembers($event)" *ngIf="showMembers" [data]="data">
+</app-course-members>
+

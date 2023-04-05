@@ -1,0 +1,37 @@
+.creation-buttons {
+  .buttons-container {
+    display: flex;
+    align-items: stretch;
+  }
+  
+  .boton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .boton-alta {
+    // margin-left: 0px;
+    background-color: var(--orange);
+    border: 1px solid var(--orange);
+    width: 12rem;
+  }
+
+  .boton-alta--disabled {    
+    background-color: var(--lightGray);
+    color: var(--lightOrange);
+    border: 1px solid var(--lightOrange);
+  }
+
+  .boton-masiva {
+    background-color: var(--white);
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    width: 10rem;
+  }
+
+  .boton-masiva--disabled {    
+    background-color: var(--lightGray);
+    color: var(--lightBlue);
+    border: 1px solid var(--lightBlue);
+  }
+}

@@ -1,0 +1,20 @@
+
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    /*padding: 0px;*/
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+
+a.btn-icon {
+  cursor:pointer;
+}
+
+.btn {
+  color:var(--white);
+}

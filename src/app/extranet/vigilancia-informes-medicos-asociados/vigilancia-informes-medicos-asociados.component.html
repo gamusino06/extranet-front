@@ -1,0 +1,109 @@
+<div id="app-informes-medicos-asociados">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 class="tituloSec text-uppercase">{{ 'INFORMES_PROTOCOLOS_MEDICOS_ASOCIADOS' | translate }}</h1>
+            </div>
+        </div>
+        <h3>{{'MENSAJE_EXPLICATIVO_INFORMES_MEDICOS_ASOCIADOS' | translate }}</h3>
+        <!--Form-->
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+          <!--Filtros--->
+          <div class="row">
+              <div class="col-12">
+                  <mat-form-field appearance="outline" appearance="outline">
+                      <mat-label>{{ 'DENOMINACION' | translate }}</mat-label>
+                      <input matInput type="text" formControlName="denominacionForm" pattern={{validDenominacion}}>
+                  </mat-form-field>
+              </div>
+          </div>
+          <hr>
+          <div class="row justify-content-end">
+              <div>
+                  <button class="clean-button" type="reset" (click)="resetForm()"><img src="{{cleanImgUrl}}" class="img"
+                          alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+              </div>
+              <div>
+                  <button class="search-button" type="submit" [disabled]="!searchForm.valid"><img src="{{searchImgUrl}}"
+                          class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+              </div>
+          </div>
+        </form>
+        <!--END Form-->
+      <!--Tabla-->
+      <div class="row" [hidden]="!mostrarTabla">
+        <div class="col">
+          <div class="table-responsive">
+            <table
+                mat-table
+                [dataSource]="dataSource"
+                matSort
+                cdkDropList
+                cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)"
+                multiTemplateDataRows
+                class="mat-elevation-z2 table">
+
+                <ng-container matColumnDef="protocolo">
+                    <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'PROTOCOLO' | translate }} </th>
+                    <td mat-cell *matCellDef="let element">
+                      <span class="protocoloIpromeSpan" matTooltip="{{element.protocolo}}">
+                            {{element.protocolo}}
+                      </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipoIprome">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'TIPO_IPROME' | translate }} </th>
+                  <td mat-cell *matCellDef="let element">
+                      <span class="tipoIpromeSpan" matTooltip="{{element.tipoIprome}}">
+                            {{element.tipoIprome}}
+                      </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="denominacion">
+                  <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'DENOMINACION' | translate }} </th>
+                  <td mat-cell *matCellDef="let element">
+                      <span class="denominacionIpromeSpan" matTooltip="{{element.denominacion}}">
+                            {{element.denominacion}}
+                      </span>
+                    </td>
+                </ng-container>
+
+                <ng-container *ngFor="let idioma of idiomas" matColumnDef="{{idioma.columnName}}">
+                  <th mat-header-cell *matHeaderCellDef class="col-idioma">{{ idioma.columnName | translate }}</th>
+                  <td mat-cell *matCellDef="let element" style="white-space: nowrap; width: 30px;">
+                    <div *ngIf="element[idioma.columnName]">
+                      <i class="material-icons md-24"
+                         *ngIf="element[idioma.columnName].accionesRealizadas"
+                         style="color:var(--mediumGray);font-weight: normal;"
+                         (click)="verHistoricoDocumento(element[idioma.columnName])"
+                         matTooltip="{{ 'HISTORICO_ACCIONES' | translate }}">info</i>
+                      <button mat-raised-button class="btn-icon"
+                              (click)="previsualizar(element[idioma.columnName])" style="width: 30px;">
+                        <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                      </button>
+                      <button mat-raised-button class="btn-icon"
+                              (click)="descargar(element[idioma.columnName])" style="width: 30px;">
+                        <i class="material-icons md-24 mat-icon" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }} ">file_download</i>
+                      </button>
+                      <button mat-raised-button class="btn-icon"
+                              (click)="compartir(element[idioma.columnName])" style="width: 30px;">
+                        <i class="material-icons md-24 mat-icon" matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }} ">email</i>
+                      </button>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableHeaders;" matRipple [ngClass]="{'no_read': !row.accionesRealizadas, 'read': row.accionesRealizadas}"></tr>
+            </table>
+          </div>
+          <div>
+            <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+     </div>
+    </div>
+</div>

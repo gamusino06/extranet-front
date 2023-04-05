@@ -1,0 +1,15 @@
+<button
+  type="button"
+  class="flex-center"
+  [class]="buttonClasses"
+  [disabled]="disabled"
+  (click)="onClick.emit()"
+>
+  <ng-container *ngIf="!imageSrc">
+    <span style="height: 24px" class="icon material-icons">{{ icon }}</span>
+  </ng-container>
+  <ng-container *ngIf="imageSrc">
+    <img [src]="imageSrc" height="24" class="img" />
+  </ng-container>
+  <span class="ui-button--label-span">{{ label | translate | titlecase }}</span>
+</button>

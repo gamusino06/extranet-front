@@ -1,0 +1,112 @@
+.readonly-wrapper {
+    cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+    pointer-events: none;
+}
+
+.imageStyle {
+    text-align-last: center;
+}
+
+.allow-cr {
+  white-space: pre;
+}
+.search-icon {
+    position: relative !important;
+    right: 0;
+    top: 5px;
+    font-size: 22px;
+    background: transparent;
+    color: var(--blue);
+    border: 0;
+    padding: 6px 15px;
+    line-height: initial;
+    margin: 0;
+    opacity: .6;
+}
+.select-search {
+  text-align:center;
+  width:50%;
+}
+
+.select-search input {
+    width: 300px;
+    height: 25px;
+    border: 1px solid;
+    border-radius: .4em;
+    background: white;
+    padding-left: 15px;
+}
+.select-search input:focus{
+
+}
+.select-search .mat-ripple {
+    display: none;
+}
+.select-search  .mat-option-text {
+    margin-right: -15px;
+    width:60%;
+}
+.select-search .clean-filter {
+    position: relative !important;
+    right: 0;
+    top: 5px;
+    font-size: 22px;
+    background: transparent;
+    color: inherit;
+    border: 0;
+    padding: 6px 15px;
+    line-height: initial;
+    margin: 0;
+    opacity: .6;
+}
+.select-search .clean-filter:focus{
+    outline: none;
+}
+.title-nombre-videoayuda{
+  font-weight:bold;
+  color: var(--dark);
+  padding-top: 3px;
+}
+
+::ng-deep .mat-card-header-text {
+  width: 70%;
+  padding-right: 20px;
+}
+.categoriaAyudaNombreSpan {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.categoriaAyudaDescripcionSpan {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.div-categorias {
+    margin-left: 20px;
+}
+@media screen and (max-width: 1350px) {
+    .example-card {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .div-categorias {
+        margin-left: 0px;
+    }
+}
+
+
+/* Panel expandido */
+.panel-content {
+    padding-left: 45px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+    overflow-x: hidden;
+}

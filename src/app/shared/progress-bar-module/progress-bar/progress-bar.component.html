@@ -1,0 +1,11 @@
+<section class="progress-bar-component">
+  <p *ngIf="!hideProgress" class="progress-bar-component__progress">
+    {{ progress }}%
+  </p>
+  <div class="progress-bar-component__bar">
+    <div
+      class="progress-bar-component__bar__progress"
+      [ngStyle]="{ width: progress + '%' }"
+    ></div>
+  </div>
+</section>

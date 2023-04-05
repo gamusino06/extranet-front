@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: extranet-front-service
+  labels:
+    app: extranet-front
+spec:
+  ports:
+    - port: 80
+      name: angular
+      targetPort: 80
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: extranet-front
+    tier: extranet

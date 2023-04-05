@@ -1,0 +1,47 @@
+<div [formGroup]="userForm">
+<mat-form-field appearance="outline">
+    <mat-label>{{ 'EMPRESA' | translate }}</mat-label>
+    <mat-select formControlName="empresaForm" class="multiple-selector" [multiple]="multiple"
+        [disableOptionCentering]="true" #selectEmpresas>
+        <mat-select-trigger>
+            <span *ngFor="let selectedOption of selectEmpresas.selected; let last = last"
+                [hidden]="selectedOption.value == 0">
+                    {{selectedOption.getLabel()}}<ng-container *ngIf="!last">, </ng-container>
+            </span>
+          </mat-select-trigger>
+        <mat-option class="select-search"
+            (click)="toggleAllSelection()" value="0">
+            <input #empresaFilter matInput type="text"
+                    (click)="$event.stopPropagation()"
+                    (keydown)="$event.stopPropagation()"
+                    placeholder="{{ 'BUSCAR' | translate }}"
+                    autocomplete="off" />
+            <button [hidden]="!empresaFilter.value" class="clean-filter" type="button" (click)="empresaFilter.value = '';$event.stopPropagation()">
+                <i class="fas fa-times"></i>
+            </button>
+        </mat-option>
+      <!--div *ngFor="let number of this.numbers"-->
+        <ng-container *ngFor="let empresa of empresasList | searchFilter:empresaFilter.value">
+            <mat-option *ngIf="selectedRadio==0 && empresa.mostrar==true" [value]="empresa.idEmpresa" matTooltip="{{empresa.nombre}}">
+                {{empresa.nombre}}
+            </mat-option>
+            <mat-option *ngIf="selectedRadio==1  && empresa.activo==true && empresa.mostrar==true" [value]="empresa.idEmpresa" matTooltip="{{empresa.nombre}}">
+                {{empresa.nombre}}
+            </mat-option>
+            <mat-option *ngIf="selectedRadio==2 && empresa.activo==false && empresa.mostrar==true" [value]="empresa.idEmpresa" matTooltip="{{empresa.nombre}}">
+                {{empresa.nombre}}
+            </mat-option>
+        </ng-container>
+      <!--/div-->
+    </mat-select>
+</mat-form-field>
+<div class="row" *ngIf="radioButtonsActivos">
+    <div class="col">
+        <mat-radio-group formControlName="selectEmpresasRadioForm" aria-label="Select an option">
+            <mat-radio-button value="0" (change)="selectedRadio=0">{{ 'VER_TODAS' | translate }}</mat-radio-button>
+            <mat-radio-button value="1" [checked]="true" (change)="selectedRadio=1">{{ 'ACTIVAS' | translate }}</mat-radio-button>
+            <mat-radio-button value="2" (change)="selectedRadio=2">{{ 'INACTIVAS' | translate }}</mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>
+</div>

@@ -1,0 +1,125 @@
+h2 {
+    margin: 12px 12px 40px 12px;
+    color: var(--blue);
+}
+
+h3 {
+    color: var(--blue);
+}
+
+img {
+    margin: 30px 12px 40px 12px;
+}
+
+.login-app {
+    background-image: url('/assets/img/CrossBanner.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: absolute;
+    background-color: red;
+}
+
+.login-app .center {
+    text-align: center;
+}
+
+.primary-button {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: var(--blue) !important;
+    border: 1px solid var(--blue) !important;
+    color: #fff !important;
+}
+
+.primary-button:hover {
+    background-color: transparent !important;
+    border: 1px solid var(--blue) !important;
+    color: var(--blue) !important;
+}
+
+.module-button {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: #f28c00 !important;
+    border: 1px solid #f28c00 !important;
+    color: #fff !important;
+}
+
+.module-button:hover {
+    background-color: transparent !important;
+    border: 1px solid #f28c00 !important;
+    color: #f28c00 !important;
+}
+
+.big-number {
+    text-align: center;
+    font-size: 25px;
+    color: #f28c00;
+    font-weight: bold;
+}
+
+.vertical-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-bottom-left {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: underline;
+}
+
+.list-group-item {
+    border: none;
+    background-color: unset;
+    display: inline-block;
+    color: white;
+}
+
+.list-group-item:hover {
+    border: none;
+    background-color: unset;
+    color: white;
+    text-decoration: underline;
+}
+
+.bottom-menu {
+    text-align: center;
+    color: white;
+    width: 100%;
+}
+
+.white-menu {
+    color: white;
+    padding-left: 20px;
+}
+
+.fill {
+    min-height: 100%;
+    height: 100%;
+}

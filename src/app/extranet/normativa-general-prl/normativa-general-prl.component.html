@@ -1,0 +1,33 @@
+<app-juridico></app-juridico>
+<div class="container-fluid">
+  <!-- Title -->
+  <div class="row">
+    <div class="col">
+      <h1 class="tituloSec text-uppercase">{{ 'SEC_NORMATIVA_GENERAL_Y_PRL' | translate }}</h1>
+    </div>
+  </div>
+  <!-- /Title -->
+  <!-- Body -->
+  <div class="container">
+    <p class="text-center mt-4 mr-5 ml-5" style="color: #004C67">
+      <b>
+        {{'MENSAJE_ENLACES_NORMATIVA_GENERAL' | translate}}
+      </b>
+    </p>
+  </div>
+  <!-- /Body -->
+  <!-- Buttons -->
+  <div id="buttons" class="d-flex align-items-center justify-content-around">
+    <a href="https://www.boe.es/buscar/legislacion.php" target="_blank">
+      <button class="search-button">
+        <span>{{ 'BUSCADOR_LEGISLACION' | translate }}</span>
+      </button>
+    </a>
+    <a href="https://www.boe.es/biblioteca_juridica/codigos/codigo.php?id=37&modo=2&nota=0" target="_blank">
+      <button class="search-button">
+        <span>{{ 'NORMATIVA_PRL' | translate }}</span>
+      </button>
+    </a>
+  </div>
+  <!-- /Buttons -->
+</div>

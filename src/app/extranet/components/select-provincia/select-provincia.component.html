@@ -1,0 +1,32 @@
+<div [formGroup]="userForm">
+<mat-form-field appearance="outline">
+    <mat-label *ngIf="this.textLabel">{{this.textLabel}}</mat-label>
+    <mat-label *ngIf="!this.textLabel">{{ 'PROVINCIA' | translate }}</mat-label>
+    <mat-select formControlName="provinciaForm" class="multiple-selector" multiple
+        [disableOptionCentering]="true" #selectProvincias >
+        <mat-select-trigger>
+            <span *ngFor="let selectedOption of selectProvincias.selected; let last = last"
+                [hidden]="selectedOption.value == 0">
+                    {{selectedOption.getLabel()}}<ng-container *ngIf="!last">, </ng-container>
+            </span>
+          </mat-select-trigger>
+       <mat-option class="select-search"
+          (click)="toggleAllSelection()" value="0" [disabled]="this.tieneLocalidades">
+          <input #provinciaFilter matInput type="text"
+                  (click)="$event.stopPropagation()"
+                  (keydown)="$event.stopPropagation()"
+                  placeholder="{{ 'BUSCAR' | translate }}"
+                  autocomplete="off" />
+          <button [hidden]="!provinciaFilter.value" class="clean-filter" type="button" (click)="provinciaFilter.value = '';$event.stopPropagation()">
+              <i class="fas fa-times"></i>
+          </button>
+      </mat-option>
+        <mat-option
+            *ngFor="let provincia of provinciasList | searchFilter:provinciaFilter.value"
+            [value]="provincia.idProvincia"
+            (click)="getLocalidades.emit()">
+            {{provincia.nombre}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+</div>

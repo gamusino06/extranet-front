@@ -1,0 +1,73 @@
+.community-province-center-selector__container h3 {
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.section-container .section-container__label {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-container .radio-group {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+/* FORM EN MODAL */
+.community-province-center-selector__container--massive-modal {
+  opacity: 1;
+}
+.community-province-center-selector__container--massive-modal .module-container {
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.community-province-center-selector__container--massive-modal .module-container {
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.community-province-center-selector__container--massive-modal .module-container .section-container.single {
+  /* inputs independientes */
+  opacity: 1;
+}
+.community-province-center-selector__container--massive-modal .module-container .section-container.row {
+  /* inputs en fila */
+  opacity: 1;
+}
+
+.community-province-center-selector__container--massive-modal .radio-group {
+  display: flex;
+  gap: 16px;
+}
+
+.community-province-center-selector__container--massive-modal .module-container .section-container.inputs-row {
+  /* inputs en línea */
+  width: 100%;
+}
+
+/* FORM EN FILA */
+.community-province-center-selector__container--column {
+  opacity: 1;
+}
+.community-province-center-selector__container--column .module-container {
+  display: flex;
+}
+.community-province-center-selector__container--column .module-container .section-container.single {
+  /* inputs independientes */
+  margin-left: 16px;
+  width: 350px;
+}
+.community-province-center-selector__container--column .inputs-row {
+  /* inputs en línea */
+  width: 100%;
+}

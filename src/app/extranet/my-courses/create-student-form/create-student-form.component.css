@@ -1,0 +1,67 @@
+.title-container {
+  padding-top: 20px;
+}
+.data-container {
+  padding-bottom: 20px;
+}
+.required-form-container{
+  padding-top: 20px;
+}
+.buttons-modal {
+  margin-top: 20px;
+  display: flex !important;
+  flex-direction: row-reverse;
+  left: 24px;
+}
+
+.certificate-button--disabled {
+  cursor: default;
+  background-color: #F5F5F5 !important;
+  border: 1px snow;
+  color: #B3B3B3;
+  margin-left: 32px;
+  width: 145px;
+}
+
+.certificate-button {
+  background-color: var(--white);
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  margin-left: 32px;
+  width: 145px;
+}
+
+.modality-button {
+  margin-left: 30px;
+}
+
+.file-name-container {
+  margin-top: 20px;
+}
+
+.file-name-container span {
+  margin-left: 36px;
+  color: #616161;
+}
+
+mat-label {
+  color: #616161;
+}
+
+mat-icon {
+  color: #616161;
+}
+.icon-color {
+  color: #AAAAAA;
+}
+.sticky {
+  background: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: -24px;
+  z-index:9999;
+  height: 73px;
+}
+.container{
+  margin-top: -24px !important;
+}

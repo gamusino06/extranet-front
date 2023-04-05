@@ -1,0 +1,52 @@
+.popup-list {
+    position:absolute;
+    display: none;
+    background-color: #FFF;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    padding: 20px;
+    width: 400px;
+    max-height: 300px;
+    z-index: 100;
+    &--is-visible {
+        display: block;
+    }
+    &__container {
+        position: relative;
+    }
+    &__link {
+        color: var(--link-color);
+        cursor: pointer;
+    }
+    &__title {
+        font-size: 18px;
+        font-weight: 400;
+        width: calc(100% - 30px);
+        color: var(--black-color);
+    }
+    &__close {
+        position: absolute;
+        right: 20px;
+        top: 24px;
+        width: 15px;
+    }
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 20px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    &__item {
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--grey-85-color);
+    }
+    &__loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+    }
+}

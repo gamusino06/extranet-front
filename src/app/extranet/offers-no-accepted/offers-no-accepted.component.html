@@ -1,0 +1,202 @@
+<div id="app-offers-no-accepted">
+    <app-confirmation-modal
+      *ngIf="showMoreInfoModal"
+      [configurationObj]="configurationObj"
+      (onAcceptEvent)="acceptAskInformation()"
+      (onCancelEvent)="closeModal()"
+      [isLoading]="isLoading"
+      class="custom-modal"></app-confirmation-modal>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 class="tituloSec text-uppercase">{{ 'SEC_OFERTAS_PENDIENTES' | translate }}</h1>
+            </div>
+        </div>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <app-select-empresa-filter [userForm]="userForm" [empresasList]="empresasList" [radioButtonsActivos]="true" class="col"></app-select-empresa-filter>
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'TIPO_SERVICIO' | translate }}</mat-label>
+                  <mat-select formControlName="serviceTypeForm"  class="multiple-selector" multiple [disableOptionCentering]="true">
+                    <mat-option (click)="selectAll('userForm','serviceTypeForm',serviceTypeList,'id');">
+                      {{ 'SELECCIONAR_TODOS' | translate }}
+                    </mat-option>
+                    <mat-option *ngFor="let serviceType of serviceTypeList" [value]="serviceType.id">
+                      {{serviceType.descripcion | translate}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'DESDE' | translate }} </mat-label>
+                        <input matInput [matDatepicker]="fromPicker" formControlName="fechaDesdeForm" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()" required>
+                        <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #fromPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'HASTA' | translate }}</mat-label>
+                        <input matInput [matDatepicker]="toPicker" formControlName="fechaHastaForm" [min]="minDate" (dateChange)="maxDate = $event.value.toDate()" required>
+                        <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #toPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()">
+                        <img src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}">
+                        <span class="clean-span">{{ 'LIMPIAR' | translate }}</span>
+                    </button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="userForm.invalid">
+                        <img src="{{searchImgUrl}}" class="img" alt="Filtros">
+                        <span class="search-span">{{ 'BUSCAR' | translate }}</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!--/Form-->
+        <!--Tabla-->
+        <div class="row" [hidden]="!mostrarTabla">
+          <div class="col" #TABLEOFERTASPENDIENTES>
+            <div class="table-responsive">
+                <table
+                mat-table
+                [dataSource]="dataSource"
+                matSort
+                cdkDropList
+                cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)"
+                class="table mat-elevation-z2">
+
+                    <ng-container matColumnDef="checklist" [formGroup]="userForm">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef>
+                            <mat-checkbox (change)="checkAllRows($event)" formControlName="selectAllCheckBox">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="newList">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef class="filter-pending-offers">
+                        <mat-checkbox (change)="filterByPendingOffers($event)" [(ngModel)]="offersCheck">
+                        </mat-checkbox>
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        <i *ngIf="element.accionesRealizadas" class="material-icons md-24"
+                           style="color:var(--mediumGray);font-weight: normal;"
+                           (click)="verHistoricoDocumento(element)" matTooltip="{{ 'VER_HISTORICO_ACCIONES_DOCUMENTO' | translate }}">info</i>
+
+                        <i *ngIf="!element.accionesRealizadas" class="material-icons" style="color:var(--orange);font-weight: normal;" matTooltip="{{ 'NUEVO_DOCUMENTO' | translate }}">privacy_tip</i>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaDocumento">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header>{{ 'FECHA' | translate }}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.fechaDocumento | date:'dd/MM/yyyy' }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombreEmpresa">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'EMPRESA' | translate }} </th>
+                      <td mat-cell *matCellDef="let element"> <span class="empresaCentroSpan" matTooltip="{{element.nombreEmpresa}}">{{element.nombreEmpresa}}</span> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombreEntidad">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'ENTIDAD' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.nombreEntidad}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="serviceType">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'TIPO_SERVICIO' | translate }}</th>
+                      <td mat-cell *matCellDef="let element">
+                          {{element.serviceType | translate }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descripcion">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'DESCRIPCION' | translate }}</th>
+                      <td mat-cell *matCellDef="let element">
+                        <button mat-raised-button class="btn-icon" (click)="showDescription(element)">
+                          <i _ngcontent-pkw-c230="" class="material-icons md-24">visibility</i>
+                        </button>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="importe">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header>  {{ 'IMPORTE' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div *ngIf="esValorNegativo(element.importe)" style="color:#FF0000">
+                            {{formatearImporte(element.importe)}}&nbsp;€
+                          </div>
+                          <div *ngIf="!esValorNegativo(element.importe)">
+                            {{formatearImporte(element.importe)}}&nbsp;€
+                          </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="specialAction">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                      <td mat-cell *matCellDef="let element" style="white-space: nowrap;">
+                        <button mat-raised-button class="btn-icon more-info" [disabled]="element.accionesRealizadas" [ngClass]="getClassOf(element.accionesRealizadas)" (click)="askMoreInformation(element)" matTooltip="{{ 'ASK_INFORMATION' | translate }} ">
+                          +info
+                        </button>
+                        <button mat-raised-button class="btn-icon" (click)="previsualizar(element)">
+                          <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                        </button>
+                        <button mat-raised-button class="btn-icon" (click)="descargar(element)">
+                          <i class="material-icons md-24 mat-icon" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }} ">file_download_on</i>
+                        </button>
+                        <button mat-raised-button class="btn-icon" (click)="compartir(element)">
+                          <i class="material-icons md-24 mat-icon" matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }} ">email</i>
+                        </button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableHeaders;" matRipple [ngClass]="{'no_read': !row.accionesRealizadas, 'read': row.accionesRealizadas}"></tr>
+                </table>
+            </div>
+            <div>
+              <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+              <br/>
+              <div class="row float-right">
+                <div class="col">
+                  <div class="exportar" (click)="exportAsExcel()">
+                    <img src="{{excelImgUrl}}" alt="">
+                    <span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="exportar" (click)="descargarMultiple()">
+                    <img src="{{downloadImgUrl}}" alt="">
+                    <span class="search-span">{{ 'DESCARGAR' | translate }}</span>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="exportar" (click)="compartirMultiple()">
+                    <img src="{{mailImgUrl}}" alt="">
+                    <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--F.Tabla-->
+    </div>
+</div>

@@ -1,0 +1,45 @@
+.padding-10 {
+  padding: 10px;
+}
+
+.traffic-lights-legend {
+  width: 100%;
+  display: flex;
+  flex-direction: initial;
+  justify-content: left;
+  gap: 15px;
+  margin-left: 16px;
+  line-height: 15px;
+  padding-right: 14px;
+  cursor: default;
+  user-select: none;
+}
+
+.traffic-lights-dot {
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.traffic-lights-dot *[class^="dot-"] {
+  float: left;
+  height: 14px;
+  width: 14px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.traffic-lights-dot .dot-green {
+  background-color: #45925A;
+}
+.traffic-lights-dot .dot-yellow {
+  background-color: #FED74D;
+}
+.traffic-lights-dot .dot-orange {
+  background-color: #EB910B;
+}
+.traffic-lights-dot .dot-red {
+  background-color: #F01F1F;
+}
+.traffic-lights-dot .dot-grey {
+  background-color: #7E7E7E;
+}

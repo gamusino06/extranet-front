@@ -1,0 +1,115 @@
+a {
+    color: inherit;
+    padding-left: 5px;
+}
+td {vertical-align: middle;}
+.right {margin-left: auto; color:var(--blue);}
+
+.mat-expansion-panel {
+    margin-bottom: 15px;
+}
+.panel-content {
+    border-top: 1px solid var(--coolGray);
+    padding: 15px;
+}
+.panel-content .row {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.panel-content .row .title {
+    font-weight: 700;
+}
+@media (min-width: 600px) {
+    .panel-content .row .title {
+        flex: 0 0 150px;
+        max-width: 150px;
+    }
+}
+.panel-content .text-right {
+    padding-top: 15px;
+}
+.panel-content .text-right i {
+    margin-left: 20px;
+}
+.mat-icon {
+    vertical-align: middle;
+}
+table {width: 100%;}
+.mat-column-NumTrabajadores,
+.mat-column-FechaPrevencion,
+.mat-column-FechaVigilancia {
+    max-width: 120px;
+}
+.mat-column-VerDetalles {
+    max-width: 60px;
+}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+
+tr.expanded-detail {
+    height: 0;
+    overflow: hidden;
+    background-color: var(--verylightBlue);
+}
+
+tr.expanded-detail .detail-content {
+    overflow: hidden;
+    max-height: 0;
+    transition:max-height 0.3s ease-out;
+    justify-content: center;
+}
+tr.expanded-detail .detail-content h3 {
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+}
+tr.expanded-detail .detail-content ul
+{
+    padding: 15px;
+    margin: 0;
+}
+tr.expanded-detail .detail-content li {
+    list-style: none;
+    padding: 3px 0;
+}
+tr.expanded-detail .detail-content i {
+    color:var(--blue);
+    min-width: 16px;
+    display: inline-block;
+    text-align: center;
+}
+tr.expanded-detail.expanded {height: auto;}
+tr.expanded-detail.expanded .detail-content {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+}
+.btn-icon.expanded .show, .btn-icon .hide {
+    display: none !important;
+ }
+ .btn-icon.expanded .hide {
+     display: block !important;
+ }
+
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+
+    }
+
+}
+
+.calendario__button{
+  margin: 0px 12px 12px 0px;
+}

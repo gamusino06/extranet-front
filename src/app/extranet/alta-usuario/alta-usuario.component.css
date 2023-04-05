@@ -1,0 +1,33 @@
+.camp {
+    align-self: center;
+    margin-bottom: 1%;
+    font-size: 140%;
+}
+
+.ico_eye[aria-pressed="true"] {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.ico_eye[aria-pressed="false"] {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    cursor: pointer;
+}
+
+mat-icon {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.error-absolute {
+    position: absolute;
+    margin-top: 6%;
+    font-size: 11px;
+    color: #cE5c5c;
+}

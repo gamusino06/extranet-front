@@ -1,0 +1,174 @@
+<div class="container">
+  <div class="row sticky-header">
+    <div class="col-11">
+      <h1 class="preventiveMeasure-title">
+        {{ "PLANIFICACION_PRL.DETALLE_MP.TITLE" | translate | titlecase }}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img
+        class="close-button"
+        src="../../../../assets/img/close_assignment_contract_modal.svg"
+        alt="{{ 'CANCELAR' | translate }}"
+        (click)="close()"
+      />
+    </div>
+  </div>
+
+  <div class="container form-container">
+    <!-- GOAL NAME -->
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.MEDIDA" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ preventiveMeasure?.preventiveMeasure }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.FECHA_CREACION" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{
+                preventiveMeasure?.created | date : "dd/MM/yyyy"
+              }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.PRIORIDAD" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ preventiveMeasure?.priority }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.ORIGEN" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ preventiveMeasure?.origin?.name | translate }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.LOCALIZACION" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ preventiveMeasure?.location }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.CAUSA" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ preventiveMeasure?.cause | translate }}</strong>
+            </div>
+          </div>
+        </div>
+        <!--        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.RIESGO" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ preventiveMeasure?.risk }}</strong>
+            </div>
+          </div>
+        </div>-->
+        <div class="separator"></div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.FECHA_INICIO" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{
+                preventiveMeasure?.startDate | date : "dd/MM/yyyy"
+              }}</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.FECHA_FIN" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{
+                preventiveMeasure?.scheduledDate | date : "dd/MM/yyyy"
+              }}</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{
+                "PLANIFICACION_PRL.DETALLE_MP.FECHA_IMPLANTACION" | translate
+              }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{
+                preventiveMeasure?.executionDate | date : "dd/MM/yyyy"
+              }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.DETALLE_MP.RESPONSABLE" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ preventiveMeasure?.responsible }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <div class="row">
+            <div class="col-3 px-1 text-right text-muted">
+              {{ "PLANIFICACION_PRL.COSTE" | translate }}
+            </div>
+            <div class="col-9 px-1">
+              <strong>{{ preventiveMeasure?.cost }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- OBSERVATIONS -->
+    <div class="modal-footer d-block">
+      <div class="row w-100 pt-4">
+        <div class="col-3 px-1 text-right text-muted">
+          {{ "PLANIFICACION_PRL.OBSERVACIONES" | translate }}
+        </div>
+        <div class="col-9 px-1">
+          <p>
+            <strong>{{ preventiveMeasure?.observations }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-end">
+      <div class="col buttons-modal">
+        <button class="search-button" (click)="close()">
+          {{ "ACEPTAR" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

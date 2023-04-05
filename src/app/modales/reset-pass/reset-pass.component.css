@@ -1,0 +1,113 @@
+.container {
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+    margin: auto;
+    margin-top: 6%;
+}
+
+.w80{
+	width: 80%;
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+
+h3{
+	color: #6A6A6A;
+}
+
+form {
+	text-align: center;
+}
+
+a{
+	cursor: pointer;
+}
+
+button {	
+	margin: 0 auto;
+	margin-top: 25px;
+	padding-right: 30px;
+	padding-left: 30px;
+}
+
+.form-control{
+	box-shadow: none;
+}
+
+.btn-primary {
+	border: none;
+}
+
+.icon-cerrar{
+    width: 55%;
+    margin-top: -70px;
+    margin-left: 244%;
+}
+
+.inputs-restablecer{
+	padding-top: 5%;
+	padding-bottom: 5%;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	width: 60%;
+	text-align: initial;
+	
+}
+
+.mat-error{
+	text-align: left;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+	width: 100%!important;
+}
+
+.volver{
+	color: #67A7BA !important;
+	font-size: 0.9rem;
+}
+
+.volver:hover{
+	cursor: pointer !important;
+}
+
+.titulo-restablecer{
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 3%;
+	justify-content: flex-end;
+}
+
+.cerrar{
+	margin-right: 0;
+}
+
+.div-titulo{
+	margin: auto;
+    /* padding-right: 5px; */
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.div-cerrar{
+	margin-right: 0;
+}
+
+@media (max-width:767px){
+	.inputs-restablecer{
+		width: 100%;
+	}
+
+	.contenedor {
+		width: 100%;
+	}
+}

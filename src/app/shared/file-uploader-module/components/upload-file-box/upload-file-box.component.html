@@ -1,0 +1,47 @@
+<section
+  class="upload-file-box"
+  [ngClass]="{ 'is-compact': compact, 'is-disabled': disabled }"
+>
+  <input
+    #fileInput
+    type="file"
+    [multiple]="multiple"
+    [accept]="validTypes"
+    [max]="maxFileSize"
+    (change)="onFileChanges($event)"
+  />
+  <div
+    dropable
+    class="upload-file-box__dropzone"
+    (click)="openFileInput()"
+    (onFileDropped)="onFileChanges($event)"
+    (onFileDragOver)="isDragActive = true"
+    (onFileDragLeave)="isDragActive = false"
+  >
+    <div class="upload-file-box__dropzone__icon">
+      <img
+        [src]="getImagePath('file-uploader-dropzone-icon.svg')"
+        alt="upload-icon"
+      />
+    </div>
+    <div class="upload-file-box__dropzone__text">
+      <ng-container *ngIf="!isDragActive; else onDragActive">
+        <p class="upload-file-box__dropzone__title">
+          {{ uploadFileBoxLabel | translate }}
+        </p>
+        <p>
+          <small>{{
+            "FILE_UPLOADER.UPLOAD_FILE_BOX.MAX_FILE_SIZE"
+              | translate : { size: bytesToMb(maxFileSize) }
+          }}</small>
+        </p>
+      </ng-container>
+
+      <ng-template #onDragActive>
+        <p class="upload-file-box__dropzone__title">
+          {{ uploadFileBoxLabelHover | translate }}
+        </p>
+      </ng-template>
+    </div>
+  </div>
+</section>

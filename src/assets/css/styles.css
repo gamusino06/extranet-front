@@ -1,0 +1,198 @@
+/*
+* Personalizaciones Apps GrupoPreving
+* LMMS - Creado: 11/2020
+*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap');
+
+
+/* mat input fix */
+.mat-form-field-appearance-outline .mat-form-field-outline-gap {
+    border-width: 1px !important;
+}
+
+/*
+* CSS PARA COMPONENTES GENERALES
+*/
+
+
+/* GENERAL CSS TO ALL MODAL */
+.custom-modal {
+    display: block;
+    position: fixed;
+    z-index: 99;
+    background: rgba(0,0,0,.4);
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__container--opened.xs {
+  max-width: 400px;
+}
+.modal__container--opened.sm {
+  max-width: 600px;
+}
+.modal__container--opened.md {
+  max-width: 900px;
+}
+.modal__container--opened.lg {
+  max-width: 1200px;
+}
+.modal__container--opened.full {
+  max-width: 100%;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: var(--blue) !important;
+}
+
+.swal2-styled.swal2-cancel {
+  background-color: var(--coolGray) !important;
+}
+.swal2-styled.swal2-cancel-ghost {
+  border: 0;
+  border-radius: 0.25em;
+  background: initial;
+  color: #fff;
+  /* font-size: 1.0625em; */
+  background-color: transparent !important;
+  border: 1px solid var(--coolGray);
+  color: var(--coolGray);
+}
+
+.swal2-styled.swal2-cancel-ghost:hover {
+  color: var(--blue) !important;
+  border: 1px solid var(--blue);
+}
+
+/*_____________________ END - GENERAL CSS TO ALL MODAL */
+
+/* NAVBAR */
+/*.mat-tab-label {*/
+/*    height: 48px;*/
+/*    padding: 0 24px;*/
+/*    cursor: pointer;*/
+/*    box-sizing: border-box;*/
+/*    opacity: 1 !important;*/
+/*    min-width: 160px;*/
+/*    text-align: center;*/
+/*    display: inline-flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    white-space: nowrap;*/
+/*    position: relative;*/
+/*    box-shadow: none !important;*/
+/*    margin: 0 12px 0 12px !important;*/
+/*    font-weight: normal !important;*/
+/*    !*background-color: transparent !important;*!*/
+/*}*/
+
+.mat-tab-header {
+  border-bottom: 0 !important;
+}
+
+.mat-tab-label-content {
+  cursor: pointer;
+}
+
+/*[aria-label=primary] {*/
+/*  border-top: none !important*/
+/*}*/
+
+/*[aria-label=primary].mat-tab-label-active {*/
+/*  color: var(--blue) !important;*/
+/*  border-top: none !important;*/
+/*}*/
+
+/* línea inferior del menú que marca el enlace seleccionado */
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: var(--blue) !important;
+}
+
+.user-select > .mat-form-field-wrapper {
+    width: 38px;
+    padding: 0;
+}
+
+.user-select > .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-outline {
+  display: none !important;
+}
+.user-select > .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+  padding: 0 !important;
+  transform: scale(1.2);
+}
+
+
+/* Paginador de tabla Material: se pisa la css del paginador */
+.mat-paginator-page-size-select {
+    width: auto !important;
+}
+
+.mat-paginator-page-size-select .mat-form-field-infix {
+  width: 50px;
+}
+
+
+/* checkbox de las filas TODOS */
+
+.all-checkbox .mat-checkbox-layout {
+  flex-direction: row-reverse;
+  gap: 7px;
+}
+
+/* CUSTOM SCROLL */
+
+.custom-y-scroll {
+  scroll-snap-type: x mandatory; /* x | y | both + none | mandatory | proximity  */
+  scroll-padding: 10px; /* <length> | <percentage> */
+  scroll-snap-stop: always; /* normal | always; */
+  /* obliga a deterner el scroll en el siguiente elemento sin dejarse influir por la fuerza del scroll de la rueda de mouse */
+  scroll-behavior: smooth;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: flex-start;
+  /* align-items: center; */
+  padding-bottom: 10px;
+  gap: 10px;
+}
+
+.custom-y-scroll:hover {
+  overflow-y: scroll; /* Firefox */
+  overflow-y: overlay; /* Chrome */
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-face-color: red;
+  scrollbar-track-color: yellow;
+  scrollbar-color: #C8C8C8 transparent;
+}
+  .scroll-thin::-webkit-scrollbar {
+    width: 0.6rem;
+    height: 0.6em;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background-color: #C8C8C8 !important;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb:hover {
+    background-color: #B3B3B3 !important;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb:active {
+    background-color: #C8C8C8 !important;
+  }
+  .scroll-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroll-thin::-webkit-scrollbar-corner {
+      background: transparent;
+  }
+
+/* END CUSTOM SCROLL */

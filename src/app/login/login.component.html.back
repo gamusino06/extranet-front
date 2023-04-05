@@ -1,0 +1,142 @@
+<div class="login">
+    <div class="container-fluid h-100">
+        <!--Main Row-->
+        <div class="row justify-content-center h-100">
+            <!--Banner Cross-->
+            <div class="col left-banner">
+                <!--logo-->
+                <div class="logo">
+                    <div class="row">
+                        <div class="col">
+                            <img src="{{logoWhiteUrl}}" class="img-fluid" alt="Preving Extranet">
+                        </div>
+                    </div>
+                </div>
+                <!--F.logo-->
+                <!--Info banner-->
+                <div class="customBanner">
+                    <div class="row" [ngStyle]="{'background-image': 'url(' + bannerObject.imgUrl + ')'}">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <h2>{{bannerObject.title}}</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span>{{bannerObject.detail}}</span>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="bannerObject.isButton">
+                                <div class="col">
+                                    <button> {{bannerObject.buttonDescription}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--F.Info Banner-->
+                <!--Bottom refs-->
+                <div class="row">
+                    <div class="bottom-menu">
+                        <span class="white-menu">Copiright 2020</span>
+                        <a href="#" class="white-menu">Grupo Preving</a>
+                        <a href="#" class="white-menu">Servicios</a>
+                        <a href="#" class="white-menu">Productos</a>
+                        <a href="#" class="white-menu">Formación</a>
+                        <a href="#" class="white-menu">Blog</a>
+                    </div>
+                </div>
+                <!--F.Bottom refs-->
+
+            </div>
+            <!--F.Banner Cross-->
+            <!--Mitad de login de Preving-->
+            <div class="col">
+                <div class="login-padding">
+                    <!--Logo-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="login-logo">
+                                <a href="https://www.preving.com/" target="_blank">
+                                    <img src="{{logoUrl}}" alt="Preving Extranet" class="float-right">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--F.Logo-->
+                    <!--Box Login-->
+                    <div class="row">
+                        <div class="box" style="text-align: center;">
+                            <h2>Acceso Clientes</h2>
+                            <div class="row">
+                                <div class="col">
+                                    <span>Nombre de usuario</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span>Contraseña</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="password">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span>He olvidado mi contraseña</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="button primary-button">Acceder
+                            </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--F.Box Login-->
+                    <!--Box aun no eres cliente-->
+                    <div class="row">
+                        <div class="box">
+                            <h3>¿Aun no eres cliente? LLámanos gratis</h3>
+                            <div class="row">
+                                <div class="col vertical-center">
+                                    <span class="big-number">911 594 000</span>
+                                </div>
+                                <div class="col">
+                                    <button class="button module-button">Solicita Presupuesto</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--F.Box aun no eres cliente-->
+                    <div class="row">
+                        <div class="bottom-menu">
+                            <a href="#" class="gray-menu">Grupo Preving</a>
+                            <a href="#" class="gray-menu">Servicios</a>
+                            <a href="#" class="gray-menu">Productos</a>
+                            <a href="#" class="gray-menu">Formación</a>
+                            <a href="#" class="gray-menu">Blog</a>
+                            <span class="gray-menu">Copiright 2020</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--F.Mitad de login de Preving-->
+            </div>
+        </div>
+        <!--Main Row-->
+
+    </div>
+</div>

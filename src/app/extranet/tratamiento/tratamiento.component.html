@@ -1,0 +1,102 @@
+<div id="app-certificados-empresa">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 class="tituloSec text-uppercase">{{ 'PROTECCION_DATOS' | translate }}</h1>
+            </div>
+        </div>
+
+        <p> {{ 'PROTECCION_DATOS_INTRO' | translate }} </p>
+
+        <div class="row">
+            <div class="col" #TABLETRATAMIENTOS>
+                <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 table">
+
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'ENTIDAD' | translate }} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombre }} </td>
+                        </ng-container>
+
+                        <ng-container *ngFor="let idioma of idiomas" matColumnDef="{{idioma.columnName}}">
+                            <th mat-header-cell *matHeaderCellDef class="col-idioma-1">{{ idioma.columnName | translate }}</th>
+                            <td mat-cell *matCellDef="let element" style="white-space: nowrap; padding-left: 0px !important;">
+                                <div *ngIf="element[idioma.columnName]">
+                                    <button mat-raised-button class="btn-icon"
+                                        (click)="previsualizar(element[idioma.columnName],1)">
+                                        <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                                    </button>
+                                    <button mat-raised-button class="btn-icon"
+                                        (click)="descargar(element[idioma.columnName],1)">
+                                        <i class="material-icons md-24 mat-icon">file_download</i>
+                                    </button>
+                                    <button mat-raised-button class="btn-icon"
+                                        (click)="compartir(element[idioma.columnName],1)">
+                                        <i class="material-icons md-24 mat-icon">email</i>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                        <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+                    </table>
+                </div>
+              <mat-paginator class="paginator" #paginatorEntidades [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+        <div class="row float-right">
+            <div class="col">
+                <div class="exportar"  (click)="subidaProteccionDatos()">
+                    <i class="material-icons md-24 mat-icon">file_upload</i>
+                    <span class="search-span">{{ 'SUBIDA_PROTECCION_DATOS' | translate }}</span>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col">
+                <h1 class="tituloSec text-uppercase">{{ 'CODIGO_CONDUCTA' | translate }}</h1>
+            </div>
+        </div>
+        <p> {{ 'CODIGO_CONDUCTA_INTRO' | translate }} </p>
+        <div class="row">
+            <div class="col" #TABLETRATAMIENTOS2>
+                <div class="table-responsive" >
+                    <table mat-table [dataSource]="dataSource2" matSort class="mat-elevation-z2 table">
+
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombre }} </td>
+                        </ng-container>
+
+                        <ng-container *ngFor="let idioma of idiomas" matColumnDef="{{idioma.columnName}}">
+                            <th mat-header-cell *matHeaderCellDef class="col-idioma-2">{{ idioma.columnName | translate }}</th>
+                            <td mat-cell *matCellDef="let element" style="white-space: nowrap;">
+                                <div *ngIf="element[idioma.columnName]">
+                                    <button mat-raised-button class="btn-icon"
+                                        (click)="previsualizar(element[idioma.columnName],2)">
+                                        <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                                    </button>
+                                    <button mat-raised-button class="btn-icon"
+                                        (click)="descargar(element[idioma.columnName],2)">
+                                        <i class="material-icons md-24 mat-icon">file_download</i>
+                                    </button>
+                                    <button mat-raised-button class="btn-icon"
+                                        (click)="compartir(element[idioma.columnName],2)">
+                                        <i class="material-icons md-24 mat-icon">email</i>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                        <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+                    </table>
+                </div>
+              <mat-paginator class="paginator" #paginatorConducta [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>

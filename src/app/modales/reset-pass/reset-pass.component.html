@@ -1,0 +1,38 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade"
+             [fullScreen]="true">
+  <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+</ngx-spinner>
+<div class="container">
+    <div class="w80">
+        <div class="titulo-restablecer">
+            <div class="div-titulo">
+                <h1>{{ 'RESTABLECER_CONTRASENA' | translate }}</h1>
+            </div>
+            <div class="div-cerrar">
+                <a class="cerrar" (click)="cerrarModal()"><img class="icon-cerrar"
+                        src="../../../../assets/img/cerrarModal.png"></a>
+            </div>
+        </div>
+        <label>{{ 'RESTABLECER_TEXTO_1' | translate }}</label>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="inputs-restablecer">
+                <label>&nbsp;{{ 'DIRECCION_DE_CORREO_ELECTRONICO' | translate }}</label>
+
+                <div class="row">
+                    <div class="col">
+
+                        <mat-form-field appearance="outline">
+                            <input matInput name="email" formControlName="email">
+                            <mat-error *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">{{ 'EMAIL_REQUERIDO' | translate }}</mat-error>
+                            <mat-error *ngIf="loginForm.get('email').hasError('email')">{{ 'FORMATO_EMAIL' | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <button mat-raised-button class="button module-button" type="submit">{{ 'RESTABLECER_CONTRASENA' | translate }}</button>
+            </div>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="row" *ngIf="showTable">
+  <div class="traffic-lights-legend">
+    <div class="traffic-lights-dot">
+      <span class="dot-red"></span>
+      <span>{{ 'PT_DOCUMENTACION.LEGEND.DOCUMENTATION_IS_EXPIRED' | translate }}</span>
+    </div>
+  </div>
+  <div class="col" >
+    <div class="table-responsive">
+      <table mat-table
+             [dataSource]="dataSource"
+             multiTemplateDataRows
+             matSort
+             (matSortChange)="sortData($event)"
+             cdkDropList
+             cdkDropListLockAxis="x"
+             cdkDropListOrientation="horizontal"
+             class="mat-elevation-z2 table"
+             (cdkDropListDropped)="this.dropColumn($event, this.columnsToDisplay)">
+        <ng-container matColumnDef="checklist">
+          <th mat-header-cell cdkDrag cdkDragDisabled *matHeaderCellDef style="width:60px; ">
+            <mat-checkbox (change)="checkAllRows()" #allCheckbox>
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox [(ngModel)]="element.checked" [disabled]="element.blocked" [ngModelOptions]="{standalone: true}">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef cdkDrag> </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="traffic-lights-dot">
+              <div *ngIf="documentIsExpired(element)" class="dot-red"></div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="creationDate">
+          <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header="creationDate" colspan="1"> {{ 'PT_DOCUMENTACION.TABLE.CREATION_DATE' | translate }} </th>
+
+          <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf="element.blocked" class="ico_block" style="font-size: 15px;float:left;margin-top: 3px;">block</mat-icon>
+            <span>{{element.creationDate | date:'dd/MM/yyyy'}}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="jobPosition">
+          <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header="jobPosition" colspan="1"> {{ 'PT_DOCUMENTACION.TABLE.JOB_POSITION' | translate }} </th>
+
+          <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf="element.blocked" class="ico_block" style="font-size: 15px;float:left;margin-top: 3px;">block</mat-icon>
+            <span>{{element.jobPosition.nombre}}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header="name" colspan="1"> {{ 'PT_DOCUMENTACION.TABLE.NAME' | translate }} </th>
+
+          <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf="element.blocked" class="ico_block" style="font-size: 15px;float:left;margin-top: 3px;">block</mat-icon>
+            <span>{{element.documentType.description}}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="submitDate">
+          <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header="submitDate" colspan="1"> {{ 'PT_DOCUMENTACION.TABLE.SUBMIT_DATE' | translate }} </th>
+
+          <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf="element.blocked" class="ico_block" style="font-size: 15px;float:left;margin-top: 3px;">block</mat-icon>
+            <span>{{element.submitDate | date:'dd/MM/yyyy'}}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="expirationDate">
+          <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header="expirationDate" colspan="1"> {{ 'PT_DOCUMENTACION.TABLE.EXPIRATION_DATE' | translate }} </th>
+
+          <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf="element.blocked" class="ico_block" style="font-size: 15px;float:left;margin-top: 3px;">block</mat-icon>
+            <span>{{element.expirationDate | date:'dd/MM/yyyy'}}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="specialAction">
+          <th mat-header-cell *matHeaderCellDef class="col-buttons"> </th>
+          <td mat-cell *matCellDef="let element" class="col-buttons" style="white-space: nowrap;">
+            <div class="d-flex align-items-center justify-content-end gap-16 padding-10">
+              <mat-icon  style="cursor: pointer;" class="icono-mater "
+                         (click)="showDocument(element)" matTooltip="{{'PT_DOCUMENTACION.TABLE.EDIT_DOCUMENT' | translate}}">
+                edit
+              </mat-icon>
+              <mat-icon  style="cursor: pointer;" class="icono-mater "
+                         (click)="onShowDeleteModal(element.id)"
+                         matTooltip="{{'PT_DOCUMENTACION.TABLE.DELETE_DOCUMENT' | translate}}">delete
+              </mat-icon>
+              <mat-icon  style="cursor: pointer;" class="icono-mater "
+                         (click)="previewDocument(element)"
+                         matTooltip="{{'PREVISUALIZAR_DOCUMENTO' | translate}}">plagiarism
+              </mat-icon>
+              <div style="cursor: pointer;" mat-raised-button class="btn-icon " (click)="downloadDocument(element)">
+                <img class="material-icons md-24 mat-icon" src="{{downloadImgUrl}}" matTooltip="{{ 'PT_DOCUMENTACION.TABLE.DOWNLOAD_DOCUMENT' | translate }} ">
+              </div>
+              <div style="cursor: pointer;" mat-raised-button class="btn-icon" (click)="shareDocument(element)">
+                <img class="material-icons md-24 mat-icon" src="{{mailImgUrl}}" matTooltip="{{ 'PT_DOCUMENTACION.TABLE.SHARE_DOCUMENT' | translate }} ">
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+        </tr>
+      </table>
+    </div>
+    <mat-paginator  [pageSize]="pageSize"
+                    [showFirstLastButtons]="true"
+                    [pageSizeOptions]="[10, 25, 50, 100]">
+    </mat-paginator>    <br/>
+  </div>
+</div>
+<div [hidden]="!showTable">
+  <div class="row float-right">
+    <div class="col">
+      <div class="exportar" (click)="exportAsExcel()">
+        <img src="{{excelImgUrl}}" alt="{{ 'EXPORTAR_RESULTADOS' | translate }}" title="{{ 'EXPORTAR_RESULTADOS' | translate }}">
+        <span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="exportar" style="display: flex;" (click)="massiveDownload()">
+        <i class="material-icons md-24 mat-icon">file_download</i>
+        <span class="search-span">{{ 'DESCARGAR' | translate }}</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="exportar" style="display: flex;" (click)="shareDocument()">
+        <i class="material-icons md-24 mat-icon">email</i>
+        <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>

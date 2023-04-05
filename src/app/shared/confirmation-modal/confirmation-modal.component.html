@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row sticky-header">
+    <div class="col-10">
+      <h1 class="job-procedure-label">
+        {{ title | titlecase }}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img
+        class="close-button"
+        src="../../../../assets/img/close_assignment_contract_modal.svg"
+        alt="{{ 'CANCELAR' | translate }}"
+        (click)="cancel()"
+      />
+    </div>
+  </div>
+
+  <div class="center-padding">
+    {{ data.message | translate }}
+  </div>
+
+  <div class="row sticky-footer">
+    <div class="col buttons-modal">
+      <button (click)="accept()">
+        {{ "CONTINUAR" | translate }}
+      </button>
+      <button class="clean-button" (click)="cancel()">
+        {{ "CANCELAR" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

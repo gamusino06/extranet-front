@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>{{ 'FACTURA_ELECTRONICA' | translate }} </h1>
+<div mat-dialog-content [formGroup]="myGroup">
+  <p>
+    {{ 'EMAIL_BILLS_TEXTO_1' | translate }}     </p>
+    <p>
+      {{ 'EMAIL_BILLS_TEXTO_2' | translate }} 
+    </p>
+
+    <p>
+      {{ 'GRACIAS' | translate }} 
+    </p>
+    <!-- {{policyText}} -->
+    <mat-checkbox formControlName="checkBoxFormControl"  >
+      <mat-label>{{ 'ACEPTAR_EFACTURA' | translate }} </mat-label>
+    </mat-checkbox>
+  <mat-form-field class="outline">
+    <mat-label>{{ 'EMAIL' | translate }}</mat-label>
+    <input type="email" matInput formControlName="emailFormControl" [errorStateMatcher]="matcher"
+           placeholder="ejemplo@ejemplo.com">
+    <mat-error *ngIf="myGroup.controls['emailFormControl'].hasError('email') && !myGroup.controls['emailFormControl'].hasError('required')">
+       {{ 'INTRODUCIR_CORREO_ELECTRONICO_VALIDO' | translate }}
+    </mat-error>
+    <mat-error *ngIf="myGroup.controls['emailFormControl'].hasError('required')">
+      {{ 'EL_EMAIL_ES' | translate }} <strong>{{ 'REQUERIDO' | translate }} </strong>
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" class="clear-button"><span class="clear-span">{{ 'CANCELAR' | translate }}</span>  </button>
+  <button mat-button [mat-dialog-close]="myGroup.controls['emailFormControl'].value" cdkFocusInitial class="search-button" [disabled]="myGroup.invalid">{{ 'ACEPTAR' | translate }}</button>
+</div>

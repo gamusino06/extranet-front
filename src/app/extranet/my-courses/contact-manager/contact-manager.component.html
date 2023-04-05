@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <h1 class="new-course-label">
+        {{'MY_COURSES.CONTACT_MANAGER.TITLE' | translate}}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img class="new-course-close-button" src="../../../../assets/img/close_assignment_contract_modal.svg"
+           alt="{{ 'CANCELAR' | translate }}" (click)="cancel()">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>{{'MY_COURSES.CONTACT_MANAGER.DESCRIPTION' | translate}}</p>
+    </div>
+  </div>
+  <form [formGroup]="form">
+  <div class="row">
+    <div>
+      <ckeditor (ready)="onReady($event)"
+                [config]="editorConfig"
+                [editor]="Editor" formControlName="contactManager">
+      </ckeditor>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" *ngIf=!hasFile()>
+      <button class="attachment-button clean-button" mat-stroked-button (click)="fileInput.click()">
+        <span>{{'MY_COURSE.CONTACT_MANAGER.ADD_ATTACHMENT' | translate}}</span>
+        <input #fileInput type="file" accept=".xls, .xlsx, .pdf, .doc, .docx, .png, .jpg"
+               (change)="handleFileInput($event)"
+               style="display:none;"/>
+      </button>
+    </div>
+    <div class="col d-flex file-name-container" *ngIf=hasFile()>
+      <mat-label>{{'MY_COURSE.CONTACT_MANAGER.ATTACHMENT' | translate | uppercase }} </mat-label>
+      <span class="d-flex">{{this.form.get('attachment').value?.name}}</span>
+      <i class="material-icons icon-color" (click)="deleteFile()">delete</i>
+      <mat-error class="d-flex">{{getFileExtension()}}</mat-error>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col buttons-modal">
+      <button (click)="send()">{{'MY_COURSE.CONTACT_MANAGER.SEND' | translate}}</button>
+      <button class="clean-button" (click)="cancel()">{{ 'CANCELAR' | translate }}</button>
+    </div>
+  </div>
+  </form>
+
+</div>

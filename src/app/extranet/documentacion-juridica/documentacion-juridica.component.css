@@ -1,0 +1,13 @@
+.salir{
+  background-color: #E52620;
+  float: right;
+  border: #E52620;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #f5f5f5 inset;
+}
+
+.fecha{
+  margin-left: 1em;
+}

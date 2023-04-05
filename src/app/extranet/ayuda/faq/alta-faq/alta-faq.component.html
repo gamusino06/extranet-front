@@ -1,0 +1,93 @@
+<div id="app-alta-faq">
+    <div class="container-fluid">
+        <!--Form-->
+        <form [formGroup]="faqForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase"> {{ 'ALTA_FAQ' | translate }}</h1>
+                </div>
+            </div>
+
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="outline" hintLabel="{{ 'MAX_CARACTERES_FAQ' | translate }}">
+                <mat-label>{{ 'NOMBRE' | translate }}*</mat-label>
+                <input matInput type="text" formControlName="nombreForm" maxlength="100">
+                <mat-error *ngIf="faqForm.get('nombreForm').hasError('required') && faqForm.get('nombreForm').touched">
+                  {{ 'CAMPO_REQUERIDO' | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'IDIOMA' | translate }}*</mat-label>
+                <mat-select formControlName="idiomaForm" class="multiple-selector">
+                  <mat-option *ngFor="let idioma of idiomasList" [value]="idioma.idIdioma">{{idioma.nombre}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="faqForm.get('idiomaForm').hasError('required') && faqForm.get('idiomaForm').touched">
+                  {{ 'CAMPO_REQUERIDO' | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'CATEGORIA' | translate }}*</mat-label>
+                <mat-select formControlName="categoriaForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                  <mat-option (click)="selectAll('faqForm','categoriaForm',categoriasList,'idCategoriaAyuda');">
+                    {{ 'SELECCIONAR_TODOS' | translate }}
+                  </mat-option>
+                  <mat-option *ngFor="let categoria of categoriasList" [(value)]="categoria.idCategoriaAyuda">{{categoria.nombre}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="faqForm.get('categoriaForm').hasError('required') && faqForm.get('categoriaForm').touched">
+                  {{ 'CAMPO_REQUERIDO' | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'AFECTA_A' | translate }}*</mat-label>
+                <mat-select formControlName="afectaForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                  <mat-option (click)="selectAll('faqForm','afectaForm',rolesList,'idRol');">
+                    {{ 'SELECCIONAR_TODOS' | translate }}
+                  </mat-option>
+                  <mat-option *ngFor="let rol of rolesList" [(value)]="rol.idRol">{{rol.nombre}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="faqForm.get('afectaForm').hasError('required') && faqForm.get('afectaForm').touched">
+                  {{ 'CAMPO_REQUERIDO' | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+                <!--mat-form-field appearance="outline">
+                  <mat-label>{{ 'DESCRIPCION' | translate }}</mat-label>
+                  <input matInput type="text" formControlName="descripcionForm">
+                </mat-form-field-->
+                <angular-editor formControlName="descripcionForm" [config]="config"></angular-editor>
+            </div>
+          </div>
+
+          <hr>
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clear-button cancel" type="button" (click)="cancelEdit()">
+                        <span class="clear-span">{{ 'CANCELAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!faqForm.valid">
+                        <span class="search-span">
+                            {{ 'ALTA' | translate }}
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!--/Form-->
+
+    </div>
+</div>

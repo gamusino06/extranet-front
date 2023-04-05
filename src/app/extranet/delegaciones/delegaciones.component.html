@@ -1,0 +1,102 @@
+<div id="app-delegaciones">
+  <div class="container-fluid">
+      <!--Form-->
+      <form [formGroup]="userForm" (ngSubmit)="getDelegaciones()">
+          <div class="row">
+              <div class="col">
+                  <h1 class="tituloSec text-uppercase"> {{ 'DELEGACIONES_GRUPOPREVING' | translate }}</h1>
+              </div>
+          </div>
+          <div class="row">
+              <app-select-provincia
+                  [userForm]="userForm"
+                  [provinciasList]="provinciaList"
+                  (getLocalidades)="getLocalidades()"
+                  [tieneLocalidades]="true"
+                  class="col">
+              </app-select-provincia>
+              <app-select-localidad
+                  [userForm]="userForm"
+                  [localidadList]="localidadList"
+                  class="col">
+              </app-select-localidad>
+          </div>
+          <div class="row">
+              <div class="col">
+                  <mat-form-field appearance="outline" appearance="outline">
+                      <mat-label>{{ 'DIRECCION' | translate }}</mat-label>
+                      <input matInput type="text" formControlName="direccionForm">
+                  </mat-form-field>
+              </div>
+          </div>
+          <!--div class="row">
+              <div class="col">
+                  <section class="example-section">
+                      <i class="fas fa-clinic-medical ml-2 mr-2"></i>&nbsp;{{ 'CENTRO_MEDICO' | translate }}<mat-checkbox class="checkBox ml-3 mr-5" formControlName="centroMedicoForm"></mat-checkbox>
+                      <i class="fas fa-user  ml-2 mr-2"></i>&nbsp;{{ 'OFICINA_TECNICA' | translate }}<mat-checkbox class="checkBox  ml-3 mr-5"  formControlName="oficinaTecnicaForm"></mat-checkbox>
+                      <i class="fas fa-user-graduate  ml-2 mr-2"></i>&nbsp;{{ 'CENTRO_FORMACION' | translate }}<mat-checkbox class="checkBox  ml-3 mr-5"  formControlName="centroFormacionForm"></mat-checkbox>
+                  </section>
+              </div>
+          </div-->
+
+          <hr>
+          <div class="row justify-content-end">
+              <div>
+                <button class="clean-button" type="reset" (click)="resetForm()"><img
+                  src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span
+                  class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+              </div>
+              <div>
+                  <button class="search-button" [disabled]="!userForm.valid" type="submit">
+                      <img src="{{searchImgUrl}}" class="img" alt="Filtros">
+                      <span class="search-span">{{ 'BUSCAR' | translate }}</span>
+                  </button>
+              </div>
+          </div>
+      </form>
+      <!--/Form-->
+      <!--Tabla-->
+      <div class="row">
+          <div class="col-md-4">
+              <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px" class="example-viewport">
+                  <ng-container>
+                      <mat-card class="cabecera-listado" flex-gt-sm>
+                          <mat-card-title class="text-uppercase">{{ 'LISTA_DELEGACIONES' | translate }}</mat-card-title>
+                      </mat-card>
+                  </ng-container>
+                  <ng-container *ngFor="let delegacion of delegacionesList" class="delegationList">
+                      <mat-card flex-gt-sm class="mat-card-delegacion">
+                          <mat-card-subtitle (click)="setOnMap(delegacion.idDelegacion)">{{delegacion.nombre}}</mat-card-subtitle>
+                          <mat-card-content>
+                              <div class="row">
+                                  <div class="col info">
+                                    <a href="tel:{{delegacion.telefono}}"><i *ngIf="delegacion.telefono != ''" class="fas fa-phone mr-2 ml-4"></i>{{delegacion.telefono}}</a>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col info">
+                                      <i *ngIf="delegacion.horario != ''" class="far fa-clock mr-2 ml-4"></i>{{delegacion.horario}}
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col info">
+                                      <i *ngIf="delegacion.calle != ''" class="fas fa-map-marker-alt mr-2 ml-4"></i>{{delegacion.calle}} - {{delegacion.localidad.nombre}}
+                                  </div>
+                              </div>
+                          </mat-card-content>
+                      </mat-card>
+                  </ng-container>
+                  <mat-card *ngIf="delegacionesListLoaded && delegacionesList?.length==0">
+                      <mat-card-subtitle>{{ 'SIN_RESULTADOS' | translate }}</mat-card-subtitle>
+                      <mat-card-content>{{ 'SIN_RESULTADOS_DELEGACIONES' | translate }}</mat-card-content>
+                  </mat-card>
+              </div>
+          </div>
+          <div class="col">
+              <!--MAP-->
+              <app-map [mapData]="delegacionesList" [idDelegacionSelected]="idDelegacionSelected" [address]="address"></app-map>
+          </div>
+      </div>
+      <!--F.Tabla-->
+  </div>
+</div>

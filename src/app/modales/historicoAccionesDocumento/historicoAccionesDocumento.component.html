@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col">
+    <h1 mat-dialog-title>{{ 'HISTORICO_ACCIONES' | translate }}</h1>
+  </div>
+  <div class="div-cerrar">
+    <a class="cerrar" (click)="closeModal()"><img class="icon-cerrar" src="../../../../assets/img/cerrarModal.png"></a>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col" #TABLEDOCUMENTS>
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" matSort
+         multiTemplateDataRows class="table mat-elevation-z2">
+
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'FECHA' | translate }} </th>
+            <td mat-cell *matCellDef="let actividad">{{actividad.fecha | date:'dd/MM/yyyy HH:mm'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="usuario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'USUARIO' | translate }} </th>
+            <td mat-cell *matCellDef="let actividad"> {{actividad.usuario.nombre}} {{actividad.usuario.apellidos}}
+              ({{actividad.usuario.eMail}}) </td>
+          </ng-container>
+
+          <ng-container matColumnDef="accion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'ACCION' | translate }} </th>
+            <td mat-cell *matCellDef="let actividad">{{actividad.accion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="specialAction">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let actividad">
+              <i class="material-icons" *ngIf="actividad.gdpr" (click)="mostrarTextoGDPR(actividad.gdpr)">visibility</i>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+          <tr mat-row *matRowDef="let row; columns: tableHeaders;">
+        </table>
+      </div>
+      <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions  align="center">
+  <button mat-button (click)="onNoClick()" class="clear-button"><span class="clear-span">{{ 'CERRAR' | translate }}</span> </button>
+</div>

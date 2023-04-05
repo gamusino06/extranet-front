@@ -1,0 +1,93 @@
+<section class="uploader-with-params">
+  <main>
+    <div class="row">
+      <div class="col-12 file-uploader">
+        <h4>{{ "DOCUMENTO" | translate | titlecase }} *</h4>
+        <file-uploader
+          [disabled]="_editMode || disabled"
+          [preview]="_editMode"
+          [fileNameListForPreview]="_fileNameListForPreview"
+          [renameItems]="_renameItems"
+          [validTypes]="_validTypes"
+          [maxFileSize]="_maxFileSize"
+          [fileList]="_uploadFiles"
+          (fileListChange)="onFilesChange($event)"
+          (onError)="onFilesError($event)"
+        ></file-uploader>
+      </div>
+    </div>
+    <ng-content></ng-content>
+
+    <form [formGroup]="_form">
+      <div class="row" *ngFor="let field of formConfig" [ngSwitch]="field.type">
+        <div class="col-2" *ngSwitchCase="'number'">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ field.label | translate }}</mat-label>
+            <input
+              matInput
+              [type]="field.type"
+              [formControlName]="field.name"
+              [required]="field.required"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-4" *ngSwitchCase="'select'">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ field.label | translate }}</mat-label>
+            <mat-select
+              [required]="field.required"
+              [formControlName]="field.name"
+              [compareWith]="field.compareObjects"
+            >
+              <mat-option
+                *ngFor="let option of field.options"
+                [value]="option.value"
+              >
+                {{ option.label | translate | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-4" *ngSwitchCase="'date'">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ field.label | translate }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromPicker"
+              [formControlName]="field.name"
+              [required]="field.required"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="fromPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-12" *ngSwitchCase="'textarea'">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ field.label | translate }}</mat-label>
+            <textarea
+              matInput
+              [formControlName]="field.name"
+              [required]="field.required"
+              rows="3"
+              style="width: 100%"
+            ></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-12" *ngSwitchDefault>
+          <mat-form-field appearance="outline">
+            <mat-label>{{ field.label | translate }}</mat-label>
+            <input
+              matInput
+              [type]="field.type"
+              [formControlName]="field.name"
+              [required]="field.required"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </main>
+</section>

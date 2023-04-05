@@ -1,0 +1,81 @@
+<div id="app-informes-aptitud">
+    <div class="container-fluid">
+        <h1 class="tituloSec text-uppercase">{{ 'CITACION_WEB' | translate }}</h1>
+
+        <hr />
+
+      <!--Banner de PCP-->
+      <div *ngIf="!this.bloqueadoUps" class="card mb-3 banner w-100">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="row align-items-center">
+              <span class="fas fa-info-circle col-md-12" style="font-size: 3em"></span>
+            </div>
+            <div style="padding: 1.5em 6em 1.5em 2em">
+              <p class="card-text text-justify align-middle">{{ 'TEXT_BANNER_SHOW' | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <app-progress-bar step="3"></app-progress-bar>
+
+        <div class="row justify-content-end">
+            <div>
+                <button class="clean-button" (click)="previous()">
+                    <i class="fas fa-chevron-left"></i>
+                    <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+                </button>
+            </div>
+        </div>
+        <hr />
+
+        <br/><div style="text-align:center; width:100%"><span class="title">{{ 'SELECCIONAR_HORA' | translate }}</span></div><br/>
+
+        <div class="empresaCentroCitacion">
+            <div><span class="title">{{'EMPRESA' |
+                    translate}}:</span>&nbsp;<span>{{this.utils.citaValues.nombreEmpresa}}</span><br></div>
+            <div><span class="title">{{'CENTRO_MEDICO' |
+                    translate}}:</span>&nbsp;<span>{{this.utils.citaValues.nombreCentroMedico}}</span></div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-1">
+                <div class="flex-container">
+                    <div style="text-align: center;">
+                        <span style="font-size:30px;">
+                            <strong>
+                                {{this.utils.citaValues.fecha | date:'dd'}}
+                            </strong>
+                        </span>
+                        <br>
+                        <span>
+                            {{removeAccents(dateSelectedName) | translate}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <div class="" style="display: flex;flex-wrap: wrap;">
+                    <div *ngFor="let item of horasList">
+                        <button [ngClass]="{'cita-button-blue': item.active === false || item.active === undefined, 'cita-button-seleccionada': item.active === true}" (click)="selectHora(item)">
+                          <span
+                                class="modify-span"><strong>{{item.horaCita}}</strong>
+                          </span>
+                        </button>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row justify-content-center">
+            <div>
+                <button class="search-button" (click)="next()">
+                    <span class="search-span">{{ 'SIGUIENTE' | translate }}</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,12 @@
+.readonly-wrapper {
+    cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+    pointer-events: none;
+}
+
+
+.imageStyle {
+    text-align-last: center;
+  }

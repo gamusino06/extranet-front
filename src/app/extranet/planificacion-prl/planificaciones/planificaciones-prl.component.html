@@ -1,0 +1,564 @@
+<app-confirmation-modal
+  *ngIf="showAppointmentModal"
+  [configurationObj]="AppointmentModalConfigurationObj"
+  (onAcceptEvent)="showAppointmentModal = false"
+  (onCancelEvent)="showAppointmentModal = false"
+  class="custom-modal"
+>
+</app-confirmation-modal>
+<div id="app-planificaciones-prl">
+  <div class="col">
+    <div id="listado">
+      <hr/>
+
+      <!--Form-->
+      <form [formGroup]="searchForm">
+        <!-- (ngSubmit)="searchMeasures()" -->
+        <!--Filtro centro y Empresa-->
+        <div class="row">
+          <app-select-empresa-filter
+            [userForm]="searchForm"
+            [empresasList]="empresas"
+            [radioButtonsActivos]="false"
+            [multiple]="false"
+            required="true"
+            class="col"
+          ></app-select-empresa-filter>
+          <app-select-centro-filter
+            [userForm]="searchForm"
+            [empresasList]="empresas"
+            [radioButtonsActivos]="false"
+            [multiple]="false"
+            class="col"
+          ></app-select-centro-filter>
+        </div>
+
+        <div class="row">
+          <!-- Estado -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "ESTADO" | translate | titlecase }}</mat-label>
+              <mat-select
+                formControlName="estadoForm"
+                multiple
+                id="statusSelect"
+                #statusSelect
+              >
+                <mat-option
+                  (click)="toggleAllSelection('statusSelect', 'estadoForm')"
+                  [value]="ALL"
+                >
+                  {{ "TODOS" | translate }}
+                </mat-option>
+                <mat-option
+                  (click)="optionClick('statusSelect', 'estadoForm')"
+                  *ngFor="let status of statusList"
+                  [value]="status.value"
+                >{{ status.viewValue | translate }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Origin -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.ORIGEN" | translate
+                }}</mat-label>
+              <mat-select
+                formControlName="originForm"
+                multiple
+                id="originSelect"
+                #originSelect
+              >
+                <mat-option
+                  (click)="toggleAllSelection('originSelect', 'originForm')"
+                  [value]="ALL"
+                >
+                  {{ "TODOS" | translate }}
+                </mat-option>
+                <mat-option
+                  (click)="optionClick('originSelect', 'originForm')"
+                  *ngFor="let origin of originList"
+                  [value]="origin.value"
+                >{{ origin.viewValue | translate }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Type -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "TIPO" | translate }}</mat-label>
+              <mat-select
+                formControlName="typeForm"
+                multiple
+                id="typeSelect"
+                #typeSelect
+              >
+                <mat-option
+                  (click)="toggleAllSelection('typeSelect', 'typeForm')"
+                  [value]="ALL"
+                >
+                  {{ "TODOS" | translate }}
+                </mat-option>
+                <mat-option
+                  (click)="optionClick('typeSelect', 'typeForm')"
+                  *ngFor="let type of typeList"
+                  [value]="type.value"
+                >{{ type.viewValue | translate }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Priority -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.PRIORIDAD" | translate
+                }}</mat-label>
+              <mat-select
+                formControlName="priorityForm"
+                multiple
+                id="prioritySelect"
+                #prioritySelect
+              >
+                <mat-option
+                  (click)="toggleAllSelection('prioritySelect', 'priorityForm')"
+                  [value]="ALL"
+                >
+                  {{ "TODOS" | translate }}
+                </mat-option>
+                <mat-option
+                  (click)="optionClick('prioritySelect', 'priorityForm')"
+                  *ngFor="let priority of priorityList"
+                  [value]="priority.id"
+                >{{ priority.id }} -
+                  {{ priority.label | translate }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Date Type Selector -->
+          <div class="col-12 col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "FECHA" | translate }}</mat-label>
+              <mat-select formControlName="dateTypeForm" id="dateTypeSelect">
+                <mat-option
+                  *ngFor="let dateType of dateTypeList"
+                  [value]="dateType.value"
+                >{{ dateType.viewValue | translate }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Desde -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "DESDE" | translate }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="fromPicker"
+                formControlName="dateIniForm"
+                (dateChange)="minDate = $event.value?.toDate()"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="fromPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #fromPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+                }}</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- Hasta -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "HASTA" | translate }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="toPicker"
+                formControlName="dateEndForm"
+                [min]="minDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="toPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #toPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+                }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Measure -->
+          <div class="col-12 col-md-6">
+            <mat-form-field appearance="outline" appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.MEDIDA_PREVENTIVA" | translate
+                }}</mat-label>
+              <input matInput type="text" formControlName="measureForm"/>
+            </mat-form-field>
+          </div>
+
+          <!-- schedulings Selector -->
+          <div class="col-12 col-md-6">
+            <mat-form-field appearance="outline" *ngIf="!isCurrentPlanning">
+              <mat-label>{{
+                "PLANIFICACION_PRL.SS_HISTORICO_PRL" | translate
+                }}</mat-label>
+              <mat-select
+                required
+                formControlName="schedulingsForm"
+                id="schedulingsSelect"
+              >
+                <mat-option
+                  *ngFor="let scheduling of scheduleList"
+                  [value]="scheduling.value"
+                >
+                  {{ scheduling.value.creationDate | date : "dd/MM/yyyy" }}
+                  -
+                  {{ scheduling.value.closureDate | date : "dd/MM/yyyy" }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <hr/>
+
+        <!-- Buttons -->
+        <div class="row justify-content-between align-items-center">
+          <ui-creation-buttons
+            *ngIf="isCurrentPlanning"
+            createLabel="PLANIFICACION_PRL.NUEVA_MEDIDA"
+            (onCreateClick)="openPreventiveMeasureModal(undefined)"
+            (onMassiveClick)="openPreventiveMeasureModalMasiva()"
+          ></ui-creation-buttons>
+          <ui-search-buttons class="ml-auto"
+            [disabledButton2]="!searchForm.valid"
+            (onClearClick)="resetForm()"
+            (onSearchClick)="searchMeasures()"
+          ></ui-search-buttons>
+        </div>
+      </form>
+
+      <!-- Legend -->
+      <div class="row" [hidden]="!showTable">
+        <div class="recycling-legend">
+          <div class="reciclyng-dot">
+            <span class="dot-green"></span
+            >{{ "PLANIFICACION_PRL.MEASURE.IMPLANTED" | translate | titlecase }}
+          </div>
+          <div class="reciclyng-dot">
+            <span class="dot-yellow"></span
+            >{{ "PLANIFICACION_PRL.MEASURE.PLANNED" | translate | titlecase }}
+          </div>
+          <div class="reciclyng-dot">
+            <span class="dot-blue"></span
+            >{{
+            "PLANIFICACION_PRL.MEASURE.NOT_PLANNED" | translate | titlecase
+            }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-responsive" [hidden]="!showTable">
+        <!-- (cdkDropListDropped)="dropT($event)" -->
+        <table
+          mat-table
+          [dataSource]="dataSourceMeasures"
+          matSort
+          cdkDropList
+          cdkDropListOrientation="horizontal"
+          (cdkDropListDropped)="this.utils.drop($event, this.displayedColumns)"
+          multiTemplateDataRows
+          class="mat-elevation-z2 table"
+        >
+          <ng-container matColumnDef="checklist">
+            <th mat-header-cell cdkDrag *matHeaderCellDef>
+              <mat-checkbox
+                [checked]="allChecked()"
+                (change)="checkAllRows($event)"
+              ></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox
+                [(ngModel)]="element.checked"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="checkRow(element)"
+              ></mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell cdkDrag *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <span
+                class="reciclyng-dot-in-table"
+                [style.background-color]="getColorStatus(element.status)"
+              ></span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="origin">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              mat-sort-header
+              (click)="searchMeasures()"
+            >
+              {{ "PLANIFICACION_PRL.ORIGEN" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.origin?.name | translate }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="location">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              mat-sort-header
+              (click)="searchMeasures()"
+            >
+              {{ "PLANIFICACION_PRL.LOCALIZACION" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.location }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="preventiveMeasure">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              mat-sort-header
+              (click)="searchMeasures()"
+            >
+              {{ "PLANIFICACION_PRL.MEDIDA_PREVENTIVA" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.preventiveMeasure }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cause">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              mat-sort-header
+              (click)="searchMeasures()"
+            >
+              {{ "PLANIFICACION_PRL.CAUSA" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.cause }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="priority">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              mat-sort-header
+              (click)="searchMeasures()"
+            >
+              {{ "PLANIFICACION_PRL.PRIORIDAD" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.priority }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="scheduledDate">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              mat-sort-header
+              (click)="searchMeasures()"
+            >
+              {{ "PLANIFICACION_PRL.FECHA_PREVISTA" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.scheduledDate | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="executionDate">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              mat-sort-header
+              (click)="searchMeasures()"
+            >
+              {{ "PLANIFICACION_PRL.FECHA_IMPLANTACION" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.executionDate | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              class="text-center"
+            ></th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              <div
+                class="d-flex actions-container"
+                style="align-items: center; margin-right: 0.5rem"
+              >
+                <div
+                  *ngIf="!element.isAssigned && isCurrentPlanning"
+                  (click)="showAssignPreventiveMeasureModal([element])"
+                  style="cursor: pointer"
+                >
+                  <img
+                    src="../../../../assets/img/unassign_preventive_measure.svg"
+                  />
+                </div>
+                <div
+                  *ngIf="element.isAssigned && isCurrentPlanning"
+                  (click)="showAssignPreventiveMeasureModal([element])"
+                  style="cursor: pointer"
+                >
+                  <img
+                    src="../../../../assets/img/assigned_preventive_measure.svg"
+                  />
+                </div>
+                <mat-icon
+                  *ngIf="isCurrentPlanning"
+                  style="cursor: pointer"
+                  class="icono-mater mr-2"
+                  (click)="editPreventiveMeasureModal(element)"
+                >
+                  edit
+                </mat-icon>
+                <button
+                  mat-raised-button
+                  class="btn-icon"
+                  [ngClass]="!isCurrentPlanning ? 'btn-historic-detail' : ''"
+                  (click)="showPreventiveMeasureDetailModal(element)"
+                >
+                  <i class="material-icons md-24">visibility</i>
+                </button>
+                <mat-icon
+                  style="cursor: pointer; rotate: 45deg"
+                  class="icono-mater"
+                  [ngClass]="{'has-elems': element.hasDocuments}"
+                  (click)="openPreventiveMeasureDocsModal(element)"
+                >
+                  attach_file
+                </mat-icon>
+                <mat-icon
+                  *ngIf="isNotTechnicalMeasure(element) && isCurrentPlanning"
+                  style="cursor: pointer"
+                  class="icono-mater"
+                  (click)="openDeleteModal(element)"
+                >
+                  delete
+                </mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <mat-paginator
+        class="paginator"
+        #paginatorT
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        [pageIndex]="pageIndex"
+        [length]="preventiveMeasurePage?.totalElements"
+        (page)="changePage($event)"
+        showFirstLastButtons
+      ></mat-paginator>
+      <br>
+      <div class="export-results-container row float-right">
+        <div class="col">
+          <div class="exportar" (click)="exportToExcel()">
+            <img [src]="excelImgUrl" alt="Exportar resultados"/>
+            <span class="search-span">{{
+              "EXPORTAR_RESULTADOS" | translate
+              }}</span>
+          </div>
+        </div>
+        <div class="col">
+          <div
+            class="exportar massive-assign"
+            (click)="massiveAssignment()"
+            style="cursor: pointer"
+          >
+              <span class="search-span">{{
+                "PLANIFICACION_PRL.MEASURE.MASSIVE_ASSIGNMENT" | translate
+                }}</span>
+          </div>
+        </div>
+        <div class="col" *ngIf="isCurrentPlanning">
+          <div
+            class="exportar massive_edit"
+            (click)="showEditMassivePreventiveMeasureModal()"
+            style="cursor: pointer"
+          >
+            <img [src]="editMassiveIcon" alt="Edición masiva"/>
+            <span class="search-span"> {{ "GENERAL.MASSIVE_EDIT" | translate }}</span>
+          </div>
+        </div>
+        <div class="col">
+          <div
+            class="exportar"
+            (click)="openGeneratePreventivePlanningModal()"
+            style="cursor: pointer"
+          >
+            <img [src]="downloadImgUrl" alt=""/>
+            <span class="search-span">{{
+              "MEASURE.GENERATE_PLANNING.TITLE" | translate
+              }}</span>
+          </div>
+        </div>
+        <div class="col">
+          <div class="exportar" (click)="sharePlannificationMasive()">
+            <img [src]="mailImgUrl" alt=""/>
+            <span class="search-span">{{ "COMPARTIR" | translate }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- /listado-->
+
+      <!-- Detalles del trabajador -->
+      <div id="trabajadorDetails" *ngIf="showTrabajadorDetails">
+        Detalles del trabajador
+      </div>
+      <!-- /trabajadorDetails-->
+
+      <!--Mod/Alta-->
+      <div *ngIf="showModAlta">showModAlta</div>
+      <!--/Mod/Alta-->
+
+      <!--Alta individual-->
+      <div *ngIf="showAltaIndividual">showAltaIndividual</div>
+      <!--/Alta individual-->
+    </div>
+    <!-- /container-fluid-->
+  </div>
+</div>

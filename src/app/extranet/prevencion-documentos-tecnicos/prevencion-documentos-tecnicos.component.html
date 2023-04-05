@@ -1,0 +1,413 @@
+<div id="app-prevencion-documentos-tecnicos">
+  <div class="container-fluid">
+
+    <!--Form-->
+    <form [formGroup]="documentationForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col">
+          <h1 class="tituloSec text-uppercase">{{ 'INFORMES_TECNICOS' | translate }}</h1>
+        </div>
+      </div>
+      <!--Filtros--->
+      <!--Filtro centro y Empresa-->
+      <div class="row">
+        <app-select-empresa-filter [userForm]="documentationForm" [empresasList]="empresasList"
+                                   [radioButtonsActivos]="true" [multiple]="false" required="true"
+                                   class="col"></app-select-empresa-filter>
+        <app-select-centro-filter [userForm]="documentationForm" [empresasList]="empresasList"
+                                  [radioButtonsActivos]="true" [multiple]="false" required="true"
+                                  class="col"></app-select-centro-filter>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{"ORIGEN" | translate}}</mat-label>
+            <mat-select formControlName="origen" class="multiple-selector" multiple [disableOptionCentering]="true"
+                        #selectOrigin>
+              <mat-select-trigger>
+                    <span *ngFor="let selectedOption of selectOrigin.selected; let last = last"
+                          [hidden]="selectedOption.value == 2">
+                        {{selectedOption.getLabel()}}
+                      <ng-container *ngIf="!last">, </ng-container>
+                    </span>
+              </mat-select-trigger>
+              <mat-option (click)="selectAllOrigin('documentationForm','origen',[0,1],'id');" [value]="2">
+                {{ 'SELECCIONAR_TODOS' | translate }}
+              </mat-option>
+              <mat-option [value]=0>{{'INTERNAL' | translate}}</mat-option>
+              <mat-option [value]=1>{{'EXTERNAL' | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline" appearance="outline">
+            <mat-label>{{ 'NOMBRE_DOCUMENTO' | translate }}</mat-label>
+            <input matInput type="text" formControlName="nombreDocForm"
+                   placeholder="{{ 'NOMBRE_DOCUMENTO' | translate }}" pattern={{validDocument}}>
+          </mat-form-field>
+          <!-- <input type="text" formControlName="nombreDocForm" placeholder="{{ 'NOMBRE_DOCUMENTO' | translate }}"> -->
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'TIPO_DOCUMENTO' | translate }} - {{ 'CATEGORIA' | translate }}</mat-label>
+            <mat-select formControlName="tipoDocForm" multiple disableOptionCentering
+                        (selectionChange)="this.getSubTipoDocumento()">
+              <mat-option
+                (click)="selectAll('documentationForm','tipoDocForm',tipoDocumentoList,'idTipoDocumento');">
+                {{ 'SELECCIONAR_TODOS' | translate }}
+              </mat-option>
+              <mat-option *ngFor="let tipoDoc of tipoDocumentoList" [value]="tipoDoc.idTipoDocumento">
+                {{tipoDoc.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" *ngIf="this.showSubcarpeta"
+             [ngClass]="!this.showSubtipo && !this.showProducto ? 'col-6' : 'col'">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'SUBCARPETA' | translate }}</mat-label>
+            <mat-select formControlName="subcarpetaForm" multiple disableOptionCentering>
+              <mat-option
+                (click)="selectAll('documentationForm','subcarpetaForm',subcarpetaList,'idSubcarpeta');">
+                {{ 'SELECCIONAR_TODOS' | translate }}
+              </mat-option>
+              <mat-option *ngFor="let subCarpeta of subcarpetaList" [value]="subCarpeta.idSubcarpeta">
+                {{subCarpeta.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col" *ngIf="this.showSubtipo"
+             [ngClass]="!this.showSubcarpeta && !this.showProducto ? 'col-6' : 'col'">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'SUBCATEGORIA' | translate }}</mat-label>
+            <mat-select formControlName="subTipoDocForm" multiple disableOptionCentering>
+              <mat-option
+                (click)="selectAll('documentationForm','subTipoDocForm',subTipoDocumentoList,'idTipoDocumento');">
+                {{ 'SELECCIONAR_TODOS' | translate }}
+              </mat-option>
+              <mat-option *ngFor="let tipoDoc of subTipoDocumentoList" [value]="tipoDoc.idTipoDocumento">
+                {{tipoDoc.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="this.showProducto" [ngClass]="!this.showSubcarpeta && !this.showSubtipo ? 'col-6' : 'col'">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'PRODUCTO_O_SERVICIOS' | translate }}</mat-label>
+            <mat-select formControlName="productoForm" multiple disableOptionCentering>
+              <mat-option
+                (click)="selectAll('documentationForm','productoForm',productosList,'idProductoPRL');">
+                {{ 'SELECCIONAR_TODOS' | translate }}
+              </mat-option>
+              <mat-option *ngFor="let producto of productosList" [value]="producto.idProductoPRL">
+                {{producto.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!--F.nombre y tipo de documento-->
+      <!--Filtros-->
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'DESDE' | translate }} </mat-label>
+            <input matInput [matDatepicker]="fromPicker" formControlName="fechaDesdeForm" [max]="maxDate"
+                   (dateChange)="minDate = $event.value.toDate()" required>
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'HASTA' | translate }}</mat-label>
+            <input matInput [matDatepicker]="toPicker" formControlName="fechaHastaForm" [min]="minDate"
+                   (dateChange)="maxDate = $event.value.toDate()" required>
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'OBSERVACIONES' | translate }}</mat-label>
+            <input matInput type="text" formControlName="observacionesForm"
+                   placeholder="{{ 'OBSERVACIONES' | translate }}" pattern={{validObserva}}>
+          </mat-form-field>
+        </div>
+      </div>
+      <!--/Filtros--->
+      <hr>
+      <div class="row justify-content-between">
+        <div class="d-flex align-items-end">
+          <div>
+            <button type="button" (click)="openModalNuevoInformePT()" class="boton-alta" [disabled]="!documentationForm.valid">
+              <span class="material-icons">add</span>
+              <span class="down-span">{{ 'DOCUMENTACION_PROPIA.NUEVO_INFORME' | translate }}</span>
+            </button>
+          </div>
+        </div>
+        <div class="d-flex ml-auto">
+          <div>
+            <button class="clean-button" type="reset" (click)="resetForm()"><img src="{{cleanImgUrl}}" class="img"
+                                                                                 alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span
+              class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+          </div>
+          <div>
+            <button class="search-button" type="submit" [disabled]="!documentationForm.valid"><img
+              src="{{searchImgUrl}}" class="img" alt="Filtros"><span
+              class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!--/Form-->
+    <!--Tabla-->
+    <div class="row" [hidden]="!mostrarTabla">
+      <div class="col" #TABLEMEDICALDOCUMENTS>
+        <div class="table-responsive">
+          <table
+            mat-table [dataSource]="dataSource"
+            matSort
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)"
+            multiTemplateDataRows
+            class="mat-elevation-z2 table">
+
+            <ng-container matColumnDef="checklist">
+              <th mat-header-cell cdkDrag *matHeaderCellDef>
+                <mat-checkbox (change)="checkAllRows($event)">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="newList">
+              <th mat-header-cell cdkDrag *matHeaderCellDef>
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <!--i *ngIf="element.accionesRealizadas " class="material-icons md-24"
+                   style="color:var(--mediumGray);font-weight: normal;"
+                   (click)="verHistoricoDocumento(element)" matTooltip="{{ 'EDITAR' | translate }}">pencil</i>
+                <!--receipt-->
+                <i *ngIf="!element.accionesRealizadas && element.origen == 1" class="material-icons"
+                   style="color:var(--mediumGray);font-weight: normal;">info</i><!--receipt-->
+                <i *ngIf="!element.accionesRealizadas && element.origen == 0" class="material-icons md-24 privacy"
+                   style="color:var(--orange);font-weight: normal;" matTooltip="{{ 'NUEVO_DOCUMENTO' | translate }}">privacy_tip</i>
+                <i *ngIf="element.accionesRealizadas" class="material-icons md-24 info"
+                   style="color:var(--mediumGray);font-weight: normal;"
+                   (click)="verHistoricoDocumento(element)" matTooltip="{{ 'HISTORICO_ACCIONES' | translate }}">info</i>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fecha">
+              <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'FECHA' | translate }} </th>
+              <td mat-cell *matCellDef="let element">{{element.fecha | date:'dd/MM/yyyy'}}  </td>
+            </ng-container>
+
+            <!--ng-container matColumnDef="empresa">
+              <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header>{{ 'EMPRESA_CENTRO' | translate }}</th>
+              <td mat-cell *matCellDef="let element">
+                          <span class="empresaCentroSpan" matTooltip="{{element.empresaCentroNombre}}">
+                              {{element.empresaCentroNombre}}
+                          </span>
+              </td>
+            </ng-container-->
+
+            <ng-container matColumnDef="tipoDocumento">
+              <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'TIPO_DOCUMENTO' | translate }}
+                - {{ 'CATEGORIA' | translate }} </th>
+              <td mat-cell *matCellDef="let element"> {{element.tipoDocumento }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="documento">
+              <!--th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'TECNICO' | translate }} </th-->
+              <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'Nombre documento' || translate }}</th>
+              <td mat-cell *matCellDef="let element">
+                          <span *ngIf="element.subtipoDocumento" class="nombredocumentoSmallSpan"
+                                matTooltip="{{element.subtipoDocumento}}" style="justify-content: center">
+                            {{element.subtipoDocumento}}
+                          </span>
+                <span *ngIf="element.subtipoDocumento == null" class="nombredocumentoSmallSpan"
+                      matTooltip="{{element.documento}}" style="justify-content: center">
+                            {{element.documento }}
+                          </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tecnico">
+              <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'TECNICO' | translate }} </th>
+              <td mat-cell *matCellDef="let element"> {{element.tecnico}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="origen">
+              <th mat-header-cell *matHeaderCellDef cdkDrag
+                  mat-sort-header="origen"> {{'ORIGEN' | translate}}</th>
+              <td mat-cell *matCellDef="let element">{{getOriginType(element.origen) | translate }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="observaciones">
+              <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'OBSERVACIONES' | translate }} </th>
+              <td mat-cell *matCellDef="let element">
+                          <span class="observacionesSpan" matTooltip="{{element.observaciones}}">
+                            {{element.observaciones}}
+                          </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="specialAction">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <!--button mat-raised-button
+                    *ngIf="element.idTipoDocumento == globals.erl_puestos_trabajo && element.documentosHijos.length"
+                    class="btn-icon"
+                    [class.expanded]="element.expandedVisible"
+                    (click)="element.expandedVisible=!element.expandedVisible">
+                        <i class="material-icons md-24 show" matTooltip="{{'TITLE_SEGMENTOS' | translate }}">visibility</i>
+                        <i class="material-icons md-24 hide">visibility_off</i>
+                </button-->
+                <button mat-raised-button
+                        *ngIf="element.mostrarSegmentos"
+                        class="btn-icon"
+                        [class.expanded]="element.expandedVisible"
+                        (click)="obtenerHijosSegmentos(element); contraerPosiblesSegmentosDesplegados(element); element.expandedVisible=!element.expandedVisible"
+                        style="width: 35px!important;">
+                  <i class="material-icons md-24 show" matTooltip="{{'TITLE_SEGMENTOS' | translate }}">visibility</i>
+                  <i class="material-icons md-24 hide">visibility_off</i>
+                </button>
+                <button mat-raised-button
+                        *ngIf="element.idTipoDocumento == globals.planes_formacion && element.documentosHijos.length"
+                        class="btn-icon"
+                        [class.expanded]="element.expandedVisible"
+                        (click)="element.expandedVisible=!element.expandedVisible" style="width: 35px!important;">
+                  <i class="material-icons md-24 show"
+                     matTooltip="{{'TITLE_PLANES_FORMACION' | translate }}">visibility</i>
+                  <i class="material-icons md-24 hide">visibility_off</i>
+                </button>
+                <button *ngIf="element.origen == 1" mat-raised-button class="btn-icon" (click)="openModalEditarInformePT(element)" style="width: 35px!important;">
+                  <i class="material-icons md-24 mat-icon" matTooltip="{{ 'EDITAR' | translate }} ">mode</i>
+                </button>
+                <button mat-raised-button class="btn-icon" (click)="borrar(element)"
+                        style="width: 35px!important;" *ngIf="element.origen == 1">
+                  <i class="material-icons md-24 mat-icon" matTooltip="{{ 'BORRAR' | translate }} ">delete</i>
+                </button>
+                <button mat-raised-button class="btn-icon" (click)="previsualizar(element)"
+                        style="width: 35px!important;">
+                  <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                </button>
+                <button mat-raised-button class="btn-icon" (click)="diferenciarTipos(element)"
+                        style="width: 35px!important;">
+                  <i class="material-icons md-24 mat-icon" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }} ">file_download_on</i>
+                </button>
+                <button mat-raised-button class="btn-icon" (click)="compartir(element)" style="width: 40px!important;">
+                  <i class="material-icons md-24 mat-icon"
+                     matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }} ">email</i>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="tableHeaders.length">
+                <div class="detail-content" *ngIf="element.mostrarSegmentos">
+                  <!--div class="detail-content" *ngIf="element.idTipoDocumento == globals.erl_puestos_trabajo && element.documentosHijos.length"-->
+                  <p style="text-align:center;">{{'TEXT_SEGMENTOS' | translate}}</p>
+                  <table class="puestos-trabajo">
+                    <tr>
+                      <th mat-header-cell>
+                        <mat-checkbox [checked]=true (change)="checkAllRowsHijos($event, element)">
+                        </mat-checkbox>
+                      </th>
+                      <th mat-header-cell>{{ 'NOMBRE_PUESTO' | translate }}</th>
+                      <th mat-header-cell style="width:10%;">{{ 'PAGINA_INICIO' | translate }}</th>
+                      <th mat-header-cell style="width:10%;">{{ 'PAGINA_FIN' | translate }}</th>
+                    </tr>
+                    <tr *ngFor="let doc of element.documentosHijos">
+                      <td>
+                        <mat-checkbox [(ngModel)]="doc.checked" [ngModelOptions]="{standalone: true}">
+                        </mat-checkbox>
+                      </td>
+                      <td>{{doc.nombre}}</td>
+                      <td>{{doc.pagInicio}}</td>
+                      <td>{{doc.pagFin}}</td>
+                      <!--td>{{getMetadato(doc.datos, globals.metadato_puesto_trabajo)?.valorDto.nombre}}</td>
+                      <td>{{getMetadato(doc.datos, globals.metadato_pagina_inicio)?.valor}}</td>
+                      <td>{{getMetadato(doc.datos, globals.metadato_pagina_fin)?.valor}}</td-->
+                    </tr>
+                  </table>
+                </div>
+                <div class="detail-content"
+                     *ngIf="element.idTipoDocumento == globals.planes_formacion && element?.documentosHijos?.length">
+                  <table class="cursos-formacion">
+                    <tr>
+                      <th mat-header-cell style="width:10%;">{{ 'FECHA' | translate }}</th>
+                      <th mat-header-cell style="width:10%;">{{ 'CURSO' | translate }}</th>
+                      <th mat-header-cell style="width:10%;">{{ 'DIRECCION' | translate }}</th>
+                      <th mat-header-cell style="width:10%;">{{ 'LOCALIDAD' | translate }}</th>
+                      <th mat-header-cell style="width:10%;">{{ 'CP' | translate }}</th>
+                      <th mat-header-cell style="width:10%;">{{ 'PROVINCIA' | translate }}</th>
+                      <th mat-header-cell style="width:10%;">{{ 'HORARIO' | translate }}</th>
+                    </tr>
+                    <tr *ngFor="let doc of element?.documentosHijos">
+                      <td>{{doc.fechaDocumento | date:'dd/MM/yyyy'}}</td>
+                      <td>{{getMetadatoCurso(doc, globals.metadato_curso)?.valor}}</td>
+                      <td>{{getMetadatoCurso(doc, globals.metadato_direccion)?.valor}}</td>
+                      <td>{{getMetadatoCurso(doc, globals.metadato_localidad)?.valorDto.nombre}}</td>
+                      <td>{{getMetadatoCurso(doc, globals.metadato_codigo_postal)?.valor}}</td>
+                      <td>{{getMetadatoCurso(doc, globals.metadato_localidad)?.valorDto.provincia.nombre}}</td>
+                      <td>{{getMetadatoCurso(doc, globals.metadato_horario)?.valor}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+            <tr mat-row *matRowDef="let row; columns: tableHeaders;" matRipple
+                [ngClass]="{'no_read': row.origen ==0, 'read': row.origen == 1}"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];"
+                class="expanded-detail"
+                [class.expanded]="row.expandedVisible"></tr>
+          </table>
+        </div>
+        <div>
+          <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+          <br/>
+          <div class="row float-right">
+            <div class="col">
+              <div class="exportar" (click)="exportAsExcel()">
+                <img src="{{excelImgUrl}}" alt="">
+                <span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+              </div>
+            </div>
+            <!--div class="col">
+              <div *ngIf="this.tienePuestosTrabajo" class="exportar" (click)="descargarUnificado()"
+                   matTooltip="{{ 'DESCARGA_UNIFICADO_DESCRIPCION' | translate }} ">
+                <img src="{{downloadForOfflineImgUrl}}" alt="">
+                <span class="search-span">{{ 'DOC_UNIFICADO' | translate }}</span>
+              </div>
+            </div-->
+            <div class="col">
+              <div class="exportar" (click)="descargarMultiple()">
+                <img src="{{downloadImgUrl}}" alt="">
+                <span class="search-span">{{ 'DESCARGAR' | translate }}</span>
+              </div>
+            </div>
+            <div class="col">
+              <div class="exportar" (click)="compartirMultiple()">
+                <img src="{{mailImgUrl}}" alt="">
+                <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--F.Tabla-->
+  </div>
+</div>

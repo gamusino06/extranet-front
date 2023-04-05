@@ -1,0 +1,118 @@
+// Spinner variables
+$offset: 187;
+$duration: 1.4s;
+
+.spinner {
+  animation: rotator $duration linear infinite;
+  margin-right: 10px;
+  margin-top: 2px;
+  &--primary {
+    .path {
+        stroke: var(--primary-color);
+      }
+  } 
+ 
+}
+
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+.path {
+  stroke: #FFFFFF;
+  stroke-dasharray: $offset;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash $duration ease-in-out infinite, ($duration * 4) ease-in-out infinite;
+}
+
+
+
+
+@keyframes colorsSpinnerTable {
+  0% {
+    stroke: var(--primary-color);
+  }
+
+  25% {
+    stroke: var(--primary-color);
+  }
+
+  50% {
+    stroke: var(--primary-color);
+  }
+
+  75% {
+    stroke: var(--primary-color);
+  }
+
+  100% {
+    stroke: var(--primary-color);
+  }
+}
+
+@keyframes colorsSpinnerBtnDefault {
+  0% {
+    stroke: var(--grey-80-color);
+  }
+
+  25% {
+    stroke: var(--grey-80-color);
+  }
+
+  50% {
+    stroke: var(--grey-80-color);
+  }
+
+  75% {
+    stroke: var(--grey-80-color);
+  }
+
+  100% {
+    stroke: var(--grey-80-color);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
+
+  50% {
+    stroke-dashoffset: $offset * 0.25;
+    transform: rotate(135deg);
+  }
+
+  100% {
+    stroke-dashoffset: $offset;
+    transform: rotate(450deg);
+  }
+}
+
+tbody {
+  tr {
+    td {
+      .spinner {
+        display: block;
+        margin: auto;
+
+        .path {
+          animation: dash $duration ease-in-out infinite, colorsSpinnerTable ($duration * 4) ease-in-out infinite;
+        }
+      }
+    }
+  }
+}
+
+
+.button--only-icon {
+  .spinner {
+    margin-right: 0;
+  }
+}

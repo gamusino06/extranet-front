@@ -1,0 +1,31 @@
+.search-buttons {
+  .buttons-container {
+    display: flex;
+    align-items: stretch;
+  }
+  
+  .boton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .boton-buscar {
+    margin-left: 0px;
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+  }
+  
+  .boton-buscar:disabled{
+    background-color: gray;
+    color: white;
+    border: 1px solid var(--blue);
+  }
+
+  .boton-limpiar {
+    background-color: var(--white);
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    width: 10rem;
+  }
+
+}

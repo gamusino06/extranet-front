@@ -1,0 +1,34 @@
+<div [ngClass]="['modal__container--opened md']" *ngIf="formLoaded">
+  <div>
+    <div class="swal2-header">
+      <h2>{{ 'MODALS.LANGUAGE_MODAL.CHANGE_LANGUAGE' | translate }}</h2>
+      <span (click)="onCancel()"></span>
+    </div>
+    <div class="swal2-content">
+      <p>
+        {{ 'MODALS.LANGUAGE_MODAL.CHANGE_LANGUAGE_SELECT' | translate }}
+      </p>
+      <ul class="lang-nav list-unstyled">
+        <li *ngFor="let language of languageList">
+          <button
+            type="button" class="swal2-styled swal2-cancel-ghost"
+            style="width: 200px;"
+            [ngStyle]="language.checked ?  {'color': 'var(--blue)'} : {'color': 'var(--coolGray)'}"
+            (click)="setSelectedLang(language.code)">
+            {{language.code.toUpperCase() | translate}}
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="swal2-actions">
+      <button type="button" (click)="onAccept()" class="swal2-styled swal2-confirm">
+        <span></span>
+        <span>{{ 'MODALS.CONFIRMATION_MODAL.ACCEPT' | translate }}</span>
+      </button>
+      <button type="button" (click)="onCancel()" class="swal2-styled swal2-cancel">
+        <span></span>
+        <span>{{ 'MODALS.CONFIRMATION_MODAL.CANCEL' | translate }}</span>
+      </button>
+    </div>
+  </div>
+</div>

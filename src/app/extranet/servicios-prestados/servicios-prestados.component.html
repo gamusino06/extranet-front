@@ -1,0 +1,91 @@
+<app-juridico [cargaPosterior]="cargaPosterior"></app-juridico>
+<div class="container-fluid">
+  <!-- Title -->
+  <div class="row">
+    <div class="col">
+      <h1 class="tituloSec text-uppercase">{{ 'SERVICIOS_PRESTADOS_ASESORIA_JURIDICA' | translate }}</h1>
+    </div>
+  </div>
+  <!-- /Title -->
+  <!-- Body -->
+  <div class="container">
+    <p class="text-center mt-4" style="color: #004C67">
+      <b>
+        {{ 'LISTADO_ACTUACIONES_REALIZADAS' | translate }}
+      </b>
+    </p>
+  </div>
+  <!-- /Body -->
+  <!-- Periodo -->
+  <div class="form-group periodo">
+    <label for="select"><strong>{{ 'PERIODO' | translate}}: </strong></label>
+    <div class="seleccionAnio" [formGroup]="serviciosForm">
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="year" (selectionChange)="getActions()">
+          <mat-option [value]="year"  *ngFor="let year of years">
+            {{ year }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Resultados encontrados -->
+  <p class="text-success text-small" *ngIf="actuaciones && actuaciones.length > 0"><b>{{actuaciones.length}} {{'RESULTADOS_ENCONTRADOS_FILTRADO' | translate}}</b></p>
+  <p class="text-danger text-small" *ngIf="actuaciones && actuaciones.length <= 0 || error"><b>{{'NO_RESULTADOS_ENCONTRADOS_FILTRADO' |translate}}</b></p>
+
+  <hr style="background-color: #F28C00; margin-bottom: 0 !important; height: 0.4em; opacity: 1" />
+  <table mat-table [dataSource]="dataSource"
+         matSort
+         matSortActive="fechaInicio"
+         matSortDirection="desc"
+         matSortDisableClear class="table"
+         style="margin-top: 0"
+         cdkDropList
+         cdkDropListOrientation="horizontal"
+         (cdkDropListDropped)="drop($event)"
+         multiTemplateDataRows
+  >
+    <!-- Documento -->
+    <ng-container matColumnDef="documento">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag></th>
+      <td mat-cell *matCellDef="let element">
+        <span><i class="fas fa-solid fa-file" style="float: right"></i></span>
+      </td>
+    </ng-container>
+    <!-- Fecha Hora -->
+    <ng-container matColumnDef="fechaHora">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'FECHA_HORA' | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+        <span matTooltip="{{element.registeredDate | date : 'dd/MM/yyyy' }}">
+           {{element.registeredDate | date : 'dd/MM/yyyy'}} &nbsp;&nbsp; {{element.registeredDate | date : 'hh:mm:ss'}}
+        </span>
+      </td>
+    </ng-container>
+    <!-- Actividad -->
+    <ng-container matColumnDef="actividad">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'ACTIVIDAD_ASESORIA_JURIDICA' | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+        <span matTooltip="{{element.itemType.description }}">
+           <div *ngIf="element.itemType.urlPill">
+            <a [routerLink]="['/extranet/formacion-en-prl']" [state]="{ selected: true, id: element.itemType.id }">
+              {{element.itemType.description}} ({{element.itemType.id}})
+            </a>
+          </div>
+          <div *ngIf="!element.itemType.urlPill && element.docPrivate == 0">
+            <a [routerLink]="['/extranet/documentacion-general']" [state]="{ selected: true, id: element.itemType.id }">
+              {{element.itemType.description}} ({{element.itemType.id}})
+            </a>
+          </div>
+          <div *ngIf="!element.itemType.urlPill && element.docPrivate == 1">
+            <a [routerLink]="['/extranet/documentacion-juridica']" [state]="{ selected: true, id: element.itemType.id }">
+              {{element.itemType.description}} ({{element.itemType.id}})
+            </a>
+          </div>
+        </span>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+  </table>
+
+</div>

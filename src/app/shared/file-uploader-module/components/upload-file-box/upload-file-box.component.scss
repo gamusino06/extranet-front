@@ -1,0 +1,101 @@
+.upload-file-box {
+    &.is-disabled {
+        position: relative;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            z-index: 2;
+            cursor: not-allowed;
+        }
+    }
+
+    input {
+        display: none;
+    }
+
+    &__dropzone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border: 2px dashed #d9d9d9;
+        border-radius: 4px;
+        background-color: #f3f6fa;
+        cursor: pointer;
+        transition: border-color 200ms ease-in-out;
+        padding: 32px;
+
+        &:hover,
+        &.is-active {
+            border-color: #108ee9;
+
+            .upload-file-box__dropzone__text {
+                color: #108ee9;
+            }
+
+            .upload-file-box__dropzone__icon img {
+                filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg) brightness(0.9);
+            }
+        }
+
+        &__icon {
+            font-size: 32px;
+            color: #108ee9;
+
+            img {
+                height: 45px;
+                width: auto;
+                transition: filter 150ms ease-in-out;
+            }
+        }
+
+        &__text {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #657784;
+            text-align: center;
+            transition: color 150ms ease-in-out;
+
+            p {
+                font-size: 15px;
+                margin: 0;
+            }
+        }
+
+        &__title {
+            font-weight: 700;
+            font-size: 18px;
+        }
+    }
+
+    &.is-compact {
+        .upload-file-box__dropzone {
+            padding: 17px;
+            height: 60px;
+            flex-direction: row;
+            gap: 11px;
+
+            &__icon {
+                img {
+                    height: 26px;
+                    width: auto;
+                }
+            }
+
+            &__text {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                margin-top: 0;
+            }
+        }
+    }
+}

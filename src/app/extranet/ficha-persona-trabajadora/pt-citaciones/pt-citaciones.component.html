@@ -1,0 +1,117 @@
+
+<p class="text--subtitle">{{ 'PERSONA_TRABAJADORA.APPOINTMENT_HISTORY' | translate }}</p>
+
+<div>
+  <div class="row">
+    <div class="recycling-legend">
+      <div class="reciclyng-dot"><span class="dot-green"></span>{{ 'PERSONA_TRABAJADORA.PRESENTED' | translate }}</div>
+      <div class="reciclyng-dot"><span class="dot-red"></span>{{ 'PERSONA_TRABAJADORA.NOT_PRESENTED' | translate }}</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col" #TABLEHISTORICDOCUMENTS>
+      <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort cdkDropList cdkDropListOrientation="horizontal"
+              (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)" class="table mat-elevation-z2">
+
+              <ng-container matColumnDef="checklist">
+                <th mat-header-cell cdkDrag *matHeaderCellDef>
+                  <mat-checkbox (change)="checkAllRows($event.checked)" [checked]="allCheckbox">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}" (ngModelChange)="updateAllCheckbox()">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="presented">
+                <th mat-header-cell *matHeaderCellDef cdkDrag> </th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="traffic-lights-dot">
+                    <div *ngIf="element.asistencia" class="dot-green"></div>
+                    <div *ngIf="checkNotPresentAppointment(element)" class="dot-red"></div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="fecha">
+                  <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header>{{ 'FECHA' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{element.fechaString}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="centroMedico">
+                <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'CENTRO_MEDICO' | translate }} </th>
+                <td mat-cell *matCellDef="let element">
+                  <span class="nombredocumentoSpan" matTooltip="{{element.centroMedico }}">
+                    {{element.centroMedico}}
+                </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="tipo">
+                  <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'TIPO' | translate }} </th>
+                  <td mat-cell *matCellDef="let element"> {{element.tipo }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="motivo">
+                  <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'MOTIVO' | translate }} </th>
+                  <td mat-cell *matCellDef="let element"> {{element.motivo }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="anulada">
+                <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'ANULADA' | translate }} </th>
+                <td mat-cell *matCellDef="let element">
+                    <span *ngIf="element.anulada">
+                            {{ 'SI' | translate }}
+                    </span>
+                    <span *ngIf="!element.anulada">
+                              {{ 'NO' | translate }}
+                    </span>
+                </td>
+              </ng-container>
+
+            <ng-container matColumnDef="botonAnular">
+              <th mat-header-cell cdkDrag *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+                <button *ngIf="element.origenCita === globals.extranet_citacion_web_origen_extranet && element.puedeAnular"
+                        class="modify-button float-right" (click)="cancelAppointment(element)">
+                  <span class="modify-span">{{ 'ANNULMENT'| translate }}</span>
+                </button>
+              </td>
+            </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+              <tr mat-row *matRowDef="let row; columns: tableHeaders;">
+              </tr>
+          </table>
+      </div>
+      <mat-paginator
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+      ></mat-paginator>
+      <br/>
+    </div>
+  </div>
+</div>
+
+<div [hidden]="!showTable">
+  <div class="row float-right">
+    <div class="col">
+      <div class="exportar" (click)="exportAsExcel()">
+        <img src="{{excelImgUrl}}" alt="{{ 'EXPORTAR_RESULTADOS' | translate }}" title="{{ 'EXPORTAR_RESULTADOS' | translate }}">
+        <span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-confirmation-modal
+  *ngIf="showCancelAppointmentConfirmationModal"
+  [configurationObj]="cancelAppointmentConfirmationModal"
+  (onAcceptEvent)="acceptCancelAppointmentConfirmationModal()"
+  (onCancelEvent)="closeCancelAppointmentConfirmationModal()"
+  class="custom-modal">
+</app-confirmation-modal>

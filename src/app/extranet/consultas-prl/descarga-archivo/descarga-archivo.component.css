@@ -1,0 +1,8 @@
+.enlace{
+  cursor: pointer;
+  color: #024dbc;
+  text-decoration: underline !important;
+}
+.enlace:hover {
+  color: #0d6efd;
+}

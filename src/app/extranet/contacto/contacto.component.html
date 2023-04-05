@@ -1,0 +1,297 @@
+<div id="app-buscador-contactos">
+    <div class="container-fluid">
+        <!--Form-->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase">{{ 'PERSONAS_CONTACTO' | translate }}</h1>
+                </div>
+            </div>
+            <!--Filtros--->
+            <!--Filtro centro y Empresa-->
+            <div class="row">
+                <app-select-empresa-filter [userForm]="userForm" [empresasList]="empresasList" [radioButtonsActivos]="true" class="col"></app-select-empresa-filter>
+                <app-select-centro-filter [userForm]="userForm" [empresasList]="empresasList" [radioButtonsActivos]="true" class="col"></app-select-centro-filter>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'NOMBRE' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="nombreForm">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'APELLIDOS' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="apellidosForm">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'TIPO_CONTACTO' | translate }}</mat-label>
+                        <mat-select formControlName="tipoContactoForm" class="multiple-selector" multiple
+                            [disableOptionCentering]="true">
+                            <mat-option
+                                (click)="selectAll('userForm','tipoContactoForm',tipoContactoList,'idTipoContacto');">
+                                {{ 'SELECCIONAR_TODOS' | translate }}
+                            </mat-option>
+                            <mat-option *ngFor="let tipoContacto of tipoContactoList"
+                                [value]="tipoContacto.idTipoContacto">
+                                {{tipoContacto.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <app-select-provincia
+                    [userForm]="userForm"
+                    [provinciasList]="provinciasList"
+                    (getLocalidades)="getLocalidades()"
+                    [tieneLocalidades]="true"
+                    class="col"></app-select-provincia>
+                <app-select-localidad
+                    [userForm]="userForm"
+                    [localidadList]="localidadList"
+                    class="col"></app-select-localidad>
+            </div>
+            <hr>
+
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()"><img src="{{cleanImgUrl}}" class="img"
+                            alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!userForm.valid"><img src="{{searchImgUrl}}"
+                            class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+                </div>
+            </div>
+        </form>
+        <!--/Form-->
+        <!--Tabla-->
+
+        <div class="row">
+            <div class="col" #TABLEFACTURAS>
+              <div class="table-responsive">
+                <table
+                    mat-table
+                    [dataSource]="dataSource"
+                    matSort
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="this.utilsService.drop($event, this.tableHeaders)"
+                    class="mat-elevation-z2 table">
+
+                  <ng-container matColumnDef="checklist" [formGroup]="userForm">
+                    <th mat-header-cell cdkDrag *matHeaderCellDef>
+                      <mat-checkbox (change)="checkAllRows()" formControlName="selectAllCheckBox">
+                      </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+
+                    <ng-container matColumnDef="empresasCentros">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag> {{ 'EMPRESA_CENTRO' | translate }}</th>
+                        <td mat-cell *matCellDef="let element">
+                            <!--1 Empresa CASO-->
+                            <div *ngFor="let empresa of element.empresasCentros; let i = index"
+                                 [hidden]="(i>1) && !element.showEmpresas">
+                                <!--<div>{{empresa.nombre}}</div>-->
+                                <div *ngIf="!empresa.centros">
+                                  <span class="empresaCentroSpan" matTooltip="{{empresa.nombre }}">{{empresa.nombre}}</span>
+                                </div>
+                                <div *ngIf="empresa.centros">
+                                  <div *ngFor="let centro of empresa.centros; let j = index"
+                                       [hidden]="(j>1) && !empresa.showCentros">
+                                      <span class="empresaCentroSpan" matTooltip="{{empresa.nombre }} - {{ centro?.nombre}}">
+                                        {{empresa.nombre }} - {{ centro?.nombre}}&nbsp;&nbsp;
+                                      </span>
+                                      <span *ngIf="j==1 && empresa.centros.length > j+1"
+                                            style="cursor: pointer;text-align: right;"
+                                            class="more-info"
+                                            (click)="empresa.showCentros=!empresa.showCentros">
+                                        <i class="fas"
+                                           [class.fa-plus-circle]="!empresa.showCentros"
+                                           [class.fa-minus-circle]="empresa.showCentros"
+                                        ></i>
+                                      </span>
+                                  </div>
+                                </div>
+                                <span *ngIf="i==1 && element.empresasCentros.length > i+1"
+                                      style="cursor: pointer;text-align: right;"
+                                      class="more-info"
+                                      (click)="element.showEmpresas=!element.showEmpresas">
+                                  <i class="fas"
+                                     [class.fa-sort-amount-down]="!element.showEmpresas"
+                                     [class.fa-sort-amount-up]="element.showEmpresas"
+                                     matTooltip="{{ 'MOSTRAR_MAS_EMPRESAS' | translate }}"
+                                  ></i>
+                              </span>
+                            </div>
+                            <!-- <span><i *ngIf="mostrarMasElementos(element)" style="cursor: pointer;text-align: right;" class="fas fa-plus" (click)="toggleElement(element,this)"></i></span> -->
+                            <!-- <mat-icon  s class="show-detail">more</mat-icon> -->
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoContacto">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>{{ 'TIPO_CONTACTO' | translate }}</th>
+                        <!--td mat-cell *matCellDef="let element"> {{element.empresaCentros.tipoContacto.nombre}}</td-->
+                      <td mat-cell *matCellDef="let element">
+                        <div *ngFor="let empresa of element.empresasCentros; let u = index"
+                             [hidden]="(u>1) && !element.showTiposContactos">
+                            <span class="empresaCentroSpan" matTooltip="{{empresa?.tipoContactoDto?.nombre}}">
+                                {{empresa?.tipoContactoDto?.nombre}}
+                            </span>
+                            <span *ngIf="u==1 && element.empresasCentros.length > u+1"
+                                style="cursor: pointer;text-align: right;"
+                                class="more-info"
+                                (click)="element.showTiposContactos=!element.showTiposContactos">
+                                  <i class="fas"
+                                     [class.fa-plus-circle]="!element.showTiposContactos"
+                                     [class.fa-minus-circle]="element.showTiposContactos"
+                                  ></i>
+                            </span>
+                            <!--div [hidden]="!mostrarMasElementos(element)">
+                                        <span [hidden]="(!element.mostrar)||(u===0)" class="empresaCentroSpan" matTooltip="{{empresa?.tipoContacto.nombre}}">
+                                          {{empresa?.tipoContacto.nombre}}&nbsp;&nbsp;
+                                        </span>
+                              <span [hidden]="(u>0)" class="empresaCentroSpan" matTooltip="{{empresa?.tipoContacto.nombre}}">
+                                          {{empresa?.tipoContacto.nombre}}
+                                        </span>
+                              <span *ngIf="(u==0)"><i *ngIf="(u==0)&&!element.mostrar"
+                                                              style="cursor: pointer;text-align: right;" class="fas fa-plus-circle"
+                                                              (click)="this.utilsService.toggleElement(element,this)"></i></span>
+                              <span><i *ngIf="(u==0)&&element.mostrar"
+                                       style="cursor: pointer;text-align: right;" class="fas fa-minus-circle"
+                                       (click)="this.utilsService.toggleElement(element,this)"></i></span>
+                            </div-->
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="personaContacto">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag>{{ 'PERSONA_CONTACTO' | translate }}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.personaContacto}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="datosContacto">
+                        <th mat-header-cell *matHeaderCellDef cdkDrag>{{ 'DATOS_CONTACTO' | translate }}</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="row" *ngIf="element.datosContacto.tlfFijo">
+                                <div class="col">
+                                  <a href="tel:{{element.datosContacto.tlfFijo}}">
+                                    <i class="fas fa-phone"></i>
+                                    <span class="info">{{element.datosContacto.tlfFijo}}</span>
+                                  </a>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="element.datosContacto.tlfMovil">
+                                <div class="col">
+                                  <a href="tel:{{element.datosContacto.tlfMovil}}">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span class="info">{{element.datosContacto.tlfMovil}}</span>
+                                  </a>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="element.datosContacto.emailContacto">
+                                <div class="col">
+                                    <a href="mailto:{{element.datosContacto.emailContacto}}" target="_blank">
+                                      <i class="far fa-envelope"></i><span
+                                        class="info">{{element.datosContacto.emailContacto}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--toggleElement(element,this) -->
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="delegacion">
+                        <th mat-header-cell *matHeaderCellDef cdkDrag>{{ 'DELEGACION' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="row" *ngIf="element.delegacion">
+                                <div class="col">
+                                  <a href="mailto:{{element.delegacion.email}}" target="_blank">
+                                    <span class="info">
+                                      <i class="far fa-envelope"></i>
+                                      {{element.delegacion.email}}
+                                    </span>
+                                  </a>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="element.delegacion">
+                                <div class="col">
+                                  <a href="tel:{{element.delegacion.telefono}}">
+                                    <span class="info">
+                                      <i class="fas fa-phone"></i>
+                                      {{element.delegacion.telefono}}
+                                    </span>
+                                  </a>
+                                </div>
+                            </div>
+                            <!-- nombre de delegación,direccion completa calle , cp y prov y el email de la delegasion. -->
+                            <div class="row" *ngIf="element.delegacion">
+                                <div class="col" [hidden]="!element.delegacion.mostrar">
+                                    <span *ngIf="element.delegacion?.nombre" class="info"><i
+                                            class="fas fa-info"></i>{{element.delegacion.nombre}}</span><span
+                                        (click)="this.utilsService.toggleElement(element.delegacion,this)"><i
+                                            class="fas fa-minus-circle"></i></span>
+                                </div>
+                                <div class="col" [hidden]="element.delegacion.mostrar">
+                                    <span  *ngIf="element.delegacion?.nombre" class="info"><i
+                                            class="fas fa-info"></i>{{element.delegacion.nombre}}</span><span
+                                        (click)="this.utilsService.toggleElement(element.delegacion,this)"><i
+                                            class="fas fa-plus-circle"></i></span>
+                                </div>
+                            </div>
+                            <div [hidden]="!element.delegacion.mostrar" *ngIf="element.delegacion">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="info" *ngIf="element.delegacion.horario"><i
+                                                class="far fa-clock"></i>{{element.delegacion.horario}}
+                                        </span>
+                                        <span class="info" *ngIf="!element.delegacion.horario"><i
+                                          class="far fa-clock"></i>{{ 'SIN_HORARIO_DEFINIDO' | translate }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="info"><i
+                                                class="fas fa-map-marker-alt"></i>{{element.delegacion.calle}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="info"><i
+                                                class="fas fa-map-marker-alt"></i>{{element.delegacion.cp}}
+                                            {{element.delegacion.localidad.nombre}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+                </table>
+              </div>
+              <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+        <div style="margin-top: 24px;">
+        </div>
+        <div class="row float-right">
+            <div class="col">
+                <div class="exportar" (click)="exportAsExcel()"><img src="{{excelImgUrl}}" alt=""><span
+                        class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+                </div>
+            </div>
+        </div>
+        <!--F.Tabla-->
+    </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="row" *ngIf="showTable">
+  <div class="recycling-legend">
+    <div class="reciclyng-dot"><span class="dot-green"></span>{{ 'VIGENTE' | translate }}</div>
+    <div class="reciclyng-dot"><span class="dot-yellow"></span>{{ 'PROXIMO_CADUCAR' | translate }}</div>
+    <div class="reciclyng-dot"><span class="dot-red"></span>{{ 'CADUCADA' | translate }}</div>
+  </div>
+  <div class="col" >
+    <div class="table-responsive">
+      <table mat-table
+             [dataSource]="dataSource"
+             multiTemplateDataRows
+             matSort
+             (matSortChange)="sortData($event)"
+             cdkDropList
+             cdkDropListLockAxis="x"
+             cdkDropListOrientation="horizontal"
+             class="mat-elevation-z2 table"
+             (cdkDropListDropped)="this.dropColumn($event, this.columnsToDisplay)">
+        <ng-container matColumnDef="checklist">
+          <th mat-header-cell cdkDrag cdkDragDisabled *matHeaderCellDef style="width:60px; ">
+            <mat-checkbox (change)="checkAllRows()" #allCheckbox>
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox [(ngModel)]="element.checked" [disabled]="element.blocked" [ngModelOptions]="{standalone: true}">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef cdkDrag> </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="reciclyng-dot-in-table" [style.background-color]="getColorSemaforo(element)"></span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaAutorizacion">
+          <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header class="text-uppercase">{{ 'FECHA_AUTORIZACION' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{element.fechaentrega | date:'dd/MM/yyyy'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaCaducidad">
+          <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header class="text-uppercase">{{ 'FECHA_CADUCIDAD' | translate }}</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-template *ngIf="element.fechacaducidad !== null && element.fechacaducidad !== undefined then Y; else N">
+            </ng-template>
+            <ng-template #Y>
+              <span> {{element.fechacaducidad | date:'dd/MM/yyyy'}}</span>
+            </ng-template>
+            <ng-template #N>
+              <span>-</span>
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tipoAutorizacion">
+          <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header class="text-uppercase"> {{ 'TIPO_AUTORIZACION' | translate }} </th>
+          <td mat-cell *matCellDef="let element">{{element.autorizaciontipo.descripcion}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="specialAction">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element" style="white-space: nowrap;">
+            <button mat-raised-button class="btn-icon" (click)="showAuthorization(element)">
+              <i class="material-icons md-24 mat-icon" matTooltip="{{ 'EDITAR' | translate }} ">edit</i>
+            </button>
+            <button mat-raised-button class="btn-icon" (click)="onShowDeleteModal(element)">
+              <i class="material-icons md-24 mat-icon" matTooltip="{{ 'ELIMINAR' | translate }} ">delete</i>
+            </button>
+            <button mat-raised-button class="btn-icon" (click)="previewAuthorization(element)">
+              <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_AUTORIZACION' | translate }} ">visibility</i>
+            </button>
+            <button mat-raised-button class="btn-icon" (click)="downloadAuthorization(element)" >
+              <i class="material-icons md-24 mat-icon" matTooltip="{{ 'DESCARGAR_DOCUMENTO' | translate }} ">file_download_on</i>
+            </button>
+            <button mat-raised-button class="btn-icon" (click)="shareDocument(element)" >
+              <i class="material-icons md-24 mat-icon" matTooltip="{{ 'COMPARTIR_DOCUMENTO' | translate }} ">email</i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;">
+        </tr>
+      </table>
+    </div>
+    <mat-paginator  [pageSize]="pageSize"
+                    [showFirstLastButtons]="true"
+                    [pageSizeOptions]="[10, 25, 50, 100]">
+    </mat-paginator>    <br/>
+  </div>
+</div>
+<div [hidden]="!showTable">
+  <div class="row float-right">
+    <div class="col">
+      <div class="exportar" (click)="exportAsExcel()">
+        <img src="{{excelImgUrl}}" alt="{{ 'EXPORTAR_RESULTADOS' | translate }}" title="{{ 'EXPORTAR_RESULTADOS' | translate }}">
+        <span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="exportar" style="display: flex;" (click)="massiveDownload()">
+        <i class="material-icons md-24 mat-icon">file_download</i>
+        <span class="search-span">{{ 'DESCARGAR' | translate }}</span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="exportar" style="display: flex;" (click)="shareDocument()">
+        <i class="material-icons md-24 mat-icon">email</i>
+        <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>

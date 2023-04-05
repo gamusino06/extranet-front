@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row sticky-header">
+    <div class="col-9">
+      <h1 class="new-course-label">
+        {{ 'MEASURE.GENERATE_PLANNING.TITLE' | translate | titlecase}}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img class="new-course-close-button" src="../../../../assets/img/close_assignment_contract_modal.svg"
+        (click)="close()"
+        alt="{{ 'CANCELAR' | translate }}"
+      >
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="row">
+    <div class="col">
+      <p class="description">{{'MEASURE.GENERATE_PLANNING.TEXT' | translate}}</p>
+    </div>
+  </div>
+
+    <div class="row sticky-footer">
+      <div class="col buttons-modal">
+        <button (click)="generatePDF()" class="clean-button">{{ 'MEASURE.GENERATE_PLANNING.NO' | translate }}</button>
+        <button (click)="generatePDFwithAttached()" class="mr-0">{{ 'MEASURE.GENERATE_PLANNING.YES' | translate }}</button>
+      </div>
+    </div>
+</div>

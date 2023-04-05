@@ -1,0 +1,34 @@
+<section class="added-file-row" [ngClass]="{ 'can-rename': renameItems }">
+  <img
+    class="added-file-row__icon"
+    [src]="getImagePath('file-uploader-file-icon.svg')"
+    alt="file"
+  />
+  <p
+    *ngIf="!isEditMode"
+    (click)="activeEditMode()"
+    class="added-file-row__title nombreDoc"
+    [ngClass]="{ 'can-rename': renameItems }"
+  >
+    {{ fileName }}
+  </p>
+  <input
+    #fileInput
+    class="added-file-row__input-field"
+    type="text"
+    [value]="fileName"
+    (change)="onInputFileChange($event)"
+    [style.display]="isEditMode ? 'block' : 'none'"
+    (blur)="onDisabledEditMode()"
+    (keyup.enter)="onDisabledEditMode()"
+  />
+  <div *ngIf="!preview" class="added-file-row__actions">
+    <div class="added-file-row__action" (click)="remove()">
+      <img
+        class="added-file-row__icon"
+        [src]="getImagePath('file-uploader-delete-icon.svg')"
+        alt="delete"
+      />
+    </div>
+  </div>
+</section>

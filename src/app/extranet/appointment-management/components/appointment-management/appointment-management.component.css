@@ -1,0 +1,85 @@
+/* multirow table */
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-detail-row td{
+  padding-top: 20px;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.expanded-row {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+th.mat-header-cell:first-of-type, td.mat-cell, td.mat-footer-cell:first-of-type { /* td.mat-cell:first-of-type */
+    padding-left: 20px;
+}
+
+.eye-icon {
+  color: grey;
+}
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #00425b;
+}
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #fafafa;
+}
+
+/deep/ .mat-slide-toggle.mat-checked.mat-disabled .mat-slide-toggle-bar {
+  background-color: #00425b;
+}
+
+/deep/ .mat-slide-toggle.mat-checked.mat-disabled .mat-slide-toggle-thumb {
+  background-color: #fafafa;
+}
+
+.table .td {
+  padding-left: 20px;
+}
+
+.blocked{
+  pointer-events: none;
+  opacity: 0.5;
+}

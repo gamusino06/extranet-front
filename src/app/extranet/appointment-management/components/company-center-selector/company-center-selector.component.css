@@ -1,0 +1,9 @@
+.appointment-form {
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'input1 input2'
+    'button button';
+  column-gap: 20px;
+}
+

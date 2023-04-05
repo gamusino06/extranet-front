@@ -1,0 +1,42 @@
+
+.title-container {
+  padding-top: 20px;
+}
+
+.buttons-modal {
+  display: flex !important;
+  flex-direction: row-reverse;
+  left: 10px;
+}
+
+.buttons-modal button {
+  width: 204px;
+}
+
+
+.create-warning {
+  border-radius: 5px;
+  border-left: 6px solid #FD6464;
+  padding: 30px 20px 30px 30px;
+  background-color: #FFD6D6;
+  font-size: 1.1em;
+}
+
+.table-container {
+  height: auto;
+  overflow: auto;
+  max-height: 400px;
+}
+
+.mat-header-cell {
+  background-color: #E9E9E9 !important;
+  border-top: 0px !important;
+  color: black;
+  text-transform: uppercase;
+}
+.mat-column-line {
+  width: 10%;
+}
+table {
+  width: 100%;
+}

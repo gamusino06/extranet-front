@@ -1,0 +1,393 @@
+<div class="app-work-procedures-list">
+  <div class="container-fluid">
+    <div id="listado">
+      <hr />
+      <!--Form-->
+      <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <div class="row">
+          <app-select-empresa-filter
+            [userForm]="searchForm"
+            [empresasList]="empresas"
+            [radioButtonsActivos]="false"
+            [multiple]="false"
+            class="col"
+            required="true"
+          ></app-select-empresa-filter>
+          <app-select-centro-filter
+            [userForm]="searchForm"
+            [empresasList]="empresas"
+            [radioButtonsActivos]="false"
+            [multiple]="false"
+            class="col"
+            required="true"
+          ></app-select-centro-filter>
+        </div>
+        <div class="row">
+          <!-- Procedimiento de trabajo o observaciones -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline" appearance="outline">
+              <mat-label>{{ "BUSCAR" | translate }}</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="procedimientoTrabajoForm"
+              />
+            </mat-form-field>
+          </div>
+
+          <!-- Fecha alta desde -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "DESDE" | translate }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="createDateFromPicker"
+                formControlName="entryDateIniForm"
+                [max]="maxDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="createDateFromPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #createDateFromPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- Fecha alta hasta -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "HASTA" | translate }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="createDateToPicker"
+                formControlName="entryDateEndForm"
+                [max]="maxDate"
+                [min]="this.searchForm.get('entryDateIniForm')?.value"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="createDateToPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #createDateToPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- Estado -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "ACTIVO" | translate }}</mat-label>
+              <mat-select
+                formControlName="state"
+                id="statusSelect"
+                #statusSelect
+              >
+                <mat-option [value]="ALL">
+                  {{ "TODOS" | translate }}
+                </mat-option>
+                <mat-option [value]="true">
+                  {{ "SI" | translate }}
+                </mat-option>
+                <mat-option [value]="false">
+                  {{ "NO" | translate }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <!-- Buttons -->
+        <div class="row justify-content-between align-items-center">
+          <ui-button label="PROCEDIMIENTOS_TRABAJO.BUTTON_NEW_PROCEDURE" icon="add" type="primary" 
+            (click)="showJobProcedureModal(null)"
+          ></ui-button>
+          <ui-search-buttons class="ml-auto"
+            [disabledButton2]="!searchForm.valid"
+            (onClearClick)="resetForm()"
+            (onSearchClick)="search()"
+          ></ui-search-buttons>
+        </div>
+      </form>
+
+      <!-- Legend -->
+      <div class="row" [hidden]="!showTable || (showTable && hideStateLegend)">
+        <div class="recycling-legend">
+          <div class="reciclyng-dot">
+            <span class="dot-green"></span
+            >{{
+              "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.ACTIVE"
+                | translate
+                | titlecase
+            }}
+          </div>
+          <div class="reciclyng-dot">
+            <span class="dot-red"></span
+            >{{
+              "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.DISABLED"
+                | translate
+                | titlecase
+            }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-responsive" [hidden]="!showTable">
+        <table
+          mat-table
+          [dataSource]="dataSourceList"
+          matSort
+          cdkDropList
+          cdkDropListOrientation="horizontal"
+          (cdkDropListDropped)="this.utils.drop($event, this.displayedColumns)"
+          multiTemplateDataRows
+          class="mat-elevation-z2 table"
+        >
+          <ng-container matColumnDef="checklist">
+            <th mat-header-cell cdkDrag *matHeaderCellDef>
+              <mat-checkbox
+                [(ngModel)]="allChecked"
+                (change)="toggleCheckAllRows($event)"
+              ></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox
+                [(ngModel)]="element.checked"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="checkRow(element)"
+              ></mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="state">
+            <th
+              class="width-50"
+              mat-header-cell
+              cdkDrag
+              mat-sort-header
+              *matHeaderCellDef
+              (click)="search()"
+            ></th>
+            <td mat-cell *matCellDef="let element">
+              <span
+                class="reciclyng-dot-in-table"
+                [style.background-color]="getColorStatus(element.active)"
+              ></span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="entryDate">
+            <th
+              class="min-width-145"
+              mat-header-cell
+              cdkDrag
+              mat-sort-header
+              *matHeaderCellDef
+              (click)="search()"
+            >
+              {{
+                "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.ENTRY_DATE"
+                  | translate
+                  | titlecase
+              }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.entryDate | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <th
+              mat-header-cell
+              cdkDrag
+              mat-sort-header
+              *matHeaderCellDef
+              (click)="search()"
+            >
+              {{
+                "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.TITLE"
+                  | translate
+                  | titlecase
+              }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.title }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="observations">
+            <th mat-header-cell cdkDrag *matHeaderCellDef>
+              {{
+                "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.OBSERVATIONS"
+                  | translate
+                  | titlecase
+              }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.observations }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              class="text-center"
+            ></th>
+            <td mat-cell *matCellDef="let element" class="">
+              <div class="d-flex" style="justify-content: end">
+                <mat-icon
+                  style="cursor: pointer"
+                  class="icono-mater"
+                  (click)="showJobProcedureModal(element)"
+                >
+                  edit
+                </mat-icon>
+                <mat-icon
+                  style="cursor: pointer; rotate: 45deg"
+                  class="icono-mater"
+                  [ngClass]="{ 'has-elems': element.hasDocuments }"
+                  (click)="showDocsModal(element)"
+                >
+                  attach_file
+                </mat-icon>
+                <img
+                  *ngIf="element.active"
+                  src="{{ activateImgUrl }}"
+                  matTooltip="{{
+                    'PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.DISABLE'
+                      | translate
+                  }}"
+                  class="icono-mater img"
+                  style="cursor: pointer"
+                  alt="{{
+                    'PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.ACTIVE'
+                      | translate
+                  }}"
+                  (click)="openJobProcedureChangeActiveModal(element)"
+                />
+                <img
+                  *ngIf="!element.active"
+                  src="{{ desactivateImgUrl }}"
+                  matTooltip="{{
+                    'PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.ACTIVATE'
+                      | translate
+                  }}"
+                  class="icono-mater img"
+                  style="cursor: pointer"
+                  alt="{{
+                    'PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.DISABLED'
+                      | translate
+                  }}"
+                  (click)="openJobProcedureChangeActiveModal(element)"
+                />
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+
+      <!-- Paginator -->
+      <mat-paginator
+        class="paginator"
+        #paginatorT
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        [length]="totalElements"
+        (page)="changePage($event)"
+        showFirstLastButtons
+      ></mat-paginator>
+      <br />
+      <div class="export-results-container row float-right">
+        <div class="col">
+          <div class="exportar">
+            <button
+              class="dropdown-menu-button"
+              mat-icon-button
+              [matMenuTriggerFor]="menuAnnexOptions"
+            >
+              {{
+                "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.ANNEX_OPTIONS"
+                  | translate
+              }}
+              <img class="ml-4" [src]="arrowDownImgUrl" />
+            </button>
+            <mat-menu #menuAnnexOptions="matMenu">
+              <button
+                class="menu-item-button"
+                mat-menu-item
+                (click)="exportResultsToPdf()"
+              >
+                <img class="mr-4" [src]="downloadImgUrl" alt="" />
+                <span>{{
+                  "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.DOWNLOAD"
+                    | translate
+                }}</span>
+              </button>
+
+              <!-- <button class="menu-item-button" mat-menu-item>
+                <img class="mr-4" [src]="mailImgUrl" alt="" />
+                <span>{{
+                  "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.SEND_BY_EMAIL"
+                    | translate
+                }}</span>
+              </button> -->
+            </mat-menu>
+          </div>
+        </div>
+        <div class="col">
+          <div class="exportar">
+            <button
+              class="dropdown-menu-button"
+              mat-icon-button
+              [matMenuTriggerFor]="menuDevelopmentOrientation"
+            >
+              {{
+                "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.GET_DEVELOPMENT_ORIENTATION_PDF"
+                  | translate
+              }}
+              <img class="ml-4" [src]="arrowDownImgUrl" />
+            </button>
+            <mat-menu #menuDevelopmentOrientation="matMenu">
+              <button
+                class="menu-item-button"
+                mat-menu-item
+                (click)="getDevelopmentOrientationPdf()"
+              >
+                <img class="mr-4" [src]="downloadImgUrl" alt="" />
+                <span>{{
+                  "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.DOWNLOAD"
+                    | translate
+                }}</span>
+              </button>
+              <!-- <button class="menu-item-button" mat-menu-item>
+                <img class="mr-4" [src]="mailImgUrl" alt="" />
+                <span>{{
+                  "PROCEDIMIENTOS_TRABAJO.JOB_PROCEDURE_LIST.SEND_BY_EMAIL"
+                    | translate
+                }}</span>
+              </button> -->
+            </mat-menu>
+          </div>
+        </div>
+        <div class="col">
+          <div class="exportar" (click)="exportResultsToXls()">
+            <img [src]="excelImgUrl" alt="" />
+            <span class="search-span">
+              {{ "EXPORTAR_RESULTADOS" | translate }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /listado-->
+  </div>
+  <!-- /container-fluid-->
+</div>

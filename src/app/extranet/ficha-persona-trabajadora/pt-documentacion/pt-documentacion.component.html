@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-6 d-flex align-items-center">
+    <p class="text--subtitle mb-0">{{ 'PERSONA_TRABAJADORA.DOCUMENTATION' | translate }}</p>
+  </div>
+  <div class="col-6 text-right">
+    <button class="button" style="margin-right:0" (click)="displayNewDocumentModal()"> + {{ 'PLANIFICACION_PRL.NUEVO_DOCUMENTO' | translate}} </button>
+  </div>
+</div>
+<app-pt-documentacion-table
+  [workerData]="workerData"
+  [triggerTableReload]="triggerTableReload"
+  (editDocumentEvent)="displayNewDocumentModal($event)"
+  ></app-pt-documentacion-table>

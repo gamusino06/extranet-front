@@ -1,0 +1,100 @@
+<div id="app-alta-usuario">
+    <div class="container-fluid">
+        <!--Form-->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase"> {{ 'ALTA_USUARIOS' | translate }}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>  {{ 'USUARIO' | translate }}*</mat-label>
+                        <input matInput type="text" formControlName="mailUsuario" placeholder="({{ 'DEBE_SER_DIRECCION_CORREO_ELECTRONICO' | translate }})">
+                        <mat-error *ngIf="userForm.get('mailUsuario').hasError('required') && userForm.get('mailUsuario').touched">
+                            {{ 'EMAIL_REQUERIDO' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="userForm.get('mailUsuario').hasError('email')">{{ 'FORMATO_EMAIL' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'NOMBRE' | translate }}*</mat-label>
+                        <input matInput type="text" formControlName="nombre">
+                        <mat-error *ngIf="userForm.get('nombre').hasError('required') && userForm.get('nombre').touched">
+                            {{ 'NOMBRE_REQUERIDO' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label> {{ 'APELLIDOS' | translate }}*</mat-label>
+                        <input matInput type="text" formControlName="apellidos">
+                        <mat-error *ngIf="userForm.get('apellidos').hasError('required') && userForm.get('apellidos').touched">
+                            {{ 'APELLIDOS_REQUERIDOS' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'IDIOMA' | translate }}*</mat-label>
+                        <mat-select formControlName="idioma" class="multiple-selector">
+                            <mat-option *ngFor="let idioma of idiomasList" [value]="idioma.idIdioma">{{idioma.nombre}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="userForm.get('idioma').hasError('required') && userForm.get('idioma').touched">
+                            {{ 'SELECCIONE_IDIOMA' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'ACCESO_A' | translate }}*</mat-label>
+                        <mat-select formControlName="acceso" class="multiple-selector" multiple [disableOptionCentering]="true">
+                            <mat-option (click)="selectAll('userForm','acceso',rolesList,'idRol');">{{ 'SELECCIONAR_TODOS' | translate }}</mat-option>
+                            <mat-option *ngFor="let rol of rolesList" (click)="selectRol('userForm','acceso',rolesList,'idRol',rol.idRol);" [value]="rol.idRol">{{rol.nombre}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="userForm.get('acceso').hasError('required') && userForm.get('acceso').touched">
+                            '{{ 'ACCESO_A' | translate }}' {{ 'REQUERIDO' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+                <app-select-empresa-filter [userForm]="userForm" [empresasList]="empresasList" [mapaEmpresa]="mapaEmpresa" [radioButtonsActivos]="false" [infoCentros]="true" [required]="true" class="col"></app-select-empresa-filter>
+                <!--app-select-centro-filter [userForm]="userForm" [empresasList]="empresasList" [radioButtonsActivos]="false" class="col"></app-select-centro-filter-->
+            </div>
+            <div class="row">
+              <div class="col" *ngIf="this.isSuperAdmin">
+                <mat-label>{{ 'VER_RECONOCIMIENTOS_MEDICOS' | translate }}</mat-label>&nbsp;
+                <mat-checkbox formControlName="verReconocimientosForm" [disabled]="!this.isSuperAdmin"></mat-checkbox>
+              </div>
+            </div>
+
+           <hr>
+
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clear-button cancel" type="button" (click)="cancelEdit()">
+                        <span class="clear-span">{{ 'CANCELAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!userForm.valid">
+                        <span class="search-span">
+                            {{ 'ALTA' | translate }}
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+        <!--/Form-->
+
+    </div>
+</div>

@@ -1,0 +1,47 @@
+.goal-pdf-export-modal {
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        h2 {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 160%;
+            margin-bottom: 0;
+        }
+
+        .close-button {
+            cursor: pointer;
+        }
+    }
+
+    main {
+        .description {
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        form {
+            .error-field {
+                color: var(--red);
+                margin-top: -16px;
+            }
+        }
+    }
+
+    footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .export-button {
+            margin-right: 0;
+        }
+    }
+}

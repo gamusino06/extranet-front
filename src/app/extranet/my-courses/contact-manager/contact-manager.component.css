@@ -1,0 +1,62 @@
+::ng-deep .angular-editor-toolbar button {
+  background-color: white !important;
+  color: var(--blue);
+  border: 1px solid var(--blue) !important;
+  padding: 0px;
+  margin: 5px;
+  height: 30px;
+}
+
+::ng-deep .angular-editor-toolbar .ae-font .ae-picker-options .ae-picker-item {
+  width: 93% !important;
+  font-size: 12px;
+}
+
+::ng-deep .angular-editor-toolbar {
+  background-color: var(--lightGray) !important;
+}
+
+.buttons-modal {
+  display: flex !important;
+  flex-direction: row-reverse;
+}
+.attachment-button{
+  margin-left: 0px !important;
+}
+
+::ng-deep .ck-editor__editable_inline {
+  min-height: 120px !important;
+  width: 879px;
+  border: 1px solid #FFFFFF !important;
+  border-radius: 4px;
+}
+
+::ng-deep .ck-editor{
+  width: 879px;
+}
+
+::ng-deep .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred {
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 4px !important;
+}
+
+.file-name-container {
+  padding-top: 30px;
+  height: 64px;
+
+}
+
+.file-name-container span {
+  color: #050303;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+mat-label {
+  color: #616161;
+}
+
+.icon-color {
+  color: #AAAAAA;
+}
+

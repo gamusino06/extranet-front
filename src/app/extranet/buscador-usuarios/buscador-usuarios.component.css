@@ -1,0 +1,257 @@
+.clear {
+    color: red;
+    margin-right: 2%;
+}
+
+.show-detail {
+    color: var(--blue);
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+.imgClean {
+    width: 20%;
+    margin-right: 7%;
+}
+
+.filtros {
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 50%;
+}
+
+td.mat-cell:first-of-type {
+    text-align: left;
+}
+td { vertical-align: middle;}
+th.mat-column-email {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: none;
+    width: 200px !important;
+    min-width: 200px;
+    overflow-wrap: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+th.mat-column-gdprHistorico {
+  flex: none;
+  width: 50px !important;
+  min-width: 50px;
+  padding-right:40px;
+}
+td.mat-column-gdprHistorico {
+overflow: hidden;
+}
+
+th.mat-column-nombre {
+  flex: none;
+  width: 250px !important;
+  min-width: 150px;
+}
+td.mat-column-nombre {
+overflow: hidden;
+}
+th.mat-column-apellidos {
+  flex: none;
+  width: 180px !important;
+  min-width: 130px;
+ }
+ th.mat-column-centro {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: none;
+  width: 230px !important;
+  min-width: 130px;
+}
+th.mat-column-rol {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: none;
+  width: 200px !important;
+}
+th.mat-column-activo {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: none;
+  width: 60px !important;
+  text-align: center;
+}
+
+th.mat-column-fechaBaja {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: none;
+  width: 185px !important;
+  text-align: center;
+  min-width:185px;
+}
+@media (min-width:1440px) {
+  th.mat-column-email {
+    width: 300px !important;
+    min-width: 300px;
+  }
+  th.mat-column-apellidos {
+    width: 230px !important;
+  }
+  th.mat-column-centro {
+    width: 260px !important;
+  }
+}
+@media (max-width:1440px) {
+  td.mat-column-email {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+  }
+  td.mat-column-email span {
+    position: absolute;
+    display: block;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80%;
+    overflow: hidden;
+  }
+  td.mat-column-email span:before {
+    content: '';
+    width: 20px;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(270deg,#FFFFFF 34.5%,rgba(250,251,252,0) 100%);
+  }
+  td.mat-column-email:hover {
+    overflow: initial;
+  }
+  td.mat-column-email:hover span {
+    z-index: 3;
+    padding:5px 15px 5px 0;
+    background-color: var(--white);
+    width: fit-content;
+    overflow: initial;
+  }
+  td.mat-column-email:hover span:before {
+    content: none;
+  }
+}
+.mat-column-star {
+  width: 60px !important;
+  text-align: center;
+}
+
+
+tr td:last-of-type, th td:last-of-type {
+    text-align: right;
+    width: 185px;
+    padding-right:20px !important;
+    white-space: nowrap;
+}
+
+tr td:first-of-type, th td:first-of-type {
+  width: 30px !important;
+}
+
+/*
+  td.mat-column-usuario {
+      word-wrap: break-word !important;
+      word-break: break-word;
+      white-space: unset !important;
+      flex: 0 0 22% !important;
+      width: 22% !important;
+      overflow-wrap: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+  }
+  td.mat-column-nombre {
+    word-wrap: break-word !important;
+    word-break: break-word;
+    white-space: unset !important;
+    flex: 0 0 9% !important;
+    width: 9% !important;
+    overflow-wrap: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  td.mat-column-apellidos {
+    word-wrap: break-word !important;
+    word-break: break-word;
+    white-space: unset !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    overflow-wrap: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  td.mat-column-centro {
+    word-wrap: break-word !important;
+    word-break: break-word;
+    white-space: unset !important;
+    flex: 0 0 19% !important;
+    width: 19% !important;
+    overflow-wrap: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  td.mat-column-rol {
+    word-wrap: break-word !important;
+    word-break: break-word;
+    white-space: unset !important;
+    flex: 0 0 13% !important;
+    width: 13% !important;
+    overflow-wrap: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  td.mat-column-activo {
+    word-wrap: break-word !important;
+    word-break: break-word;
+    white-space: unset !important;
+    flex: 0 0 7% !important;
+    width: 7% !important;
+    overflow-wrap: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  td.mat-column-fecha {
+    word-wrap: break-word !important;
+    word-break: break-word;
+    white-space: unset !important;
+    flex: 0 0 11% !important;
+    width: 11% !important;
+    overflow-wrap: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+*/
+  .rol{
+    margin-bottom: 0!important;
+    margin-left: -15px;
+  }

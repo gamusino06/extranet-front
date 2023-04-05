@@ -1,0 +1,40 @@
+td {
+    vertical-align: middle;
+}
+td a {
+    margin: 0 10px;
+    display: inline-block;
+}
+.col-idioma-1 {
+    max-width: 120px;
+    /*text-align: center;*/
+    padding-left: 40px !important;
+}
+.col-idioma-2 {
+    max-width: 120px;
+    /*text-align: center;*/
+    padding-left: 50px !important;
+}
+.mat-column-checklist {
+    padding-top: 6px;
+}
+.exportar i {vertical-align: middle;}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}

@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="row sticky-header">
+    <div class="col-9">
+      <h1 class="goal-label">
+        {{ title | titlecase }}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img
+        class="close-button"
+        src="../../../../assets/img/close_assignment_contract_modal.svg"
+        alt="{{ 'CANCELAR' | translate }}"
+        (click)="cancel()"
+      />
+    </div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "PLANIFICACION_PRL.OBJETIVO" | translate }}</mat-label>
+          <input matInput type="text" formControlName="goalName" required />
+          <mat-error>{{
+            "PLANIFICACION_PRL.ERRORES.REQUIERE_NOMBRE_OBJETIVO" | translate
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!--Filtro centro y Empresa-->
+    <div class="row">
+      <app-select-empresa-filter
+        [userForm]="form"
+        [empresasList]="empresas"
+        [radioButtonsActivos]="false"
+        class="col"
+        [required]="true"
+        [multiple]="false"
+      ></app-select-empresa-filter>
+
+      <app-select-centro-filter-v2-ppt
+        [userForm]="form"
+        [empresasList]="empresas"
+        [radioButtonsActivos]="false"
+        class="col"
+        [required]="true"
+        [multiple]="false"
+      >
+      </app-select-centro-filter-v2-ppt>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>{{
+            "PLANIFICACION_PRL.FECHA_PREVISTA" | translate
+          }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="fromPicker"
+            formControlName="expectedDate"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="fromPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+          <mat-error>{{ getDateErrorMessage() }}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>{{
+            "PLANIFICACION_PRL.EXECUTION_DATE" | translate
+          }}</mat-label>
+          <input
+            matInput
+            [max]="executionMaxDate"
+            [matDatepicker]="toPicker"
+            formControlName="executionDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="toPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+          <mat-error>{{
+            "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>{{
+            "PLANIFICACION_PRL.OBSERVACIONES" | translate
+          }}</mat-label>
+          <input matInput type="text" formControlName="observations" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="sticky-footer">
+      <div
+        class="buttons-modal"
+      >
+        <button class="clean-button" (click)="cancel()">
+          {{ "CANCELAR" | translate }}
+        </button>
+        <button (click)="accept()" class="mr-0">
+          {{ "GUARDAR" | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

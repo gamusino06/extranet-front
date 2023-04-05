@@ -1,0 +1,129 @@
+
+table {
+    width: 100%;
+}
+
+.row-actions-icons {
+  justify-content: center;
+}
+th.mat-header-cell:last-of-type {
+    /*min-width: 160px;*/
+    min-width: 170px;
+}
+td.mat-cell:last-of-type {
+    text-align: right;
+    padding-right: 15px;
+}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    /*padding: 5px;*/
+    height: 45px;
+    width: 50px;
+    /*width: 50px;*/
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+
+tr.expanded-detail {
+    height: 0;
+    overflow: hidden;
+    background-color: var(--verylightBlue);
+}
+tr.expanded-detail .detail-content {
+    overflow: hidden;
+    max-height: 0;
+    transition:max-height 0.3s ease-out;
+    justify-content: center;
+}
+
+tr.expanded-detail.expanded {height: auto;}
+tr.expanded-detail.expanded .detail-content {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+    overflow-y: scroll;
+}
+.btn-icon.expanded .show, .btn-icon .hide {
+    display: none !important;
+ }
+ .btn-icon.expanded .hide {
+     display: block !important;
+ }
+
+table.puestos-trabajo {
+    min-width: 50%;
+    max-width: 80%;
+    margin: 5px auto;
+    text-align: center;
+    background-color: white;
+
+}
+table.puestos-trabajo th {
+    background-color: var(--blue);
+    border-top: 4px solid #F28C00;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.5em !important;
+}
+
+table.puestos-trabajo td {
+    text-align: center;
+    padding: 0.5em !important;
+}
+
+table.cursos-formacion {
+    min-width: 50%;
+    max-width: 80%;
+    margin: 5px auto;
+    text-align: center;
+    background-color: white;
+
+}
+table.cursos-formacion th {
+    background-color: var(--blue);
+    border-top: 4px solid #F28C00;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.5em !important;
+}
+
+table.cursos-formacion td {
+    text-align: center;
+    padding: 0.5em !important;
+}
+
+.boton-alta{
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+  padding: 2px 10px;
+  font-size: smaller!important;
+  width: 210px;
+}
+
+.info{
+  font-size: 24px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.privacy{
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}

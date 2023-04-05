@@ -1,0 +1,27 @@
+.readonly-wrapper {
+    cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+    pointer-events: none;
+}
+
+.seleccionador {
+  width: 40% !important;
+}
+
+.condicionante {
+  margin-left: 7.5%;
+}
+
+.bienvenida {
+  display: block;
+  margin-left: 7.5%;
+  width: 83% !important;
+}
+
+@media screen and (max-width: 456px){
+  .seleccionador, .bienvenida {
+    width: 100% !important;
+  }
+}

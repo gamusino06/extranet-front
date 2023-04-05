@@ -1,0 +1,180 @@
+<app-juridico></app-juridico>
+<div class="container-fluid" *ngIf="!selected">
+  <!-- Title -->
+  <div class="row">
+    <div class="col">
+      <h1 class="tituloSec text-uppercase">{{ 'ACTIVIDADES_FORMATIVAS_PRL' | translate }}</h1>
+    </div>
+  </div>
+  <!-- /Title -->
+  <!-- FORM -->
+  <form (ngSubmit)="getActividadesFormativas()" [formGroup]="formacionForm">
+    <!-- INPUTS -->
+    <div class="row">
+      <!-- NOMBRE -->
+      <div class="col-6">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'NOMBRE_ACTIVIDAD' | translate }}</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+      </div>
+      <!-- /NOMBRE -->
+      <!-- DESDE -->
+      <div class="col-3">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DESDE' | translate }}</mat-label>
+          <input matInput [matDatepicker]="fromPicker" formControlName="from" placeholder="dd/mm/aaaa">
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- /DESDE -->
+      <!-- HASTA -->
+      <div class="col-3">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'HASTA' | translate }}</mat-label>
+          <input matInput [matDatepicker]="toPicker" formControlName="to" placeholder="dd/mm/aaaa">
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- /HASTA -->
+      <!-- INSCRIPCIONES -->
+      <div class="col">
+        <label class="mr-2">{{'ACTIVIDADES_INSCRIPCIONES' | translate}}:</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" formControlName="inscriptions" id="si" value="1">
+          <label class="form-check-label" for="si">{{'SI' | translate}}</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" formControlName="inscriptions" id="no" value="0">
+          <label class="form-check-label" for="no">{{'NO' | translate}}</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" formControlName="inscriptions" id="todas" value="2">
+          <label class="form-check-label" for="todas">{{'TODAS' | translate}}</label>
+        </div>
+      </div>
+      <!-- /INSCRIPCIONES -->
+    </div>
+    <!-- /INPUTS -->
+    <hr>
+    <!-- BUTTONS -->
+    <div class="row justify-content-end">
+      <div>
+        <button class="clean-button" type="button" (click)="resetForm()">
+          <img src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}">
+          <span class="clean-span">{{ 'LIMPIAR' | translate }}</span>
+        </button>
+      </div>
+      <div>
+        <button class="search-button" type="submit" [disabled]="!formacionForm.valid"><img
+          src="{{searchImgUrl}}" class="img" alt="Filtros"><span
+          class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+      </div>
+    </div>
+    <!-- /BUTTONS -->
+  </form>
+  <!-- /FORM -->
+  <p class="text-center" style="color: #004C67">
+    <b>{{ 'ACCEDA_PILDORAS_ELABORADAS' | translate }}</b>
+  </p>
+  <!-- RESULTADOS -->
+  <p class="text-danger text-small" *ngIf="actividades && actividades.length <= 0 || error"><b>{{'NO_RESULTADOS_ENCONTRADOS_FILTRADO' |translate}}</b></p>
+  <hr style="background-color: #F28C00; margin-bottom: 0 !important; height: 0.4em; opacity: 1" />
+  <table mat-table [dataSource]="dataSource"
+         matSort
+         matSortActive="fechaInicio"
+         matSortDirection="desc"
+         matSortDisableClear class="table"
+         style="margin-top: 0"
+         cdkDropList
+         cdkDropListOrientation="horizontal"
+         (cdkDropListDropped)="drop($event)"
+         multiTemplateDataRows
+  >
+    <!-- Documento -->
+    <ng-container matColumnDef="documento">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag></th>
+      <td mat-cell *matCellDef="let element">
+        <span><i class="fas fa-solid fa-file" style="float: right" (click)="selectActivity(element.id)" onclick="window.scrollTo(0, 0)"></i></span>
+      </td>
+    </ng-container>
+    <!-- Fecha Inicio -->
+    <ng-container matColumnDef="fechaInicio">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'FECHA_INICIO' | translate}}</th>
+      <td mat-cell *matCellDef="let element"><span matTooltip="{{element.fechaInicio | date : 'dd/MM/yyyy' }}"> {{element.fechaInicio | date : 'dd/MM/yyyy' }} </span></td>
+    </ng-container>
+    <!-- Fecha Inicio -->
+    <ng-container matColumnDef="fechaFin">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'FECHA_FIN' | translate}}</th>
+      <td mat-cell *matCellDef="let element"><span matTooltip="{{element.fechaFin | date : 'dd/MM/yyyy' }}"> {{element.fechaFin | date : 'dd/MM/yyyy' }} </span></td>
+    </ng-container>
+    <!-- Nombre Actividad -->
+    <ng-container matColumnDef="nombreActividad">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'NOMBRE_ACTIVIDAD' | translate}}</th>
+      <td mat-cell *matCellDef="let element"><span matTooltip="{{element.nombreActividad }}"> {{element.nombreActividad }} </span></td>
+    </ng-container>
+    <!-- Tipo -->
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'TIPO' | translate}}</th>
+      <td mat-cell *matCellDef="let element"><span matTooltip="{{element.tipo }}"> {{element.tipo }} </span></td>
+    </ng-container>
+    <!-- Aforo -->
+    <ng-container matColumnDef="aforo">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'AFORO' | translate}}</th>
+      <td mat-cell *matCellDef="let element"><span matTooltip="{{element.aforo }}"> {{element.aforo }} </span></td>
+    </ng-container>
+    <!-- Inscritos -->
+    <ng-container matColumnDef="inscritos">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'INSCRITOS' | translate}}</th>
+      <td mat-cell *matCellDef="let element"><span matTooltip="{{element.inscritos }}"> {{element.inscritos }} </span></td>
+    </ng-container>
+    <!-- Empresa -->
+    <ng-container matColumnDef="empresa">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'EMPRESA' | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+        <span matTooltip="{{element.inscritosEmpresa }}/{{element.aforoEmpresa }}">
+          {{element.inscritosEmpresa }} / {{element.aforoEmpresa }}
+        </span>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+  </table>
+</div>
+
+<!-- Selected -->
+<div class="container-fluid" *ngIf="selected">
+  <!-- Title -->
+  <div class="row">
+    <div class="col-9 d-flex align-items-end">
+      <h1 class="tituloSec text-uppercase mb-0">{{ activitySelected.nombreActividad }} ({{ activitySelected.id }})</h1>
+    </div>
+    <div class="col-3 d-flex align-items-end">
+      <button class="clean-button float-right m-0" (click)="returnToActivities()" onclick="window.scrollTo(0, 0)">
+        <i class="fas fa-solid fa-angle-left"></i>
+        <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+      </button>
+    </div>
+  </div>
+  <!-- Date -->
+  <div>
+    <b>{{ 'FECHA' | translate }}</b> &nbsp;&nbsp;
+    {{ activitySelected.fechaInicio == undefined || null || '' ? 'dd/mm/aaaa' : activitySelected.fechaInicio | date : 'dd/MM/yyyy' }} -
+    {{ activitySelected.fechaFin == undefined || null || '' ? 'dd/mm/aaaa' : activitySelected.fechaFin | date : 'dd/MM/yyyy' }}
+  </div>
+  <!-- Video -->
+  <div class="mt-5">
+    <p class="mt-5 mb-5">
+      Pildora formativa en la que se mostrará la obligación del empresario de ofrecer a sus
+      empleados la vigilancia periódica de su estado de salud en función a los riesgos
+      inherentes al trabajo.
+    </p>
+    <a class="enlaceVideo" (click)="abrirReproductorVideo()">
+      <i class="far fa-play-circle"></i>
+      {{ 'CURSO_SAJP' | translate }} - {{ activitySelected.nombreActividad }}
+    </a>
+  </div>
+
+</div>

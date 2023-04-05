@@ -1,0 +1,119 @@
+<div class="container">
+  <div class="row sticky-header">
+    <div class="col-9">
+      <h1 class="preventive-measure-label" style="white-space: nowrap">
+        {{ title | titlecase }}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img
+        class="close-button"
+        src="../../../../assets/img/close_assignment_contract_modal.svg"
+        alt="{{ 'CANCELAR' | translate }}"
+        (click)="cancel()"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <label class="label-file">
+        {{
+          "PLANIFICACION_PRL.MEDIDAS_PREVENTIVAS_INFORMACION_DESCARGAR"
+            | translate
+        }}
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <button
+        type="button"
+        class="clean-button"
+        (click)="downloadTemplateExcelAddMPMasive()"
+        style="white-space: nowrap"
+      >
+        <span class="material-icons"> download </span>
+        <span class="down-span">
+          {{
+            "PLANIFICACION_PRL.MEDIDAS_PREVENTIVAS_DESCARGAR_PLANTILLA"
+              | translate
+          }}</span
+        >
+      </button>
+    </div>
+  </div>
+
+  <mat-divider class="mb-lg-5 mt-5"></mat-divider>
+
+  <form [formGroup]="form">
+    <!--Filtro centro y Empresa-->
+    <div class="row">
+      <app-select-empresa-filter
+        [userForm]="form"
+        [empresasList]="empresas"
+        [radioButtonsActivos]="false"
+        class="col"
+        [required]="true"
+        [multiple]="false"
+      ></app-select-empresa-filter>
+
+      <app-select-centro-filter-v2-ppt
+        [userForm]="form"
+        [empresasList]="empresas"
+        [radioButtonsActivos]="false"
+        class="col"
+        [required]="true"
+        [multiple]="false"
+      >
+      </app-select-centro-filter-v2-ppt>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <label class="label-file">
+          {{
+            "PLANIFICACION_PRL.MEDIDAS_PREVENTIVAS_CARGA_FICHERO" | translate
+          }}
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <file-uploader
+          compact
+          [disabled]="isSubmitting"
+          [maxFileSize]="5"
+          [validTypes]="[
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          ]"
+          [(fileList)]="files"
+          (onError)="onFileError($event)"
+        ></file-uploader>
+      </div>
+    </div>
+
+    <div
+      class="row sticky-footer mt-2"
+      [ngClass]="{ 'with-padding': isSubmitting }"
+    >
+      <div *ngIf="isSubmitting" style="flex: 1; margin-right: 20px">
+        <progress-bar [progress]="progress"></progress-bar>
+      </div>
+
+      <div class="buttons-modal" [ngClass]="{ col: !isSubmitting }">
+        <ng-container *ngIf="files.length > 0; else nothingToSave">
+          <button class="clean-button" (click)="cancel()"> {{ "CANCELAR" | translate }} </button>
+          <button (click)="accept()"> {{ "ENVIAR" | translate }} </button>
+        </ng-container>
+
+        <ng-template #nothingToSave>
+          <button (click)="cancel()">
+            {{ "ACEPTAR" | translate }}
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </form>
+</div>

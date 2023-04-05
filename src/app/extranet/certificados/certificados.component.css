@@ -1,0 +1,44 @@
+td {
+    vertical-align: middle;
+}
+td a {
+    margin: 0 10px;
+    display: inline-block;
+}
+th p {
+    font-size: 11px;
+    text-transform: none;
+    line-height: 14px;
+    color: #b8bbbc;
+    max-width: 210px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+.cdk-column-certificadoContratacion,
+.cdk-column-certificadoPago {
+    max-width: 220px;
+    text-align: center;
+}
+.mat-column-checklist {
+    padding-top: 6px;
+}
+.exportar i {vertical-align: middle;}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}

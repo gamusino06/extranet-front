@@ -1,0 +1,61 @@
+<div [formGroup]="userForm">
+<mat-form-field appearance="outline">
+    <mat-label *ngIf="!required">{{ 'EMPRESA' | translate }}</mat-label>
+    <mat-label *ngIf="required">{{ 'EMPRESA' | translate }}*</mat-label>
+    <mat-select formControlName="empresaForm" class="multiple-selector" [multiple]="multiple"
+        [disableOptionCentering]="true" #selectEmpresas>
+        <mat-select-trigger *ngIf="multiple">
+              <span *ngFor="let selectedOption of selectEmpresas.selected; let last = last"
+                    [hidden]="selectedOption.value == 0">
+                      {{selectedOption.getLabel()}}<ng-container *ngIf="!last">, </ng-container>
+              </span>
+        </mat-select-trigger>
+        <mat-option value="0">
+          <ngx-mat-select-search placeholderLabel="{{ 'BUSCAR' | translate }}"
+                                 [showToggleAllCheckbox]="true"
+                                 [toggleAllCheckboxIndeterminate]="this.userForm.controls['empresaForm'].value?.length > 0 && this.userForm.controls['empresaForm'].value?.length < empresasList?.length"
+                                 [toggleAllCheckboxChecked]="this.userForm.controls['empresaForm'].value?.length === empresasList?.length"
+                                 (toggleAll)="toggleSelectAll($event)"
+                                 [formControl]="empresaFilter"
+                                 noEntriesFoundLabel="{{ 'NO_DATA' | translate }}">
+          </ngx-mat-select-search>
+        </mat-option>
+
+      <!--div *ngFor="let number of this.numbers"-->
+        <ng-container *ngFor="let empresa of empresasList | searchFilter:empresaFilter.value">
+            <mat-option *ngIf="selectedRadio==0 && empresa?.mostrar==true" [value]="empresa?.idEmpresa" matTooltip="{{empresa?.nombre}}">
+                {{empresa?.nombre}}
+            </mat-option>
+            <mat-option *ngIf="selectedRadio==1  && empresa?.activo==true && empresa?.mostrar==true" [value]="empresa?.idEmpresa" matTooltip="{{empresa?.nombre}}">
+                {{empresa?.nombre}}
+            </mat-option>
+            <mat-option *ngIf="selectedRadio==2 && empresa?.activo==false && empresa?.mostrar==true" [value]="empresa?.idEmpresa" matTooltip="{{empresa?.nombre}}">
+                {{empresa?.nombre}}
+            </mat-option>
+        </ng-container>
+      <!--/div-->
+    </mat-select>
+
+    <mat-error
+      *ngIf="userForm.get('empresaForm').hasError('required') && userForm.get('empresaForm').touched">
+      {{ 'EMPRESA_REQUERIDA' | translate }}
+    </mat-error>
+</mat-form-field>
+<div class="row" *ngIf="radioButtonsActivos">
+    <div class="col">
+        <mat-radio-group formControlName="selectEmpresasRadioForm" aria-label="Select an option">
+            <mat-radio-button value="0" (change)="selectedRadio=0;vaciarFilter();">{{ 'VER_TODAS' | translate }}</mat-radio-button>
+            <mat-radio-button value="1" (change)="selectedRadio=1;vaciarFilter();">{{ 'ACTIVAS' | translate }}</mat-radio-button>
+            <mat-radio-button value="2" (change)="selectedRadio=2;vaciarFilter();">{{ 'INACTIVAS' | translate }}</mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>
+<div class="row" *ngIf="infoCentros && this.userForm.controls['empresaForm'].value.length>0">
+  <div class="col">
+    <mat-checkbox formControlName="todosCentrosForm" [disabled]="true" color="gray"></mat-checkbox> &nbsp;{{ 'AFECTA_TODOS_CENTROS' | translate }}
+    <a class="btn-icon" (click)="openModalSelectEmpresaCentro()">
+      <i class="material-icons md-24" style="vertical-align:middle;">visibility</i>&nbsp;{{ 'MODIFICAR_CENTROS' | translate }}
+    </a>
+  </div>
+</div>
+</div>

@@ -1,0 +1,68 @@
+.app-preving-bills {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+.info-empresa-box {
+    max-width:70%;
+    border:1px var(--blue) solid;
+    border-radius: 4px;
+    padding: 1%;
+    margin: 0.1% 0px 0.4% 0px;
+    text-align:left;
+  }
+
+  .bannerEbills {
+    width: 50%;
+    height: auto;
+    vertical-align: middle;
+  }
+
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+.row-actions-icons {
+    justify-content: center;
+}
+
+.panel-content {
+    /*border-top: 1px solid var(--coolGray);*/
+    padding: 20px;
+    overflow-x: hidden;
+}
+tr td:last-of-type, th td:last-of-type {
+    text-align: right;
+    width: 185px;
+}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 5px;
+    padding: 0;
+    height: fit-content;
+}
+.btn-icon.more-info {
+    padding: 0 5px;
+    height: auto;
+    width: auto;
+}
+
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}

@@ -1,0 +1,40 @@
+#tuscentros{
+  width: 100vw;
+  padding-bottom: 20%;
+}
+
+#wpsl-stores .wpsl-store-thumb {
+    height: 45px !important;
+    width: 45px !important;
+}
+
+#wpsl-stores,
+#wpsl-direction-details,
+#wpsl-gmap {
+    height: 400px !important;
+}
+
+#wpsl-gmap .wpsl-info-window {
+    max-width: 400px !important;
+}
+
+.wpsl-input label,
+#wpsl-radius label,
+#wpsl-category label {
+    width: 95px;
+}
+
+#wpsl-search-input {
+    width: 179px;
+}
+
+@media (min-width: 992px) {
+  #tuscentros{
+    padding-bottom: 10%;
+  }
+}
+@media (max-width:767px) {
+  #tuscentros{
+    padding-bottom: 30%;
+  }
+}

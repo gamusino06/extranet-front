@@ -1,0 +1,14 @@
+.salir{
+  background-color: #E52620;
+  float: right;
+  border: #E52620;
+}
+
+.imagengeneral {
+  width: 97%;
+  margin-left: 3%;
+  background-image: url("../../../assets/img/general-info-fondo.jpg");
+  padding: 1em;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}

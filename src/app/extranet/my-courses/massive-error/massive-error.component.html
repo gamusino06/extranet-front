@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row title-container">
+    <div class="col-9">
+      <h1 class="new-course-label">
+        {{'MY_COURSE.MASSIVE_ERROR.TITLE'| translate}}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img class="new-course-close-button" src="../../../../assets/img/close_assignment_contract_modal.svg"
+           alt="{{ 'CANCELAR' | translate }}" (click)="cancel()">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="create-warning">{{'MY_COURSE.MASSIVE_ERROR.DESCRIPTION_ERROR_ONE' |translate}} {{this.dataSource.data.length}} {{'MY_COURSE.MASSIVE_ERROR.DESCRIPTION_ERROR_TWO' |translate}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col buttons-modal">
+      <button class="clean-button" (click)="downloadLog()">
+        <span class="material-icons">download</span>
+        <span class="down-span">{{'MY_COURSE.MASSIVE_ERROR.DOWNLOAD_LOG'| translate}}</span>
+      </button>
+    </div>
+  </div>
+  <div class="row table-container" style="margin-left: 0%; width:100%">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" tabindex="0">
+      <ng-container matColumnDef="line">
+        <th mat-header-cell *matHeaderCellDef> {{'MY_COURSE.MASSIVE_ERROR.LINE_HEADER' |translate}}</th>
+        <td mat-cell *matCellDef="let element"> {{element.line}} </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>{{'MY_COURSE.MASSIVE_ERROR.DESCRIPTION_HEADER' |translate}}</th>
+        <td mat-cell *matCellDef="let element"> {{element.column}} </td>
+      </ng-container>
+      <ng-container matColumnDef="reason">
+        <th mat-header-cell *matHeaderCellDef>Motivo</th>
+        <td mat-cell *matCellDef="let element" [innerHtml]="element.error"></td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col buttons-modal">
+      <button class="clean-button" (click)="cancel()">
+        <span>{{'VOLVER' |translate}}</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+.modal__container--opened {
+  width: 100%;
+  max-width: 600px;
+  padding: 1.25em;
+  /* display: flex;
+  justify-content: center; */
+  border: none;
+  border-radius: 0.3125em;
+  background: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  text-align: center;
+  box-shadow: 0px 3px 6px #00000029;
+  animation: swal2-show .3s;
+}
+
+.spinner {
+  animation: rotate 2s linear infinite;
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0 0 -25px;
+  width: 50px;
+  height: 50px;
+  stroke: rgb(173, 173, 173);
+}
+.spinner .path {
+    stroke-linecap: round;
+    background: red;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/*asdfasdfasdf*/
+.button {
+  position: relative;
+  padding: 8px 16px;
+  border: none;
+  outline: none;
+  gap: 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+}
+
+.disabled {
+  opacity: 0.3 !important;
+}
+.disabled * {
+  pointer-events: none;
+  cursor: default;
+}
+
+.button--loading::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: rotator 1.4s linear infinite;
+}
+
+@keyframes rotator {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(270deg);
+  }
+}

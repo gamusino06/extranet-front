@@ -1,0 +1,412 @@
+<!-- <app-confirmation-modal
+    *ngIf="showModal"
+    [configurationObj]="ModalConfigurationObj"
+    (onAcceptEvent)="showModal=false"
+    (onCancelEvent)="showModal=false"
+    class="custom-modal">
+  </app-confirmation-modal> -->
+<div id="app-objetivos-prl">
+  <div class="col">
+    <!-- Listado-->
+    <div id="listado">
+      <hr />
+
+      <!--Form-->
+      <form [formGroup]="searchForm" >
+        <!-- (ngSubmit)="searchGoals()" -->
+        <!--Filtro centro y Empresa-->
+        <div class="row">
+          <app-select-empresa-filter
+            [userForm]="searchForm"
+            [empresasList]="empresas"
+            [radioButtonsActivos]="false"
+            [multiple]="false"
+            required="true"
+            class="col"
+          ></app-select-empresa-filter>
+          <app-select-centro-filter
+            [userForm]="searchForm"
+            [empresasList]="empresas"
+            [radioButtonsActivos]="false"
+            [multiple]="false"
+            class="col"
+          ></app-select-centro-filter>
+        </div>
+        <div class="row">
+          <!-- Objetivo -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline" appearance="outline">
+              <mat-label>{{ "OBJETIVO" | translate }}</mat-label>
+              <input matInput type="text" formControlName="objetivoForm" />
+            </mat-form-field>
+          </div>
+          <!-- Estado -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "ESTADO" | translate }}</mat-label>
+              <mat-select
+                formControlName="estadoForm"
+                multiple
+                id="statusSelect"
+                #statusSelect
+              >
+                <mat-option (click)="statusToggleAllSelection()" [value]="ALL">
+                  {{ "TODOS" | translate }}
+                </mat-option>
+                <mat-option
+                  (click)="statusOptionClick()"
+                  *ngFor="let status of statusList"
+                  [value]="status.value"
+                  >{{ status.viewValue | translate }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Fecha creacion -->
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.FECHA_CREACION_DESDE" | translate
+              }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="createDateFromPicker"
+                formControlName="createdDateIniForm"
+                (dateChange)="minCreatedDate = $event.value?.toDate()"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="createDateFromPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #createDateFromPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.FECHA_CREACION_HASTA" | translate
+              }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="createDateToPicker"
+                formControlName="createdDateEndForm"
+                [min]="minCreatedDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="createDateToPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #createDateToPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Fecha expected/executed -->
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.FECHA_PREVISTA_DESDE" | translate
+              }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="expectedDateFromPicker"
+                formControlName="expectedDateIniForm"
+                (dateChange)="minExpectedDate = $event.value?.toDate()"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="expectedDateFromPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #expectedDateFromPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.FECHA_PREVISTA_HASTA" | translate
+              }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="expectedDateToPicker"
+                formControlName="expectedDateEndForm"
+                [min]="minExpectedDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="expectedDateToPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #expectedDateToPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.FECHA_EJECUTADA_DESDE" | translate
+              }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="executionDateFromPicker"
+                formControlName="executionDateIniForm"
+                (dateChange)="minExecutionDate = $event.value?.toDate()"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="executionDateFromPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #executionDateFromPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "PLANIFICACION_PRL.FECHA_EJECUTADA_HASTA" | translate
+              }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="executionDateToPicker"
+                formControlName="executionDateEndForm"
+                [min]="minExecutionDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="executionDateToPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #executionDateToPicker></mat-datepicker>
+              <mat-error>{{
+                "PLANIFICACION_PRL.ERRORES.FECHA_INVALIDA" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <hr />
+
+        <!-- Buttons -->
+        <div class="row justify-content-between align-items-center">
+          <ui-button label="PLANIFICACION_PRL.NUEVO_OBJETIVO" icon="add" type="primary" 
+          (click)="openGoalModal(undefined)"></ui-button>
+          <ui-search-buttons class="ml-auto"
+            [disabledButton2]="!searchForm.valid"
+            (onClearClick)="resetForm()"
+            (onSearchClick)="searchGoals()"
+          ></ui-search-buttons>
+        </div>
+      </form>
+
+      <!-- Legend -->
+      <div class="row" [hidden]="!showTable">
+        <div class="recycling-legend">
+          <div class="reciclyng-dot">
+            <span class="dot-green"></span
+            >{{ "PLANIFICACION_PRL.GOAL_SUCCESS" | translate }}
+          </div>
+          <div class="reciclyng-dot">
+            <span class="dot-yellow"></span
+            >{{ "PLANIFICACION_PRL.GOAL_PENDING" | translate }}
+          </div>
+          <div class="reciclyng-dot">
+            <span class="dot-red"></span
+            >{{ "PLANIFICACION_PRL.GOAL_DELAYED" | translate }}
+          </div>
+        </div>
+      </div>
+      <!-- Table -->
+      <div class="table-responsive" [hidden]="!showTable">
+        <table
+          mat-table
+          [dataSource]="dataSourceGoals"
+          matSort
+          cdkDropList
+          cdkDropListOrientation="horizontal"
+          multiTemplateDataRows
+          class="mat-elevation-z2 table"
+          (cdkDropListDropped)="this.utils.drop($event, this.displayedColumns)"
+        >
+          <ng-container matColumnDef="checklist">
+            <th mat-header-cell cdkDrag *matHeaderCellDef>
+              <mat-checkbox (change)="checkAllRows($event)"></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox
+                [(ngModel)]="element.checked"
+                [ngModelOptions]="{ standalone: true }"
+              ></mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell cdkDrag *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <span
+                class="reciclyng-dot-in-table"
+                [style.background-color]="getColorStatus(element.status)"
+              ></span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="clientCenter">
+            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+              {{ "EMPRESA_CENTRO" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <span
+                class="empresaCentroSpan"
+                [matTooltip]="
+                  element.client?.nombre + ' - ' + element.center?.nombre
+                "
+              >
+                {{ element.client?.nombre }} - {{ element.center?.nombre }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+              {{ "OBJETIVO" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="expectedDate">
+            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+              {{ "PLANIFICACION_PRL.FECHA_PREVISTA" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.expectedDate | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="executionDate">
+            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+              {{ "PLANIFICACION_PRL.EXECUTION_DATE" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.executionDate | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              class="text-center"
+            ></th>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              cdkDrag
+              class="text-center"
+            ></th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              <div class="d-flex">
+                <mat-icon
+                  style="cursor: pointer"
+                  class="icono-mater"
+                  (click)="openGoalModal(element)"
+                >
+                  edit
+                </mat-icon>
+                <button
+                  mat-raised-button
+                  class="btn-icon"
+                  (click)="showGoalDetailModal(element)"
+                >
+                  <i class="material-icons md-24">visibility</i>
+                </button>
+                <mat-icon
+                  style="cursor: pointer; rotate: 45deg"
+                  class="icono-mater"
+                  [ngClass]="{'has-elems': element.hasDocuments}"
+                  (click)="openGoalDocsModal(element)"
+                >
+                  attach_file
+                </mat-icon>
+                <mat-icon
+                  style="cursor: pointer"
+                  class="icono-mater"
+                  (click)="openDeleteGoalModal(element)"
+                >
+                  delete
+                </mat-icon>
+                <mat-icon
+                  style="cursor: pointer"
+                  class="icono-mater"
+                  (click)="showGoalsEmailModal(element)"
+                >
+                  email
+                </mat-icon>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <mat-paginator
+        class="paginator"
+        #paginatorT
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        showFirstLastButtons
+      ></mat-paginator>
+      <br />
+      <div class="export-results-container row float-right">
+        <div class="col">
+          <div class="exportar" (click)="exportToExcel()">
+            <img [src]="excelImgUrl" alt="" />
+            <span class="search-span">
+              {{ "EXPORTAR_RESULTADOS" | translate }}</span
+            >
+          </div>
+        </div>
+
+        <div class="col">
+          <div (click)="exportToPDF()" class="exportar">
+            <img [src]="pdfImgUrl" alt="" class="export-pdf-icon" />
+            <span class="search-span">{{
+              "EXPORTAR_RESULTADOS" | translate
+            }}</span>
+          </div>
+        </div>
+
+        <div class="col">
+          <div (click)="showGoalsEmailModal()" class="exportar">
+            <img src="{{ mailImgUrl }}" alt="" />
+            <span class="search-span">{{ "COMPARTIR" | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /listado-->
+
+    <!-- Detalles del trabajador -->
+    <div id="trabajadorDetails" *ngIf="showTrabajadorDetails">
+      Detalles del trabajador
+    </div>
+    <!-- /trabajadorDetails-->
+
+    <!--Edit-->
+    <div *ngIf="showEditGoal">showEditGoal</div>
+    <!--/Edit-->
+
+    <!--Create Goal-->
+    <div *ngIf="showCreateGoal">showCreateGoal</div>
+    <!--/Create Goal-->
+  </div>
+</div>

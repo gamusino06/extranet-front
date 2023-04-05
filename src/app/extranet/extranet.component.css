@@ -1,0 +1,253 @@
+/* SIDEBAR */
+
+.sidebar-container {
+  min-width: 260px;
+  max-width: 370px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-container {
+    max-width: 100%;
+  }
+}
+
+
+
+/* Definimos aqui los estilos de angular material o boostrap que sobreescribimos
+  Si se pone en el styles.css no funciona.
+*/
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate, .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
+    background-color: var(--blue) !important;
+    vertical-align: text-top;
+}
+
+::ng-deep .mat-checkbox-inner-container
+{
+  background-color: var(--white) !important;
+  border-radius: .2em;
+}
+
+::ng-deep .mat-checkbox-inner-container
+{
+  background-color: var(--white) !important;
+  border-radius: .2em;
+}
+
+::ng-deep .mat-sort-header-button
+{
+  margin: 0px 0px 0px 10px !important;
+  text-align:left !important;
+}
+
+::ng-deep .table thead th
+{
+  vertical-align:middle;
+}
+
+::ng-deep .table
+{
+  vertical-align:middle;
+}
+
+::ng-deep .table td, .table th {
+  padding-left:20px !important;
+  padding-right:0px !important;
+  padding-top:0px !important;
+  padding-bottom:0px !important;
+}
+
+::ng-deep th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+  padding-left:20px !important;
+  padding-right:0px !important;
+  padding-top:0px !important;
+  padding-bottom:0px !important;
+}
+
+::ng-deep th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  padding: 10px !important;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+@media (max-width:500px) {
+  .header {
+    background-color: white;
+  }
+}
+::ng-deep .cal-month-view .cal-day-number {
+  color: var(--blue);
+  opacity: 1;
+}
+::ng-deep .cal-month-view .cal-day-cell:not(:last-child) {
+    margin: 10px 10px 10px 10px;
+    border: 1px solid var(--blue);
+    border-radius:20%;
+    background-color: white;
+}
+
+::ng-deep .cal-month-view .cal-day-cell:last-child {
+    margin: 10px 10px 10px 10px;
+    border: 1px solid var(--red);
+    border-radius:20%;
+}
+
+::ng-deep .cal-month-view{
+  background:none;
+  color:var(--blue);
+}
+
+::ng-deep .cal-month-view .cal-days .cal-cell-row{
+  background:none;
+  border:0px;
+}
+
+::ng-deep .cal-month-view .cal-days{
+   background:none;
+   border:0px;
+}
+
+::ng-deep .cal-month-view .cal-events {
+  margin:10px !important;
+}
+
+
+
+:ng--deep .cal-month-view .cal-cell-row .cal-cell:hover, .cal-month-view .cal-cell.cal-has-events.cal-open {
+  background-color: var(--blue) !important;
+}
+::ng-deep .cal-month-view .cal-day-cell{
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  max-width: 80px;
+  min-height: initial !important;
+}
+::ng-deep .cal-month-view .cal-header .cal-cell {
+  max-width: 80px;
+  margin: 0 10px;
+  color: darkgray;
+}
+::ng-deep .cal-month-view .cal-cell-top {
+  min-height: inherit;
+}
+
+::ng-deep .cal-month-view .cal-day-cell .num-citas {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.5em;
+  color:var(--blue);
+  text-decoration:underline;
+  font-weight: bold;
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-today .num-citas {
+  color: white;
+}
+
+::ng-deep .cal-month-view .cal-day-cell.cal-out-month .cal-day-number {
+    opacity: 0.5;
+    cursor: default;
+}
+
+::ng-deep .cal-month-view .cal-day-cell.cal-today {
+  background-color: var(--blue) !important;
+  color: white;
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+  color: white;
+}
+
+::ng-deep .cal-month-view .cal-day-number {
+    font-size: 1.9em;
+    font-weight: 400;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+::ng-deep .cal-disabled {
+  background-color: var(--white) !important;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+::ng-deep .cal-disabled .cal-day-number {
+  opacity: 0.5;
+}
+
+::ng-deep .cal-month-view .cal-day-number {
+    font-size: 1.9em;
+    font-weight: 400;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+::ng-deep .cal-month-view .cal-day-number {
+    color: var(--blue);
+    opacity: 1;
+    /* background-color: cadetblue; */
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
+    cursor: pointer;
+    background-color: var(--beige) !important;
+    opacity: 1;
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-in-month.cal-today.cal-has-events {
+    cursor: pointer;
+    background-color: var(--blue) !important;
+    opacity: 1;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+
+.imageStyle {
+  text-align-last: center;
+}
+
+
+@media (max-width: 550px) {
+    ::ng-deep .cal-month-view .cal-days{
+       background:none;
+       border:0px;
+       width: 400px;
+    }
+
+    ::ng-deep .cal-month-view .cal-day-cell {
+        width: 60px;
+        height: 90px;
+        min-width: 30px;
+        max-width: 100px;
+        min-height: initial !important;
+    }
+
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}
+
+@media (max-width:400px) and (min-width: 300px) {
+    ::ng-deep .cal-month-view .cal-days{
+       background:none;
+       border:0px;
+       width: 300px;
+    }
+
+    ::ng-deep .cal-month-view .cal-day-cell {
+        width: 60px;
+        height: 90px;
+        min-width: 30px;
+        max-width: 100px;
+        min-height: initial !important;
+    }
+
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}

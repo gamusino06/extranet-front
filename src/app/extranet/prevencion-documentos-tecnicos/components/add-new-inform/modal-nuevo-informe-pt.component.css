@@ -1,0 +1,70 @@
+@font-face {
+  font-family: myHelvetica;
+  src: url(../../../../../assets/font/HelveticaNeueLTStd55Roman_22526.ttf);
+  font-weight: normal;
+  font-size: 1.8rem;
+}
+
+.container {
+	text-align: center;
+	justify-content: center;
+	align-content: space-evenly;
+  align-items: center;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+  flex-wrap: wrap;
+}
+
+
+button {
+  margin: 12px 12px 12px 12px;
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+  color: #fff;
+  display: inline-block;
+  font-size: 15px;
+  height: auto;
+  padding: 10px 25px;
+  line-height: 1.2em;
+  outline: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.button[disabled] {
+  background-color: var(--lightGray);
+  color: var(--coolGray);
+  border: 1px solid var(--coolGray);
+}
+
+.titulo p{
+  display: flex;
+  text-align: start;
+  font-weight: bold;
+  padding-left: 30px;
+}
+
+.cancelar{
+  background-color: var(--white);
+  color: var(--blue);
+  border: 1px solid var(--blue);
+}
+
+.anexar{
+  font-size: 18px;
+  margin-top: 20px !important;
+}
+
+.cerrarModal{
+  margin-top: 20px !important;
+  margin-right: 8px;
+}
+.fichero{
+  padding-left: 40px;
+  padding-right: 25px;
+}
+
+.botones{
+  margin-right: 28px;
+}

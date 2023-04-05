@@ -1,0 +1,118 @@
+<div id="app-modificar-videoayuda">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade" [fullScreen]="true">
+        <p style="color: var(--blue); font-weight: bolder; font-size: x-large">  {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+    <div class="container-fluid">
+        <!--Form-->
+        <form [formGroup]="videoAyudaModForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec">
+                        <span style="cursor: pointer;color:var(--gray)" (click)="goToListado()" class="text-uppercase">
+                        {{ 'LISTADO_VIDEOAYUDAS' | translate }}>
+                        </span>
+                        <span class="text-uppercase">{{ 'VIDEOAYUDA' | translate }}:</span> {{videoAyudaToMod.nombre}}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'NOMBRE' | translate }}*</mat-label>
+                        <input matInput type="text" formControlName="nombreForm" maxlength="100">
+                        <mat-error *ngIf="videoAyudaModForm.get('nombreForm').hasError('required') && videoAyudaModForm.get('nombreForm').touched">
+                          {{ 'CAMPO_REQUERIDO' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'IDIOMA' | translate }}*</mat-label>
+                    <mat-select formControlName="idiomaForm" class="multiple-selector">
+                      <mat-option *ngFor="let idioma of idiomasList" [value]="idioma.idIdioma">{{idioma.nombre}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="videoAyudaModForm.get('idiomaForm').hasError('required') && videoAyudaModForm.get('idiomaForm').touched">
+                      {{ 'CAMPO_REQUERIDO' | translate }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'CATEGORIA' | translate }}*</mat-label>
+                    <mat-select formControlName="categoriaForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                      <mat-option (click)="selectAll('videoAyudaModForm','categoriaForm',categoriasList,'idCategoriaAyuda');">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                      </mat-option>
+                      <mat-option *ngFor="let categoria of categoriasList" [(value)]="categoria.idCategoriaAyuda">{{categoria.nombre}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="videoAyudaModForm.get('categoriaForm').hasError('required') && videoAyudaModForm.get('categoriaForm').touched">
+                      {{ 'CAMPO_REQUERIDO' | translate }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'FECHA_BAJA' | translate }}</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="fechaBajaForm">
+                    <mat-datepicker-toggle matSuffix [for]="picker2">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'AFECTA_A' | translate }}*</mat-label>
+                        <mat-select formControlName="afectaForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                            <mat-option (click)="selectAll('videoAyudaModForm','afectaForm',rolesList,'idRol');">
+                                {{ 'SELECCIONAR_TODOS' | translate }}
+                            </mat-option>
+                            <mat-option *ngFor="let rol of rolesList" [(value)]="rol.idRol" >{{rol.nombre}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="videoAyudaModForm.get('afectaForm').hasError('required') && videoAyudaModForm.get('afectaForm').touched">
+                          {{ 'CAMPO_REQUERIDO' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'DESCRIPCION' | translate }}</mat-label>
+                    <input matInput type="text" formControlName="descripcionForm" maxlength="400">
+                  </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ 'CODIGO_IFRAME' | translate }}*</mat-label>
+                  <textarea matInput formControlName="codigoIframeForm" rows="3" style="width:100%"></textarea>
+                  <mat-error *ngIf="videoAyudaModForm.get('codigoIframeForm').hasError('required') && videoAyudaModForm.get('codigoIframeForm').touched">
+                      {{ 'CAMPO_REQUERIDO' | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <hr>
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clear-button cancel" type="button" (click)="cancelEdit()">
+                        <span class="clear-span">{{ 'CANCELAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <!--TO DO Arreglar el boton disabled ahsta que el forumlario sea valido ?-->
+                    <button class="search-button" type="submit" [disabled]="!videoAyudaModForm.valid"><span
+                    class="search-span">{{ 'GUARDAR' | translate }}</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

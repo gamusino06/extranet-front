@@ -1,0 +1,45 @@
+<div [formGroup]="userForm">
+  <mat-form-field appearance="outline">
+    <mat-label *ngIf="!required">{{ 'CENTRO' | translate }}</mat-label>
+    <mat-label *ngIf="required">{{ 'CENTRO' | translate }}*</mat-label>
+    <mat-select formControlName="centroForm" class="multiple-selector" [multiple]="multiple" id="selectCentros"
+         disableOptionCentering  #selectCentros [disabled]="disabled">
+            <mat-option value="0">
+              <ngx-mat-select-search placeholderLabel="{{ 'BUSCAR' | translate }}"
+                                     [showToggleAllCheckbox]="true"
+                                     [toggleAllCheckboxIndeterminate]="this.userForm.controls['centroForm'].value?.length > 0 && this.userForm.controls['centroForm'].value?.length < empresasList?.length"
+                                     [toggleAllCheckboxChecked]="this.userForm.controls['centroForm'].value?.length === empresasList?.length"
+                                     (toggleAll)="toggleSelectAll($event)"
+                                     [formControl]="centroFilter"
+                                     noEntriesFoundLabel="{{ 'NO_DATA' | translate }}">
+              </ngx-mat-select-search>
+            </mat-option>
+            <ng-container *ngFor="let centro of empresasList | sortCentros:userForm.value.empresaForm | searchFilter:centroFilter.value ">
+                <mat-option *ngIf="selectedRadio==0 && centro.mostrar==true" [value]="centro.idCentro" matTooltip="{{centro.nombre}}">
+                    {{centro.nombre}}, {{centro.calle}}
+                </mat-option>
+                <mat-option *ngIf="selectedRadio==1  && centro.activo==true && centro.mostrar==true" [value]="centro.idCentro" matTooltip="{{centro.nombre}}">
+                    {{centro.nombre}}, {{centro.calle}}
+                </mat-option>
+                <mat-option *ngIf="selectedRadio==2 && centro.activo==false && centro.mostrar==true" [value]="centro.idCentro" matTooltip="{{centro.nombre}}">
+                    {{centro.nombre}}, {{centro.calle}}
+                </mat-option>
+            </ng-container>
+    </mat-select>
+
+    <mat-error
+        *ngIf="userForm.get('centroForm').hasError('required') && userForm.get('centroForm').touched">
+        {{ 'CENTRO_REQUERIDO' | translate }}
+    </mat-error>
+</mat-form-field>
+<div class="row" *ngIf="radioButtonsActivos">
+    <div class="col">
+        <mat-radio-group formControlName="selectCentrosRadioForm" aria-label="Select an option">
+            <mat-radio-button value="0" (change)="selectedRadio=0;vaciarFilter();">{{ 'VER_TODOS' | translate }}</mat-radio-button>
+            <mat-radio-button value="1" (change)="selectedRadio=1;vaciarFilter();">{{ 'ACTIVOS' | translate }}</mat-radio-button>
+            <mat-radio-button value="2" (change)="selectedRadio=2;vaciarFilter();">{{ 'INACTIVOS' | translate }}</mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>
+
+</div>

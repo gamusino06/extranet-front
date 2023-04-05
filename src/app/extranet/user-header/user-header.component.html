@@ -1,0 +1,141 @@
+<div id="user-header-mobil">
+  <div class="row align-items-center">
+    <div class="col-5 logo">
+      <img src="{{userLogoUrl}}" class="img-fluid medium-img" alt="Preving Extranet">
+    </div>
+
+
+
+    <div class="col-7 text-right" id="right-bar">
+
+      <ul class="list-unstyled">
+        <li>
+          <button class="btn-icon" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </li>
+        <li>
+          <a href="https://www.preving.com/te-llamamos/" target="_blank" class="contact">
+            <img class="img-fluid medium-img" src="../../../../assets/img/settings_phone-black-18dp.svg">
+          </a>
+        </li>
+        <li>
+          <a href="extranet/centro-mensajes" class="gray-menu msn">
+            <i class="far fa-envelope"></i>
+            <span *ngIf="nMensajesLeidos" class="mensaje">{{nMensajesLeidos}}</span>
+          </a>
+        </li>
+        <li>
+          <button class="btn-icon menu" (click)="globals.showMobileMenu=true">
+            <i class="fas fa-bars d-block"></i>  {{ 'MENU' | translate }}
+          </button>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+<div id="user-header">
+    <div><!-- class="container-fluid" -->
+        <div class="row" style="justify-content: space-between;">
+          <!--Logo -->
+            <div class="col" style="max-width: 220px;min-width: 220px;">
+              <a href="https://www.preving.com/" target="_blank">
+                <img src="{{userLogoUrl}}" alt="Preving Extranet" style="margin-left:15px;margin-top: 10px;" class="img-fluid medium-img">
+              </a>
+            </div>
+          <!--F.Logo-->
+            <div class="user-header" style="margin-left: auto;">
+                <span class="menu_superior">
+                  <a (click)="selectModule(this.globals.idAreaAyuda)" class="gray-menu">
+                    <img src="../../../../assets/img/help_outline-black-18dp.svg">
+                    {{ 'AYUDA' | translate }}
+                  </a>
+                </span>
+                <span class="menu_superior">
+                    <a (click)="selectModule(this.globals.idAreaMensajes)" class="gray-menu msn">
+                      <img src="../../../../assets/img/email-black-18dp.svg">
+                      {{ 'MENSAJES' | translate }} <span *ngIf="nMensajesLeidos" class="mensaje">{{nMensajesLeidos}}</span>
+                    </a>
+                    &nbsp;
+                </span>
+                <span class="menu_superior">
+                  <a href="https://www.preving.com/blog/" target=”_blank” class="gray-menu">
+                    <img src="../../../../assets/img/rss_feed-black-18dp.svg">
+                    {{ 'BLOG' | translate }}
+                  </a>
+                </span>
+                <span class="menu_superior">
+                  <a href="https://www.preving.com/te-llamamos/" target=”_blank” class="gray-menu">
+                    <img src="../../../../assets/img/settings_phone-black-18dp.svg">
+                    {{ 'CONTACTO' | translate }}
+                  </a>
+                </span>
+                <!-- <div class="col user-header">
+                    <div class="user-box">
+                      <span class="title">
+                        <img src="../../../../assets/img/account_circle-black-18dp.svg">
+                        {{ 'USUARIO' | translate }}: </span><span>{{userLoged?.nombre}} {{userLoged?.apellidos}} ({{userLoged?.email}})
+                    </span>
+                    </div>
+                </div> -->
+                <div class="menu_superior"><!-- col -->
+                    <div class="user-box">
+                      <!-- <span class="title">
+                        <img src="../../../../assets/img/account_circle-black-18dp.svg">
+                        {{ 'USUARIO' | translate }}:
+                      </span> -->
+                      <span class="name">
+                        <img src="../../../../assets/img/account_circle-black-18dp.svg">
+                        {{userLoged?.nombre}} {{userLoged?.apellidos}}
+                      </span>
+                    </div>
+                <!-- </div> -->
+
+                <!-- <div class="col user-header"> -->
+                  <!-- <img src="../../../../assets/img/user.svg"> -->
+
+                </div>
+              <div>
+                <mat-form-field appearance="outline" class="user-select">
+                  <!-- <mat-label><span>{{userLoged?.nombre}} {{userLoged?.apellidos}} ({{userLoged?.email}})</span></mat-label> -->
+                  <mat-select>
+                    <mat-option (click)="redirectToMyProfile()"><span>{{ 'SEC_PERFIL' | translate }}</span></mat-option>
+                    <mat-option (click)="redirectToChangePassword()"><span>{{ 'SS_PERFIL_PASSWORD' | translate }}</span></mat-option>
+                    <mat-option (click)="onShowLanguageModal()">
+                      <span>{{ 'IDIOMA' | translate }}</span>
+                      <span class="ml-5">{{ translate.getDefaultLang().toUpperCase() | translate }}</span>
+                    </mat-option>
+                    <mat-option (click)="logout()"><span>{{ 'CERRAR_SESION' | translate }}</span></mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+                <!-- <div class="row">
+                  <img src="../../../../assets/img/user.svg">
+                  <mat-form-field appearance="fill">
+                    <mat-label><span>{{userLoged?.nombre}} {{userLoged?.apellidos}} ({{userLoged?.email}})</span></mat-label>
+                    <mat-select>
+                      <mat-option (click)="redirectToMyProfile()"><span>{{ 'SEC_PERFIL' | translate }}</span></mat-option>
+                      <mat-option (click)="redirectToChangePassword()"><span>{{ 'SS_PERFIL_PASSWORD' | translate }}</span></mat-option>
+                      <mat-option (click)="onShowLanguageModal()">
+                        <span>{{ 'IDIOMA' | translate }}</span>
+                        <span class="ml-5">{{ translate.getDefaultLang().toUpperCase() | translate }}</span>
+                      </mat-option>
+                      <mat-option (click)="logout()"><span>{{ 'CERRAR_SESION' | translate }}</span></mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<app-language-modal
+  *ngIf="showLanguageModal"
+  [configurationObj]="languageModalConfigurationObj"
+  (onAcceptLanguageEvent)="acceptLanguageChange($event)"
+  (onCancelLanguageEvent)="discardLanguageChange()"
+  class="custom-modal"></app-language-modal>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade" [fullScreen]="true">
+  <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+</ngx-spinner>
+

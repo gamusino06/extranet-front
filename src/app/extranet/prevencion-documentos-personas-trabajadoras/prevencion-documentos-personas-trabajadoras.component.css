@@ -1,0 +1,59 @@
+table {
+    width: 100%;
+}
+
+.row-actions-icons {
+  justify-content: center;
+}
+
+.exportar i {vertical-align: middle;}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+
+th.mat-column-checklist {
+    width: 3%;
+}
+th.mat-column-newList {
+    width: 3%;
+}
+th.mat-column-nombrePuesto {
+   width: 65%;
+}
+
+th.mat-column-sensibilidades {
+   width: 30%;
+}
+
+td.mat-column-nombrePuesto {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    width: 65%;
+}
+td.mat-column-sensibilidades {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    width: 30%;
+}
+
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}

@@ -1,0 +1,46 @@
+<section id="tuspromociones">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--vitaly-orange)" type="line-spin-clockwise-fade"
+    [fullScreen]="true">
+    <p style="color: var(--vitaly-blue); font-family: Montserrat, sans-serif; font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+  </ngx-spinner>
+
+  <div class="container">
+    <div class="w80">
+
+      <div class="txt">
+        <p>{{ 'CONOCES_SERVICIOS' | translate }}</p>
+        <p>{{ 'PROMOCIONES_TEXTO_1_WP' | translate }}.</p>
+        <p>{{ 'PROMOCIONES_TEXTO_2' | translate }}.</p>
+        <p>{{ 'PROMOCIONES_TEXTO_3_WP' | translate }}
+          <a class="enlace" href="https://vitaly.es/" target=”_blank”>www.vitaly.es</a></p>
+      </div>
+      <ng-container *ngFor="let item of myPromotions">
+        <div class="tarjetas">
+            <div class="row">
+              <div>
+                <a *ngIf="item.idSeccion == this.globals.idSeccionPromPT" class="link" href="https://www.preving.com/contacto/" target="_blank">
+                  <img src={{imgPrevencion}} class="promo">
+                </a>
+                <a *ngIf="item.idSeccion == this.globals.idSeccionPromVS" class="link" href="https://www.preving.com/contacto/" target="_blank">
+                  <img src={{imgVigilancia}} class="promo">
+                </a>
+                <a *ngIf="item.idSeccion == this.globals.idSeccionPromCalendario" class="link" href="https://www.preving.com/calendario-cursos/#results" target="_blank">
+                  <img src={{imgCalendario}} class="promo">
+                </a>
+                <a *ngIf="item.idSeccion == this.globals.idSeccionPromPRL" class="link" href="https://www.preving.com/contacto/" target="_blank">
+                  <img src={{imgPrl}} class="promo">
+                </a>
+                <!--Quitamos este Banner a petición de Fernando Postigo en email del 28/04/2021-->
+                <!--a *ngIf="item.idSeccion == this.globals.idSeccionPromFormacionBonificada" class="link" href="https://www.preving.com/contacto/" target="_blank">
+                  <img src={{imgFormacion}} class="promo">
+                </a-->
+                <a *ngIf="item.idSeccion == this.globals.idSeccionPromJuridico" class="link" href="https://www.preving.com/contacto/" target="_blank">
+                  <img src={{imgJuridico}} class="promo">
+                </a>
+              </div>
+            </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</section>

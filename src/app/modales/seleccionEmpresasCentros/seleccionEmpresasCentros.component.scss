@@ -1,0 +1,160 @@
+#app-informes-aptitud
+{
+  overflow-y:auto;
+}
+
+table.mat-table{
+    width: 100%;
+    height: -webkit-fill-available !important;
+}
+
+td {
+    vertical-align: middle;
+}
+tr td:last-of-type, th td:last-of-type {
+    text-align: left;
+    margin-right:40px;
+    padding-right:20px !important;
+}
+
+tr.mat-row{
+      height:50px !important;
+}
+
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+  white-space: nowrap;
+}
+
+.mat-column-checklist {
+    padding-top: 6px;
+}
+
+td ul { margin: 5px 0 !important;}
+.exportar i {vertical-align: middle;}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+.btn-icon.more-info {
+    padding: 0 5px;
+    height: auto;
+    width: auto;
+}
+
+mat-grid-tile {
+  background: white;
+  vertical-align:top;
+}
+
+.select-search {
+  text-align:center;
+  width:50%;
+}
+
+.select-search input {
+    width: 300px;
+    height: 25px;
+    border: 1px solid;
+    border-radius: .4em;
+    background: white;
+    padding-left: 15px;
+}
+.select-search input:focus{
+
+}
+.select-search .mat-ripple {
+    display: none;
+}
+.select-search  .mat-option-text {
+    margin-right: -15px;
+    width:60%;
+}
+.select-search .clean-filter {
+    position: relative !important;
+    right: 0;
+    font-size: 22px;
+    background: transparent;
+    color: inherit;
+    border: 0;
+    padding: 6px 15px;
+    line-height: initial;
+    margin: 0;
+    opacity: .6;
+}
+.select-search .clean-filter:focus{
+    outline: none;
+}
+
+.radioGroup
+{
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+::ng-deep .mat-grid-tile .mat-figure {
+  flex-wrap: wrap !important;
+}
+
+.search-icon {
+    position: relative !important;
+    right: 0;
+    font-size: 22px;
+    background: transparent;
+    color: var(--blue);
+    border: 0;
+    padding: 6px 15px;
+    line-height: initial;
+    margin: 0;
+    opacity: .6;
+}
+
+.helpText
+{
+  font-size:small;
+  font-style: italic;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.ver-centros-button {
+    margin: 0px !important;
+    background-color: var(--white);
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 30px;
+    font-size:0.9em;
+}
+
+.modificar-centros-button {
+    margin: 0px !important;
+    color: var(--white);
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 30px;
+    font-size:0.9em;
+}
+
+.modificar-centros-button:disabled {
+    margin: 0px !important;
+    color: var(--black);
+    background-color: var(--lightGray);
+    border: 1px solid var(--blue);
+    border-radius: 30px;
+    font-size:0.9em;
+}
+
+/*::ng-deep .mat-paginator-container{
+  justify-content:center !important;
+}*/

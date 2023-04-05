@@ -1,0 +1,38 @@
+td {
+    vertical-align: middle;
+}
+tr td:last-of-type, th td:last-of-type {
+    text-align: left;
+    width: 185px;
+}
+
+td ul { margin: 5px 0 !important;}
+.exportar i {vertical-align: middle;}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: left;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+.btn-icon.more-info {
+    padding: 0 5px;
+    height: auto;
+    width: auto;
+}
+
+i {
+    cursor: pointer;
+    margin-right: 8px;
+    margin-left: 8px;
+    color: var(--blue);
+}

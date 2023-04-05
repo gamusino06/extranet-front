@@ -1,0 +1,134 @@
+
+.icono-mater {
+  margin: 10px;
+  padding: 0;
+  height: fit-content;
+}
+
+.dot-green {
+  height: 14px;
+  width: 14px;
+  margin-right: 8px;
+  background-color: #45925A;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-soon {
+  height: 14px;
+  width: 14px;
+  margin-right: 8px;
+  background-color: #FED74D;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-blue {
+  height: 14px;
+  width: 14px;
+  background-color: #6DD3F3;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-container {
+  gap: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+}
+
+.boton-alta {
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+  padding: 5px 10px;
+  width: 100%;
+}
+
+.add-button {
+  width: 190px;
+  padding-right: 15px;
+}
+
+.course-buttons {
+  padding: 16px 2px;
+}
+
+.new-course-button {
+  background-color: var(--orange);
+  color: #fff;;
+  border: 1px solid var(--orange);
+  width: 186px;
+}
+
+.new-course {
+  border-radius: 40px;
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+  padding: 2px 10px;
+  width: 98%;
+}
+
+.second-row-form-button {
+  padding-right: 36px;
+  padding-bottom: 20px;
+}
+
+
+::ng-deep .mat-button-toggle {
+  padding-top: 3px;
+  background-color: #306cee00;
+}
+
+::ng-deep .mat-button-toggle-checked {
+  background-color: #e0e0e0;
+  color: rgba(0, 0, 0, .54);
+}
+
+::ng-deep .mat-button-toggle-standalone.mat-button-toggle-appearance-standard, .mat-button-toggle-group-appearance-standard {
+  margin-top: 5px;
+}
+
+.mat-column-startDate {
+  width: 150px;
+}
+
+.mat-column-finDate {
+  width: 150px;
+}
+
+.mat-column-courseName {
+  width: 30%;
+}
+
+.mat-column-business {
+  width: 30%;
+}
+
+.mat-column-modality {
+  width: 200px;
+}
+
+.mat-column-origin {
+  width: 90px;
+}
+
+.mat-column-hours {
+  width: 60px;
+}
+
+.mat-column-management {
+  width: 100px;
+}
+
+.ellipsis-cell-course-name {
+  display: block;
+  width: 350px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .mat-curso-tooltip {
+  max-width: unset !important;
+  white-space: pre-wrap;
+}

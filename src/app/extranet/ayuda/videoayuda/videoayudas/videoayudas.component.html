@@ -1,0 +1,107 @@
+<div id="app-videoayudas">
+  <div class="container-fluid">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade"
+        [fullScreen]="true">
+        <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+
+    <ngx-scrolltop [size]="50">
+      <i class="material-icons">arrow_upward</i>
+    </ngx-scrolltop>
+
+    <div class="row" style="margin-left:20px;">
+      <div class="col">
+        <h1 class="tituloSec text-uppercase"> {{ 'VIDEOAYUDAS' | translate }}</h1>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:20px;">
+      <div class="col select-search" style="text-align:left;">
+        <input #textoABuscar matInput type="text"
+               (click)="$event.stopPropagation()"
+               (keydown)="$event.stopPropagation()"
+               (keyup.enter)="verificarPulsacionTecla($event, textoABuscar.value)"
+               placeholder="{{ 'BUSCAR' | translate }}"
+               autocomplete="off"/>
+        <!--button [hidden]="!textoABuscar.value" class="clean-filter" type="button" (click)="textoABuscar.value = '';getVideoAyudas(textoABuscar.value);$event.stopPropagation();">
+          <i class="fas fa-times"></i>
+        </button>
+        <button class="search-icon" type="button" (click)="getVideoAyudas(textoABuscar.value)">
+          <i class="fas fa-search"></i>
+        </button-->
+        <button class="clean-button" type="button" (click)="textoABuscar.value = '';getVideoAyudas(textoABuscar.value);$event.stopPropagation();"><img
+          src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span
+          class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+        <button class="search-button" type="button" (click)="getVideoAyudas(textoABuscar.value)"><img src="{{searchImgUrl}}"
+          class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span>
+        </button>
+        <br/><br/>
+      </div>
+    </div>
+
+    <div class="row div-categorias">
+      <div class="col-md-4 col-sm-12" style="padding-bottom: 50px;" *ngFor="let categoriaAyuda of categoriasList">
+        <!--a pageScroll href="#categoria_{{categoriaAyuda.idCategoriaAyuda}}" style="cursor:pointer;"-->
+          <mat-card class="example-card" style="cursor:pointer;" (click)="scrollTo(categoriaAyuda.idCategoriaAyuda,true)">
+            <mat-card-header>
+              <div mat-card-avatar><i class="material-icons md-24">videocam</i></div>
+              <mat-card-title>
+                <span class="categoriaAyudaNombreSpan" matTooltip="{{categoriaAyuda.nombre}}">
+                  {{categoriaAyuda.nombre}}
+                </span>
+              </mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src='{{categoriaAyuda.urlImagen}}' alt="Image not found">
+            <mat-card-content>
+              <span class="categoriaAyudaDescripcionSpan" matTooltip="{{categoriaAyuda.descripcion}}">
+                {{categoriaAyuda.descripcion}}
+              </span>
+            </mat-card-content>
+          </mat-card>
+        <!-- </a -->
+      </div>
+    </div>
+    <hr>
+    <br/>
+    <!-- Comienzo de las preguntas / respuestas de Videoayuda según categoria -->
+
+    <div *ngFor="let categoriaAyuda of categoriasList">
+      <div class="col" id="categoria_{{categoriaAyuda.idCategoriaAyuda}}"
+           style="margin-left:20px;color:var(--blue);" *ngIf="tieneVideoAyudasCategoria(categoriaAyuda)">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="isExpanded(categoriaAyuda)">
+            <mat-expansion-panel-header (click)="actualizarExpandedCategoria(categoriaAyuda)">
+              <mat-panel-title class="title" style="padding-top: 10px;font-size:15px;">
+                <span>{{categoriaAyuda.nombre}}</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="panel-content">
+              <li class="row" *ngFor="let videoAyuda of getVideoAyudasCategoria(categoriaAyuda)">
+                <i class="material-icons md-24"
+                  style="cursor: pointer;text-align: right;"
+                  matTooltip="{{'VISUALIZAR_VIDEO' | translate}}"
+                  matTooltipPosition="left"
+                  matTooltipClass="allow-cr"
+                  (click)="abrirReproductorVideo(videoAyuda)">
+                      play_circle_outline
+                </i>
+                <span class="title-nombre-videoayuda">
+                  &nbsp;&nbsp;{{videoAyuda.nombre}}
+                </span>&nbsp;
+                <i class="fas fa-info-circle"
+                  matTooltip="{{videoAyuda.descripcion}}"
+                  matTooltipPosition="right"
+                  matTooltipClass="allow-cr">
+                </i>
+              </li>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      <hr>
+      </div>
+    </div>
+  </div>
+  <!--div *ngFor="let n of numSequence(100);let i = index;">
+    Pruebaaaaaaaaaaaa {{i}}<br/>
+  </div-->
+</div>

@@ -1,0 +1,143 @@
+<div id="app-modificar-usuario">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade" [fullScreen]="true">
+        <p style="color: var(--blue); font-weight: bolder; font-size: x-large">  {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+    <div class="container-fluid">
+        <!--Form-->
+        <form [formGroup]="userModForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec">
+                        <span style="cursor: pointer;color:var(--gray)" (click)="goToListado()" class="text-uppercase">
+                        {{ 'LISTADO_USUARIOS' | translate }}>
+                        </span>
+                        <span class="text-uppercase">{{ 'USUARIO' | translate }}:</span> {{this.userToMod.email}}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'USUARIO' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="mailUsuario" placeholder="({{ 'DEBE_SER_DIRECCION_CORREO_ELECTRONICO' | translate }})">
+                        <mat-error *ngIf="userModForm.get('mailUsuario').hasError('required') && userModForm.get('mailUsuario').touched">
+                            {{ 'EMAIL_REQUERIDO' | translate }}</mat-error>
+                        <mat-error *ngIf="userModForm.get('mailUsuario').hasError('email')">
+                           {{ 'FORMATO_EMAIL' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'NOMBRE' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="nombre">
+                        <mat-error *ngIf="userModForm.get('nombre').hasError('required') && userModForm.get('nombre').touched">
+                            {{ 'NOMBRE_REQUERIDO' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'APELLIDOS' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="apellidos">
+                        <mat-error *ngIf="userModForm.get('apellidos').hasError('required') && userModForm.get('apellidos').touched">
+                            {{ 'APELLIDOS_REQUERIDOS' | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'IDIOMA' | translate }}</mat-label>
+                        <mat-select formControlName="idioma" class="multiple-selector">
+                            <mat-option *ngFor="let idioma of idiomasList" [value]="idioma.idIdioma">{{idioma.nombre}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="userModForm.get('idioma').hasError('required') && userModForm.get('idioma').touched">
+                            {{ 'SELECCIONE_IDIOMA' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'ACCESO_A' | translate }}</mat-label>
+                        <mat-select formControlName="accesoForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                            <mat-option (click)="selectAll('userModForm','accesoForm',rolesList,'idRol');">
+                                {{ 'SELECCIONAR_TODOS' | translate }}
+                            </mat-option>
+                            <mat-option *ngFor="let rol of rolesList"
+                                        [(value)]="rol.idRol"
+                                        (click)="selectRol('userModForm','accesoForm',rolesList,'idRol',rol.idRol);"
+                                        [disabled]="(rol.idRol != 1 && rol.idRol != 2) && (userModForm.controls['accesoForm'].value[0] === 2)">
+
+                              {{rol.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="userModForm.get('accesoForm').hasError('required') && userModForm.get('accesoForm').touched">
+                            '{{ 'ACCESO_A' | translate }}' {{ 'REQUERIDO' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+              <!--Empresa y Centro-->
+              <app-select-empresa-filter [userForm]="userModForm" [empresasList]="empresasList" [mapaEmpresa]="mapaEmpresa" [radioButtonsActivos]="false" [infoCentros]="true" class="col"></app-select-empresa-filter>
+              <!--app-select-centro-filter [userForm]="userModForm" [empresasList]="empresasList" [radioButtonsActivos]="false" class="col"></app-select-centro-filter-->
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'FECHA_ALTA' | translate }}</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="fechaCreacionForm">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'FECHA_BAJA' | translate }}</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="fechaBajaForm">
+                        <mat-datepicker-toggle matSuffix [for]="picker2">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+          <div class="row" *ngIf="this.isSuperAdmin || this.userToMod.verReconocimientos">
+            <div class="col">
+                <mat-label>{{ 'VER_RECONOCIMIENTOS_MEDICOS' | translate }}</mat-label>&nbsp;
+                <mat-checkbox formControlName="verReconocimientosForm"></mat-checkbox>
+            </div>
+          </div>
+          <hr>
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clear-button cancel" type="button" (click)="cancelEdit()">
+                        <span class="clear-span">{{ 'CANCELAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!userModForm.valid"><span
+                    class="search-span">{{ 'GUARDAR' | translate }}</span></button>
+                </div>
+            </div>
+        </form>
+        <!--/Form-->
+        <div class="col">
+          <button class="modify-button" (click)="enviarMailPassword()">
+            <span class="modify-span">{{ 'ENVIAR_CONTRASENA' | translate }}</span></button>
+          &nbsp;&nbsp;
+          <button class="modify-button" (click)="enviarMailWP()">
+            <span class="modify-span">{{ 'ENVIAR_WELCOMEPACK' | translate }}</span></button>
+        </div>
+    </div>
+
+</div>

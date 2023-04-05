@@ -1,0 +1,128 @@
+stages:
+  - dependencies
+  - test
+  - build
+  - push-docker-image
+ # - trivy
+  - deploy
+
+#solo master y demo
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "demo"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - when: never # Run the pipeline in other cases
+
+#
+# Este bloque de acciones se ejecuta antes de todos los Jobs (declaraciones de variables globales, ...)
+before_script:
+  - apk add --no-cache git
+  - export COMMIT_TIME="$(git show -s --date=format:'%Y%m%d' --format=%cd $CI_COMMIT_SHA)"
+  - export DOCKER_HUB_IMAGE_VERSION=$COMMIT_TIME-$CI_COMMIT_SHORT_SHA
+  - export PROJECT_NAME="extranet-front"
+
+install_dependencies:
+  image: node:16.14.0-alpine
+  stage: dependencies
+  script:
+    - npm install
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+
+build_image:
+  tags:
+    - gcp-runner
+  #variables:
+    #NODE_OPTIONS: --max_old_space_size=4096 #JavaScript heap out of memory, test2
+  image: node:16.14.0-alpine
+  stage: build
+  script:
+    - npm link @angular/cli@9.0.0
+    #- npm install --save-dev @angular-devkit/build-angular
+    #- node --max-old-space-size=4096 node_modules/@angular/cli/bin/ng build --aot --prod
+    #- set NODE_OPTIONS=--max_old_space_size=8096
+    - ng build --aot --prod
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/dist
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+    policy: pull
+
+push docker image:
+  tags:
+    - gitlab-runner
+  image: docker:19.03.0-dind
+  services:
+    - name: docker:19.03.0-dind
+      entrypoint: [ "env", "-u", "DOCKER_HOST" ]
+      command: [ "dockerd-entrypoint.sh" ]
+  stage: push-docker-image
+  #when: always
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "demo"'
+      variables:
+        BRANCH_IMAGE_MODIFIER: "-demo:"
+
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      variables:
+        BRANCH_IMAGE_MODIFIER: "-prod:"
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    # Use the overlayfs driver for improved performance:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - echo "Pushing Docker Image ..."
+    - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+    - docker build -t $DOCKER_HUB_USER/$PROJECT_NAME$BRANCH_IMAGE_MODIFIER$DOCKER_HUB_IMAGE_VERSION . --no-cache
+    - docker push $DOCKER_HUB_USER/$PROJECT_NAME$BRANCH_IMAGE_MODIFIER$DOCKER_HUB_IMAGE_VERSION
+
+deploy:
+  stage: deploy
+  image: google/cloud-sdk
+  when: manual    # Solamente se ejecuta este job de forma manual
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "demo"'
+      variables:
+        BRANCH_IMAGE_MODIFIER: "-demo:"
+        GCP_SERVICE: $GCP_SERVICE_ACCOUNT_ERP_MICROSERVICIOS
+        GCP_PROJECT_NAME: erp-microservicios
+        GKE_CLUSTER_NAME: cluster-1
+        GKE_NAMESPACE: extranet-testing
+        GKE_REGION: europe-west1
+
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      variables:
+        BRANCH_IMAGE_MODIFIER: "-prod:"
+        GCP_SERVICE: $GCP_SERVICE_ACCOUNT_ERP_GKE
+        GCP_PROJECT_NAME: erp-gke-318611
+        GKE_CLUSTER_NAME: cluster-prod
+        GKE_NAMESPACE: previngcontigo-empresas
+        GKE_REGION: europe-west4
+  before_script:
+    - export COMMIT_TIME="$(git show -s --date=format:'%Y%m%d' --format=%cd $CI_COMMIT_SHA)"
+    - export DOCKER_HUB_IMAGE_VERSION=$COMMIT_TIME-$CI_COMMIT_SHORT_SHA
+    - export PROJECT_NAME="extranet-front"
+  script:
+    # Preparamos el manifiesto para el despliegue
+    - sed -i "s/<DOCKER_HUB_PROFILE>/$DOCKER_HUB_USER/g" k8s/$GKE_NAMESPACE/01-deployment.yml
+    - sed -i "s/<IMAGE_VERSION>/$PROJECT_NAME$BRANCH_IMAGE_MODIFIER$DOCKER_HUB_IMAGE_VERSION/g" k8s/$GKE_NAMESPACE/01-deployment.yml
+    - tail -n 100 k8s/$GKE_NAMESPACE/01-deployment.yml
+    # Conexion con GCP y establecimiento de cluster y proyecto
+    - echo "$GCP_SERVICE" > key.json
+    - export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+    - gcloud auth activate-service-account --key-file=key.json
+    - gcloud config set project $GCP_PROJECT_NAME
+    - gcloud config set container/cluster $GKE_CLUSTER_NAME
+    - gcloud config set compute/region $GKE_REGION
+    - gcloud container clusters get-credentials $GKE_CLUSTER_NAME --region $GKE_REGION --project $GCP_PROJECT_NAME
+    - kubectl apply -f k8s/$GKE_NAMESPACE/01-deployment.yml -n $GKE_NAMESPACE

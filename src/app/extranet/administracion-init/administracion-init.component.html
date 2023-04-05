@@ -1,0 +1,12 @@
+<div id="app-mi-perfil">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade"
+        [fullScreen]="true">
+        <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+
+    <div class="row">
+        <div class="col imageStyle">
+            <img src="../../../../assets/img/{{translate.getDefaultLang()}}/administracion.png" class="bannerCompleto">
+        </div>
+    </div>
+</div>

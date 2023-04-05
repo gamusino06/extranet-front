@@ -1,0 +1,82 @@
+
+table {
+    width: 100%;
+}
+
+.no-existe-documento{
+  color:var(--mediumGray);
+  font-weight: normal;
+  vertical-align: bottom;
+  margin-right: 30%;
+}
+
+.row-actions-icons {
+justify-content: center;
+}
+tr.documentos-hijos td:first-of-type {
+    padding-left: 24px;
+}
+tr td:last-of-type {
+    text-align: right;
+}
+tr td:first-of-type, tr th:first-of-type {
+    padding-top: 7px !important;
+}
+tr.documentos-hijos  td:last-of-type {
+    padding-right: 24px;
+}
+tr.documentos-hijos td {
+    padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+tr.contratos {
+    background-color: #EEEEEE;
+}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+
+.btn {
+  color:var(--white);
+}
+
+tr.documentos-hijos {
+    visibility:collapse;
+}
+tr.documentos-hijos.expanded {visibility: visible}
+.btn-icon.expanded .show, .btn-icon .hide {
+    display: none !important;
+ }
+ .btn-icon.expanded .hide {
+     display: block !important;
+ }
+ .exportar i {
+    vertical-align: middle;
+ }
+
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}
+
+@media (min-width: 1700px and max-width: 1999px) {
+    .no-existe-documento{
+      margin-right: 25%;
+    }
+}
+
+@media (min-width: 2000px) {
+    .no-existe-documento{
+      margin-right: 18%;
+    }
+}

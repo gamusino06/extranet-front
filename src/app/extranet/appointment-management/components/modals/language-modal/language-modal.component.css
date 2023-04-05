@@ -1,0 +1,30 @@
+.modal__container--opened {
+  width: 100%;
+  max-width: 600px;
+  padding: 1.25em;
+  display: flex;
+  justify-content: center;
+  border: none;
+  border-radius: 0.3125em;
+  background: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  text-align: center;
+  box-shadow: 0px 3px 6px #00000029;
+  animation: swal2-show .3s;
+}
+
+.lang-nav {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 10px;
+}
+
+.lang-nav li button {
+  width: 140px;
+}
+
+/* ajuste en los botones */
+.swal2-styled:focus {
+    box-shadow: 0 0 0 0px #fff, 0 0 0 1px rgb(50 100 150);
+}

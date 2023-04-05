@@ -1,0 +1,357 @@
+<div id="app-centros-trabajo">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 class="tituloSec text-uppercase">{{ 'CENTROS_TRABAJO_EMPRESA' | translate }}</h1>
+            </div>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel class="mb-4" [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="title">
+                {{ 'INFO_EMPRESAS' | translate }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-tab-group>
+              <div *ngFor="let empresa of empresas">
+                <mat-tab *ngIf="empresa.activoPT || empresa.activoVS" >
+                  <ng-template mat-tab-label>
+                    <label class="labelHeading" matTooltip="{{empresa.nombre}}" matTooltipClass="example-tooltip-red1" class="empresaCentroSpan">{{empresa.nombre}}</label>
+                  </ng-template>
+                  <div class="panel-content">
+                      <span class="title">{{ 'DIRECCION_FISCAL' | translate }}:</span>
+                                          {{empresa.calle}} - {{empresa.cp}} {{empresa.localidad.nombre}}
+                      <br/>
+                      <br/>
+                      <span class="title">{{ 'CENTROS_TRABAJO' | translate }} {{ 'PREVENCION_TECNICA' | translate }}:</span>
+                                          {{conseguirNumCentrosVSPT(empresa, true)}}
+                      <br/>
+                      <span class="title">{{ 'TRABAJADORES_PT' | translate }}:</span>
+                                          {{ sumItems(empresa.centros, 'numTrabajadoresPT') }}
+                      <br/>
+                      <span class="title" *ngIf="empresa.fechaAltaPrevencion">{{ 'FECHA_ALTA' | translate }} {{ 'PT' | translate }}:</span>
+                      {{ empresa.fechaAltaPrevencion | date:'dd/MM/yyyy'}}
+                      <span *ngIf="empresa.fechaAltaPrevencion"><br/></span>
+                      <br/>
+                      <span class="title">{{ 'CENTROS_TRABAJO' | translate }} {{ 'VIGILANCIA_SALUD' | translate }}:</span>
+                                          {{conseguirNumCentrosVSPT(empresa, false)}}
+                      <br/>
+                      <span class="title">{{ 'TRABAJADORES_VS' | translate }}:</span>
+                                          {{ sumItems(empresa.centros, 'numTrabajadoresVS') }}
+                      <br/>
+                      <span class="title" *ngIf="empresa.fechaAltaVigilancia">{{ 'FECHA_ALTA' | translate }} {{ 'VS' | translate }}:</span>
+                                          {{ empresa.fechaAltaVigilancia | date:'dd/MM/yyyy'}}
+                  </div>
+                    <div class="text-right" style="padding-right:20px;">
+                      <a href="tel:{{empresa.telefono}}" *ngIf="empresa.telefono"><i
+                        class="fas fa-phone"></i> {{empresa.telefono}}</a>&nbsp;&nbsp;
+                      <a href="mailto:{{empresa.email}}" target="_blank" *ngIf="empresa.email"><i
+                        class="fas far fa-envelope"></i> {{empresa.email}}</a>&nbsp;&nbsp;
+                      <a href="http://{{empresa.web}}" target="_blank" *ngIf="empresa.web"><i
+                        class="fa fa-globe"></i> {{empresa.web}}</a>
+                    </div>
+                </mat-tab>
+              </div>
+            </mat-tab-group>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <hr>
+
+
+        <!--Form-->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <!--Filtros--->
+            <!--Filtro centro y Empresa-->
+            <div class="row">
+                <app-select-empresa-filter [userForm]="userForm" [empresasList]="empresas" [radioButtonsActivos]="true"
+                    class="col">
+                </app-select-empresa-filter>
+                <app-select-centro-filter [userForm]="userForm" [empresasList]="empresas" [radioButtonsActivos]="true"
+                    class="col">
+                </app-select-centro-filter>
+                <app-select-provincia [userForm]="userForm" [provinciasList]="provincias" [tieneLocalidades]="false" class="col">
+                </app-select-provincia>
+            </div>
+            <hr>
+
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()">
+                        <img src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}">
+                        <span class="clean-span">{{ 'LIMPIAR' | translate }}</span>
+                    </button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!userForm.valid">
+                        <img src="{{searchImgUrl}}" class="img" alt="Filtros">
+                        <span class="search-span">{{ 'BUSCAR' | translate }}</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- END Form-->
+
+        <!--Tabla-->
+        <div class="row">
+            <div class="col" #TABLECENTROSTRABAJO>
+                <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource" matSort cdkDropList cdkDropListOrientation="horizontal"
+                        (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)" multiTemplateDataRows
+                        class="mat-elevation-z2 table">
+
+                   <ng-container matColumnDef="checklist" [formGroup]="userForm" >
+                    <th mat-header-cell cdkDrag *matHeaderCellDef>
+                      <mat-checkbox (change)="checkAllRows()" formControlName="selectAllCheckBox">
+                      </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+
+                        <ng-container matColumnDef="empresaCentros">
+                            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>{{ 'EMPRESA_CENTRO' | translate }}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="title empresaCentroSpan" matTooltip="{{element.empresaCentros.nombre}} - {{element.nombre}}">
+                                    {{element.empresaCentros.nombre}} - {{element.nombre}}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="direccion">
+                            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'DIRECCION' | translate }}</th>
+                            <td mat-cell *matCellDef="let element">
+                              <span class="comunAtributoDocumentoSpan" matTooltip="{{element.direccion.calle}}">
+                                {{element.direccion.calle}}
+                              </span>
+                              <span class="comunAtributoDocumentoSpan" matTooltip="{{element.direccion.cp}} {{element.direccion.localidad}}">
+                                {{element.direccion.cp}} {{element.direccion.localidad}}
+                              </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="provincia">
+                            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'PROVINCIA' | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.provincia}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="numTrabajadoresPT">
+                            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'NUM_TRABAJADORES' |
+                                translate }} <br/> {{ 'PREVENCION_TECNICA' | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.numTrabajadoresPT}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="numTrabajadoresVS">
+                          <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'NUM_TRABAJADORES' |
+                            translate }} <br/> {{ 'VIGILANCIA_SALUD' | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element"> {{element.numTrabajadoresVS}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fechaPrevencion">
+                            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+                                {{ 'FECHA_ALTA' | translate }}<br /> {{ 'PREVENCION_TECNICA' | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.fechaPrevencion | date:'dd/MM/yyyy'}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fechaVigilancia">
+                            <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+                                {{ 'FECHA_ALTA' | translate }} <br />{{ 'VIGILANCIA_SALUD' | translate }} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.fechaVigilancia | date:'dd/MM/yyyy'}}
+
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="verDetalles">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                            <td mat-cell *matCellDef="let row">
+                                <button mat-raised-button class="btn-icon" [class.expanded]="row.visible"
+                                    (click)="row.visible=!row.visible">
+                                    <i class="material-icons md-24 show">visibility</i>
+                                    <i class="material-icons md-24 hide">visibility_off</i>
+                                </button>
+
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell *matCellDef="let element" [attr.colspan]="tableHeaders.length">
+                                <div class="detail-content row">
+                                    <div class="col-6 col-xl-3">
+                                        <ul *ngIf="element.contactos.contactosExternos.length">
+                                            <li>
+                                                <h3>
+                                                    {{ 'PERSONA_CONTACTO' | translate }}:
+                                                </h3>
+                                            </li>
+
+                                            <li>
+                                                <strong>
+                                                    {{ element.contactos.contactosExternos[0].nombre }}
+                                                    {{ element.contactos.contactosExternos[0].apellidos }}
+                                                </strong>
+                                            </li>
+                                            <li>{{ element.contactos.contactosExternos[0].nif }}</li>
+                                            <li *ngIf="element.contactos.contactosExternos[0].telefono">
+                                                <a href="tel:{{ element.contactos.contactosExternos[0].telefono }}"><i
+                                                        class="fas fa-phone"></i> {{
+                                                    element.contactos.contactosExternos[0].telefono }}</a>
+                                            </li>
+                                            <li *ngIf="element.contactos.contactosExternos[0].movil">
+                                                <a href="tel:{{ element.contactos.contactosExternos[0].movil }}"><i
+                                                        class="fas fa-mobile-alt"></i> {{
+                                                    element.contactos.contactosExternos[0].movil }}</a>
+                                            </li>
+                                            <li *ngIf="element.contactos.contactosExternos[0].email">
+                                                <a href="mailto:{{ element.contactos.contactosExternos[0].email }}"><i
+                                                        class="fas far fa-envelope"></i> {{
+                                                    element.contactos.contactosExternos[0].email }}</a>
+                                            </li>
+                                        </ul>
+                                        <ul *ngIf="!element.contactos.contactosExternos.length">
+                                            <li>
+                                                <h3>
+                                                    {{ 'PERSONA_CONTACTO' | translate }}:
+                                                </h3>
+                                            </li>
+                                            <li>
+                                                {{ 'NO_EXISTE_PERSONA_CONTACTO' | translate }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6 col-xl-3">
+                                        <ul *ngIf="element.contactos.actividades.length">
+                                            <li>
+                                                <h3>
+                                                    {{ 'ACTIVIDAD_CENTRO' | translate }}:
+                                                </h3>
+                                            </li>
+                                            <li>
+                                                <strong *ngIf="element.contactos.actividades[0].nombre">
+                                                    {{ element.contactos.actividades[0].nombre }}
+                                                </strong>
+                                            </li>
+                                        </ul>
+                                        <ul *ngIf="!element.contactos.actividades.length">
+                                            <li>
+                                                <h3>
+                                                    {{ 'ACTIVIDAD_CENTRO' | translate }}:
+                                                </h3>
+                                            </li>
+                                            <li> {{ 'NO_HAY_ACTIVIDAD_ASIGNADA' | translate }}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6 col-xl-3">
+                                        <ul *ngIf="element.contactos.contactos.length">
+                                            <li>
+                                                <h3> {{ 'TECNICO_PRL_ASIGNADO' | translate }}:</h3>
+                                            </li>
+                                            <li>
+                                                <strong>
+                                                    {{ element.contactos.contactos[0].nombre }}
+                                                    {{ element.contactos.contactos[0].apellidos }}
+                                                </strong>
+                                            </li>
+                                            <li *ngIf="element.contactos.contactos[0].telefono">
+                                                <a href="tel:{{  element.contactos.contactos[0].telefono }}"><i
+                                                        class="fas fa-phone"></i> {{
+                                                    element.contactos.contactos[0].telefono }}</a>
+                                            </li>
+                                            <li *ngIf="element.contactos.contactos[0].movil">
+                                                <a href="tel:{{ element.contactos.contactos[0].movil }}"><i
+                                                        class="fas fa-mobile-alt"></i> {{
+                                                    element.contactos.contactos[0].movil }}</a>
+                                            </li>
+                                            <li *ngIf="element.contactos.contactos[0].email">
+                                                <a href="mailto:{{ element.contactos.contactos[0].email }}"><i
+                                                        class="fas far fa-envelope"></i> {{
+                                                    element.contactos.contactos[0].email }}</a>
+                                            </li>
+                                        </ul>
+                                        <ul *ngIf="!element.contactos.contactos.length">
+                                          <li>
+                                            <h3>{{ 'TECNICO_PRL_ASIGNADO' | translate }}:</h3>
+                                          </li>
+                                          <li> {{ 'NO_HAY_TECNICO_ASIGNADO' | translate }} </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6 col-xl-3">
+                                        <ul *ngIf="element.contactos.contactos.length">
+                                            <li>
+                                                <h3>{{ 'DELEGACION_ASIGNADA' | translate }}:</h3>
+                                            </li>
+                                            <li *ngIf="element.contactos.contactos[0].delegacionDto.email">
+                                                <i class="fas fa-envelope"></i> <a
+                                                    href="mailto: {{element.contactos.contactos[0].delegacionDto.email}}">
+                                                    {{element.contactos.contactos[0].delegacionDto.email}}</a>
+                                            </li>
+                                            <li *ngIf="element.contactos.contactos[0].delegacionDto.telefono">
+                                                <a href="tel:{{element.contactos.contactos[0].delegacionDto.telefono}}"><i
+                                                        class="fas fa-phone"></i>
+                                                    {{element.contactos.contactos[0].delegacionDto.telefono}}</a>
+                                            </li>
+                                            <li *ngIf="element.contactos.contactos[0].delegacionDto.nombre">
+                                                <i class="fas fa-info"></i>
+                                                <strong> {{ element.contactos.contactos[0].delegacionDto.nombre
+                                                    }}</strong>
+                                                <button mat-raised-button class="btn-icon inline"
+                                                    [class.expanded]="element.visibleDelegacion"
+                                                    (click)="element.visibleDelegacion=!element.visibleDelegacion">
+                                                    <i class="fas fa-plus-circle show"></i>
+                                                    <i class="fas fa-minus-circle hide"></i>
+                                                </button>
+                                                <div *ngIf="element.visibleDelegacion">
+                                                    <div *ngIf="element.contactos.contactos[0].delegacionDto.horario">
+                                                        <i class="far fa-clock"></i>
+                                                        {{element.contactos.contactos[0].delegacionDto.horario}}
+                                                    </div>
+                                                    <div *ngIf="element.contactos.contactos[0].delegacionDto.calle">
+                                                        <i class="fas fa-map-marker-alt"></i>
+                                                        {{element.contactos.contactos[0].delegacionDto.calle}}
+                                                    </div>
+                                                    <div *ngIf="element.contactos.contactos[0].delegacionDto.cp">
+                                                        <i
+                                                            class="icon-sign-blank"></i>{{element.contactos.contactos[0].delegacionDto.cp}}
+                                                        {{element.contactos.contactos[0].delegacionDto.localidad.nombre}}
+                                                    </div>
+                                                    <div *ngIf="element.contactos.contactos[0].delegacionDto.web">
+                                                        <i class="fa fa-globe"></i> <a
+                                                            href="http://{{element.contactos.contactos[0].delegacionDto.web}}"
+                                                            target="_blank">{{element.contactos.contactos[0].delegacionDto.web}}</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul *ngIf="!element.contactos.contactos.length">
+                                          <li>
+                                            <h3>{{ 'DELEGACION_ASIGNADA' | translate }}:</h3>
+                                          </li>
+                                          <li> {{ 'NO_HAY_DELEGACION_ASIGNADA' | translate }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                        <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="expanded-detail"
+                            [class.expanded]="row.visible"></tr>
+                    </table>
+                </div>
+
+              <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+              <br />
+              <div class="row float-right">
+                <div class="col">
+                  <div class="exportar" (click)="exportAsExcel()"><img src="{{excelImgUrl}}" alt=""><span
+                    class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span></div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+    </div>
+</div>

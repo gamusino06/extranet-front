@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>{{ 'NUEVA_AUTORIZACION' | translate }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="addAuthorizationDocumentGroup">
+    <div class="row my-4">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'TIPO_AUTORIZACION' | translate }}</mat-label>
+          <mat-select formControlName="tipoForm" class="multiple-selector" [disableOptionCentering]="true">
+            <mat-option *ngFor="let autType of authorizationTypesList" [value]="autType.descripcion">
+              {{ autType.descripcion | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row my-4">
+      <div class="col-12 col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'FECHA_ENTREGA' | translate }}</mat-label>
+          <input matInput [matDatepicker]="fromPicker" formControlName="fechaEntregaForm" [max]="today" required>
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-4" >
+        <mat-form-field appearance="outline" >
+          <mat-label>{{ 'FECHA_CADUCIDAD' | translate }}</mat-label>
+          <input matInput [matDatepicker]="toPicker" formControlName="fechaCaducidadForm" [min]="today" required>
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-4" style="margin-top: 1em">
+        <mat-checkbox formControlName="caducidad"  (ngModelChange)="check()">{{ 'SIN_CADUCIDAD' | translate }}
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="row my-4 mb-5">
+      <div class="col-12">
+        <file-uploader
+          [multiple]="false"
+          compact
+          [_hideTitles]="true"
+          [renameItems]="false"
+          [maxFileSize]="2"
+          [validTypes]="['.pdf']"
+          (fileListChange)="onFileListChange($event)"
+          [(fileList)]="fileList"
+          [hideTitles]="true"
+        ></file-uploader>
+      </div>
+    </div>
+
+    <div class="row my-4">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'OBSERVACIONES' | translate }}</mat-label>
+          <input matInput type="text" formControlName="observacionesForm" maxlength="255" >
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="row my-4">
+  <div class="col-12">
+    <div class="buttons-modal d-flex justify-content-end" >
+      <button class="clear-button" (click)="closeModal()">{{ 'CANCELAR' | translate }}</button>
+      <button [mat-dialog-close]="newAuthorization" [ngClass]="{'button--is-disabled' : disabledSendButton()}" [disabled]="disabledSendButton()">{{ 'GUARDAR' | translate }}</button>
+    </div>
+  </div>
+</div>

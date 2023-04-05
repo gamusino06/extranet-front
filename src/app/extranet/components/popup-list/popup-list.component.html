@@ -1,0 +1,24 @@
+<div class="popup-list__container">
+    <span class="popup-list__link" (click)="showOptions()">{{link}}</span>
+    <div class="popup-list" [ngClass]="{'popup-list--is-visible' : isOptionsListVisible}">
+      <div class="popup-list__header">
+        <span class="popup-list__title">{{title}}</span>
+        <!-- <img src="../../../../assets/img/close.svg" class="popup-list__close" (click)="hideOptions()" /> -->
+      </div>
+      <div class="popup-list__loading" *ngIf="isLoading">
+        <svg class="spinner spinner--primary" width="20px" height="20px" viewBox="0 0 66 66"
+             xmlns="http://www.w3.org/2000/svg">
+          <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33"
+                  cy="33" r="30"></circle>
+        </svg>
+      </div>
+      <div *ngIf="!isLoading && isOptionsListVisible">
+        <div class="popup-list__list scroll2" *ngIf="options.length === 0">
+          <span>{{ 'COMPONENTS.POPUP-LIST.NO_DATA' | translate }}</span>
+        </div>
+        <div class="popup-list__list scroll2" *ngIf="options.length > 0">
+          <span class="popup-list__item" *ngFor="let option of options">{{option}}</span>
+        </div>
+      </div>
+    </div>
+  </div>

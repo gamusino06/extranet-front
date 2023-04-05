@@ -1,0 +1,104 @@
+<div id="app-prevencion-documentos-personas-trabajadoras">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <h1 class="tituloSec text-uppercase">{{ 'INFORMACION_PERSONAS_TRABAJADORAS' | translate }}</h1>
+          </div>
+        </div>
+        <!--Form-->
+        <form [formGroup]="documentationForm" (ngSubmit)="onSubmit()">
+            <!--Filtro centro y Empresa-->
+            <div class="row">
+              <app-select-empresa-filter [userForm]="documentationForm" [empresasList]="empresasList" [radioButtonsActivos]="false" [required]="true" [multiple]="false" class="col"></app-select-empresa-filter>
+              <app-select-centro-filter [userForm]="documentationForm" [empresasList]="empresasList" [radioButtonsActivos]="false" [required]="true" [multiple]="false" class="col"></app-select-centro-filter>
+            </div>
+            <!--/Filtros--->
+            <hr>
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()"><img src="{{cleanImgUrl}}" class="img"
+                            alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!documentationForm.valid"><img
+                            src="{{searchImgUrl}}" class="img" alt="Filtros"><span
+                            class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+                </div>
+            </div>
+        </form>
+        <!--/Form-->
+        <!--Tabla-->
+        <div class="row" [hidden]="!mostrarTabla">
+            <div class="col" #TABLEDOCUMENTSINFORMATIONWORKERS>
+              <div style="text-align: end; margin-bottom: -20px;" [innerHtml]=mensajeExplicativo></div>
+              <div class="table-responsive">
+                <table
+                    mat-table [dataSource]="dataSource"
+                    matSort
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)"
+                    multiTemplateDataRows
+                    class="mat-elevation-z2 table">
+
+                    <ng-container matColumnDef="checklist">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef>
+                            <mat-checkbox (change)="checkAllRows($event)">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombrePuesto">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'NOMBRE_PUESTO' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <span class="nombreDocumentoPersonasTrabajadorasSpan" matTooltip="{{element.documentoNombre}}">
+                            {{element.documentoNombre }}
+                          </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="sensibilidades">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'SENSIBILIDADES' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                          <span class="sensibilidadesPersonasTrabajadorasSpan" matTooltip="{{element.sensibilidades}}">
+                            {{element.sensibilidades}}
+                          </span>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableHeaders;" matRipple [ngClass]="{'no_read': !row.accionesRealizadas, 'read': row.accionesRealizadas}"></tr>
+                </table>
+              </div>
+              <div>
+                <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+                <br/>
+                <div class="row float-right">
+                  <div class="col">
+                    <div class="exportar" (click)="descargarIcpt(this.globals.DESCARGA_UNIFICADA)">
+                      <i class="material-icons md-24 mat-icon">file_download</i>
+                      <span class="search-span">{{ 'DESCARGA_UNI' | translate }}</span>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="exportar" (click)="descargarIcpt(this.globals.DESCARGA_SEPARADA)">
+                      <i class="material-icons md-24 mat-icon">file_download</i>
+                      <span class="search-span">{{ 'DESCARGA_SEP' | translate }}</span>
+                    </div>
+                  </div>
+                  <div class="headerdivider"></div>
+                  <mat-checkbox class="compartir-icpt-button" (change)="checkShareDoc($event)">
+                    <span class="share-doc-icpt">{{ 'COMPARTIR_DOC_ICPT' | translate }}</span>
+                  </mat-checkbox>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!--F.Tabla-->
+    </div>
+</div>

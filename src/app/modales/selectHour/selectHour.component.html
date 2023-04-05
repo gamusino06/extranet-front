@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ 'SELECCIONAR_HORA' | translate }}</h1>
+<div mat-dialog-content>
+
+<div class="flex-container" style="display: flex;">
+    <div *ngFor="let item of data">
+      <button (click)="selectHour(item)"><span><strong>{{item.fecha | date: 'HH:mm'}}</strong></span></button>
+    </div>
+</div>
+
+</div>
+<div mat-dialog-actions  align="center">
+  <button mat-button (click)="onNoClick()" class="clear-button"><span class="clear-span">Cerrar</span>  </button>
+</div>

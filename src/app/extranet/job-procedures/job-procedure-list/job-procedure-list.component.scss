@@ -1,0 +1,87 @@
+.app-work-procedures-list {
+  .form-actions__container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    > * {
+      // margin-block: 12px;
+      margin-inline: 0;
+    }
+  }
+
+  .boton-alta {
+    background-color: var(--orange);
+    border: 1px solid var(--orange);
+    padding: 5px 10px;
+    width: 16rem;
+  }
+
+  .recycling-legend {
+    display: flex;
+    gap: 15px;
+    flex-direction: initial;
+    margin-left: 16px;
+  }
+
+  .width-50 {
+    width: 50px;
+  }
+
+  .min-width-145 {
+    min-width: 145px;
+  }
+
+  .reciclyng-dot {
+    display: inline-block;
+  }
+
+  .reciclyng-dot *[class^="dot-"],
+  .reciclyng-dot-in-table {
+    float: left;
+    height: 14px;
+    width: 14px;
+    margin-right: 8px;
+    border-radius: 50%;
+  }
+
+  .reciclyng-dot-in-table {
+    margin: 0;
+  }
+
+  .reciclyng-dot .dot-green {
+    background-color: #45925a;
+  }
+
+  .reciclyng-dot .dot-red {
+    background-color: #f01f1f;
+  }
+
+  .buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 26px;
+  }
+
+  .dropdown-menu-button {
+    background: transparent;
+    border: none;
+    color: #707070;
+    text-transform: capitalize;
+    font-weight: 400;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .icono-mater {
+    margin: 10px;
+    padding: 0;
+    height: fit-content;
+  }
+}
+
+.menu-item-button {
+  width: auto !important;
+  text-transform: capitalize;
+}

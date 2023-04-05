@@ -1,0 +1,267 @@
+.table-responsive {
+    overflow-x: auto !important;
+    width: 100%;
+}
+
+td {
+    vertical-align: middle;
+}
+tr td:last-of-type, th td:last-of-type {
+    text-align: right;
+    width: 185px;
+}
+.mat-column-checklist {
+    padding-top: 6px;
+}
+td ul { margin: 5px 0 !important;}
+.exportar i {vertical-align: middle;}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+.btn-icon.more-info {
+    padding: 0 5px;
+    height: auto;
+    width: auto;
+}
+
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}
+
+.traffic-lights-legend {
+    width: 100%;
+    display: flex;
+    flex-direction: initial;
+    justify-content: left;
+    gap: 15px;
+    margin-left: 16px;
+    line-height: 15px;
+    padding-right: 14px;
+    cursor: default;
+    user-select: none;
+}
+
+.traffic-lights-dot {
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.traffic-lights-dot *[class^="dot-"] {
+    float: left;
+    height: 14px;
+    width: 14px;
+    margin-right: 8px;
+    border-radius: 50%;
+}
+
+.traffic-lights-dot .dot-green {
+    background-color: #45925A;
+}
+.traffic-lights-dot .dot-yellow {
+    background-color: #FED74D;
+}
+.traffic-lights-dot .dot-orange {
+    background-color: #EB910B;
+}
+.traffic-lights-dot .dot-red {
+    background-color: #F01F1F;
+}
+.traffic-lights-dot .dot-grey {
+    background-color: #7E7E7E;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+/* TOOLTIP */
+
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    cursor: help;
+    border-bottom: transparent;
+}
+
+.custom-tooltip .tooltip-text {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0; /* ajuste a mano en html */
+    /* left: 50%; */
+    /* margin-left: -60px; */
+    width: max-content;
+    max-width: 150px;
+    padding: 0.4rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: white;
+    line-height: 17px;
+    text-align: center;
+    background-color: #262626;
+    visibility: hidden;
+    opacity: 0;
+    transition: top .2s, opacity .2s;
+    transition-delay: .3s;
+}
+
+.custom-tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.custom-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    top: 150%;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+/* CONFIGURACIÓN ANCHO COLUMNAS */
+table th.col-checkbox { min-width: 36px; width: 36px; }
+table th.col-shield { min-width: 44px; width: 44px; }
+table th.col-state { min-width: 96px; width: 96px; }
+table th.col-worker { min-width: 200px; width: 200px; }
+table th.col-company { min-width: 150px; width: 150px; }
+table th.col-job-position {  min-width: 200px; width: 200px }
+
+table th.col-date-last-rm { min-width: 130px; width: 130px; }
+table th.col-date-next-rm { min-width: 130px; width: 130px; }
+table th.col-periodicity { min-width: 130px; width: 130px; }
+table th.col-date-discharge { min-width: 130px; width: 130px; }
+table th.col-protocol { min-width: 110px; width: 110px; }
+
+table th.col-reason { min-width: 100px; width: 100px }
+table th.col-aptitude { min-width: 100px; width: 100px; }
+table th.col-buttons { min-width: 240px; width: auto; }
+
+table td.col-checkbox { min-width: 36px; width: 36px; }
+table td.col-shield { min-width: 44px; width: 44px; }
+table td.col-state { min-width: 96px; width: 96px; }
+table td.col-worker { min-width: 200px; width: 200px; }
+table td.col-company { min-width: 150px; width: 150px; }
+table td.col-job-position {  min-width: 200px; width: 200px }
+
+table td.col-date-last-rm { min-width: 130px; width: 130px; }
+table td.col-date-next-rm { min-width: 130px; width: 130px; }
+table td.col-periodicity { min-width: 130px; width: 130px; }
+table td.col-date-discharge { min-width: 130px; width: 130px; }
+table td.col-protocol { min-width: 110px; width: 110px; }
+
+table td.col-reason { min-width: 100px; width: 100px }
+table td.col-aptitude { min-width: 100px; width: 100px; }
+table td.col-buttons { min-width: 240px; width: auto; }
+
+
+table.dropdown-table th.col-checkbox { min-width: 36px; width: 36px; }
+table.dropdown-table th.col-shield { min-width: 44px; width: 44px; }
+table.dropdown-table th.col-state { min-width: 96px; width: 96px; }
+table.dropdown-table th.col-worker {  min-width: 200px; width: 200px; }
+table.dropdown-table th.col-company { min-width: 150px; width: 150px; }
+table.dropdown-table th.col-job-position {  min-width: 200px; width: 200px }
+
+table.dropdown-table th.col-date-last-rm { min-width: 130px; width: 130px; }
+table.dropdown-table th.col-date-next-rm { min-width: 130px; width: 130px; }
+table.dropdown-table th.col-periodicity { min-width: 130px; width: 130px; }
+table.dropdown-table th.col-date-discharge { min-width: 130px; width: 130px; }
+table.dropdown-table th.col-protocol { min-width: 110px; width: 110px; }
+
+table.dropdown-table th.col-reason { min-width: 100px; width: 100px }
+table.dropdown-table th.col-aptitude { min-width: 100px; width: 100px; }
+table.dropdown-table th.col-buttons { min-width: 240px; width: auto; }
+
+table.dropdown-table td.col-checkbox { min-width: 36px; width: 36px; }
+table.dropdown-table td.col-shield { min-width: 44px; width: 44px; }
+table.dropdown-table td.col-state { min-width: 96px; width: 96px; }
+table.dropdown-table td.col-worker {  min-width: 200px; width: 200px; }
+table.dropdown-table td.col-company { min-width: 150px; width: 150px; }
+table.dropdown-table td.col-job-position {  min-width: 200px; width: 200px }
+
+table.dropdown-table td.col-date-last-rm { min-width: 130px; width: 130px; }
+table.dropdown-table td.col-date-next-rm { min-width: 130px; width: 130px; }
+table.dropdown-table td.col-periodicity { min-width: 130px; width: 130px; }
+table.dropdown-table td.col-date-discharge { min-width: 130px; width: 130px; }
+table.dropdown-table td.col-protocol { min-width: 110px; width: 110px; }
+
+table.dropdown-table td.col-reason { min-width: 100px; width: 100px }
+table.dropdown-table td.col-aptitude { min-width: 100px; width: 100px; }
+table.dropdown-table td.col-buttons { min-width: 240px; width: auto; }
+
+
+table td.col-buttons {
+    text-align: right !important;
+    padding-right: 16px !important;
+}
+
+table td.col-buttons button.btn-icon {
+    width: 40px;
+    padding: 10px 4px;
+}
+
+.dropdown-table-container {
+  padding-left: 0px!important;
+}
+
+.dropdown-table {
+  border: none;
+  background-color:#DFEDEF;
+  border-bottom: 1px solid #ffffff;
+}
+.dropdown-table.collapsed {
+    display: block;
+    overflow: hidden;
+    border-width: 0px !important;
+}
+.dropdown-table thead {
+  visibility: collapse;
+}
+.dropdown-table thead tr th {
+  border: none;
+}
+.dropdown-table tr td {
+  border: none;
+  font-weight:700;
+  text-align: left;
+}
+
+.noDateLeaving{ display: none; }
+
+.dropdown-table-container .noreports-message {
+    padding: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #7E7E7E;
+    border: none !important;
+    background-color:#DFEDEF;
+}
+

@@ -1,0 +1,57 @@
+<div class="app-modules">
+    <div><!-- class="container-fluid" -->
+        <div class="row" style="margin:0;border-bottom: 1px solid rgba(0,0,0,.12);align-items: center;">
+            <!--modules-->
+              <div class="col-md-12" style="max-width: calc(100% - 80px)">
+                <mat-tab-group [(selectedIndex)]="selectedIndexBinding"
+                               (selectedIndexChange)="changeIndex($event)"
+                               (selectedTabChange)="selectModule($event)"
+                               (click)="updateEnrutarPorFavoritos();"
+                               #tabGroup>
+                  <mat-tab aria-label="hidden" label=""></mat-tab>
+                  <div *ngFor="let module of tabs">
+                    <mat-tab aria-label="primary" label="{{module.idArea}}">
+                      <ng-template mat-tab-label>
+                        <label style="min-width:175px;" class="labelHeading"
+                               matTooltip="{{module.nombre | translate}}"
+                               matTooltipClass="example-tooltip-red1"
+                               matTooltipPosition="below"><!-- style="max-width:175px;" -->
+                          {{module.nombre | translate}}
+                        </label>
+                      </ng-template>
+                    </mat-tab>
+                  </div>
+                </mat-tab-group>
+              </div>
+              <div style="padding:0; text-align:right; margin-left: auto;"><!-- class="col-md-1" -->
+                  <button class="favorite-button"
+                          (click)="altaFavorito()"
+                          (mousein)="createPlanmenuTrigger.openMenu()"
+                          (mouseout)="$event.stopPropagation();createPlanmenuTrigger.openMenu()"
+                          #createPlanmenuTrigger="matMenuTrigger"
+                          [matMenuTriggerFor]="menu"
+                          matTooltip="{{ 'FAVORITOS' | translate }}"
+                          matTooltipPosition="below"
+                          style="margin: 0;">
+                    <mat-icon *ngIf="!paginaEnFavoritos">star_border</mat-icon> <!--con el ngIf para cuando NO está ya guardada la pagina como favorito -->
+                    <mat-icon *ngIf="paginaEnFavoritos">star</mat-icon> <!--con el ngIf para cuando SI está ya guardada la pagina como favorito -->
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <div *ngFor="let favorito of favoritosList">
+                      <button mat-menu-item style="width:90%">
+                        <mat-icon (click)="actualizarFavorito(favorito)">edit</mat-icon>
+                        <mat-icon (click)="eliminarFavorito(favorito)">highlight_off</mat-icon>
+                        <span matTooltip="{{favorito.nombre}}" matTooltipPosition="below" (click)="enrutar(favorito);">
+                            {{favorito.nombre}}
+                        </span>
+                      </button>
+                    </div>
+                    <div *ngIf="favoritosList==undefined || favoritosList.length==0" style="text-align:center;">
+                      <br/>
+                      <span class="title">&nbsp;&nbsp;{{'NO_FAVORITOS' | translate}}&nbsp;&nbsp;</span>
+                    </div>
+                  </mat-menu>
+              </div>
+        </div>
+    </div>
+</div>

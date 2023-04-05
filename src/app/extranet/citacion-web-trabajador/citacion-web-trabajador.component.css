@@ -1,0 +1,46 @@
+td {
+    vertical-align: middle;
+}
+tr td:last-of-type, th td:last-of-type {
+    text-align: right;
+    width: 185px;
+}
+.mat-column-checklist {
+    padding-top: 6px;
+}
+td ul { margin: 5px 0 !important;}
+.exportar i {vertical-align: middle;}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+.btn-icon.more-info {
+    padding: 0 5px;
+    height: auto;
+    width: auto;
+}
+
+
+.flex-container {
+    display: flex;
+  }
+  
+  .flex-container > div {
+    background-color:var(--blue);
+    color: aliceblue;
+    margin: 5px;
+    padding: 12px;
+  }
+

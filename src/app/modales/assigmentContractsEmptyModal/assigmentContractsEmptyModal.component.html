@@ -1,0 +1,17 @@
+<div class="container">
+  <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px">
+
+    <div style="text-align:justify" id="textoCompleto">
+      <p>{{"ASSIGMENT_CONTRACTS_EMPTY_MODAL_TEXT_ONE" | translate }}</p>
+      <p>{{"ASSIGMENT_CONTRACTS_EMPTY_MODAL_TEXT_TWO" | translate }}</p>
+      <p>{{"ASSIGMENT_CONTRACTS_EMPTY_MODAL_TEXT_THREE" | translate }}</p>
+    </div>
+
+    <div class="row">
+      <div class="col offset-2">
+        <button (click)="accept()" class="accept-button">{{ 'ACEPTAR' | translate }}</button>
+        <button (click)="cancel()" class="cancel-button">{{ 'CANCELAR' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

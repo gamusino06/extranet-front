@@ -1,0 +1,20 @@
+<div class="search-buttons">
+  <div class="buttons-container">
+    <ui-button
+      [label]="clearLabel"
+      [imageSrc]="cleanImgUrl"
+      type="clean"
+      (onClick)="onClearClick.emit()"
+    >
+    </ui-button>
+
+    <ui-button
+      [label]="searchLabel"
+      [imageSrc]="searchImgUrl"
+      type="secondary"
+      [disabled]="disabledButton2"
+      (onClick)="onSearchClick.emit()"
+    >
+    </ui-button>
+  </div>
+</div>

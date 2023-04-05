@@ -1,0 +1,17 @@
+.texto-form {
+  font-family: Montserrat, sans-serif;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .mat-select-arrow {
+  margin-left: 10px;
+  border-right: none;
+  border-image-source: url('../../../../assets/icons/misc/arrow_down.svg');
+  transform: scale(3);
+}
+
+@media (max-width: 570px) {
+  .texto-form{
+    white-space: normal;
+  }
+}

@@ -1,0 +1,121 @@
+<div id="app-informes-aptitud">
+    <div class="container-fluid">
+      <h1 class="tituloSec text-uppercase">{{ 'CITACION_WEB' | translate }}</h1>
+
+      <hr/>
+
+      <!--Banner de PCP-->
+      <div *ngIf="!this.bloqueadoUps" class="card mb-3 banner w-100">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="row align-items-center">
+              <span class="fas fa-info-circle col-md-12" style="font-size: 3em"></span>
+            </div>
+            <div style="padding: 1.5em 6em 1.5em 2em">
+              <p class="card-text text-justify align-middle">{{ 'TEXT_BANNER_SHOW' | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-progress-bar step="4"></app-progress-bar>
+
+      <div class="row justify-content-end">
+        <div>
+          <button class="clean-button" (click)="previous()">
+            <i class="fas fa-chevron-left"></i>
+            <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+          </button>
+        </div>
+      </div>
+      <hr/>
+
+      <br/><div style="text-align:center; width:100%"><span class="title">{{ 'SELECCIONAR_TRABAJADOR' | translate }}</span></div><br/>
+
+      <div class="empresaCentroCitacion">
+        <div><span class="title">{{'EMPRESA' | translate}}:</span>&nbsp;<span>{{this.utils.citaValues.nombreEmpresa}}</span><br></div>
+        <div><span class="title">{{'CENTRO_MEDICO' | translate}}:</span>&nbsp;<span>{{this.utils.citaValues.nombreCentroMedico}}</span></div>
+      </div>
+
+      <hr/>
+
+        <div class="row align-text-center">
+          <div class="col-1">
+            <div class="flex-container">
+              <div style="text-align: center;">
+                <span style="font-size:30px;">
+                    <strong>
+                        {{this.utils.citaValues.fecha | date:'dd'}}
+                    </strong>
+                </span><br/>
+                <span>{{removeAccents(dateSelectedName) | translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <!--Form-->
+      <!--span class="title">{{ 'SELECCIONAR_TRABAJADOR' | translate }}</span><br/-->
+        <div class="row justify-content-center"  *ngFor="let item of citaForms; let i=index">
+            <div class="">
+                <form [formGroup]="item.fields">
+                    <div class="row">
+                        <div class="col align-self-center">
+                          <button class="modify-button-blue">
+                            <span class="modify-span"><strong>{{item.fields.get('horaDisplay').value}}</strong></span>
+                            <!--span class="modify-span"><strong>{{item.fields.get('fechaForm').value | date:'HH:mm'}}</strong></span-->
+                          </button>&nbsp;&nbsp;
+                            <!--mat-form-field *ngIf="item.fields.get('fechaForm').value !==''" appearance="outline"
+                                appearance="outline">
+                                <mat-label>{{ 'HORA' | translate }}</mat-label>
+                                <input matInput type="text" formControlName="horaDisplay" readonly>
+                            </mat-form-field-->
+                        </div>
+                        <div class="col align-self-center">
+                            <mat-form-field class="align-self-center" appearance="outline">
+                                <mat-label>{{ 'MOTIVO' | translate }}</mat-label>
+                                <mat-select formControlName="motivoForm" [disableOptionCentering]="true">
+                                    <mat-option *ngFor="let motivo of motivosList" [value]="motivo.idMotivoCita">
+                                        {{motivo.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col align-self-center" style="vertical-align:middle;">
+                            <mat-form-field appearance="outline"
+                                appearance="outline"> <!--*ngIf="item.fields.get('trabajador').value !==''"-->
+                                <mat-label>{{ 'NOMBRE_TRABAJADOR' | translate }}</mat-label>
+                                <input matInput type="text" formControlName="trabajador" readonly>
+                            </mat-form-field>
+                        </div>
+                        <div class="col align-self-center" style="vertical-align:middle;" [ngStyle]="{'display':this.workerData !== null ? 'none' : '' }">
+                          <button *ngIf="item.fields.get('trabajador').value ===''"
+                                  class="modify-button-blue" (click)="selectTrabajador(item)">
+                            <span class="modify-span"><strong>{{'BOTON_SELECCIONAR_TRABAJADOR' | translate}}</strong></span>
+                          </button>
+                          <button *ngIf="item.fields.get('trabajador').value !=''"
+                                  class="modify-button-blue" (click)="selectTrabajador(item)">
+                            <span class="modify-span"><strong>{{'BOTON_MODIFICAR_TRABAJADOR' | translate}}</strong></span>
+                          </button>
+                        </div>
+                        <div class="col align-self-center" style="vertical-align:middle;" [ngStyle]="{'display':this.workerData !== null ? 'none' : '' }">
+                            <button class="modify-button" (click)="deleteForm(i)">
+                            {{'BOTON_ELIMINAR_CITA' | translate}}
+                          </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <hr />
+        <div class="row justify-content-center">
+            <div>
+                <button class="search-button" (click)="save()">
+                    <span class="search-span">{{ 'CONFIRMAR_CITA' | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

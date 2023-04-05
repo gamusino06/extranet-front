@@ -1,0 +1,99 @@
+<div id="app-delegaciones-wp">
+  <div class="container-fluid">
+      <!--Form-->
+      <form [formGroup]="userForm" (ngSubmit)="getDelegaciones()">
+        <div class="row">
+          <div class="pl-0 col">
+            <h2 class="txt">{{ 'LOCALIZA_SEDES_WP' | translate }}.</h2>
+          </div>
+        </div>
+          <div class="row">
+              <div class="pl-0 col">
+                  <h1 class="titulo text-uppercase"> {{ 'SEDES_DE_VITALY' | translate }}</h1>
+              </div>
+          </div>
+          <div class="row selectores">
+              <app-select-provincia-wp
+                  [userForm]="userForm"
+                  [provinciasList]="provinciaList"
+                  (getLocalidades)="getLocalidades()"
+                  [tieneLocalidades]="true"
+                  class="pl-0 col">
+              </app-select-provincia-wp>
+              <app-select-localidad-wp
+                  [userForm]="userForm"
+                  [localidadList]="localidadList"
+                  class="pl-0 col">
+              </app-select-localidad-wp>
+          </div>
+          <div class="row selectores">
+              <div class="col direccion">
+                  <mat-label class="label-direccion">{{ 'DIRECCION' | translate }}</mat-label>
+                  <mat-form-field appearance="outline">
+                      <input class="label-direccion" matInput type="text" formControlName="direccionForm">
+                  </mat-form-field>
+              </div>
+          </div>
+          <div class="row justify-content-end">
+              <div>
+                <button class="button-limpiar" type="reset" (click)="resetForm()"><img
+                  src="../../../assets/icons/misc/limpiar.svg" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span
+                  class="span-limpiar">{{ 'LIMPIAR' | translate }}</span></button>
+              </div>
+              <div>
+                  <button class="button-buscar" [disabled]="!userForm.valid" type="submit">
+                      <img src="../../../assets/icons/misc/white_buscar.svg" class="img" alt="Filtros">
+                      <span class="span-buscar">{{ 'BUSCAR' | translate }}</span>
+                  </button>
+              </div>
+          </div>
+      </form>
+      <hr>
+      <!--/Form-->
+      <!--Tabla-->
+      <div class="row">
+          <div class="pl-0 col-md-4">
+              <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px" >
+                  <ng-container>
+                      <mat-card class="cabecera-listado" flex-gt-sm>
+                          <mat-card-title class="text-uppercase">{{ 'LISTA_DELEGACIONES_WP' | translate }}</mat-card-title>
+                      </mat-card>
+                  </ng-container>
+                  <div class="example-viewport">
+                  <ng-container *ngFor="let delegacion of delegacionesList">
+                      <mat-card flex-gt-sm class="mat-card-delegacion">
+                          <mat-card-subtitle class="delegacion-nombre" (click)="setOnMap(delegacion.idDelegacion)">{{delegacion.nombre}}</mat-card-subtitle>
+                          <mat-card-content>
+                              <div class="row">
+                                  <div class="col datos-sede">
+                                    <a href="tel:{{delegacion.telefono}}"><i *ngIf="delegacion.telefono != ''" class="fas fa-phone mr-2 ml-4"></i>{{delegacion.telefono}}</a>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col datos-sede">
+                                      <i *ngIf="delegacion.horario != ''" class="far fa-clock mr-2 ml-4"></i>{{delegacion.horario}}
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col datos-sede">
+                                      <i *ngIf="delegacion.calle != ''" class="fas fa-map-marker-alt mr-2 ml-4"></i>{{delegacion.calle}} - {{delegacion.localidad.nombre}}
+                                  </div>
+                              </div>
+                          </mat-card-content>
+                      </mat-card>
+                  </ng-container>
+                </div>
+                  <mat-card *ngIf="delegacionesListLoaded && delegacionesList?.length==0">
+                      <mat-card-subtitle>{{ 'SIN_RESULTADOS' | translate }}</mat-card-subtitle>
+                      <mat-card-content>{{ 'SIN_RESULTADOS_DELEGACIONES' | translate }}</mat-card-content>
+                  </mat-card>
+              </div>
+          </div>
+          <div class="col mapa">
+              <!--MAP-->
+              <app-map [mapData]="delegacionesList" [idDelegacionSelected]="idDelegacionSelected" [address]="address"></app-map>
+          </div>
+      </div>
+      <!--F.Tabla-->
+  </div>
+</div>

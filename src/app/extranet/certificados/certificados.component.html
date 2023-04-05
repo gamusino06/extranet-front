@@ -1,0 +1,138 @@
+<div id="app-certificados-empresa">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 class="tituloSec text-uppercase">{{ 'CERTIFICADOS' | translate }}</h1>
+            </div>
+        </div>
+
+      <div class="row">
+        <div class="col" #TABLECERTIFICADOS>
+            <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 table">
+
+                <ng-container matColumnDef="checklist">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="checkAllRows($event)"></mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'EMPRESA' | translate }} </th>
+                    <td mat-cell *matCellDef="let element"><span class="empresaCentroSpanBig" matTooltip="{{element.nombre }}"> {{element.nombre }} </span></td>
+                </ng-container>
+
+                <ng-container matColumnDef="certificadoContratacion">
+                    <th mat-header-cell *matHeaderCellDef>
+                       <div>{{ 'CERTIFICADO_CONTRATACION' | translate }}</div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <span *ngIf="element.documentos[0]?.ubicacion!=null && element.documentos[0]?.ubicacion!=''" style="white-space: nowrap;">
+
+                        <i *ngIf="element.documentos[0]?.accionesRealizadas" class="material-icons md-24"
+                           style="color:var(--mediumGray);font-weight: normal;"
+                           (click)="verHistoricoDocumento(element.documentos[0])"
+                           matTooltip="{{ 'HISTORICO_ACCIONES' | translate }}">info</i>
+                        <i *ngIf="!element.documentos[0]?.accionesRealizadas" class="material-icons md-24"
+                           style="color:var(--mediumGray);font-weight: normal;width:24px;"></i>
+
+                        <button mat-raised-button
+                                class="btn-icon"
+                                (click)="previsualizar(element.documentos[0], element.idEmpresa)">
+                          <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                        </button>
+                        <button mat-raised-button
+                                class="btn-icon"
+                                (click)="descargar(element.documentos[0], element.idEmpresa)">
+                          <i class="material-icons md-24 mat-icon">file_download</i>
+                        </button>
+                        <button mat-raised-button
+                                class="btn-icon"
+                                (click)="compartir(element.documentos[0], element.idEmpresa)">
+                          <i class="material-icons md-24 mat-icon">email</i>
+                        </button>
+                      </span>
+                      <span  *ngIf="element.documentos[0]?.ubicacion==null || element.documentos[0]?.ubicacion==''">
+                        <i class="material-icons" style="color:var(--darkOrange);vertical-align:middle;">error</i>&nbsp;&nbsp;
+                        <b> {{ 'NO_DISPONIBLE' | translate }}</b>
+                        <br/>
+                        <span style="font-size:smaller;">{{ 'PONGASE_CONTACTO_ADMINISTRACION' | translate }}</span>
+                      </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="certificadoPago">
+                    <th mat-header-cell *matHeaderCellDef>
+                       <div> {{ 'CERTIFICADO_CORRIENTE_PAGOS' | translate }}</div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <span *ngIf="element.documentos[1]?.ubicacion!=null && element.documentos[1]?.ubicacion!=''" style="white-space: nowrap;">
+
+                        <div *ngIf="!element.corrientePago">
+                          <i class="material-icons md-24"
+                             style="color:var(--mediumGray);font-weight: normal;"
+                             matTooltip="{{ 'CERTIFICADO_NO_DISPONIBLE' | translate }}">info</i>
+                        </div>
+
+                        <div *ngIf="element.corrientePago">
+                          <i *ngIf="element.documentos[1].accionesRealizadas" class="material-icons md-24"
+                             style="color:var(--mediumGray);font-weight: normal;"
+                             (click)="verHistoricoDocumento(element.documentos[1])"
+                             matTooltip="{{ 'HISTORICO_ACCIONES' | translate }}">info</i>
+                          <i *ngIf="!element.documentos[1]?.accionesRealizadas" class="material-icons md-24"
+                             style="color:var(--mediumGray);font-weight: normal;width:24px;"></i>
+
+                          <button mat-raised-button
+                                  class="btn-icon"
+                                  (click)="previsualizar(element.documentos[1], element.idEmpresa)">
+                            <i class="material-icons md-24 mat-icon" matTooltip="{{ 'PREVISUALIZAR_DOCUMENTO' | translate }} ">plagiarism</i>
+                          </button>
+                          <button mat-raised-button
+                                  class="btn-icon"
+                                  (click)="descargar(element.documentos[1], element.idEmpresa)">
+                            <i class="material-icons md-24 mat-icon">file_download</i>
+                          </button>
+                          <button mat-raised-button
+                                  class="btn-icon"
+                                  (click)="compartir(element.documentos[1], element.idEmpresa)">
+                            <i class="material-icons md-24 mat-icon">email</i>
+                          </button>
+                        </div>
+                      </span>
+                      <span *ngIf="element.documentos[1]?.ubicacion==null || element.documentos[1]?.ubicacion==''">
+                        <i class="material-icons" style="color:var(--darkOrange);vertical-align:middle;">error</i>&nbsp;&nbsp;
+                        <b> {{ 'NO_DISPONIBLE' | translate }}</b>
+                        <br/>
+                        <span style="font-size:smaller;">{{ 'PONGASE_CONTACTO_ADMINISTRACION' | translate }}</span>
+                      </span>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+            </table>
+            </div>
+            <div>
+              <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+      </div>
+      <br>
+      <div class="row float-right">
+        <div class="col">
+            <div class="exportar" (click)="descargarMultiple()">
+                <i class="material-icons md-24 mat-icon">file_download</i>
+                <span class="search-span">{{ 'DESCARGAR' | translate }}</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="exportar" (click)="compartirMultiple()">
+                <i class="material-icons md-24 mat-icon">email</i>
+                <span class="search-span">{{ 'COMPARTIR' | translate }}</span>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

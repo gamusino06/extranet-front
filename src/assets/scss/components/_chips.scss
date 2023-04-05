@@ -1,0 +1,44 @@
+.chip-style {
+  height: 20px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 10px;
+  align-self: flex-start;
+  /* neutral colors */
+  color: #262626;
+  background-color: #F2F2F2;
+  margin-left: 5px;
+}
+
+.chip-info {
+  @extend .chip-style;
+  font-weight: 600 !important;
+  color: #1A749A !important;
+  background-color: #C0F2F9;
+  cursor: default;
+}
+
+.chip-success {
+  @extend .chip-style;
+  font-weight: 600 !important;
+  color: #1B6938 !important;
+  //background-color: $boolean-true;
+  cursor: default;
+}
+.chip-warning {
+  @extend .chip-style;
+  font-weight: 600 !important;
+  //color: $support-dark-02 !important;
+  //background-color: $support-soft-02;
+  cursor: default;
+}
+.chip-danger {
+  @extend .chip-style;
+  font-weight: 600 !important;
+  color: #AC455E !important;
+  // background-color: $boolean-false;
+}
+
+
+

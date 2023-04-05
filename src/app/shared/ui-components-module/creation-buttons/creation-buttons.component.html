@@ -1,0 +1,15 @@
+<div class="creation-buttons">
+  <div class="buttons-container">
+    <ui-button
+      [label]="createLabel"
+      icon="add"
+      type="primary"
+      (onClick)="onCreateClick.emit()"
+    ></ui-button>
+    <ui-button
+      [label]="massiveLabel"
+      type="clean"
+      (onClick)="onMassiveClick.emit()"
+    ></ui-button>
+  </div>
+</div>

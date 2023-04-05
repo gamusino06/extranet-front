@@ -1,0 +1,100 @@
+<app-juridico [cargaPosterior]="cargaPosterior"></app-juridico>
+<div class="container-fluid" *ngIf="querys && querySeleccionada == 0 && queryVista == null">
+  <!-- Title -->
+  <div class="row">
+    <div class="col">
+      <h1 class="tituloSec text-uppercase">{{ 'CONSULTAS_PRL' | translate }}</h1>
+    </div>
+  </div>
+  <p class="text-center" style="color: #004C67; padding: 1em 2em">
+    <b>{{ 'CONSULTA_PRL' | translate }}</b>
+  </p>
+  <div class="container-fluid">
+    <!-- AÑADIR -->
+    <div class="row">
+      <button class="search-button col-2" (click)="nuevaConsulta()">
+        <span>+</span>
+        <span class="search-span">{{ 'NUEVA_CONSULTA' | translate }}</span>
+      </button>
+
+      <div class="col-6"></div>
+      <!-- FILTRO -->
+      <div class="col-3" [formGroup]="querysForm">
+        <mat-form-field appearance="outline" style="position: relative; top: 10%" >
+          <mat-select  class="multiple-selector" formControlName="filter_type" [ngModel]="0" [disableOptionCentering]="true">
+            <mat-option [value]="0" (click)="filtrar()">{{ 'CONSULTAS' | translate }}</mat-option>
+            <mat-option *ngFor="let tipo of listaTipos" (click)="filtrar()" [value]="tipo.id">{{conversor(tipo.denominationExtranet)}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- RESULTADOS -->
+    <p class="text-success text-small" *ngIf="querys && querys.length != 0"><b>{{querys.length}} {{'RESULTADOS_ENCONTRADOS_FILTRADO' | translate}}</b></p>
+    <p class="text-danger text-small" *ngIf="querys && querys.length == 0"><b>{{'NO_RESULTADOS_ENCONTRADOS_FILTRADO' |translate}}</b></p>
+    <hr style="background-color: #F28C00; margin-bottom: 0 !important; height: 0.4em; opacity: 1" />
+    <table mat-table
+           [dataSource]="dataSource"
+           matSort
+           class="table"
+           style="margin-top: 0"
+           cdkDropList
+           cdkDropListOrientation="horizontal"
+           (cdkDropListDropped)="drop($event)"
+           multiTemplateDataRows
+    >
+      <!-- Documento -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag></th>
+        <td mat-cell *matCellDef="let element"><span> <i class="fas fa-solid fa-file" style="float: right" (click)="verQuery(element.id)" onclick="window.scrollTo(0, 0)"></i> </span></td>
+      </ng-container>
+      <!-- Fecha Registo -->
+      <ng-container matColumnDef="fechaHora">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'FECHA_HORA' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.fechaHora}}"> {{element.fechaHora | date:"dd/MM/yyyy h:mm"}} </span></td>
+      </ng-container>
+      <!-- Nombre Documento -->
+      <ng-container matColumnDef="contacto">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'CONTACTO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.contacto }}"> {{element.contacto}} </span></td>
+      </ng-container>
+      <!-- Tipo -->
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'TITULO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.titulo }}"> {{element.titulo}} </span></td>
+      </ng-container>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'ESTADO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.estado }}"> {{element.estado}} </span></td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+    </table>
+    <div>
+      <mat-paginator class="paginator" [pageSizeOptions]="[5, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="querys && querySeleccionada != 0 && queryVista != null">
+  <h3>{{queryVista.title.toUpperCase()}}</h3>
+  <div *ngFor="let mensaje of queryVista.lines">
+    <span class="nombreCreador">{{mensaje.createdByName.toUpperCase()}} a {{mensaje.created | date:"dd/MM/yyyy h:mm a"}}</span>
+    <hr />
+    <p [innerHTML]="mensaje.message" style="margin-bottom: 2em"></p>
+
+  </div>
+
+  <button (click)="descargarAtachment()" *ngIf="tieneAdjuntos()" class="search-button">{{'DOC_ADJUNTOS' | translate}}</button>
+
+  <img id="image"/>
+
+  <div style="position: absolute; top: 15%; right: 0;">
+    <div>
+      <button class="clean-button" (click)="querySeleccionada = 0; queryVista = null; filtrar()" onclick="window.scrollTo(0, 0)">
+        <span><</span>
+        <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+      </button>
+    </div>
+  </div>
+</div>

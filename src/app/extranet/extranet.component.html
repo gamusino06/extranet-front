@@ -1,0 +1,46 @@
+<div class="app-extranet">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade" [fullScreen]="true">
+        <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+    <div class="container-fluid"><!-- container-fluid -->
+        <div class="row header">
+            <div class="col">
+                <app-user-header  [areaSelected]="areaSelected" [userLoged]="user" (mensajeLeido)="mensajeLeidoMetodo()" (areaActive)="updateArea($event);mensajeLeidoMetodo()" [nMensajesLeidos]="nMensajesLeidos"></app-user-header>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="margin-bottom: 30px;">
+                <app-modules [userLoged]="user" (areaActive)="updateArea($event)" [areaSelected]="areaSelected" (cambiosRealizadosEnSidebarActive)="updateSidebar($event)" [cambiosRealizadosEnSidebar]="cambiosRealizadosEnSidebar"
+                [sectionActionMap]="sectionActionMap"></app-modules>
+            </div>
+        </div>
+        <div class="row">
+            <!-- SIDEBAR -->
+            <div class="col-md-2 sidebar-container"><!-- col-lg-2 -->
+                <app-sidebar
+                    *ngIf="isFormLoaded"
+                    [userLoged]="user"
+                    [seccionSelectedList]="seccionSelectedList"
+                    [userHasActiveAppointmentManagements]="userHasActiveAppointmentManagements"
+                    [areaSelected]="areaSelected"
+                    (areaActive)="updateArea($event)"
+                    (cambiosRealizadosEnSidebarActive)="updateSidebar($event)"
+                    [cambiosRealizadosEnSidebar]="cambiosRealizadosEnSidebar">
+                </app-sidebar>
+            </div>
+            <!-- BODY -->
+            <div class="col" style="width: 1px;"> <!-- col-lg-10 -->
+                <div *ngIf="extranetImg" class="row imageStyle">
+                    <div class="col">
+                        <img src="../../../../assets/img/{{translate.getDefaultLang()}}/accesoInicial.png" class="bannerCompleto">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

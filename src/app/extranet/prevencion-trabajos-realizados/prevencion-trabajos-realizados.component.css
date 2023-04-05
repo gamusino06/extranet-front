@@ -1,0 +1,14 @@
+
+table {
+    width: 100%;
+}
+
+.row-actions-icons {
+justify-content: center;
+}
+
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}

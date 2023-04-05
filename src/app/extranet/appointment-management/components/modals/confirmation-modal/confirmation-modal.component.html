@@ -1,0 +1,63 @@
+<!--<div class="modal__container" [ngClass]="{ 'modal__container&#45;&#45;opened': configurationObj.title }">
+  <div class="modal__backdrop">
+    <div class="modal" [ngClass]="configurationObj.modalSize">
+      <div class="modal__content">
+        <div class="modal__header">
+          <span class="modal__header__title">{{ configurationObj.title | translate }}</span>
+          <span class="modal__header__close icon icon-close" (click)="onCancel()"></span>
+        </div>
+        <div class="modal__body modal__body&#45;&#45;text-center">
+          <p class="modal__body__text">
+            {{ configurationObj.text | translate }}
+          </p>
+        </div>
+        <div class="modal__footer">
+          <button class="button margin-right-10" type="button" (click)="onAccept()">
+            <span class="button__icon icon icon-save" ></span>
+            <span class="button__label">{{ 'MODALS.CONFIRMATION_MODAL.ACCEPT' | translate }}</span>
+          </button>
+          <button *ngIf="configurationObj.showCancelButton" class="button button&#45;&#45;negative" type="button" (click)="onCancel()">
+            <span class="button__icon icon icon-close" ></span>
+            <span class="button__label">{{ 'MODALS.CONFIRMATION_MODAL.CANCEL' | translate }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+<!-- TODO delete this is a mocked modal without classes -->
+<!-- <div [ngClass]="{ 'modal__container--opened': configurationObj.title, `${configurationObj.modalSize}`: true}" class="sizer"> -->
+<!-- <div [ngClass]="[configurationObj.title ? 'modal__container--opened' : '', configurationObj.modalSize]"> -->
+<div [ngClass]="['modal__container--opened', configurationObj.modalSize]">
+  <div class="swal2-header">
+    <div
+       *ngIf="configurationObj.icon != ''"
+      [ngClass]="['swal2-icon swal2-icon-show', iconClass()]"
+      style="display: flex;"
+    >
+      <div *ngIf="configurationObj.icon === 'error'" class="swal2-icon-content" style="position: relative; bottom: 4px">x</div>
+      <div *ngIf="configurationObj.icon === 'question'" class="swal2-icon-content">?</div>
+      <div *ngIf="configurationObj.icon === 'warning'" class="swal2-icon-content">!</div>
+      <div *ngIf="configurationObj.icon === 'info'" class="swal2-icon-content">i</div>
+      <div *ngIf="configurationObj.icon === 'success'" class="swal2-icon-content">✔</div>
+    </div>
+    <h2 *ngIf="configurationObj.title != ''">{{ configurationObj.title | translate }}</h2>
+    <span (click)="onCancel()"></span>
+  </div>
+  <div *ngIf="configurationObj.text != ''" class="swal2-content">
+    <p>
+      {{ configurationObj.text | translate }}
+    </p>
+  </div>
+  <div class="swal2-actions"><!-- style="margin-top:15px" -->
+    <button type="button" (click)="onAccept()" [ngClass]="getClassOf()">
+      <span></span>
+      <span>{{ 'MODALS.CONFIRMATION_MODAL.ACCEPT' | translate }}</span>
+    </button>
+    <button *ngIf="configurationObj.showCancelButton" type="button" (click)="onCancel()" class="swal2-styled swal2-cancel">
+      <span></span>
+      <span>{{ 'MODALS.CONFIRMATION_MODAL.CANCEL' | translate }}</span>
+    </button>
+  </div>
+</div>

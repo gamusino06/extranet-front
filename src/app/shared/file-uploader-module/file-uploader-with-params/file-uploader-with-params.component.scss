@@ -1,0 +1,48 @@
+.file-uploader-with-params {
+  .clean-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .empty-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+
+    .empty-img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .submit-button {
+      display: flex;
+      margin-right: 0;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .loading-spinner {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+  }
+}

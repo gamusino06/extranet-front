@@ -1,0 +1,72 @@
+<section class="file-uploader-with-params">
+  <header *ngIf="_uploaderMode">
+    <h2>{{ title | translate | titlecase }}</h2>
+  </header>
+  <main>
+    <ng-container *ngIf="!_uploaderMode; else upload">
+      <ng-container *ngIf="_dataSource.length === 0; else notEmptyContainer">
+        <div class="empty-container">
+          <img [src]="emptyImg" alt="" class="emptyImg" />
+          <span class="span-down">{{
+            "FILE_UPLOADER.NO_DOCS" | translate
+          }}</span>
+          <button class="clean-button" (click)="screenChange()">
+            <mat-icon>add</mat-icon>
+            <span class="span-down">{{
+              "FILE_UPLOADER.ADD_DOC" | translate
+            }}</span>
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #notEmptyContainer>
+        <app-parametrized-files-table
+          [dataSource]="_dataSource"
+          [tableConfig]="tableConfig"
+          (onPreviewClick)="onPreviewClick($event)"
+          (onDownloadClick)="onDownloadClick($event)"
+          (onDeleteClick)="openDeleteConfirmation($event)"
+          (onEditClick)="onEditClick($event)"
+        ></app-parametrized-files-table>
+        <button class="clean-button" (click)="screenChange()">
+          <mat-icon>add</mat-icon>
+          <span class="span-down">{{
+            "FILE_UPLOADER.ADD_DOC" | translate
+          }}</span>
+        </button>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #upload>
+      <app-parametrized-uploader
+        [element]="_element"
+        [uploaderConfig]="uploaderConfig"
+        [formConfig]="formConfig"
+        [disabled]="_loading"
+        (onChanges)="onUploaderChanges($event)"
+        (onFileError)="onFileError($event)"
+        (canSubmit)="canSubmit($event)"
+      ></app-parametrized-uploader>
+    </ng-template>
+    <ng-content></ng-content>
+  </main>
+
+  <footer>
+    <ng-container *ngIf="_uploaderMode">
+      <button class="clean-button" (click)="cancel()" [disabled]="_loading">
+        {{ "FILE_UPLOADER.CANCEL" | translate }}
+      </button>
+      <button class="submit-button" (click)="send()" [disabled]="!_isValid">
+        <mat-spinner
+          *ngIf="_loading"
+          class="loading-spinner"
+          strokeWidth="3"
+          [diameter]="20"
+        ></mat-spinner>
+        <span *ngIf="!_loading"> {{ "FILE_UPLOADER.SEND" | translate }} </span>
+        <span *ngIf="_loading">
+          {{ "FILE_UPLOADER.SENDING" | translate }}
+        </span>
+      </button>
+    </ng-container>
+  </footer>
+</section>

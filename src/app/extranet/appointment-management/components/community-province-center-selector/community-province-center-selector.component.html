@@ -1,0 +1,173 @@
+<div [formGroup]="communityProvinceCenterForm" *ngIf="isFormLoaded" class="row m-1"
+     class="community-province-center-selector__container {{classes}}">
+  <div class="module-container" *ngIf="module === this.globals.EMPLOYEE_APPOINTMENT_MANAGEMENT">
+    <!-- days in advance -->
+    <div class="section-container single">
+      <div *ngIf="masiveEdition" class="section-container__label">
+        <label for="book-previous-time">
+          <h3>{{ "MASSIVE_EDITION.EDIT_BOOK_PREVIOUS_TIME" | translate }}</h3>
+        </label>
+        <mat-radio-group [(ngModel)]="massiveEditModalComponentData.editDaysInAdvanceValue" [ngModelOptions]="{standalone:true}" class="radio-group">
+          <mat-radio-button
+            [value]="true">{{ "SI" | translate }}</mat-radio-button>
+          <mat-radio-button
+            [value]="false">{{ "NO" | translate }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="massiveEditModalComponentData.editDaysInAdvanceValue">
+        <mat-form-field class="example-full-width" appearance="outline" >
+          <mat-label>{{ "MODALS.MASSIVE_EDIT_MODAL.BOOK_PREVIOUS_TIME" | translate }}</mat-label>
+          <span matSuffix>Días</span>
+          <input matInput type="number" min="0" max="120" formControlName="daysInAdvanceControl"
+                (change)="changeDaysInAdvance($event)">
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- month select -->
+    <div class="section-container single">
+      <div *ngIf="masiveEdition" class="section-container__label">
+        <label for="book-exclusive-period">
+          <h3>{{ "MASSIVE_EDITION.EDIT_BOOK_EXCLUSIVE_PERIOD" | translate }}</h3>
+        </label>
+        <mat-radio-group [(ngModel)]="massiveEditModalComponentData.editAllowedMonthsValue" [ngModelOptions]="{standalone:true}" class="radio-group">
+          <mat-radio-button
+            [value]="true">{{ "SI" | translate }}</mat-radio-button>
+          <mat-radio-button
+            [value]="false">{{ "NO" | translate }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="massiveEditModalComponentData.editAllowedMonthsValue">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>{{ "MODALS.MASSIVE_EDIT_MODAL.BOOK_EXCLUSIVE_PERIOD" | translate }}</mat-label>
+          <mat-select formControlName="selectedMonthList" placeholder="{{ 'TODOS' | translate }}" multiple>
+            <mat-option>
+              <ngx-mat-select-search placeholderLabel="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.SEARCH' | translate }}"
+                                     noEntriesFoundLabel="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.NO_DATA' | translate }}"
+                                     [showToggleAllCheckbox]="true"
+                                     [toggleAllCheckboxChecked]="this.communityProvinceCenterForm.controls.selectedMonthList.value?.length === monthsList?.length"
+                                     formControlName="selectedMonthListFilter"
+                                     (ngModelChange)="filterMonths($event)"
+                                     (toggleAll)="toggleSelectAllMonths($event)"
+              ></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let month of filteredMonthList" [value]="month.id">{{ month.value | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="section-container inputs-row">
+    <div *ngIf="masiveEdition" class="section-container__label">
+      <label for="community-province-center-selector" class="massive-edit-modal-label">
+        <h3>{{ "MASSIVE_EDITION.EDIT_MEDICAL_CENTERS" | translate }}</h3>
+      </label>
+      <mat-radio-group [(ngModel)]="massiveEditModalComponentData.editAllowedMedicalCenterValue" [ngModelOptions]="{standalone:true}" class="radio-group">
+        <mat-radio-button
+          [value]="true">{{ "SI" | translate }}</mat-radio-button>
+        <mat-radio-button
+          [value]="false">{{ "NO" | translate }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="community-province-center-selector__content" style="width: 100%;" *ngIf="massiveEditModalComponentData.editAllowedMedicalCenterValue">
+      <!-- checkbox -->
+      <div class="community-province-center-selector__all-checkbox">
+        <!--     <mat-label>{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.ALL' | translate }}</mat-label>
+            <input type="checkbox" [checked]="allCheckbox" (change)="onAllCheckboxChange()"> -->
+        <mat-checkbox
+          class="example-margin"
+          [checked]="allCheckbox"
+          [labelPosition]="allCheckboxLabelPosition"
+          (change)="onAllCheckboxChange()">
+          {{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.ALL' | translate }}
+        </mat-checkbox>
+      </div>
+      <!-- community select -->
+      <div class="community-province-center-selector__community">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>{{ "COMMUNITY_PROVINCE_CENTER_SELECTOR.COMMUNITY_TITLE" | translate }}</mat-label>
+          <mat-select formControlName="selectedCommunityList" multiple (selectionChange)="onCommunityChange()"
+                      placeholder="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.ALL' | translate }}">
+            <mat-option *ngIf="communityList?.length">
+              <ngx-mat-select-search placeholderLabel="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.SEARCH' | translate }}"
+                                    [showToggleAllCheckbox]="true"
+                                    [toggleAllCheckboxIndeterminate]="this.communityProvinceCenterForm.controls.selectedCommunityList.value?.length > 0 && this.communityProvinceCenterForm.controls.selectedCommunityList.value?.length < communityList?.length"
+                                    [toggleAllCheckboxChecked]="this.communityProvinceCenterForm.controls.selectedCommunityList.value?.length === communityList?.length"
+                                    (toggleAll)="toggleSelectAllCommunities($event)"
+                                    formControlName="communityFilter"
+                                    noEntriesFoundLabel="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.NO_DATA' | translate }}"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <ng-container
+              *ngFor="let community of communityList | searchGenericFilter:communityProvinceCenterForm.controls.communityFilter.value:globals.communityListSortKey ">
+              <mat-option [value]="community">{{community.name}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- province select -->
+      <div class="community-province-center-selector__province">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>{{ "COMMUNITY_PROVINCE_CENTER_SELECTOR.PROVINCE_TITLE" | translate }}</mat-label>
+          <mat-select formControlName="selectedProvinceList" multiple
+                      placeholder="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.ALL' | translate }}"
+                      (selectionChange)="onProvinceChange()">
+            <mat-option *ngIf="provinceList?.length">
+              <ngx-mat-select-search placeholderLabel="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.SEARCH' | translate }}"
+                                    [showToggleAllCheckbox]="true"
+                                    [toggleAllCheckboxIndeterminate]="this.communityProvinceCenterForm.controls.selectedProvinceList.value?.length > 0 && this.communityProvinceCenterForm.controls.selectedProvinceList.value?.length < provinceList?.length"
+                                    [toggleAllCheckboxChecked]="this.communityProvinceCenterForm.controls.selectedProvinceList.value?.length === provinceList?.length"
+                                    (toggleAll)="toggleSelectAllProvinces($event)"
+                                    formControlName="provinceFilter"
+                                    noEntriesFoundLabel="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.NO_DATA' | translate }}"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <ng-container
+              *ngFor="let province of provinceList | searchGenericFilter:communityProvinceCenterForm.controls.provinceFilter.value:globals.provinceListSortKey ">
+              <mat-option [value]="province">{{province.name}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- center select -->
+      <div class="community-province-center-selector__medical-center">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>{{ "COMMUNITY_PROVINCE_CENTER_SELECTOR.CENTER_TITLE" | translate }}</mat-label>
+          <mat-select formControlName="selectedMedicalCenterList" multiple
+                      placeholder="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.ALL' | translate }}">
+            <mat-option *ngIf="centerList?.length">
+              <ngx-mat-select-search placeholderLabel="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.SEARCH' | translate }}"
+                                    [showToggleAllCheckbox]="true"
+                                    [toggleAllCheckboxIndeterminate]="this.communityProvinceCenterForm.controls.selectedMedicalCenterList.value?.length > 0 && this.communityProvinceCenterForm.controls.selectedMedicalCenterList.value?.length < centerList?.length"
+                                    [toggleAllCheckboxChecked]="this.communityProvinceCenterForm.controls.selectedMedicalCenterList.value?.length === centerList?.length"
+                                    (toggleAll)="toggleSelectAllCenters($event)"
+                                    formControlName="centerFilter"
+                                    noEntriesFoundLabel="{{ 'COMMUNITY_PROVINCE_CENTER_SELECTOR.NO_DATA' | translate }}"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <ng-container
+              *ngFor="let center of centerList | searchGenericFilter:communityProvinceCenterForm.controls.centerFilter.value:globals.medicalCenterListSortKey ">
+              <mat-option [value]="center"
+                          [matTooltip]="getCenterSelectorTooltip(center)">
+                <span>{{center.name}}</span>
+                <span *ngIf="center.locationName !== undefined">{{' - ' + center.locationName}}</span>
+                <span *ngIf="center.medicalCenterStreet !== undefined">{{' - ' + center.medicalCenterStreet}}</span>
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div *ngIf="showSaveButton">
+        <button type="button" class="button--primary button--small" [ngClass]="{'button--disabled' : !formHasBeenChanged(appointmentManagement.blocked)}"
+                (click)="saveAppointmentManagement(appointmentManagement)"
+                [disabled]="!formHasBeenChanged(appointmentManagement.blocked)">
+          <span class="button__label"> {{ "COMMUNITY_PROVINCE_CENTER_SELECTOR.SAVE_CHANGES" | translate }} </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+

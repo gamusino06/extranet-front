@@ -1,0 +1,33 @@
+<div id="app-mi-perfil">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade" [fullScreen]="true">
+        <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+
+    <div class="container-fluid">
+      <h5 *ngIf="path == '/extranet/juridico'">SERVICIO JURÍDICO PLUS</h5>
+      <form [formGroup]="searchForm">
+        <mat-form-field appearance="outline" class="seleccionador">
+          <mat-label>{{ 'EMPRESA' | translate }}</mat-label>
+          <mat-select formControlName="empresaForm"
+                      [disableOptionCentering]="true"  (selectionChange)="entrada($event.value)">
+            <mat-option class="select-search">
+              <input #empresaFilter matInput type="text"
+                     (click)="$event.stopPropagation()"
+                     (keydown)="$event.stopPropagation()"
+                     placeholder="{{ 'BUSCAR' | translate }}"
+                     autocomplete="off" />
+              <button [hidden]="!empresaFilter.value" class="clean-filter" type="button" (click)="empresaFilter.value = ''; $event.stopPropagation()">
+                <i class="fas fa-times"></i>
+              </button>
+            </mat-option>
+            <ng-container *ngFor="let empresa of empresas | busquedaFilter:empresaFilter.value">
+              <mat-option [value]="empresa.id">
+                {{empresa.companyName}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </form>
+      <img src="assets/img/{{translate.getDefaultLang()}}/asesoramiento_juridico.png" class="imageStyle" *ngIf="path == '/extranet/juridico'" style="max-width: 100%">
+    </div>
+</div>

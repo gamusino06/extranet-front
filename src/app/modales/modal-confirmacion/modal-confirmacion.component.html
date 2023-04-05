@@ -1,0 +1,39 @@
+
+  <div class="container">
+    <div class="row">
+      <div class="col-9">
+        <h1 class="new-course-label">
+          {{ configurationObj.title | translate }}
+        </h1>
+      </div>
+      <!-- <div class="col text-right">
+        <img class="new-course-close-button" src="../../../../assets/img/close_assignment_contract_modal.svg"
+             alt="{{ 'CANCELAR' | translate }}" (click)="cancel()">
+      </div> -->
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <div class="swal2-icon swal2-warning swal2-icon-show" style="display: flex; font-size: large">
+            <div *ngIf="configurationObj.icon === 'error'" class="swal2-icon-content" style="position: relative; bottom: 4px">x</div>
+            <div *ngIf="configurationObj.icon === 'question'" class="swal2-icon-content">?</div>
+            <div *ngIf="configurationObj.icon === 'warning'" class="swal2-icon-content">!</div>
+            <div *ngIf="configurationObj.icon === 'info'" class="swal2-icon-content">i</div>
+            <div *ngIf="configurationObj.icon === 'success'" class="swal2-icon-content">✔</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p class="description">{{ configurationObj.text | translate }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col buttons-modal">
+        <button style="text-transform: capitalize;" (click)="onAccept()">{{ 'ACEPTAR' | translate }}</button>
+        <button style="text-transform: capitalize;" *ngIf="configurationObj.showCancelButton" class="clean-button" (click)="onCancel()">{{ 'CANCELAR' | translate }}</button>
+      </div>
+    </div>
+  </div>

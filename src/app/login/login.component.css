@@ -1,0 +1,545 @@
+
+.login {
+  height: 100%;
+  width: 100%;
+  overflow-x:hidden;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.bottom-menu {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: 0px 0px 25px -5%;
+  text-align: center;
+}
+
+.mat-error {
+  margin-bottom: 5%;
+}
+
+.mat-icon {
+  cursor: pointer;
+  vertical-align: super;
+}
+
+@media screen and (max-width: 456px){
+  .right-side {
+      padding: 0;
+  }
+  .bottom-menu {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      margin: 12px 12px 35px -4%;
+  }
+}
+
+/*Nuevos estilos*/
+/*Nuevos estilos*/
+/*Nuevos estilos*/
+
+@font-face {
+font-family:  Montserrat;
+src: url(../../assets/font/Montserrat-Regular.ttf);
+}
+@font-face {
+font-family:  Montserrat-Thin;
+src: url(../../assets/font/Montserrat-Thin.ttf);
+}
+@font-face {
+font-family:  Montserrat-Bold;
+src: url(../../assets/font/Montserrat-Bold.ttf);
+}
+@font-face {
+font-family:  Montserrat-SemiBold;
+src: url(../../assets/font/Montserrat-SemiBold.ttf);
+}
+
+
+
+.left-banner {
+  background-image: url('/assets/img/login/left_side_1440.png');
+  background-size: cover;
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  background-position: center;
+  position: relative;
+}
+
+.texto-banner {
+  position: absolute;
+  bottom: 25%;
+  left: 8%;
+}
+
+.li-items {
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+  margin-left: 13% !important;
+}
+
+.list-inline-item {
+  margin-left: -4%;
+}
+
+.list-inline-item-texto {
+margin-left: -2%;
+margin-right: 2%;
+}
+
+.iconFtr {
+  width: 100%;
+  opacity: 0.8;
+  transition-duration: 0.5s;
+  border-radius: 100px;
+}
+
+.iconFtr:hover {
+  opacity: 1;
+}
+
+.tWebMantenimiento {
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-size: 22px;
+line-height: 22px;
+color: var(--vitaly-blue);
+}
+
+.tWelcomeText {
+  font-family: Montserrat-Thin, sans-serif;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 40px;
+  line-height: 45px;
+  color: var(--restyling-white);
+}
+
+.loginBvdoDerecha {
+  font-family: Montserrat, sans-serif;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 24px;
+  color: var(--vitaly-blue);
+}
+
+.loginFormWidth {
+  width: 290px;
+}
+
+.tTitleText {
+font-family: Montserrat-Bold, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 65px;
+  line-height: 100%;
+  color: var(--restyling-white);
+}
+.tLabelInput {
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 160%;
+color: var(--grey-60);
+}
+
+.tInput {
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 160%;
+color: var(--grey-85);
+}
+
+.tforgotPassword {
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+color: var(--light-blue);
+text-decoration: none;
+cursor: pointer;
+}
+.tforgotPassword:hover {
+font-weight: bold;
+}
+
+.tNoEresCliente {
+font-family: Montserrat, sans-serif;
+font-style: normal ;
+font-weight: bold;
+font-size: 16px;
+line-height: 22.4px;
+color: var(--black);
+}
+
+.tLlamanos {
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 160%;
+color: var(--grey-45);
+}
+
+.tTelefono {
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+color: var(--link-blue);
+}
+.tTelefono:hover {
+text-decoration: underline !important;
+}
+
+.tAvisosPoliticas {
+cursor: pointer;
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+color: var(--grey-45);
+}
+.tAvisosPoliticas:hover {
+text-decoration: underline !important;
+}
+
+.tAvisosPoliticasC {
+padding-right: 20px;
+padding-left: 20px;
+}
+
+.tEnlaces {
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 160%;
+color: #F2F2F2;
+}
+
+.yellow-strip {
+background: url('/assets/img/login/login_yellow_strip_1920.svg');
+color: #F5BC08;
+position: absolute;
+bottom: 0px;
+left: 0px;
+opacity: 0.8;
+background-size: cover;
+height: 60%;
+width: 70%;
+}
+
+
+.loginCabecera {
+padding: 20px 20px 0 0;
+display: flex;
+justify-content: flex-end;
+align-items: center;
+width: 100%;
+}
+
+.loginLogoVitaly {
+display: none;
+}
+
+.loginIdioma {
+display: none;
+}
+
+.loginLogoAcercate {
+margin-bottom: 55px;
+display: flex;
+justify-content: left !important;
+}
+
+.loginEnlaces {
+display: flex;
+padding: 20px 20px 8px 20px;
+flex-wrap: inherit;
+text-align: center;
+}
+
+.cursorPointer {
+cursor: pointer;
+}
+
+.loginEyeIcon {
+height: 24px;
+position: absolute;
+right: 0px;
+top: 3px;
+}
+
+.primaryButton {
+background-color: var(--vitaly-orange);
+border-radius: 2px;
+color: var(--white);
+border: none;
+outline: none !important;
+padding: 14px;
+margin: 0px;
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 16px;
+color: var(--restyling-white);
+text-transform: none;
+}
+.primaryButton[disabled] {
+cursor: default;
+opacity: 0.5;
+}
+.primaryButton:hover:enabled {
+background-color: var(--yellow-80);
+}
+.primaryButton:active:enabled {
+border: none;
+}
+
+.secondaryButton {
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: var(--vitaly-blue);
+border-radius: 2px;
+color: var(--white);
+border: none;
+outline: none !important;
+padding: 14px;
+margin: 0px;
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 16px;
+color: var(--restyling-white);
+text-transform: none;
+}
+.secondaryButton:hover {
+background-color: var(--blue-80);
+}
+.secondaryButton:active:enabled {
+border: none;
+}
+
+
+
+:host ::ng-deep .mat-form-field-appearance-outline.mat-hover .mat-form-field-outline-thick{
+color: var(--dark-blue);
+}
+:host ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick{
+color: var(--grey-15);
+}
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+color: var(--grey-60);
+}
+
+.mat-icon {
+color: var(--grey-60);
+margin-bottom: 4px;
+}
+
+.mat-input-element {
+font-family: Montserrat, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 160%;
+color: var(--grey-85);
+}
+/* .mat-input-element[type="password"] {
+font-family: Montserrat, sans-serif;
+font-weight: bolder;
+font-size: 30px;
+} */
+
+/*personaliza el padding de los input de material*/
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+padding: 4.5px 0 4.5px 0;
+}
+
+/*para centrar el ojo del input password*/
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-suffix {
+top: 0px;
+}
+
+/**salto temporal para ocultar la barra gris lateral*/
+@media (min-width: 457px) {
+.loginResponsiveWidth {
+  margin-right: -10px;
+  position: absolute;
+  background-color: white;
+  right: 0;
+  overflow-x: hidden;
+  width: 100vw;
+}
+}
+@media (min-width: 900px) and (max-width: 1050px) {
+.responsiveBreakLine {
+  margin-right: 150px;
+}
+.tEnlaces {
+  padding-bottom: 0px !important;
+}
+}
+@media (min-width: 1050px) and (max-width: 1260px) {
+.responsiveBreakLine {
+  margin-right: 220px;
+}
+.tEnlaces {
+  padding-bottom: 0px !important;
+}
+}
+
+/*--- RESPONSIVE ---*/
+/*- MD (tablet) -*/
+@media (min-width: 900px) {
+
+.left-banner {
+  display: flex;
+}
+
+.loginLogoVitaly {
+  display: flex;
+}
+
+.loginCabecera {
+  padding: 34px 46px;
+  /* justify-content: space-between; */
+}
+
+.loginIdioma {
+  display: inline;
+}
+
+.loginLogoAcercate {
+  margin-top: 0px;
+  margin-bottom: 47px;
+  justify-content: center !important;
+}
+
+.loginBvdoDerecha {
+  display: none;
+}
+
+.loginFormWidth {
+  width: 370px;
+}
+
+.tforgotPassword {
+  justify-content: flex-end;
+}
+
+.tAvisosPoliticas {
+  font-size: 13px;
+}
+.secondaryButton:active:enabled {
+  border: none;
+}
+
+
+
+.tAvisosPoliticasC {
+  padding-right: 32px;
+  padding-left: 32px;
+}
+}
+
+/*- LG (ordenador pequeño) -*/
+@media (min-width: 1440px) {
+
+}
+
+/*- XL (ordenador grande) -*/
+@media (min-width: 1920px) {
+
+.left-banner {
+  background-image: url('/assets/img/login/left_side_1920.png');
+}
+
+.texto-banner{
+  bottom: 34%;
+  left: 10%;
+}
+
+.list-inline-item-texto {
+  margin-left: 0;
+}
+
+.loginCabecera {
+  padding: 34px 50px;
+}
+
+.loginLogoAcercate {
+  margin-top: 0px;
+  margin-bottom: 67px;
+}
+.loginEnlaces {
+  padding: 20px 20px 38px 20px;
+}
+}
+
+.errorText {
+font-family: Montserrat, sans-serif;
+}
+
+.swal2-styled.swal2-confirm {
+background-color: var(--vitaly-blue) !important;
+border-radius: 0 !important;
+font-family: Montserrat !important;
+}
+
+.swal2-title {
+font-family: Montserrat !important;
+}
+
+.swal2-content {
+font-family: Montserrat !important;
+}
+
+.errorText {
+  font-family: Montserrat, sans-serif;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: var(--vitaly-blue) !important;
+  border-radius: 0 !important;
+  font-family: Montserrat !important;
+}
+
+.swal2-title {
+  font-family: Montserrat !important;
+}
+
+.swal2-content {
+  font-family: Montserrat !important;
+}

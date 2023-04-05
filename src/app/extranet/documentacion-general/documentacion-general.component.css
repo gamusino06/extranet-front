@@ -1,0 +1,10 @@
+#noResults{
+  background-color: #00425B;
+  color: white;
+  margin: 10px 0;
+  padding: 5px 15px;
+}
+
+.divSelected .mat-header-cell{
+  border-top: 0px !important;
+}

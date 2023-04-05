@@ -1,0 +1,32 @@
+<div mat-dialog-content>
+    <div class="container">
+        <div class="w80">
+            <div class="login-logo mb-5">
+                <a href="https://www.preving.com/" target="_blank">
+                  <img src="{{logoUrl}}" alt="Preving Extranet" class="logo">
+                </a>
+            </div>
+            <div class="tittle">
+                <div class="div-titulo">
+                    <h1 *ngIf="!showTitle">{{ 'ACEPTACION' | translate }}</h1>
+                    <h1 *ngIf="showTitle">{{title}}</h1>
+                </div>
+                <div class="div-cerrar">
+                    <a class="cerrar" (click)="onNoClick()"><img class="icon-cerrar" src="../../../../assets/img/cerrarModal.png"></a>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px">
+                <mat-card flex-gt-sm>
+                    <mat-card-title>{{ 'ACEPTACION' | translate }}</mat-card-title>
+                    <mat-card-content>
+                        <div style="text-align:justify" id="textoCompleto">
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+      </div>
+</div>
+<div mat-dialog-actions align="center">
+  <button mat-button (click)="onNoClick()" class="clear-button"><span class="clear-span">{{ 'CERRAR' | translate }}</span> </button>
+</div>

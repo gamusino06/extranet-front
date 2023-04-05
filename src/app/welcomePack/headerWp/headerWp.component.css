@@ -1,0 +1,52 @@
+#header {
+    width: 100vw;
+    padding: 0.75% 13% 0.75% 20%;
+    background-color: var(--vitaly-blue);
+    font-size: 20px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo {
+    width: 20%;
+}
+
+.tlf {
+  color: var(--restyling-white);
+  font-family: Montserrat, sans-serif;
+  font-size: 1vw;
+  white-space: nowrap;
+}
+
+.iconTlf {
+  width: 1.5vw;
+  margin-right: 2%;
+}
+
+.line {
+    height: 15px;
+    width: 100vw;
+    color: var(--vitaly-orange);
+    background-color: var(--vitaly-orange);
+    margin: initial;
+    opacity: inherit;
+}
+
+
+@media (max-width: 992px) {
+  .logo {
+    width: 15vw;
+  }
+  .tlf {
+    font-size: 2vw;
+  }
+  .iconTlf {
+    width: 2vw;
+  }
+}

@@ -1,0 +1,167 @@
+<app-juridico></app-juridico>
+<div class="container-fluid" *ngIf="!selected">
+  <!-- Title -->
+  <div class="row">
+    <div class="col">
+      <h1 class="tituloSec text-uppercase">{{ 'INFORMACION_INTERES_PRL' | translate }}</h1>
+    </div>
+  </div>
+  <!-- /Title -->
+  <p class="text-center" style="color: #004C67">
+    <b>{{ 'ENCONTRARAS_DOCUMENTOS_PREVENCION' | translate }}</b>
+  </p>
+  <!-- FORM -->
+  <form (ngSubmit)="getDocuments()" [formGroup]="documentacionForm">
+    <!-- INPUTS -->
+    <div class="row">
+      <!-- NOMBRE -->
+      <div class="col-3">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'NOMBRE_DOCUMENTO' | translate }}</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+      </div>
+      <!-- /NOMBRE -->
+      <!-- TIPO -->
+      <div class="col-3">
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let type of types" [value]="type.id">
+              {{type.value | translate}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- /TIPO -->
+      <!-- DESDE -->
+      <div class="col-3">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'DESDE' | translate }}</mat-label>
+          <input matInput [matDatepicker]="fromPicker" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()" formControlName="from" placeholder="dd/mm/aaaa">
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- /DESDE -->
+      <!-- HASTA -->
+      <div class="col-3">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'HASTA' | translate }}</mat-label>
+          <input matInput [matDatepicker]="toPicker"  [min]="minDate" (dateChange)="maxDate = $event.value.toDate()" formControlName="to" placeholder="dd/mm/aaaa">
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- /HASTA -->
+    </div>
+    <!-- /INPUTS -->
+    <hr>
+    <!-- BUTTONS -->
+    <div class="row justify-content-end">
+      <div>
+        <button class="clean-button" type="button" (click)="resetForm()">
+          <img src="{{cleanImgUrl}}" class="img"alt="{{ 'LIMPIAR_FILTROS' | translate }}">
+          <span class="clean-span">{{ 'LIMPIAR' | translate }}</span>
+        </button>
+      </div>
+      <div>
+        <button class="search-button" type="submit" [disabled]="!documentacionForm.valid"><img
+          src="{{searchImgUrl}}" class="img" alt="Filtros"><span
+          class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+      </div>
+    </div>
+    <!-- /BUTTONS -->
+  </form>
+  <!-- /FORM -->
+  <!-- RESULTADOS -->
+<!--  <div *ngIf="documentos && documentos.length > 0 && !error; else noResults">-->
+  <div [hidden]="!documentos || documentos.length <= 0 || error">
+    <hr style="background-color: #F28C00; margin-bottom: 0 !important; height: 0.4em; opacity: 1" />
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      class="table"
+      style="margin-top: 0"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+      multiTemplateDataRows
+    >
+      <!-- Documento -->
+      <ng-container matColumnDef="documento">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag></th>
+        <td mat-cell *matCellDef="let element">
+          <span><i class="fas fa-solid fa-file" style="float: right" (click)="selectDocument(element.id)" onclick="window.scrollTo(0, 0)"></i></span>
+        </td>
+      </ng-container>
+      <!-- Fecha Registro -->
+      <ng-container matColumnDef="fechaRegistro">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'FECHA_REGISTRO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.fechaRegistro | date : 'dd/MM/yyyy' }}"> {{element.fechaRegistro | date : 'dd/MM/yyyy' }} </span></td>
+      </ng-container>
+      <!-- Nombre Documento -->
+      <ng-container matColumnDef="nombreDocumento">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'NOMBRE_DOCUMENTO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.nombreDocumento }}"> {{element.nombreDocumento }} </span></td>
+      </ng-container>
+      <!-- Tipo Documento -->
+      <ng-container matColumnDef="tipoDocumento">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header cdkDrag>{{'TIPO_DOCUMENTO' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.tipoDocumento }}"> {{element.tipoDocumento }} </span></td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+    </table>
+  </div>
+  <div [hidden]="documentos && documentos.length > 0 && !error">
+    <p id="noResults">
+      {{'No existen resultados según la búsqueda realizada' | translate}}
+    </p>
+  </div>
+</div>
+
+<!-- Selected -->
+<div class="container-fluid divSelected" *ngIf="selected">
+  <!-- Title -->
+  <div class="row">
+    <div class="col-9 d-flex align-items-end">
+      <h1 class="tituloSec text-uppercase mb-3">{{ documentSelected.nombreDocumento }}</h1>
+    </div>
+    <div class="col-3 d-flex align-items-end">
+      <button class="clean-button float-right m-0" (click)="returnToDocuments()" onclick="window.scrollTo(0, 0)">
+        <i class="fas fa-solid fa-angle-left"></i>
+        <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+      </button>
+    </div>
+  </div>
+  <!-- Date -->
+  <div>
+    <p>
+      <b class="mb-2">{{ 'FECHA' | translate }}</b> &nbsp;&nbsp;
+      {{ documentSelected.fechaRegistro == undefined || null || '' ? 'dd/mm/aaaa' : documentSelected.fechaRegistro | date : 'dd/MM/yyyy' }}
+    </p>
+    <p class="text-uppercase">{{ documentSelected.nombreDocumento }}</p>
+    <p class="tituloSec">{{ 'LISTADO_DOCUMENTOS_ADJUNTOS' | translate }}</p>
+  </div>
+  <!-- Documentos Adjuntos -->
+  <div class="mt-5">
+    <table mat-table [dataSource]="attachedDataSource" matSort class="table" style="margin-top: 0; border: 0">
+      <!-- Download -->
+      <ng-container matColumnDef="download">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">
+          <span><i class="fas fa-download" style="float: right" (click)="downloadAtachment(element.id, element.name)"></i></span>
+        </td>
+      </ng-container>
+      <!-- Documento -->
+      <ng-container matColumnDef="attached">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header>{{'NOMBRE' | translate}}</th>
+        <td mat-cell *matCellDef="let element"><span matTooltip="{{element.name }}"> {{element.name }} </span></td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="attachedHeaders"></tr>
+      <tr mat-row *matRowDef="let row; columns: attachedHeaders;"></tr>
+    </table>
+  </div>
+
+</div>

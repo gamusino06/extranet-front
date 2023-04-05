@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row sticky-header">
+    <div class="col-9">
+      <h1 class="new-course-label">
+        {{ 'PLANIFICACION_PRL.EXPORT_EXCEL.TITLE' | translate | titlecase}}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img class="new-course-close-button" src="../../../../assets/img/close_assignment_contract_modal.svg" 
+        (click)="cancel()" 
+        alt="{{ 'CANCELAR' | translate }}" 
+      >        
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="row">
+    <div class="col">
+      <p class="description">{{'PLANIFICACION_PRL.EXPORT_EXCEL.DESCRIPTION' | translate}}</p>
+    </div>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col">
+        <!-- Min Date -->
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{'PLANIFICACION_PRL.EXPORT_EXCEL.MIN_DATE' | translate}}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="fromPickerMin"
+            [max]="form.value.maxDate"
+            formControlName="minDate"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="fromPickerMin"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #fromPickerMin></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- maxDate -->
+      <div class="col">
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{'PLANIFICACION_PRL.EXPORT_EXCEL.MAX_DATE' | translate}}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="fromPickerMax"
+            [min]="form.value.minDate"
+            formControlName="maxDate"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="fromPickerMax"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #fromPickerMax></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row sticky-footer">
+      <div class="col buttons-modal">
+        <button class="clean-button" (click)="cancel()">{{ 'CANCELAR' | translate }}</button>
+        <button (click)="accept()">{{ 'EXPORTAR' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</div>

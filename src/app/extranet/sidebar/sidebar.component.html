@@ -1,0 +1,133 @@
+<div class="sidebar" id="desktop-sidebar">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--orange)" type="line-spin-clockwise-fade" [fullScreen]="true">
+    <p style="color: var(--blue); font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+  </ngx-spinner>
+    <div class="container-fluid">
+
+      <!--Secciones-->
+      <nav class="navbar" *ngIf="!comprobarFecha() && comprobarUrl()">
+        <!--<ul class="navbar-nav" *ngIf="comprobarUrl()">-->
+         <ul class="navbar-nav">
+            <li class="nav-item "
+              *ngFor="let section of seccionSelectedList"
+              [class.selected]="(hasSelectedSubsection(section) || currentRoute == (this.globals.extranet_url + section.ruta)) && (currentRoute != (this.globals.extranet_url + this.globals.pagina_en_construccion))"
+              [class.has_submenu]="section.subsecciones">
+              <!--a *ngIf="section.idSeccion == this.globals.idSeccionAyudas" href="assets/i18n/docs/{{translate.getDefaultLang()}}/{{section?.ruta}}" target="_blank">
+                      {{section.nombre | translate}}
+                    </a-->
+              <a *ngIf="section.idSeccion == this.globals.idSeccionAyudas" href="https://drive.google.com/file/d/1ICytLoNVOAQH1g3N6sfuqqmMbfUvIFha/view" target="_blank">
+                {{section.nombre | translate}}
+              </a>
+              <a *ngIf="!section.subsecciones && section.idSeccion !== this.globals.idSeccionAyudas" class="nav-link" routerLink="{{section?.ruta}}" (click)="infoEnrutamiento(section)">
+                {{section.nombre | translate}}
+                <span *ngIf="section.nombre === 'SEC_OFERTAS_PENDIENTES' && notAcceptedOffers !== 0" class="counter">{{ notAcceptedOffers }}</span>
+              </a>
+              <span *ngIf="section.subsecciones">{{section.nombre | translate}} <i class="material-icons">chevron_right</i></span>
+              <ul class="submenu" *ngIf="section.subsecciones">
+                  <li class="nav-item"
+                      *ngFor="let subsection of section.subsecciones"
+                      [class.selected]="currentRoute == (this.globals.extranet_url + subsection?.ruta)"
+                  >
+                      <a class="nav-link" routerLink="{{subsection?.ruta}}" (click)="infoEnrutamiento(subsection)">
+                        {{subsection.nombre | translate}}
+                      </a>
+                      <i *ngIf="subsection.tooltip" class="fa fa-info-circle" style="margin: 0 10px;" matTooltip="{{ subsection.tooltipKey | translate }}"></i>
+                  </li>
+              </ul>
+            </li>
+         </ul>
+      </nav>
+
+      <div class="row" align="center">
+        <div class="col" style="cursor:pointer;">
+          <a (click)="realizarConsultaGeneral()">
+            <img style="width:100%;border: 1px solid var(--blue);" src="../assets/img/{{translate.getDefaultLang()}}/consultaDudas.png">
+          </a>
+        </div>
+      </div>
+      <br/>
+        <div *ngIf="bannerCitas && userHasActiveAppointmentManagements" class="row">
+          <div class="col">
+            <div>
+              <a [routerLink]="this.globals.extranet_url + this.globals.extranet_citacion_web_provincia_url">
+                <img (click)="goToCitacionWeb()" style="width:100%;" src="../assets/img/{{translate.getDefaultLang()}}/reconocimientosMedicos.png">
+              </a>
+            </div>
+          </div>
+        </div>
+      <br/>
+      <!--Banner Prevención-->
+      <div class="row">
+        <div class="col">
+          <div>
+            <a href="https://todoparatuprevencion.com/" target="_blank">
+              <img style="width:100%;" src="../assets/img/{{translate.getDefaultLang()}}/tiendaPrevencion.png">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="sidebar" id="mobile-sidebar" [class.active]="globals.showMobileMenu">
+    <nav>
+
+        <div id="dismiss" (click)="globals.showMobileMenu=false">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+
+        <div class="sidebar-header">
+            <h3>
+                <img src="../../../../assets/img/account_circle-black-18dp.svg">
+                {{ 'USUARIO' | translate }}: {{userLoged?.nombre}} {{userLoged?.apellidos}} <br>({{userLoged?.email}})
+            </h3>
+        </div>
+
+        <ul *ngIf="userLoged" id="mobile-menu" class="list-unstyled components">
+            <li *ngFor="let area of userLoged.areas">
+                <a *ngIf="area.idArea !== 7" href="#area-{{area.idArea}}" data-toggle="collapse" aria-expanded="false">
+                    {{area.nombre | translate}}
+                </a>
+                <ul *ngIf="area.secciones"
+                    class="collapse list-unstyled secciones" id="area-{{area.idArea}}">
+                  <li *ngFor="let section of area.secciones"
+                      [class.selected]="currentRoute == (this.globals.extranet_url + section.ruta) || hasSelectedSubsection(section)">
+                      <!--a *ngIf="section.idSeccion == this.globals.idSeccionAyudas" href="assets/i18n/docs/{{translate.getDefaultLang()}}/{{section?.ruta}}" target="_blank">
+                        {{section.nombre | translate}}
+                      </a-->
+                      <a *ngIf="section.idSeccion == this.globals.idSeccionAyudas" href="https://drive.google.com/file/d/1ICytLoNVOAQH1g3N6sfuqqmMbfUvIFha/view" target="_blank">
+                        {{section.nombre | translate}}
+                      </a>
+                      <a *ngIf="!section.subsecciones && section.idSeccion !== this.globals.idSeccionAyudas && section.ruta"
+                         [routerLink]="section.ruta"
+                         (click)="areaActive.emit(area)">
+                        {{section.nombre | translate}}
+                      </a>
+                      <a *ngIf="section.subsecciones" href="#section-{{section.idSeccion}}"
+                         data-toggle="collapse" aria-expanded="false">
+                        {{section.nombre | translate}}
+                      </a>
+                      <ul *ngIf="section.subsecciones"
+                          class="collapse list-unstyled subsecciones" id="section-{{section.idSeccion}}">
+                          <li *ngFor="let subseccion of section.subsecciones"
+                              [class.selected]="currentRoute == (this.globals.extranet_url + subseccion?.ruta)">
+                              <a [routerLink]="subseccion?.ruta"
+                                  (click)="areaActive.emit(area)">
+                                  {{subseccion.nombre | translate}}
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="help-links list-unstyled row">
+            <li class="col-12">
+                <a href="https://www.preving.com/blog/" target=”_blank” class="gray-menu">
+                    <img src="../../../../assets/img/rss_feed-black-18dp.svg">
+                    {{ 'BLOG' | translate }}
+                  </a>
+            </li>
+        </ul>
+    </nav>
+</div>

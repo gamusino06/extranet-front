@@ -1,0 +1,33 @@
+.loginSimuladoContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoImg{
+  align-self: flex-start;
+  margin-top: 50px;
+  margin-bottom: 0px;
+}
+
+.spinnerText {
+  color: var(--vitaly-blue);
+  font-family: Montserrat;
+  font-weight:  bolder;
+  margin-top: 80px;
+  text-align: center;
+}
+
+@media screen and (min-width: 900px){
+  .logoImg{
+    align-self: center;
+    margin-top: 0px;
+    margin-bottom:20%;
+  }
+
+  .spinnerText {
+    margin-top: 40px;
+  }
+
+}

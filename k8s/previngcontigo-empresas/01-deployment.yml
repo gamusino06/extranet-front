@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: extranet-front-deployment
+  labels:
+    app: extranet-front
+spec:
+  selector:
+    matchLabels:
+      app: extranet-front
+      tier: extranet
+  replicas: 1 # indica al controlador que ejecute 2 pods
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: extranet-front
+        tier: extranet
+    spec:
+      containers:
+      - name: angular
+        image: <DOCKER_HUB_PROFILE>/<IMAGE_VERSION>
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: preving-docker-hub

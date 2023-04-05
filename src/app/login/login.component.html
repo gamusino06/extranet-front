@@ -1,0 +1,180 @@
+<ng-container *ngIf="webEnMantenimiento">
+  <div class="h-100 bgWhite">
+    <!--Logo Mantenimiento-->
+    <div class="h-100 w-100 d-flex justify-content-center align-items-center flex-column">
+      <a href="https://vitaly.es/" target="_blank">
+        <img src="{{logoMantenimientoUrl}}" alt="Vitaly Extranet" width="300px">
+      </a>
+      <div class="mt-5 pt-5 text-center">
+        <p class="tWebMantenimiento"><b> {{ 'WEB_EN_MANTENIMIENTO' | translate }} ...</b> </p>
+        <p class="tWebMantenimiento"> {{ 'DISCULPEN_LAS_MOLESTIAS' | translate }}</p>
+      </div>
+    </div>
+    <!--F.Logo Mantenimiento-->
+  </div>
+</ng-container>
+
+
+<div *ngIf="!webEnMantenimiento" class="login">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="large" color="var(--vitaly-orange)" type="line-spin-clockwise-fade"
+                 [fullScreen]="true">
+      <p style="color: var(--vitaly-blue); font-family: Montserrat; font-weight: bolder; font-size: x-large"> {{ 'CARGANDO' | translate }}... </p>
+    </ngx-spinner>
+    <div class="h-100 loginResponsiveWidth">
+        <!--Main Row-->
+        <div class="row justify-content-center">
+            <!--Banner Cross-->
+            <div class="col left-banner">
+              <div class="col texto-banner">
+                  <div class="row tWelcomeText">
+                    {{ 'BIENVENIDO_A' | translate }}
+                  </div>
+                  <div class="row tTitleText">
+                    <strong>Acércate<br>Empresas</strong>
+                  </div>
+                </div>
+
+                <!--Bottom refs-->
+                <div class="row" style="text-align:center;">
+                    <div class="bottom-menu">
+                      <div class="li-items">
+                        <ul class="list-unstyled list-inline social text-center">
+                          <li class="list-inline-item-texto">
+                            <a class="tEnlaces">©Vitaly 2023</a>
+                          </li>
+                          <li class="list-inline-item-texto responsiveBreakLine">
+                            <a href="https://vitaly.es/" class="tEnlaces" target="_blank">www.vitaly.es</a>
+                          </li>
+                            <li class="list-inline-item-texto">
+                              <a class="tEnlaces">{{ 'SIGUENOS_EN' | translate }}</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.facebook.com/VitalyPRL/" target="_blank">
+                                    <img class="iconFtr" title="Facebook" src="../../../assets/icons/misc/facebook_logo.svg" /></a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="https://twitter.com/vitaly_prl" target="_blank">
+                                    <img class="iconFtr" title="Twitter" src="../../../assets/icons/misc/twitter_logo.svg" /></a>
+                            </li>
+
+                            <li class="list-inline-item">
+                              <a href="https://es.linkedin.com/company/vitaly-prevencionriesgoslaborales" target="_blank">
+                                  <img class="iconFtr" title="Linkedin" src="../../../assets/icons/misc/linkedin_logo.svg" /></a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="https://www.youtube.com/channel/UCp2f1b_BlCkyRNsbTvx5pdA" target="_blank">
+                                    <img class="iconFtr" title="YouTube" src="../../../assets/icons/misc/youtube_logo.svg" /></a>
+                            </li>
+
+                            <li class="list-inline-item">
+                              <a href="https://www.instagram.com/vitaly_prl/" target="_blank">
+                                <img class="iconFtr" title="Instagram" src="../../../assets/icons/misc/instagram_logo.svg" /></a>
+                            </li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+                <!--F.Bottom refs-->
+
+            </div>
+            <!--F.Banner Cross-->
+            <!--Mitad de login de Vitaly-->
+            <div class="col right-side min-vh-100 bgWhite pl-0">
+              <div class="h-100">
+
+
+
+                <div class="d-flex flex-column justify-content-between align-items-center h-100">
+                   <!--logo-->
+                  <div class="loginCabecera">
+                    <a href="https://www.vitaly.es/" target="_blank" class="loginLogoVitaly">
+                      <img src="{{logoUrl}}" alt="Preving Extranet" width="130px">
+                    </a>
+                  </div>
+
+
+                  <div class="h-100 d-flex flex-column align-items-center justify-content-center loginFormWidth">
+
+                    <!--formulario-->
+                    <div>
+                      <div class="loginLogoAcercate">
+                        <img src="{{logoAcercateUrl}}" alt="Acércate empresas">
+                      </div>
+
+                      <p class="loginBvdoDerecha">
+                        {{ 'BIENVENIDO_A' | translate }}
+                        <br>
+                        <b>Acércate Empresas</b>
+                      </p>
+
+
+                      <form [formGroup]="loginForm" (ngSubmit)="goToExtranet()" class="loginFormWidth">
+
+                        <div>
+                          <span class="tLabelInput">{{ 'EMAIL_USUARIO' | translate }}</span>
+                          <mat-form-field appearance="outline">
+                            <input matInput name="user" formControlName="user" value="">
+                            <mat-error class="errorText" *ngIf="loginForm.get('user').hasError('required') && loginForm.get('user').touched" >{{ 'EMAIL_REQUERIDO' | translate }}</mat-error>
+                            <mat-error class="errorText" *ngIf="loginForm.get('user').hasError('email')">{{ 'FORMATO_EMAIL' | translate }}</mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <div>
+                          <span class="tLabelInput">{{ 'CONTRASENA' | translate }}</span>
+                          <mat-form-field appearance="outline">
+                            <input matInput [type]="hide ? 'password' : 'text'" formControlName="pwd" value="">
+                            <!-- <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+                            <img (click)="hide = !hide" [src]="hide ? '../../assets/icons/misc/eye-closed.svg' : '../../assets/icons/misc/eye-opened.svg'" class="loginEyeIcon"  label="Hide password">
+                            <mat-error class="errorText" *ngIf="loginForm.get('pwd').hasError('required') && loginForm.get('pwd').touched" >{{ 'CONTRASENA_REQUERIDO' | translate }}</mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <button class="primaryButton w-100" type="submit" [disabled]="loginForm.invalid">
+                          {{ 'ENTRAR' | translate }}
+                        </button>
+
+                        <span class="d-flex my-4 tforgotPassword" (click)="openModalResetPass()">{{ 'OLVIDE_CONTRASENA' | translate }}</span>
+
+
+                      </form>
+                    </div>
+
+                    <!--registro-->
+                    <div class="w-100 mt-5">
+                      <p class="tNoEresCliente m-0">{{ 'AUN_NO_CLIENTE' | translate }}</p>
+                      <p class="tLlamanos mb-4">{{ 'LLAMANOS_AL' | translate }} <a href="tel:+34911594000" class="tTelefono">911 594 000</a> {{ 'O_SOLICITA_PRESUPUESTO' | translate }}</p>
+                      <a class="secondaryButton w-100" href="https://www.preving.com/contacto/" target="_blank">
+                        {{ 'SOLICITAR_PRESUPUESTO' | translate }}
+                      </a>
+                    </div>
+
+                  </div>
+
+                  <!--enlaces-->
+                  <div class="row loginEnlaces">
+                    <a class="tAvisosPoliticas" (click)="openModalRgpd()">
+                      {{ 'AVISO_LEGAL' | translate }}
+                    </a>
+                    <!-- <a class="tAvisosPoliticas tAvisosPoliticasC">
+                      {{ 'POLITICA_PRIVACIDAD' | translate }}
+                    </a> -->
+                    <a href="https://www.preving.com/politica-de-cookies/" target="blank" class="tAvisosPoliticas tAvisosPoliticasC">
+                      {{ 'POLITICA_COOKIES' | translate }}
+                    </a>
+                    <a class="tAvisosPoliticas" (click)="openModalCambiarIdioma()">
+                      {{ 'IDIOMA' | translate }}
+                    </a>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <!--F.Mitad de login de Preving-->
+        </div>
+        <!--Main Row-->
+
+    </div>
+</div>

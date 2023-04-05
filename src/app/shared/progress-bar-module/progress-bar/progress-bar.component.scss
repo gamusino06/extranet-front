@@ -1,0 +1,30 @@
+.progress-bar-component {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &__progress {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 0;
+    }
+
+    &__bar {
+        width: 100%;
+        height: 6px;
+        background-color: #EAEAEA;
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+
+        &__progress {
+            height: 100%;
+            background-color: #00425B;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 300ms ease-in-out;
+        }
+    }
+}

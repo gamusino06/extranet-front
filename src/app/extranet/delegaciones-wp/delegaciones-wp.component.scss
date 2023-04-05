@@ -1,0 +1,150 @@
+.example-viewport {
+  height: 400px;
+  overflow: auto;
+}
+.example-item-detail {
+  height: 18px;
+}
+
+.example-alternate {
+  background: rgba(127, 127, 127, 0.3);
+}
+
+.cabecera-listado {
+  background-color: var(--vitaly-blue);
+  color: white;
+}
+
+.mat-card-delegacion:hover {
+  background-color:#F5F5F5;
+  cursor: pointer;
+}
+
+.mat-card-title {
+font-family: Montserrat, sans-serif;
+font-size: small;
+font-weight: 500;
+color: var(--restyling-white);
+}
+
+.example-section {
+  text-align: center;
+}
+
+.mat-card-subtitle {
+  font-size: small;
+  color: var(--vitaly-blue);
+  font-family: Montserrat, sans-serif;
+}
+
+.mat-card-content {
+font-size: small;
+font-family: Montserrat, sans-serif;
+}
+
+.titulo {
+font-size: larger!important;
+color: var(--black);
+font-family: Montserrat, sans-serif;
+}
+
+.span-limpiar {
+margin: 0px 4px 0px 12px;
+font-family: Montserrat, sans-serif;
+color: var(--vitaly-blue);
+font-weight: 500;
+}
+
+.button-limpiar {
+background-color: var(--restyling-white);
+color: var(--vitaly-blue);
+border: 1px solid var(--vitaly-blue);
+outline: none;
+}
+
+.button-limpiar:active, .button-limpiar:focus {
+background-color: var(--blue-10);
+}
+
+.button-buscar {
+background-color: var(--vitaly-blue);
+color: var(--restyling-white);
+border: 1px solid var(--vitaly-blue);
+outline: none;
+}
+
+.button-buscar:active, .button-buscar:focus {
+background-color: var(--blue-80);
+}
+
+.span-buscar {
+margin: 0px 4px 0px 12px;
+font-family: Montserrat, sans-serif;
+color: var(--restyling-white);
+font-weight: 500;
+}
+
+.delegacion-nombre {
+font-family: Montserrat, sans-serif;
+color: var(--vitaly-blue);
+}
+
+.datos-sede {
+font-family: Montserrat, sans-serif;
+font-size: 12px;
+}
+
+.label-direccion {
+font-family: Montserrat, sans-serif;
+background-color: transparent;
+}
+
+
+:host ::ng-deep .mat-form-field-appearance-outline.mat-hover .mat-form-field-outline-thick{
+color: var(--dark-blue);
+}
+:host ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick{
+color: var(--grey-15);
+}
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+color: var(--grey-60);
+}
+
+.txt {
+  text-align: initial;
+  width: 100%;
+  color: var(--black);
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-top: 5%;
+  font-family: Montserrat, sans-serif;
+  font-size: medium;
+}
+
+.selectores{
+  display: flex;
+}
+
+.mapa{
+  padding-left: 0;
+}
+
+.direccion{
+  padding-left: 0;
+}
+
+@media (max-width: 767px) {
+  .mapa{
+    min-height: 300px;
+    margin-top: 3%;
+  }
+}
+
+@media (max-width: 992px) {
+  .selectores{
+    display: block;
+  }
+  .direccion{
+    padding: 0;
+  }
+}

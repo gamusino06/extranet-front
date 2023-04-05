@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs {{classes}}">
+    <li class="nav-item" *ngFor="let tab of data; let index = index" (click)="selectTab(tab, index)">
+      <a class="nav-link" [ngClass]="{'active' : tab.isSelected}" aria-current="page" href="javascript:void(0)">{{tab.name}}</a>
+    </li>
+  </ul>

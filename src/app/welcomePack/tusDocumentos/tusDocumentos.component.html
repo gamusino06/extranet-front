@@ -1,0 +1,35 @@
+<section id="tusdocumentos">
+  <div class="container">
+      <div class="textos">
+        <p class="texto">{{ 'DOCUMENTOS_TEXTO_1_WP' | translate }}.</p>
+
+        <p class="texto" [innerHTML]="'DOCUMENTOS_TEXTO_2_WP' | translate"></p>
+      </div>
+
+      <mat-tab-group>
+        <div *ngFor="let empresa of empresaDocumentos" >
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <label class="empresaCentroSpan labelHeading" matTooltip="{{empresa.nombre}}" matTooltipClass="example-tooltip-red1">{{empresa.nombre}}</label>
+            </ng-template>
+            <div class="panel-content" style="text-align:center !important;">
+              <div class="w-100 div-btns">
+                  <button type="button" class="btn" (click)="descargar(empresa?.documentos[0])">
+                    <p class="linkAreaDesc">
+                      <b>{{ 'DESCARGAR' | translate }}</b>
+                    </p>
+                    <p class="linkArea">
+                       {{ 'CERTIFICADO_DE_CONTRATACION' | translate }}
+                    </p>
+                  </button>
+              </div>
+            </div>
+          </mat-tab>
+        </div>
+      </mat-tab-group>
+
+    <div style="text-align:center;">
+      <a href="https://auditoriza.grupopreving.com/tuplandeigualdad" target="_blank"><img class="img-fluid" src="./../../../assets/img/{{translate.getDefaultLang()}}/planIgualdad.png" alt=""></a>
+    </div>
+  </div>
+</section>

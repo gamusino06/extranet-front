@@ -1,0 +1,91 @@
+<section class="goal-pdf-export-modal">
+  <header>
+    <h2>{{ "PLANIFICACION_PRL.GOAL_PDF_EXPORT_MODAL.TITLE" | translate }}</h2>
+    <img
+      class="close-button"
+      src="../../../../assets/img/close_assignment_contract_modal.svg"
+      alt="{{ 'CANCELAR' | translate }}"
+      (click)="close()"
+    />
+  </header>
+
+  <main>
+    <div class="row">
+      <div class="col">
+        <p class="description">
+          {{ "PLANIFICACION_PRL.EXPORT_EXCEL.DESCRIPTION" | translate }}
+        </p>
+      </div>
+    </div>
+
+    <form [formGroup]="dateForm">
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{
+              "PLANIFICACION_PRL.GOAL_PDF_EXPORT_MODAL.START_DATE" | translate
+            }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="startDatePicker"
+              [max]="dateForm.value.end"
+              formControlName="start"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </mat-form-field>
+          <div
+            class="error-field"
+            *ngIf="dateForm.hasError('invalidStartField')"
+          >
+            <small>{{
+              "PLANIFICACION_PRL.GOAL_PDF_EXPORT_MODAL.ERRORS.REQUIRED_FIELD"
+                | translate
+            }}</small>
+          </div>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>{{
+              "PLANIFICACION_PRL.GOAL_PDF_EXPORT_MODAL.END_DATE" | translate
+            }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="endDatePicker"
+              [min]="dateForm.value.start"
+              formControlName="end"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+          </mat-form-field>
+          <div class="error-field" *ngIf="dateForm.hasError('invalidEndField')">
+            <small>{{
+              "PLANIFICACION_PRL.GOAL_PDF_EXPORT_MODAL.ERRORS.REQUIRED_FIELD"
+                | translate
+            }}</small>
+          </div>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <button class="clean-button" (click)="close()">
+      {{ "CANCELAR" | translate }}
+    </button>
+    <button
+      class="export-button"
+      (click)="export()"
+      [disabled]="dateForm.invalid"
+    >
+      {{ "EXPORTAR" | translate }}
+    </button>
+  </footer>
+</section>

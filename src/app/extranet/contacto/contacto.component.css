@@ -1,0 +1,19 @@
+.app-preving-bills {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+i {
+    cursor: pointer;
+    margin-right: 8px;
+    margin-left: 8px;
+    color: var(--blue);
+}
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}

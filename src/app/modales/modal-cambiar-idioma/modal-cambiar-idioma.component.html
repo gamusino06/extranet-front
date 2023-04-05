@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="titulo w-100 cBlack mb-5">
+    <p class="m-0">{{ 'SELECCIONE_IDIOMA' | translate }}</p>
+    <div (click)="cerrarModal()" style="cursor: pointer;"><img src="../../../../assets/icons/misc/close.svg"></div>
+  </div>
+  <div class="d-flex flex-column mt-5 align-items-center justify-content-center" style="width: 70%;">
+    <button  *ngFor="let idioma of idiomasLoginList" (click)="selectIdioma(idioma)" [ngClass]="idioma.idIdioma == idIdiomaSeleccionado  ? 'languageSelected' : ''">
+      {{ getIdiomaTraducido(idioma.lang)  }}
+    </button>
+  </div>
+</div>

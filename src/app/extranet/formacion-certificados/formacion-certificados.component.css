@@ -1,0 +1,136 @@
+
+table {
+    width: 100%;
+}
+
+.row-actions-icons {
+    justify-content: center;
+    margin-left: 0px !important;
+    margin-right: 5px !important;
+}
+
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+tr.expanded-detail {
+    height: 0;
+    overflow: hidden;
+    background-color: var(--verylightBlue);
+}
+tr.expanded-detail .detail-content {
+    display: flex;
+    overflow: hidden;
+    max-height: 0;
+    transition:max-height 0.3s ease-out;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+tr.expanded-detail .detail-content h3 {
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+}
+tr.expanded-detail.expanded {height: auto;}
+tr.expanded-detail.expanded .detail-content {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+}
+.btn-icon.expanded .show, .btn-icon .hide {
+    display: none !important;
+ }
+ .btn-icon.expanded .hide {
+     display: block !important;
+ }
+
+.swal-width {
+  width: 15em;
+}
+
+tr td:last-of-type, th td:last-of-type {
+    text-align: right;
+}
+.btn-icon.inline{
+    margin: 0 5px;
+    padding: 0;
+    height: fit-content;
+}
+.btn-icon.more-info {
+    padding: 0 5px;
+    height: auto;
+    width: auto;
+}
+@media (max-width: 550px) {
+    ::ng-deep .mat-paginator-page-size-select {
+        width: auto !important;
+    }
+}
+
+.recycling-legend {
+    display: flex;
+    gap: 15px;
+    flex-direction: initial;
+    margin-left: 16px;
+}
+
+.reciclyng-dot {
+    display: inline-block;
+}
+
+.reciclyng-dot *[class^="dot-"],
+.reciclyng-dot-in-table {
+    float: left;
+    height: 14px;
+    width: 14px;
+    margin-right: 8px;
+    border-radius: 50%;
+}
+
+.reciclyng-dot-in-table {
+    margin: 0;
+}
+
+.reciclyng-dot .dot-green {
+    background-color: #45925A;
+}
+.reciclyng-dot .dot-yellow {
+    background-color: #FED74D ;
+}
+.reciclyng-dot .dot-red {
+    background-color: #F01F1F;
+}
+
+.nombreCursoSpan {
+  display: block;
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.puestoDeTrabajoSpanRegistrosFormacion {
+  display: block;
+  overflow: hidden;
+  /*white-space: nowrap;*/
+  text-overflow: ellipsis;
+}
+
+::ng-deep .mat-curso-tooltip {
+  max-width: unset !important;
+  white-space: pre-wrap;
+}
+
+.span-guion{
+  text-align: center;
+}
+
+
+

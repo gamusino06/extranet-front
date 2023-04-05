@@ -1,0 +1,37 @@
+<div class="container docs-modal">
+  <div class="row sticky-header">
+    <div class="col-11">
+      <h1 class="preventive-measure-label">
+        {{ title | titlecase }}
+      </h1>
+    </div>
+    <div class="col-1 text-right preventive-measure-label">
+      <img
+        class="close-button"
+        src="../../../../assets/img/close_assignment_contract_modal.svg"
+        alt="{{ 'CANCELAR' | translate }}"
+        (click)="cancel()"
+      />
+    </div>
+  </div>
+
+  <section class="mb-2">
+    <main>
+      <app-file-uploader-with-params
+        [dataSource]="_dataSource"
+        [formConfig]="_formConfig"
+        [tableConfig]="_tableConfig"
+        [uploaderConfig]="_uploaderConfig"
+        [sendFunction]="_sendFunction"
+        (showingButtons)="showingButtons($event)"
+      ></app-file-uploader-with-params>
+    </main>
+  </section>
+
+  <footer *ngIf="!isSubmitting">
+    <button (click)="cancel()" class="button--primary">
+      {{ "ACEPTAR" | translate }}
+    </button>
+  </footer>
+  <!-- </form> -->
+</div>

@@ -1,0 +1,107 @@
+.container {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto;
+    margin-top: 2%;
+}
+
+.ck-editor__editable {
+    min-height: 400px !important;
+    max-height: 800px !important;
+}
+
+.w80 {
+    width: 80%;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+a {
+    cursor: pointer;
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.icon-cerrar {
+    width: 55%;
+}
+
+.tittle {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3%;
+    justify-content: flex-end;
+}
+
+.cerrar {
+    margin-right: 0;
+}
+
+.div-titulo {
+    margin: auto;
+    /* padding-right: 5px; */
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.div-cerrar {
+    margin-right: 0;
+}
+
+p {
+    text-align: justify;
+}
+
+.mat-card-title {
+    font-weight: bold;
+    color: var(--blue);
+    text-align: initial;
+    font-size: medium;
+}
+
+.cards {
+    flex: 1 1 auto;
+    overflow: hidden;
+    padding: 4px;
+}
+
+.mat-card-content {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+// .mat-expansion-panel-header-title, .mat-expansion-panel-header-description{
+// 	font-weight: bold;
+// 	color: var(--blue);
+// }
+.mat-card {
+    margin-bottom: 2%;
+}
+
+.logo {
+    width: 25%;
+    margin-right: 5%;
+}
+
+.offset-2 {
+    margin-left: 0;
+}
+
+@media (max-width:767px) {
+    .contenedor {
+        width: 100%;
+    }
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 8em;
+}
+

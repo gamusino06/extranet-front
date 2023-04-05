@@ -1,0 +1,13 @@
+#map {
+    height: 100%;
+    width: 100%;
+    display: inline-table;
+}
+
+@media (max-width: 550px) {
+  #map {
+      height: 300px;
+      width: 100%;
+      display: inline-table;
+  }
+}

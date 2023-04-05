@@ -1,0 +1,229 @@
+<div id="app-buscador-usuarios">
+    <div [hidden]="mostrarModificacion" class="container-fluid">
+
+        <!--Form-->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase">{{ 'LISTADO_USUARIOS' | translate }}</h1>
+                </div>
+            </div>
+            <!--Filtros--->
+            <!--Filtro centro y Empresa-->
+            <div class="row">
+              <app-select-empresa-filter [userForm]="userForm" [empresasList]="empresasList" [radioButtonsActivos]="true" class="col"></app-select-empresa-filter>
+              <app-select-centro-filter [userForm]="userForm" [empresasList]="empresasList" [radioButtonsActivos]="true" class="col"></app-select-centro-filter>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'USUARIO' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="mailUsuarioForm">
+                        <!-- <mat-error *ngIf="userForm.get('mailUsuarioForm').hasError('email')">{{ 'FORMATO_EMAIL' | translate }}</mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'ACTIVO' | translate }}</mat-label>
+                        <mat-select formControlName="activoForm" class="multiple-selector" [disableOptionCentering]="true">
+                            <mat-option [value]=0>{{ 'VER_TODOS' | translate }}
+                            </mat-option>
+                            <mat-option [value]=1>{{ 'SI' | translate }}
+                            </mat-option>
+                            <mat-option [value]=2>{{ 'NO' | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+                <div class="col">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'ACCESO_A' | translate }}</mat-label>
+                    <mat-select formControlName="accesoForm" class="multiple-selector" multiple [disableOptionCentering]="true">
+                      <mat-option (click)="selectAll('userForm','accesoForm',rolesList,'idRol');">
+                        {{ 'SELECCIONAR_TODOS' | translate }}
+                      </mat-option>
+                      <ng-container *ngFor="let rol of rolesList">
+                        <mat-option [value]="rol.idRol">{{rol.nombre}}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'NOMBRE' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="nombreForm" pattern={{validNameSurname}}>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline" appearance="outline">
+                        <mat-label>{{ 'APELLIDOS' | translate }}</mat-label>
+                        <input matInput type="text" formControlName="apellidosForm" pattern={{validNameSurname}}>
+                    </mat-form-field>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row justify-content-end">
+                <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()"><img
+                    src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}"><span
+                    class="clean-span">{{ 'LIMPIAR' | translate }}</span></button>
+                </div>
+                <div>
+                    <button class="search-button" type="submit" [disabled]="!userForm.valid"><img src="{{searchImgUrl}}"
+                            class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span></button>
+                </div>
+            </div>
+        </form>
+        <!--/Form-->
+        <!--Tabla-->
+        <!-- tableHeaders: string[] = ['fecha', 'curso', 'direccion', 'localidad', 'cp', 'provincia', 'horario']; -->
+
+
+        <div class="row" [hidden]="!mostrarTabla">
+            <div class="col" #TABLE>
+                <div class="table-responsive">
+                <table
+                    mat-table
+                    [dataSource]="dataSource"
+                    matSort
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="this.utils.drop($event, this.tableHeaders)"
+                    class="table mat-elevation-z2">
+
+                  <ng-container matColumnDef="checklist" [formGroup]="userForm">
+                    <th mat-header-cell cdkDrag *matHeaderCellDef>
+                      <mat-checkbox (change)="checkAllRows()" formControlName="selectAllCheckBox">
+                      </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <mat-checkbox [(ngModel)]="element.checked" [ngModelOptions]="{standalone: true}">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+
+
+                    <ng-container matColumnDef="gdprHistorico">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef>
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        <i *ngIf="element.listaHistoricoGdprUsuarioDto" class="material-icons md-24"
+                           style="color:var(--mediumGray);font-weight: normal;"
+                           (click)="verHistoricoUsuario(element)" matTooltip="{{ 'HISTORICO_ACEPTACIÓN_TERMINOS' | translate }}">info</i>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'USUARIO' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span> {{element.email}} </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'NOMBRE' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="apellidos">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'APELLIDOS' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+                    </ng-container>
+
+                    <!--ng-container matColumnDef="centro">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef style="width:300px">{{ 'EMPRESA_CENTRO' | translate }}</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div *ngFor="let empresa of element.empresas; let i = index">
+                                <div *ngFor="let centro of empresa.centros; let j = index">
+                                    <div [hidden]="mostrarMasElementos(element)">
+                                        <i></i>
+                                        <span class="empresaCentroSpan" matTooltip="{{empresa.nombre }} - {{ centro.nombre}}">{{empresa.nombre }} - {{ centro.nombre}}&nbsp;&nbsp;</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngFor="let empresa of element.empresas; let u = index">
+                                <div *ngFor="let centro of empresa.centros; let v = index">
+                                    <div [hidden]="!mostrarMasElementos(element)">
+                                        <span [hidden]="(!element.mostrar)||(u===0)&&(v===0)" class="empresaCentroSpan" matTooltip="{{empresa.nombre }} - {{ centro.nombre}}">{{empresa?.nombre}} - {{centro?.nombre}}&nbsp;&nbsp;</span>
+                                        <span [hidden]="(u>0) || (v>0)" class="empresaCentroSpan" matTooltip="{{empresa.nombre }} - {{ centro.nombre}}">{{empresa?.nombre}} - {{centro?.nombre}}&nbsp;&nbsp;</span>
+                                        <span><i *ngIf="(u==0)&&(v==0)&&!element.mostrar" style="cursor: pointer;text-align: right;" class="fas fa-plus-circle" (click)="this.utils.toggleElement(element,this)"></i></span>
+                                        <span><i *ngIf="(u==0)&&(v==0)&&element.mostrar" style="cursor: pointer;text-align: right;" class="fas fa-minus-circle" (click)="this.utils.toggleElement(element,this)"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                   <ng-container matColumnDef="rol">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef> {{ 'ROL' | translate }} </th>
+                        <td mat-cell *matCellDef="let element">
+                            <ul class="rol">
+                                <li *ngFor="let rol of element.roles"><span>{{rol.nombre}}&nbsp;&nbsp;</span></li>
+                            </ul>
+                        </td>
+                    </ng-container-->
+
+                    <ng-container matColumnDef="activo">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'ACTIVO' | translate }} </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <span *ngIf="element.activo">
+                                {{ 'SI' | translate }}
+                        </span>
+                            <span *ngIf="!element.activo">
+                                {{ 'NO' | translate }}
+                        </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaBaja">
+                        <th mat-header-cell cdkDrag *matHeaderCellDef mat-sort-header> {{ 'FECHA_BAJA' | translate }}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.fechaBaja | date:'dd/MM/yyyy'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="buttons">
+                      <th mat-header-cell cdkDrag *matHeaderCellDef></th>
+                      <td mat-cell *matCellDef="let element">
+                        <mat-icon style="cursor: pointer;" (click)="modificarUsuario(element)">edit</mat-icon>&nbsp;&nbsp;
+                        <mat-icon style="cursor: pointer;" (click)="deleteUser(element)">highlight_off</mat-icon>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="tableHeaders"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableHeaders;"></tr>
+                </table>
+            </div>
+                <div>
+                    <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+                    <br/>
+                    <div class="row float-right">
+                        <div class="col">
+                            <div class="exportar" (click)="exportAsExcel()"><img src="{{excelImgUrl}}" alt=""><span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--F.Tabla-->
+        <div class="row">
+            <div class="col-md-2">
+                <button class="down-button" (click)="altaUser()"><span class="material-icons">person_add </span>
+                    <span class="down-span">{{ 'ALTA_NUEVO_USUARIO' | translate }}</span></button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--Modificar usuario-->
+    <app-modificar-usuario *ngIf="mostrarModificacion" [userToMod]="userSelected" [userDataLogged]="userDataLogged" (usuarioModificadoEvent)=usuarioModFlow(userSelected)>
+    </app-modificar-usuario>
+</div>

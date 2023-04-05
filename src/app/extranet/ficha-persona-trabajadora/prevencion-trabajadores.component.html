@@ -1,0 +1,886 @@
+<app-confirmation-modal
+    *ngIf="showAppointmentModal"
+    [configurationObj]="AppointmentModalConfigurationObj"
+    (onAcceptEvent)="showAppointmentModal=false"
+    (onCancelEvent)="showAppointmentModal=false"
+    class="custom-modal"></app-confirmation-modal>
+<div id="app-prevencion-trabajadores">
+    <div class="container-fluid">
+
+        <div id="listado" *ngIf="!showTrabajadorDetails && !showAltaIndividual && !showModAlta">
+            <div class="row">
+                <div class="col">
+                    <h1 class="tituloSec text-uppercase">{{ 'TRABAJADORES' | translate }}</h1>
+                </div>
+            </div>
+            <hr>
+
+            <!--Form-->
+            <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+                <!--Filtro centro y Empresa-->
+              <div class="row">
+                <app-select-empresa-filter [userForm]="searchForm" [empresasList]="empresas" [radioButtonsActivos]="true" class="col"></app-select-empresa-filter>
+                <app-select-centro-filter #centro [userForm]="searchForm" [empresasList]="empresas" [radioButtonsActivos]="true" class="col" ></app-select-centro-filter>
+              </div>
+              <div class="row">
+                  <div class="col-12 col-md-3">
+                      <mat-form-field appearance="outline" appearance="outline">
+                          <mat-label>{{ 'NOMBRE_TRABAJADOR' | translate }}</mat-label>
+                          <input matInput type="text" formControlName="nombreForm" pattern={{validNameSurname}}>
+                      </mat-form-field>
+                  </div>
+
+                <div class="col-12 col-md-3">
+                  <mat-form-field appearance="outline" appearance="outline">
+                    <mat-label>{{ 'APELLIDOS_TRABAJADOR' | translate }}</mat-label>
+                    <input matInput type="text" formControlName="apellidosForm" pattern={{validNameSurname}}>
+                  </mat-form-field>
+                </div>
+
+                  <div class="col-12 col-md-3">
+                      <mat-form-field appearance="outline" appearance="outline">
+                          <mat-label> {{ 'NIF_NIE_TRABAJADOR' | translate }}</mat-label>
+                          <input matInput type="text" formControlName="dniForm" pattern={{validNifNie}}>
+                      </mat-form-field>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{ 'ACTIVO' | translate }}</mat-label>
+                      <mat-select formControlName="activoForm" class="multiple-selector" [disableOptionCentering]="true">
+                        <mat-option [value]=0>{{ 'VER_TODOS' | translate }}
+                        </mat-option>
+                        <mat-option [value]=1>{{ 'SI' | translate }}
+                        </mat-option>
+                        <mat-option [value]=2>{{ 'NO' | translate }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'FECHA_DESDE_ALTA' | translate }}</mat-label>
+                    <input matInput [matDatepicker]="fromPicker" formControlName="fechaDesdeForm" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()" required>
+                    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #fromPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'FECHA_HASTA_ALTA' | translate }}</mat-label>
+                    <input matInput [matDatepicker]="toPicker" formControlName="fechaHastaForm" [min]="minDate" (dateChange)="maxDate = $event.value.toDate()" required>
+                    <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #toPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row justify-content-between">
+                <div class="d-flex align-items-end">
+                  <div>
+                    <button type="button" (click)="altaIndividual()" class="boton-alta">
+                      <span class="material-icons">person_add </span>
+                      <span class="down-span">{{ 'ALTA_INDIVIDUAL_TRABAJADOR' | translate }}</span>
+                    </button>
+                  </div>
+                  <div *ngIf="altaMasivaTrabajadores">
+                    <button type="button" class="boton-alta">
+<!--                      <i class="material-icons fas fa-users"></i>-->
+                      <span class="material-icons">group </span>
+                      <span class="down-span">{{ 'ALTA_MASIVA_TRABAJADORES' | translate }}</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="d-flex ml-auto">
+                  <div>
+                    <button class="clean-button" type="reset" (click)="resetForm()">
+                      <img src="{{cleanImgUrl}}" class="img" alt="{{ 'LIMPIAR_FILTROS' | translate }}">
+                      <span class="clean-span">{{ 'LIMPIAR' | translate }}</span>
+                    </button>
+                  </div>
+                  <div>
+                    <button class="search-button" type="submit" [disabled]="!searchForm.valid">
+                      <img src="{{searchImgUrl}}" class="img" alt="Filtros">
+                      <span class="search-span">{{ 'BUSCAR' | translate }}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <div class="table-responsive">
+                <table
+                    mat-table
+                    [dataSource]="dataSourceTrabajadores"
+                    matSort
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="dropT($event)"
+                    multiTemplateDataRows
+                    class="mat-elevation-z2 table">
+
+                  <ng-container matColumnDef="checklist">
+                    <th mat-header-cell cdkDrag *matHeaderCellDef>
+                      <mat-checkbox (change)="checkAllRows($event)"></mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="empresaCentro">
+                    <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'EMPRESA_CENTRO' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <span class="empresaCentroSpan" matTooltip="{{element.empresa?.nombre}} - {{element.centro?.nombre}}">
+                        {{element.empresa?.nombre}} - {{element.centro?.nombre}}
+                      </span>
+                    </td>
+                  </ng-container>
+
+                    <ng-container matColumnDef="nombreApellidos">
+                        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'TRABAJADOR' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombreApellidos}} <br> {{element.nif}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="puestosTrabajo">
+                        <th mat-header-cell *matHeaderCellDef cdkDrag>{{ 'PUESTO_TRABAJO' | translate }}</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div *ngFor="let puesto of element.puestosTrabajo; let i = index"
+                                [class.font-weight-bold]="puesto.esPuestoPrincipal"
+                                [class.font-italic]="i > 0"
+                                [hidden]="( i > 0) && !element.showPuestos"
+                                class="puestoDeTrabajoSpan" matTooltip="{{puesto.nombre}}"
+                                >
+                                {{puesto.nombre}} <span *ngIf="puesto.centro" class="puestoDeTrabajoSpan" matTooltip="{{puesto.centro.nombre}}"> - {{puesto.centro.nombre}}</span>
+                                <button *ngIf="element.puestosTrabajo.length > 1 && i==0"
+                                        mat-raised-button
+                                        class="btn-icon more-info"
+                                        (click)="element.showPuestos=!element.showPuestos">
+                                        <i class="fas"
+                                            [class.fa-plus-circle]="!element.showPuestos"
+                                            [class.fa-minus-circle]="element.showPuestos"
+                                        ></i>
+                                </button>
+                            </div>
+
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="fechaAlta">
+                        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'FECHA_ALTA' | translate }} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.fechaAlta | date:'dd/MM/yyyy'}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="fechaBaja">
+                        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'FECHA_BAJA' | translate }}</th>
+                        <td mat-cell *matCellDef="let element"> {{element.fechaBaja | date:'dd/MM/yyyy'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="verDetalles">
+                        <th mat-header-cell *matHeaderCellDef cdkDrag class="text-center"> {{ 'ACCIONES' | translate }} </th>
+                        <td mat-cell *matCellDef="let element" class="text-center">
+                          <div class="d-flex">
+<!--                            <mat-icon style="cursor: pointer;"-->
+<!--                                      *ngIf="element.fechaBaja" class="icono-mater"-->
+<!--                                      (click)="reactivarTra(element)">arrow_circle_up</mat-icon>-->
+                            <mat-icon style="cursor: pointer;"
+                                      *ngIf="!element.fechaBaja" class="icono-mater"
+                                      (click)="modTrabajador(element);">edit</mat-icon>
+                            <button mat-raised-button
+                                    class="btn-icon"
+                                    (click)="showTrabajador(element)">
+                              <i class="material-icons md-24">visibility</i>
+                            </button>
+                            <mat-icon style="cursor: pointer;"
+                                      *ngIf="!element.fechaBaja; else oculto" class="icono-mater"
+                                      (click)="bajaTrabajador(element);">highlight_off</mat-icon>
+                            <ng-template #oculto>
+                              <mat-icon class="oculto icono-mater" style="cursor: pointer;">highlight_off</mat-icon>
+                            </ng-template>
+                          </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="tableHeadersTrabajadores"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableHeadersTrabajadores;"></tr>
+                </table>
+            </div>
+            <mat-paginator class="paginator" #paginatorT [pageSizeOptions]="[10, 25, 50,100]" showFirstLastButtons></mat-paginator>
+            <br/>
+            <div class="row float-right">
+              <div class="col">
+                <div class="exportar" (click)="exportAsExcel()">
+                  <img src="{{excelImgUrl}}" alt="">
+                  <span class="search-span">{{ 'EXPORTAR_RESULTADOS' | translate }}</span>
+                </div>
+              </div>
+            </div>
+
+        </div><!-- /listado-->
+
+ <!-- Detalles del trabajador -->
+        <div id="trabajadorDetails" *ngIf="showTrabajadorDetails">
+            <!-- Info trabjador -->
+            <div class="bg-white">
+              <div class="info-employee">
+                <div class="info-employee__actions">
+                  <app-dropdown-menu
+                    matIcon="more_vert"
+                    [menuOptions]="workerFileOptions"
+                    (getAction)="menuActions($event)"
+                  ></app-dropdown-menu>
+                </div>
+                <div class="info-employee__header">
+                  <img src="../../../assets/img/back-arrow.svg" class="info-employee__icon" (click)="volver()" alt="{{ 'VOLVER' | translate }}">
+                  <div class="info-employee__header__avatar">
+                    <span class="info-employee__header__avatar__text">{{trabajador.initials}}</span>
+                  </div>
+                  <div class="info-employee__header__title">
+                    <p class="info-employee__header__title__name">{{trabajador?.nombreApellidos}}</p>
+                    <p class="info-employee__header__title__document">{{trabajador?.nif}}</p>
+                  </div>
+                </div>
+                <div class="info-employee__group-container">
+                  <div class="info-employee__group">
+                    <div class="info-employee__item">
+                      <div class="info-employee__item__label-container">
+                        <p class="info-employee__item__label">{{ 'FECHA_NACIMIENTO' | translate }}</p>
+                      </div>
+                      <div class="info-employee__item__data-container">
+                        <p class="info-employee__item__data" *ngIf="trabajador.fechaNacimiento"><span class="text--nowrap">{{trabajador?.fechaNacimiento  | date:'dd/MM/yyyy'}} - {{trabajador?.age}}</span></p>
+                        <p class="info-employee__item__data" *ngIf="!trabajador.fechaNacimiento"><span class="text--nowrap"> - </span></p>
+                      </div>
+                    </div>
+
+                    <div class="info-employee__item">
+                      <div class="info-employee__item__label-container">
+                        <p class="info-employee__item__label">{{ 'GENERO' | translate }}</p>
+                      </div>
+                      <div class="info-employee__item__data-container">
+                        <p class="info-employee__item__data">{{trabajador?.genero}}</p>
+                      </div>
+                    </div>
+                    <div class="info-employee__item">
+                      <div class="info-employee__item__label-container">
+                        <p class="info-employee__item__label">{{ 'FECHA_ALTA' | translate }}</p>
+                      </div>
+                      <div class="info-employee__item__data-container">
+                        <p class="info-employee__item__data">{{trabajador?.fechaAlta  | date:'dd/MM/yyyy'}}</p>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="info-employee__group">
+                    <div class="info-employee__item">
+                      <div class="info-employee__item__label-container">
+                        <p class="info-employee__item__label">{{ 'EMPRESA' | translate }}</p>
+                      </div>
+                      <div class="info-employee__item__data-container">
+                        <p class="info-employee__item__data pt-w">{{trabajador?.empresa?.nombre}}</p>
+                      </div>
+                    </div>
+
+                    <div class="info-employee__item">
+                      <div class="info-employee__item__label-container">
+                        <p class="info-employee__item__label">{{ 'CENTRO_TRABAJO' | translate }}</p>
+                      </div>
+                      <div class="info-employee__item__data-container">
+                        <p class="info-employee__item__data pt-w">{{trabajador?.centro?.nombre}}</p>
+                      </div>
+                    </div>
+                    <div class="info-employee__item">
+                      <div class="info-employee__item__label-container">
+                        <p class="info-employee__item__label">Puestos</p>
+                      </div>
+                      <div class="info-employee__item__data-container">
+                        <p class="info-employee__item__data pt-w" [class.font-weight-bold]="puesto.esPuestoPrincipal" *ngFor="let puesto of trabajador?.puestosTrabajo">
+                          {{puesto.nombre}}<span class="info-employee__item__data" *ngIf="puesto.centro"> - {{puesto.centro.nombre}}</span></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="info-employee__group">
+                    <div class="info-employee__item">
+                      <div class="info-employee__item__label-container">
+                        <p class="info-employee__item__label">{{ 'EMAIL_EMPRESA' | translate }}</p>
+                      </div>
+                      <div class="info-employee__item__data-container">
+                        <p class="info-employee__item__data pt-w">{{trabajador?.emailCorp}}</p>
+                        <p class="info-employee__item__data pt-w" *ngIf="trabajador?.emailCorp == null">-----</p>
+                      </div>
+                    </div>
+                    <div class="info-employee__item">
+                      <div class="info-employee__item__label-container">
+                        <p class="info-employee__item__label">{{ 'TLFO_EMPRESA' | translate }}</p>
+                      </div>
+                      <div class="info-employee__item__data-container">
+                        <p class="info-employee__item__data pt-w">{{trabajador?.tlfCorp}}</p>
+                        <p class="info-employee__item__data pt-w" *ngIf="trabajador?.tlfCorp == null">-----</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="info-employee__tabs mt-5">
+              <app-nav-tabs [data]="tabsList" [classes]="'padding-left-32'" (getSelectedItem)="onSelectTabItem($event)" class="pl-5"></app-nav-tabs>
+            </div>
+            <div class="p-5">
+              <app-pt-formacion
+                *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.FORMACION"
+                [workerData]="trabajador"
+                [formationList]="formationList"
+                (updateFormationList)="this.formationList = $event;"
+                (updateAptitudeReportList)="this.aptitudeReportList = $event;"
+              ></app-pt-formacion>
+              <!-- <app-pt-informacion *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.INFORMACION"></app-pt-informacion> -->
+              <app-pt-reconocimientos
+                *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.INFORMES_APTITUD"
+                [workerData]="trabajador"
+                [aptitudeReportList]="aptitudeReportList"
+                (updateAptitudeReportList)="this.aptitudeReportList = $event;"
+              ></app-pt-reconocimientos>
+              <!-- <app-pt-epi *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.EPI"></app-pt-epi> -->
+              <!-- <app-pt-accidentes *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.ACCIDENTES"></app-pt-accidentes> -->
+
+              <app-pt-autorizaciones *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.AUTORIZACIONES"
+                                     [workerData]="trabajador"
+              ></app-pt-autorizaciones>
+
+              <app-pt-documentacion
+                *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.DOCUMENTACION"
+                [workerData]="trabajador"
+              ></app-pt-documentacion>
+              <app-pt-citaciones
+                *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.CITACIONES"
+                [workerData]="trabajador"
+                [appointmentList]="appointmentList"
+                (updateAppointmentList)="this.appointmentList = $event;"
+              ></app-pt-citaciones>
+              <!-- <app-pt-trabajo-a-distancia *ngIf="selectedTab.id === TABS_PREVENCION_TRABAJADORES.TRABAJO_DISTANCIA"></app-pt-trabajo-a-distancia> -->
+            </div>
+            </div>
+            <!-- <div id="info-trabajador" class="row pt-4 mt-4">
+                <div class="col-md-10 bg-white">
+                   <div class="row">
+                       <div class="col-3">
+                            <img src="{{imgPerfil}}" *ngIf="trabajador?.genero.toUpperCase()=='HOMBRE'" alt="" class="img-perfil">
+                            <img src="{{imgPerfilMujer}}" *ngIf="trabajador?.genero.toUpperCase()=='MUJER'" alt="" class="img-perfil">
+                       </div>
+                       <div class="col-9">
+                            <div id="trabajador-nombre">
+                                {{trabajador?.nombreApellidos}}
+                                <br/><br/>
+                                {{trabajador?.nif}}
+                            </div>
+                            <div class="row" id="parte-info-trabajador-pc" [class.active]="!globals.showMobileMenu">
+                                <div class="col-5">
+                                    <p><span class="title">{{ 'FECHA_NACIMIENTO' | translate }}:</span> {{trabajador?.fechaNacimiento  | date:'dd/MM/yyyy'}}</p>
+                                    <p><span class="title">{{ 'EMPRESA' | translate }}:</span> {{trabajador?.empresa?.nombre}}</p>
+                                    <p class="puestos"><span class="title">Puestos:&nbsp;</span></p>
+                                      <ul>
+                                          <li *ngFor="let puesto of trabajador?.puestosTrabajo"
+                                              [class.font-weight-bold]="puesto.esPuestoPrincipal">
+                                              {{puesto.nombre}} <span *ngIf="puesto.centro"> - {{puesto.centro.nombre}}</span>
+                                          </li>
+                                      </ul>
+                                </div>
+                                <div class="col-7">
+                                    <p><span class="title">{{ 'GENERO' | translate }}:</span> {{trabajador?.genero}}</p>
+                                    <p><span class="title">{{ 'CENTRO_TRABAJO' | translate }}:</span> {{trabajador?.centro?.nombre}}</p>
+                                    <p><span class="title">{{ 'FECHA_ALTA' | translate }}:</span> {{trabajador?.fechaAlta  | date:'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="trabajador?.fechaBaja!=undefined"><span class="title">{{ 'FECHA_BAJA' | translate }}:</span> {{trabajador?.fechaBaja  | date:'dd/MM/yyyy'}}</p>
+                                </div>
+                            </div>
+                           <div class="row" id="parte-info-trabajador-movil" [class.active]="globals.showMobileMenu">
+                             <div class="col-5">
+                               <p><span class="title">{{ 'FECHA_NACIMIENTO' | translate }}:</span> {{trabajador?.fechaNacimiento  | date:'dd/MM/yyyy'}}</p>
+                               <p><span class="title">{{ 'EMPRESA' | translate }}:</span> {{trabajador?.empresa?.nombre}}</p>
+                             </div>
+                             <div class="col-7">
+                               <p><span class="title">{{ 'GENERO' | translate }}:</span> {{trabajador?.genero}}</p>
+                               <p><span class="title">{{ 'CENTRO_TRABAJO' | translate }}:</span> {{trabajador?.centro?.nombre}}</p>
+                               <p><span class="title">{{ 'FECHA_ALTA' | translate }}:</span> {{trabajador?.fechaAlta  | date:'dd/MM/yyyy'}}</p>
+                               <p *ngIf="trabajador?.fechaBaja!=undefined"><span class="title">{{ 'FECHA_BAJA' | translate }}:</span> {{trabajador?.fechaBaja  | date:'dd/MM/yyyy'}}</p>
+                             </div>
+                             <div class="col-9">
+                               <p class="puestos"><span class="title">Puestos:&nbsp;</span></p>
+                               <ul>
+                                 <li *ngFor="let puesto of trabajador?.puestosTrabajo"
+                                     [class.font-weight-bold]="puesto.esPuestoPrincipal">
+                                   {{puesto.nombre}} <span *ngIf="puesto.centro"> - {{puesto.centro.nombre}}</span>
+                                 </li>
+                               </ul>
+                             </div>
+                           </div>
+                       </div>
+                   </div>
+                </div> -->
+            </div>
+            <hr>
+
+      <!--Mod/Alta-->
+      <div  *ngIf="showModAlta">
+<!--        <div class="row justify-content-end">-->
+<!--          <div>-->
+<!--            <button class="clean-button" (click)="volver()">-->
+<!--              <i class="fas fa-chevron-left"></i>-->
+<!--              <span class="clean-span">{{ 'VOLVER' | translate }}</span>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <hr style="height: 2px;">-->
+
+        <div>
+          <!--Mensaje inicial-->
+          <div *ngIf="datosTrabajadorBuscado == null">
+            <h1 class="tituloSec text-uppercase m-0">{{ 'EDICION_PERSONA_TRABAJADORA' | translate }}</h1>
+            <h3>{{'MSG_EDICION_PERSONA_TRABAJADORA' | translate }}</h3>
+          </div>
+          <div *ngIf="datosTrabajadorBuscado != null">
+            <h1 class="tituloSec text-uppercase m-0">{{ 'NUEVA_PERSONA_TRABAJADORA' | translate }}</h1>
+            <h3 class="text-justify">
+              {{'MSG_NUEVA_PERSONA_TRABAJADORA_LINEA_1' | translate }}<br>
+              {{'MSG_NUEVA_PERSONA_TRABAJADORA_LINEA_2' | translate }}<br>
+              {{'MSG_NUEVA_PERSONA_TRABAJADORA_LINEA_3' | translate }}<br>
+              {{'MSG_NUEVA_PERSONA_TRABAJADORA_LINEA_4' | translate }}
+            </h3>
+          </div>
+          <!--/Mensaje inicial-->
+          <!--FORMULARIO-->
+          <div class="seccion">
+            <span>{{ 'EMPRESA_CENTRO_CABECERA_FORMULARIO_ALTA' | translate }}</span>
+          </div>
+          <form [formGroup]="modAltaForm">
+            <div class="d-flex mt-4">
+              <app-select-empresa-filter #empresa [multiple]="false" [userForm]="modAltaForm" [empresasList]="empresas" [radioButtonsActivos]="false" class="selectcent" ></app-select-empresa-filter>
+              <app-select-centro-filter [class.oculto]="this.centroSeleccionado != ''" #centro [multiple]="false" [userForm]="modAltaForm" [empresasList]="empresas" [radioButtonsActivos]="false" class="selectcent ml-4" (click)="comprobarCambio(centro, empresa)"></app-select-centro-filter>
+              <mat-form-field appearance="outline" appearance="outline" *ngIf="this.centroSeleccionado != ''" class="ml-4">
+                <mat-label>{{ 'CENTRO' | translate }}</mat-label>
+                <input matInput type="text" formControlName="centroSecForm">
+              </mat-form-field>
+            </div>
+            <div> <!-- PRIMERA SECCION -->
+              <div class="seccion">
+                <span>{{ 'DATOS_GENERALES' | translate }}</span>
+              </div>
+              <div class="mt-4 row">
+                <div class="col-12 col-md-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'TIPO_DOCUMENTO' | translate }}*</mat-label>
+                    <mat-select formControlName="tipoDoc" class="multiple-selector" [disableOptionCentering]="true">
+                      <mat-option [value]=1>{{ 'NIF_NIE' | translate }}
+                      </mat-option>
+                      <mat-option [value]=2>{{ 'DOC_UE' | translate }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-2">
+                  <mat-form-field appearance="outline" appearance="outline">
+                    <mat-label> {{ 'NIF_NIE_TRABAJADOR' | translate }}</mat-label>
+                    <input matInput type="text" formControlName="dniForm">
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-2">
+                  <h3 class="col-msg">{{ 'NOMBRE' | translate }}/{{ 'APELLIDOS' | translate }}*:</h3>
+                </div>
+                <div class="col-12 col-md-2">
+                  <mat-form-field appearance="outline" appearance="outline">
+                    <mat-label>{{ 'NOMBRE_TRABAJADOR' | translate }}</mat-label>
+                    <input matInput type="text" formControlName="nombreForm" pattern={{validNameSurname}}>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-3">
+                  <mat-form-field appearance="outline" appearance="outline">
+                    <mat-label>{{ 'APELLIDOS_TRABAJADOR' | translate }}</mat-label>
+                    <input matInput type="text" formControlName="apellidosForm" pattern={{validNameSurname}}>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="mt-4 row">
+                <div class="col-12 col-md-1">
+                  <h3 class="col-msg">{{ 'GENERO' | translate }}*:</h3>
+                </div>
+                <div class="col-12 col-md-3">
+                  <mat-radio-group formControlName="generoForm" aria-label="Select an option">
+                    <mat-radio-button value="H" class="col-radio">{{ 'HOMBRE' | translate }}</mat-radio-button>
+                    <mat-radio-button value="M" class="col-radio">{{ 'MUJER' | translate }}</mat-radio-button>
+                    <mat-radio-button value="N" class="col-radio">{{ 'NO_BINARIO' | translate }}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div class="col-12 col-md-2">
+                  <h3 class="col-msg">{{ 'FECHA_NACIMIENTO' | translate }}*:</h3>
+                </div>
+                <div class="col-12 col-md-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'FECHA_NACIMIENTO' | translate }}</mat-label>
+                    <input matInput [matDatepicker]="fromPicker" formControlName="fechaNacForm" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()" required>
+                    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #fromPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-1">
+                  <h3 class="col-msg">{{ 'IDIOMA' | translate }}*:</h3>
+                </div>
+                <div class="col-12 col-md-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'IDIOMA' | translate }}</mat-label>
+                    <mat-select formControlName="idiomaForm" class="multiple-selector">
+                      <mat-option *ngFor="let idioma of idiomasList" [value]="idioma.idIdioma">{{idioma.nombre}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div> <!-- SEGUNDA SECCION -->
+              <div class="seccion">
+                <span>{{ 'DATOS_TRABAJADOR_EMPRESA' | translate }}</span>
+              </div>
+              <div class="mt-4 row">
+                <div class="col-12 col-md-2">
+                  <h3 class="col-msg">{{ 'EMAIL_EMPRESA' | translate }}:</h3>
+                </div>
+                <div class="col-12 col-md-4">
+                  <mat-form-field appearance="outline" appearance="outline">
+                    <mat-label> {{ 'EMAIL_EMPRESA' | translate }}</mat-label>
+                    <input matInput type="email" formControlName="emailEmpresaForm" >
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-2">
+                  <h3 class="col-msg">{{ 'TLFO_EMPRESA' | translate }}:</h3>
+                </div>
+                <div class="col-12 col-md-2">
+                  <mat-form-field appearance="outline" appearance="outline">
+                    <mat-label> {{ 'TLFO_EMPRESA' | translate }}</mat-label>
+                    <input matInput type="text" formControlName="telefonoEmpresaForm">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div> <!-- TERCERA SECCION -->
+              <h2 class="msg-empresa" *ngIf="this.centroSeleccionado == ''">{{empresa.empresaSeleccionada()}} - {{centroSeleccionadoById(centro.userForm.value.centroForm)}}</h2>
+              <h2 class="msg-empresa" *ngIf="this.centroSeleccionado != ''">{{empresa.empresaSeleccionada()}} - {{centroSeleccionadoById(this.centroSeleccionado)}}</h2>
+              <div class="seccion">
+                <span>{{ 'PUESTO_RL' | translate }}</span>
+              </div>
+              <div class="mt-4 row">
+                <div class="col-12 col-md-2">
+                  <h3 class="col-msg">{{ 'FECHA_ALTA' | translate }}:</h3>
+                </div>
+                <div class="col-12 col-md-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'FECHA_ALTA' | translate }}</mat-label>
+                    <input matInput [matDatepicker]="frPicker" formControlName="fechaAltaForm" [min]="maxDate" [max]="maxDate" (dateChange)="minDate = $event.value.toDate()">
+                    <mat-datepicker-toggle matSuffix [for]="frPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #frPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-2">
+                  <h3 class="col-msg">{{ 'FECHA_BAJA' | translate }}:</h3>
+                </div>
+                <div class="col-12 col-md-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ 'FECHA_BAJA' | translate }}</mat-label>
+                    <input matInput [matDatepicker]="tPicker" formControlName="fechaBajaForm" [min]="minDate" (dateChange)="maxDate = $event.value.toDate()">
+                    <mat-datepicker-toggle matSuffix [for]="tPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #tPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 row">
+                  <div class="d-flex col-md-2 justify-content-end">
+                    <h3 class="col-msg">{{ 'HORARIOS' | translate }}</h3>
+                  </div>
+                  <div class="d-flex col-md-2">
+                    <mat-checkbox formControlName="hMananaForm" class="col-radio">
+                    </mat-checkbox>
+                    <h3 class="col-msg ml-2">{{ 'HORARIO_MAÑANA' | translate }}</h3>
+                  </div>
+                  <div class="d-flex col-md-2">
+                    <mat-checkbox formControlName="hTardeForm" class="col-radio">
+                    </mat-checkbox>
+                    <h3 class="col-msg ml-2">{{ 'HORARIO_TARDE' | translate }}</h3>
+                  </div>
+                  <div class="d-flex col-md-2">
+                    <mat-checkbox formControlName="hNocheForm" class="col-radio">
+                    </mat-checkbox>
+                    <h3 class="col-msg ml-2">{{ 'HORARIO_NOCHE' | translate }}</h3>
+                  </div>
+                  <div class="d-flex col-md-2">
+                    <mat-checkbox formControlName="hFdsForm" class="col-radio">
+                    </mat-checkbox>
+                    <h3 class="col-msg ml-2">{{ 'HORARIO_FDS' | translate }}</h3>
+                  </div>
+                </div>
+                <div class="col-12 col-md-3">
+                  <h3 class="col-msg text-right">{{ 'ETT' | translate }}*:</h3>
+                  <h3 class="col-msg text-right">{{ 'TEMPORAL' | translate }}*:</h3>
+                  <h3 class="col-msg text-right">{{ 'TRABAJO_DISTANCIA' | translate }}*:</h3>
+                  <h3 class="col-msg text-right">{{ 'TELETRABAJO' | translate }}:</h3>
+                </div>
+                <div class="col-12 col-md-4">
+                  <mat-radio-group formControlName="ettForm" aria-label="Select an option">
+                    <mat-radio-button value="true" class="col-radio">{{ 'SI' | translate }}</mat-radio-button>
+                    <mat-radio-button value="false" class="col-radio">{{ 'NO' | translate }}</mat-radio-button>
+                  </mat-radio-group><br />
+                  <mat-radio-group formControlName="temporalForm" aria-label="Select an option">
+                    <mat-radio-button value="true" class="col-radio-2">{{ 'SI' | translate }}</mat-radio-button>
+                    <mat-radio-button value="false" class="col-radio-2">{{ 'NO' | translate }}</mat-radio-button>
+                  </mat-radio-group><br />
+                  <mat-radio-group formControlName="distanciaForm" aria-label="Select an option">
+                    <mat-radio-button #distanciaSi value="true" class="col-radio">{{ 'SI' | translate }}</mat-radio-button>
+                    <mat-radio-button #distanciaNo (click)="teletrabajoNo.checked = true" value="false" class="col-radio">{{ 'NO' | translate }}</mat-radio-button>
+                  </mat-radio-group>
+                  <div [class.oculto]="!distanciaSi.checked" style="float: right">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{ 'PORC_TAD' | translate }}</mat-label>
+                      <input matInput type="number" formControlName="porcTad" step="0.1" [defaultValue]="100">
+                    </mat-form-field>
+                  </div><br />
+                  <mat-radio-group formControlName="teletrabajoForm" aria-label="Select an option" [disabled]="distanciaNo.checked">
+                    <mat-radio-button value="true" class="col-radio-2">{{ 'SI' | translate }}</mat-radio-button>
+                    <mat-radio-button #teletrabajoNo value="false" class="col-radio-2">{{ 'NO' | translate }}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+
+            <div [class.oculto]="datosTrabajadorBuscado != null" class="row" *ngIf="datosTrabajadorBuscado == null && trabajador.puestosTrabajo.length > 0">
+              <div class="col-12 col-md-2 text-right">
+                <h3 class="col-msg">{{ 'NOMBRE_PUESTO' | translate }}:</h3>
+              </div>
+              <div class="col-12 col-md-5">
+                <h3 class="col-msg">{{trabajador.puestosTrabajo[0].nombre}}</h3>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="datosTrabajadorBuscado == null">
+              <div class="col-12 col-md-4 mr-0">
+                <h3 class="col-msg">{{ 'MODIFICAR_PUESTO_BOOL' | translate }}:</h3>
+              </div>
+              <div class="col-12 col-md-1 ml-0">
+                <mat-slide-toggle style="margin-top: 1.2em" (click)="this.modificarPuestoBool()"></mat-slide-toggle>
+              </div>
+            </div>
+
+            <div [class.oculto]="!this.modificarPuesto && this.datosTrabajadorBuscado == null"> <!-- TERCERA SECCION - PUESTOS -->
+              <div class="mt-4 row" [class.oculto]="puestosBuscados.length == 0 && filtroPuestos.value == '' && !existenPuestosCentro">
+                <div class="col-12 col-md-6">
+                  <mat-form-field appearance="outline" appearance="outline">
+                    <mat-label>{{ 'PUESTOS_FILTRO' | translate }}</mat-label>
+                    <input matInput type="text" #filtroPuestos (keyup.enter)="eventoEntrar(empresa.userForm.value.empresaForm, centro.userForm.value.centroForm, filtroPuestos.value)">
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-3">
+                  <button *ngIf="this.centroSeleccionado == ''" class="search-button rounded-lg" type="button" [disabled]="empresa.userForm.value.empresaForm == undefined || centro.userForm.value.centroForm == undefined" (click)="this.filtrarPuestos(empresa.userForm.value.empresaForm, centro.userForm.value.centroForm, filtroPuestos.value)">
+                    <img src="{{searchImgUrl}}" class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span>
+                  </button>
+                  <button *ngIf="this.centroSeleccionado != ''" class="search-button rounded-lg" type="button" (click)="this.filtrarPuestos(empresa.userForm.value.empresaForm, centro.userForm.value.centroForm, filtroPuestos.value)">
+                    <img src="{{searchImgUrl}}" class="img" alt="Filtros"><span class="search-span">{{ 'BUSCAR' | translate }}</span>
+                  </button>
+                </div>
+              </div>
+              <div class="table-responsive" [class.oculto]="puestosBuscados.length == 0">
+                <table
+                  mat-table
+                  [dataSource]="dataSourcePT"
+                  matSort
+                  cdkDropList
+                  cdkDropListOrientation="horizontal"
+                  (cdkDropListDropped)="dropPT($event)"
+                  multiTemplateDataRows
+                  class="mat-elevation-z2 table mb-0">
+
+                  <ng-container matColumnDef="puestoId">
+                    <th mat-header-cell *matHeaderCellDef cdkDrag></th>
+                    <td mat-cell *matCellDef="let element">
+                      <mat-radio-button style="padding-top: 10px !important;" (click)="this.puestoPrincipalSeleccionado = element.idPuestoTrabajo; this.tipoPuestoSeleccionado = element.tipoPuesto;" [checked]="element.idPuestoTrabajo == this.puestoPrincipalSeleccionado"></mat-radio-button>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombrePuesto">
+                    <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+                      {{ 'NOMBRE_PUESTO' | translate }}
+                      <!--<mat-icon style="cursor: pointer; color: white;" class="align-middle ml-4">add</mat-icon>-->
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="numTrabajadores">
+                    <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+                      {{ 'NUM_TRABAJADORES_PUESTO' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="text-left">{{element.numTrabajadoresCentro}}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="tableHeadersPT"></tr>
+                  <tr mat-row *matRowDef="let row; columns: tableHeadersPT;"></tr>
+                </table>
+                <mat-paginator class="paginator" #paginatorPT showFirstLastButtons [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+              </div>
+              <div *ngIf="comprobarPuestos() && puestosBuscados.length != 0">
+                <div class="alert alert-danger border-danger mt-5" >
+                  {{ 'MSG_PUESTO_NO_CENTRO' | translate }}
+                </div>
+              </div>
+            </div>
+
+<!--            <div *ngIf="comprobarCentro(centro.userForm.value.centroForm) == 1 && puestosBuscados.length == 0 && filtroPuestos.value == '' && !existenPuestosCentro" [class.oculto]="datosTrabajadorBuscado == null ">-->
+<!--              <div class="alert alert-danger border-danger mt-5" >-->
+<!--                {{ 'CENTRO_PT_ACTIVO' | translate }}-->
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div *ngIf="comprobarCentro(centro.userForm.value.centroForm) == 2 && puestosBuscados.length == 0 && filtroPuestos.value == '' && !existenPuestosCentro" [class.oculto]="datosTrabajadorBuscado == null">-->
+<!--              <div class="alert alert-danger border-danger mt-5" >-->
+<!--                {{ 'CENTRO_VS_ACTIVO' | translate }}-->
+<!--              </div>-->
+<!--            </div>-->
+
+            <div *ngIf="puestosBuscados.length == 0 && filtroPuestos.value != ''">
+              <div class="alert alert-danger border-danger mt-5" >
+                {{ 'PUESTOS_NO_ENCONTRADOS_FILTRO_2' | translate }}
+              </div>
+            </div>
+
+            <div *ngIf="puestosBuscados.length == 0 && filtroPuestos.value == ''">
+              <div class="alert alert-danger border-danger mt-5" >
+                {{ 'PUESTOS_NO_ENCONTRADOS_SIN_FILTRO_2' | translate }}
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button class="search-button rounded-lg ml-0" [disabled]="!modAltaForm.valid || (puestoPrincipalSeleccionado == null && modificarPuesto == true) || (puestoPrincipalSeleccionado == null && datosTrabajadorBuscado != null)" (click)="enviarMod()">{{ 'ACEPTAR' | translate }}</button>
+              <button class="rounded-lg ml-0 clear-button" (click)="volver()">{{ 'CANCELAR' | translate }}</button>
+             </div>
+          </form>
+          <!--/FORMULARIO-->
+        </div>
+      </div>
+      <!--/Mod/Alta-->
+
+      <!--Alta individual-->
+      <div *ngIf="showAltaIndividual">
+        <div class="row">
+          <div class="col d-flex align-self-center">
+            <h1 class="tituloSec text-uppercase m-0">{{ 'NUEVA_PERSONA_TRABAJADORA' | translate }}</h1>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <button class="clean-button" (click)="volver()">
+              <i class="fas fa-chevron-left"></i>
+              <span class="clean-span">{{ 'VOLVER' | translate }}</span>
+            </button>
+          </div>
+        </div>
+        <h3>{{'MSG_ALTA_PERSONA_TRABAJADORA' | translate }}</h3>
+        <!-- Buscador -->
+        <form [formGroup]="searchTrabajadoresForm">
+          <div class="row">
+            <div class="col-md-9">
+              <div class="form-row">
+                <div class="col-2 d-flex align-items-center">
+                  <span class="font-weight-bold">Filtrar Por:</span>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <select class="form-control" formControlName="filtroForm">
+                    <option [value]="1">{{ 'NIF_NIE' | translate }}</option>
+                    <!-- <option [value]="2">{{ 'DOC_UE' | translate }}</option> -->
+                  </select>
+                </div>
+                <div class="col-5 d-flex align-items-center">
+                  <input type="text" #nifBuscado class="form-control" formControlName="criterioForm" id="buscadorClientes3" placeholder="NIF/NIE" (input)="nifBuscado.value = nifBuscado.value.toUpperCase()">
+                </div>
+                <div class="col-3">
+                  <button [disabled]="!searchTrabajadoresForm.valid" (click)="filtrarAltaIndividual(searchTrabajadoresForm)" class="btn btn-alta rounded-lg text-white"><i class="fas fa-filter"></i> {{ 'BUSCAR' | translate }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- /Buscador -->
+
+        <div *ngIf="trabajadoresBuscados != undefined && trabajadoresBuscados.length > 0" [class.oculto]="!verResultado">
+          <div class="alert alert-success border-success mt-5" >
+            {{'RESULTADOS_PERSONAS_NIF_NIE_PART1' | translate }} {{trabajadoresBuscados.length}} {{'RESULTADOS_PERSONAS_NIF_NIE_PART2' | translate }} {{busqueda}} {{'RESULTADOS_PERSONAS_NIF_NIE_PART3' | translate }}
+            <br />
+            <span>{{'RESULTADOS_PERSONAS_NIF_NIE_PART4' | translate }}</span>
+          </div>
+
+          <div class="table-responsive">
+            <table
+              mat-table
+              [dataSource]="dataSourceTA"
+              matSort
+              cdkDropList
+              cdkDropListOrientation="horizontal"
+              (cdkDropListDropped)="dropTA($event)"
+              multiTemplateDataRows
+              class="mat-elevation-z2 table mb-0">
+
+              <ng-container matColumnDef="empresa">
+                <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'EMPRESA_CENTRO' | translate }} </th>
+                <td mat-cell *matCellDef="let element">
+                  <span class="empresaCentroSpan" matTooltip="{{element.cliente}} - {{element.centro}}">
+                    {{element.cliente}} - {{element.centro}}
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="trabajador">
+                <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'TRABAJADOR' | translate }} </th>
+                <td mat-cell *matCellDef="let element">{{element.nombre}} {{element.apellidos}} ({{element.nif}})</td>
+              </ng-container>
+
+              <ng-container matColumnDef="puestoTrabajo">
+                <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'PUESTO_TRABAJO' | translate }} </th>
+                <td mat-cell *matCellDef="let element">{{element.denominacion}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="fchBaja">
+                <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header class="text-danger"> {{ 'FECHA_BAJA' | translate }} </th>
+                <td mat-cell class="text-danger" *matCellDef="let element">{{element.fechaBaja | date:'dd/MM/yyyy'}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="centroAlta">
+                <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header> {{ 'CENTRO_ALTA' | translate }} </th>
+                <td mat-cell class="text-left" *matCellDef="let element">{{element.centroAlta}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="tableHeadersTA"></tr>
+              <tr mat-row *matRowDef="let row; columns: tableHeadersTA;"></tr>
+            </table>
+          </div>
+          <mat-paginator class="paginator" #paginatorTA showFirstLastButtons [pageSizeOptions]="[5]"></mat-paginator>
+        </div>
+
+        <!--      <div *ngIf="altaTrabajadorBool">-->
+        <!--        <button type="submit" (click)="altaTrabajador()" class="btn btn-alta rounded-lg text-white ml-0">{{ 'ACEPTAR' | translate }}</button>-->
+        <!--      </div>-->
+        <!--      <div *ngIf="reactivar">-->
+        <!--      -->
+        <!--        <button class="btn btn-alta rounded-lg text-white ml-0">{{ 'REACTIVAR' | translate }}</button>-->
+        <!--      </div>-->
+
+        <div *ngIf="noPermisoTrabajador">
+          <div class="alert alert-danger border-danger mt-5" >
+            {{ 'MSG_PERSONA_TRABAJADORA_NO_PERMITIDA' | translate }}
+          </div>
+        </div>
+
+        <div *ngIf="noEncontrado">
+          <div class="alert alert-danger border-danger mt-5" >
+            {{ 'MSG_PERSONA_TRABAJADORA_NO_ENCONTRADA' | translate }}
+          </div>
+        </div>
+
+        <div *ngIf="!noPermisoTrabajador && trabajadoresBuscados != undefined">
+          <button class="btn btn-alta rounded-lg text-white mx-0" (click)="altaPersonaTrabajadora(nifBuscado.value)"><i class="fas fa-plus"></i> {{ 'NUEVA_PERSONA_TRABAJADORA' | translate }}</button>
+        </div>
+
+      </div>
+      <!--/Alta individual-->
+
+    </div> <!-- /container-fluid-->
+</div>

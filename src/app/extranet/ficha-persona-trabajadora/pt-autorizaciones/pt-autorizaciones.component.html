@@ -1,0 +1,16 @@
+<div class="row mb-5">
+  <div class="col-6 d-flex align-items-center">
+    <p class="text--subtitle mb-0">{{ 'PERSONA_TRABAJADORA.AUTHORIZATIONS' | translate }}</p>
+  </div>
+  <div class="col-6 text-right">
+    <button type="button" class="col-6" style="float: right; float: right;padding: 5px 0px;" (click)="openModalAddAuthorization()">
+      <span class="material-icons" style="font-weight: normal">add </span>
+      <span class="down-span" style="font-weight: normal;">{{ 'AÑADIR_AUTORIZACION' | translate }}</span>
+    </button>
+  </div>
+</div>
+<app-pt-autorizacion-table
+  [workerData]="workerData"
+  [triggerTableReload]="triggerTableReload"
+  (editAuthorizationEvent)="openModalAddAuthorization($event)"
+></app-pt-autorizacion-table>

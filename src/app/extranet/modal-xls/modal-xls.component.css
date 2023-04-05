@@ -1,0 +1,21 @@
+.logo {
+  width: 100%;
+}
+
+.a-logo {
+  display: block;
+  width: 50%;
+  margin: 12px auto;
+}
+
+.div-titulo {
+  margin: auto;
+  /* padding-right: 5px; */
+  color: var(--blue);
+  font-weight: bold;
+}
+
+.icono {
+  height: 1.4em;
+  margin-right: 0.5em;
+}

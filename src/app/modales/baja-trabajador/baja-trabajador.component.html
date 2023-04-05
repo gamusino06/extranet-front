@@ -1,0 +1,57 @@
+<div mat-dialog-content class="m-3">
+  <div class="swal2-icon swal2-warning swal2-icon-show" style="display: flex; font-size: large">
+    <div class="swal2-icon-content">!</div>
+  </div>
+  <div *ngIf="!confirmacion; else confirmacionTemplate">
+    <p class="text-center">
+      {{ 'DESEA_BAJA_TRABAJADOR' | translate }} {{ trabajador.nombreApellidos }} {{ 'DE_EMPRESA' | translate }}
+      {{ trabajador.empresa?.nombre }} {{ 'Y_CENTRO' | translate }} {{ trabajador.centro?.nombre }}?
+    </p>
+    <form [formGroup]="dateForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+          <label>{{ 'INSERTE_FECHA_BAJA' | translate }}:</label>
+        </div>
+        <div class="col-12 col-md-6 mt-4 mb-1 d-flex justify-content-center align-items-center">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'FECHA_BAJA' | translate }}</mat-label>
+            <input matInput [matDatepicker]="toPicker" [min]="trabajador?.fechaAlta" [max]="fechaLimite" (dateChange)="minDate = $event.value" formControlName="date" placeholder="dd/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+        <div class="col-12 d-flex justify-content-around">
+          <div>
+            <button class="search-button" type="submit" [disabled]="!dateForm.valid">
+              <span>
+                {{ 'ACEPTAR' | translate }}
+              </span>
+            </button>
+          </div>
+          <div>
+            <button class="search-button" type="button" (click)="onNoClick()">
+              <span>
+                {{ 'CANCELAR' | translate }}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template #confirmacionTemplate>
+    <p class="text-center">
+      {{ trabajador.nombreApellidos }} ha sido dado de baja correctamente.
+    </p>
+    <div class="col-12 d-flex justify-content-around">
+      <div>
+        <button class="search-button" type="button" (click)="onNoClick()">
+              <span>
+                {{ 'ACEPTAR' | translate }}
+              </span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>

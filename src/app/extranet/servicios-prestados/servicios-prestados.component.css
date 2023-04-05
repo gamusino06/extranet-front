@@ -1,0 +1,34 @@
+.salir{
+  background-color: #E52620;
+  float: right;
+  border: #E52620;
+}
+
+/*TABLE*/
+table th{
+  background-color: #00425b;
+  padding-left: 20px !important;
+}
+
+table td{
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+.seleccionAnio{
+  display: inline-block;
+  margin-left: 2em;
+}
+
+.periodo{
+  margin-top: 5%;
+}
+
+table a{
+  color: #024dbc;
+  text-decoration: underline !important;
+
+}
+
+table a:hover{
+  color: #0d6efd;
+}

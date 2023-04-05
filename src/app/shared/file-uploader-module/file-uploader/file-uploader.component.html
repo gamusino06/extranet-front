@@ -1,0 +1,30 @@
+<section class="file-uploader">
+  <p *ngIf="![undefined, null, ''].includes(hint)" class="file-uploader__hint">
+    {{ hint | translate }}
+  </p>
+
+  <upload-file-box
+    *ngIf="((!multiple && fileList.length === 0) || multiple) && !preview"
+    [maxFileSize]="mbToBytes(maxFileSize)"
+    [compact]="compact"
+    [multiple]="multiple"
+    [disabled]="disabled"
+    [validTypes]="validTypes"
+    [uploadFileBoxLabel]="uploadFileBoxLabel"
+    [uploadFileBoxLabelHover]="uploadFileBoxLabelHover"
+    (onFilesChange)="onFilesAdded($event)"
+    (onFilesError)="onError.emit($event)"
+  ></upload-file-box>
+
+  <added-file-list
+    [files]="fileList"
+    [showTitles]="!hideTitles"
+    [renameItems]="renameItems"
+    [multiple]="multiple"
+    [disabled]="disabled"
+    [preview]="preview"
+    [fileNameListForPreview]="fileNameListForPreview"
+    (onFileChange)="onFileChange($event)"
+    (onDelete)="onDelete($event)"
+  ></added-file-list>
+</section>

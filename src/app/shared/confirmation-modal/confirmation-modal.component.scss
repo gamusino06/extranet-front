@@ -1,0 +1,63 @@
+.job-procedure-label {
+  position: relative;
+  height: 29px;
+  left: 0px;
+  margin-top: 20px !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 160%;
+  /* identical to box height, or 29px */
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+.text-right {
+  margin-top: 20px !important;
+}
+
+.close-button {
+  cursor: pointer;
+}
+
+.buttons-modal {
+  display: flex !important;
+  flex-direction: row-reverse;
+}
+
+::ng-deep .col-1 {
+  max-width: 3.333333%;
+}
+.sticky-header {
+  background: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: -24px;
+  z-index: 9999;
+  height: 73px;
+}
+.container {
+  margin-top: -24px !important;
+}
+
+.sticky-footer {
+  position: sticky;
+  bottom: -20px;
+  height: 73px;
+  background-color: white;
+  z-index: 1055;
+}
+
+.text--grey {
+  color: var(--grey-45-color);
+}
+
+.center-padding {
+  text-align: center;
+  padding: 3rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 160%;
+  color: #000000;
+}

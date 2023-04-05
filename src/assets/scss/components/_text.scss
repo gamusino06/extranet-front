@@ -1,0 +1,11 @@
+.text {
+    &--subtitle {
+        font-family: 'Inter';
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--black-color);
+    }
+    &--nowrap {
+        white-space: nowrap;
+    }
+}

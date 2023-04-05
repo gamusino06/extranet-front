@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{ 'FAVORITOS' | translate }}</h1>
+<div mat-dialog-content>
+  <mat-form-field class="outline">
+    <mat-label>{{ 'NOMBRE_FAVORITO' | translate }}</mat-label>
+    <input type="name" matInput [formControl]="nombreFavoritoFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="nombreFavoritoFormControl.hasError('required')">
+      {{ 'EL_CAMPO_ES' | translate }}<strong>{{ 'REQUERIDO' | translate }}</strong>
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" class="clear-button">
+    <span class="clear-span">
+      {{ 'CANCELAR' | translate }}
+    </span>
+  </button>
+  <button *ngIf="modificarFavorito" mat-button [mat-dialog-close]="nombreFavoritoFormControl.value" [disabled]="!nombreFavoritoFormControl.valid" cdkFocusInitial
+    class="search-button">
+    {{ 'BOTON_ACTUALIZAR_FAVORITO' | translate }}
+  </button>
+  <button *ngIf="!modificarFavorito" mat-button [mat-dialog-close]="nombreFavoritoFormControl.value" [disabled]="!nombreFavoritoFormControl.valid" cdkFocusInitial
+          class="search-button">
+    {{ 'BOTON_AGREGAR_FAVORITO' | translate }}
+  </button>
+</div>

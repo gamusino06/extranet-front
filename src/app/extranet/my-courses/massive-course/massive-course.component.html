@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <h1 class="new-course-label">
+        {{'MY_COURSE.MASSIVE_COURSE.TITLE' | translate}}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <img class="new-course-close-button" src="../../../../assets/img/close_assignment_contract_modal.svg"
+           alt="{{ 'CANCELAR' | translate }}" (click)="cancel()">
+    </div>
+  </div>
+  <div class="row row__warning">
+    <div class="col">
+      <div class="warning__box" [ngClass]="isContinueReading() ? 'show' : ''">
+        <p>
+          {{ legalText }}
+        </p>
+        <span class="warning__button" (click)="continueReading()" *ngIf="!isContinueReading()"> Seguir leyendo...</span>
+        <span class="warning__button" (click)="continueReading()" *ngIf="isContinueReading()"> Mostrar menos...</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>{{'MY_COURSE.MASSIVE_COURSE.DESCRIPTION' | translate}}</p>
+    </div>
+  </div>
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-12 massive-form">
+        <app-select-empresa-filter [userForm]="form"
+                                   [empresasList]="empresas"
+                                   [radioButtonsActivos]="false"
+                                   class="col"
+                                   [required]="true"
+                                   [multiple]="false"></app-select-empresa-filter>
+      </div>
+
+      <div class="col-12">
+        <app-select-centro-filter-v2 [userForm]="form"
+                                     [empresasList]="empresas"
+                                     [multiple]="false"
+                                     [required]="false"
+                                     [radioButtonsActivos]="false"
+                                     class="col">
+        </app-select-centro-filter-v2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button type="button" class="upload-button" (click)="downloadTemplate()">
+          <span class="material-icons">download</span>
+          <span class="down-span">{{'MY_COURSE.MASSIVE_COURSE.DOWNLOAD' | translate}}</span>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p>{{'MY_COURSE.MASSIVE_COURSE.UPLOAD_DESCRIPTION' | translate}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" *ngIf="hasFile()">
+        <button type="button" class="upload-button" (click)="fileInput.click()">
+          <span>{{'MY_COURSE.MASSIVE_COURSE.UPLOAD_SELECT' | translate}}</span>
+          <input #fileInput type="file" (change)="handleFileInput($event)" accept=".xlsx"
+                  style="display:none;"/>
+        </button>
+      </div>
+      <div class="col d-flex file-name-container" *ngIf=!hasFile()>
+        <span class="d-flex">{{this.form.get('file').value?.name}}</span>
+        <i class="material-icons icon-color" (click)="deleteFile()">delete</i>
+        <mat-error class="d-flex">{{getFileExtension()}}</mat-error>
+      </div>
+    </div>
+    <div class="row sticky-footer">
+      <div class="col buttons-modal">
+        <button (click)="accept()">{{ 'ENVIAR' | translate }}</button>
+        <button class="clean-button" (click)="cancel()">{{ 'CANCELAR' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</div>
+

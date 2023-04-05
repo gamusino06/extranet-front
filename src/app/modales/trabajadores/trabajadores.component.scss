@@ -1,0 +1,77 @@
+td {
+    vertical-align: middle;
+}
+tr td:last-of-type, th td:last-of-type {
+    text-align: right;
+    /*width: 185px;*/
+}
+.mat-column-checklist {
+    padding-top: 6px;
+}
+td ul { margin: 5px 0 !important;}
+.exportar i {vertical-align: middle;}
+.btn-icon {
+    background: transparent;
+    color:var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: 45px;
+    width: 50px;
+    text-align: center;
+    margin: 0px 0px 0px 0px !important;
+}
+.btn-icon.inline{
+    margin: 0 10px;
+    padding: 0;
+    height: fit-content;
+}
+.btn-icon.more-info {
+    padding: 0 5px;
+    height: auto;
+    width: auto;
+}
+#info-trabajador {margin-bottom: 15px;}
+#info-trabajador .bg-white {margin: 0 auto;}
+#trabajador-nombre {color: var(--blue); font-size: 1.5rem; padding: 20px 0 15px 0;}
+#info-trabajador p { pad: 5px 0;}
+#info-trabajador ul {list-style: none; font-size: 13px;}
+#info-trabajador i {margin-left: 20px;}
+.img-perfil {
+    width: 120px;
+    height: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    display: block;
+}
+.puestos {
+    float: left;
+    height: 100%;
+    padding-right: 5px;
+}
+
+.icon-cerrar{
+    width: 55%;
+    cursor: pointer;
+}
+
+.centroSpan {
+  display: block;
+  width: 115px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 550px) {
+  ::ng-deep .mat-paginator-page-size-select {
+      width: auto !important;
+  }
+}
+
+.mat-card-content {
+    flex: 1 1 auto;
+    overflow: auto;
+}
